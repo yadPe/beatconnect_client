@@ -1,5 +1,7 @@
 const config = {
-  osuIrc: { // Your IRC credentials
+  irc: { // Your IRC credentials
+    Server: 'irc.ppy.sh',
+    Port: '6667',
     username: 'user',
     password: 'pass',
   },

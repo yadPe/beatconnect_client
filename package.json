@@ -7,13 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/yadPe/beatconnect_irc_bot.git"
-	},
+    "type": "git",
+    "url": "git+https://github.com/yadPe/beatconnect_irc_bot.git"
+  },
   "author": "yadpe",
   "license": "MIT",
   "bugs": {
-		"url": "https://github.com/yadPe/beatconnect_irc_bot/issues"
-	},
-	"homepage": "https://github.com/yadpe/beatconnect_irc_bot#readme"
+    "url": "https://github.com/yadPe/beatconnect_irc_bot/issues"
+  },
+  "homepage": "https://github.com/yadpe/beatconnect_irc_bot#readme",
+  "dependencies": {
+    "irc": "^0.5.2",
+    "node-fetch": "^2.6.0",
+    "string.prototype.startswith": "^0.2.0"
+  }
 }
