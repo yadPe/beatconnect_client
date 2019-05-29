@@ -1,1 +1,3 @@
 # Beatconnect
+
+npm strat
