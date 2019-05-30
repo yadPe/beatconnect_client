@@ -7,7 +7,6 @@ class OsuApi {
     }
 
     request(query, params) {
-        console.log(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`)
         return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`)
         .then(res => res.json()).then(res => {
             console.log(res)

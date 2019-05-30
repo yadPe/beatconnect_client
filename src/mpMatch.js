@@ -3,17 +3,17 @@ class MpMatch {
         this.id = id;
         this.matchName = matchName;
         this.ircRoom = ircRoom;
-        this.newPlayer = this.newPlayer.bind(this);
-        this.ircClient = ircClient;
-        this.ircClient.onPlayerJoin = this.newPlayer;
         this.players = [];
         this.beatmap = null;
         this.previousBeatmap = null;
-        this.sendBeatmap = sendBeatmap;
         this.creator = creator;
-        this.creatorInvited = false;
         this.host = null;
+        this.sendBeatmap = sendBeatmap;
+        this.newPlayer = this.newPlayer.bind(this);
         this.invitePlayer = this.invitePlayer.bind(this);
+        this.ircClient = ircClient;
+        this.ircClient.onPlayerJoin = this.newPlayer;
+        this.creatorInvited = false;
         this.invitePlayer(this.creator);
     }
 

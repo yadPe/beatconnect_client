@@ -60,7 +60,6 @@ class OsuIrc {
   }
 
   onBeatmapChange(beatmapId, matchId){
-
   }
 
   onPlayerJoin(player, matchId){
