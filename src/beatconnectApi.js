@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 
 class BeatconnectApi {
-    constructor() {
-        this.key = require('../conf').beatconnectAPI.key;
+    constructor(key) {
+        this.key = key;
         this.url = "https://beatconnect.io/api/";
     }
 
@@ -33,7 +33,7 @@ const getDlLink = (beatmapInfos, pretty, extra) => {
             '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'
         }
         const { creator, approved, version, creator_id, bpm, max_combo, difficultyrating, diff_approach, mode } = extra;
-        return `[${status[approved]}] [https://beatconnect.io/b/${id}/${unique_id} ${artist} - ${title} - ${version}] by [https://osu.ppy.sh/u/${creator_id} ${creator}] | BPM: ${bpm} | AR:${diff_approach} ${mode === 3 ? '' : '| Max combo: ' + max_combo}`;
+        return `[${status[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title || ''}  [${version || ''}]] by [https://osu.ppy.sh/u/${creator_id} ${creator || 'peppy'}] | BPM ${bpm || 0} | AR ${diff_approach || 0} ${max_combo ? '| Max combo: ' + max_combo : ''}`;
     }
     if (pretty) return `[https://beatconnect.io/b/${id}/${unique_id} ${artist} - ${title}]`;
     return `https://beatconnect.io/b/${id}/${unique_id}`

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/bot.js"
+    "start": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
   "dependencies": {
     "irc": "^0.5.2",
     "node-fetch": "^2.6.0",
-    "string.prototype.startswith": "^0.2.0"
+    "string.prototype.startswith": "^0.2.0",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

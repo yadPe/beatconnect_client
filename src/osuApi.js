@@ -1,15 +1,16 @@
 const fetch = require('node-fetch');
 
 class OsuApi {
-    constructor() {
-        this.key = require('../conf').osuApi.key;
+    constructor(key) {
+        this.key = key;
         this.url = "https://osu.ppy.sh/api/";
+        //console.log(key)
     }
 
     request(query, params) {
         return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`)
         .then(res => res.json()).then(res => {
-            console.log(res)
+            //console.log(res)
             return res;
         });
     }
