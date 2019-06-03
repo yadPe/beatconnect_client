@@ -77,30 +77,42 @@ class Bot {
 
   onMessage(from, channel, text, rawMsg) {
     if (!text.startsWith(this.prefix)) return;
+    let fromMp = null;
+    if (channel.startsWith('#mp')) fromMp = channel;
     const params = text.split(' ');
-    const command = params.shift().split(this.prefix).pop();
+    const command = params.shift().split(this.prefix).pop().toLowerCase();
     switch (command) {
       case 'get':
-        if (!parseInt(params[0])) { this.irc.pm(from, 'You need to specify a beatmap id'); break; }
+        if (!parseInt(params[0])) { this.irc.pm(fromMp || from, `${fromMp ? from : ''} You need to specify a beatmap id`); break; }
         this.sendMapById(params[0], from)
         break;
       case 'infos':
-        this.irc.pm(from, this.conf.commands
+        this.irc.pm(fromMp || from, this.conf.commands
           .map(cmd => `[https://github.com/yadpe/beatconnect_irc_bot#readme ${cmd.command}] - ${cmd.description}`).join('\n'));
         break;
-      case 'createRoom':
+      case 'createroom':
         this.irc.makeMatch(params[0], from)
         .then(({matchId, name, matchRoom, creator}) => this.newMatch(matchId, name, matchRoom, creator))
         .catch(err => console.error(err));
         break;
       case 'search':
         this.beatconnect.searchBeatmap(params)
-        .then(result => this.irc.pm(from, result))
+        .then(result => this.irc.pm(fromMp || from, result))
         .catch(err => console.error(err));
+        break;
+      case 'beat':
+        if (!fromMp) {this.irc.pm(from, `You need to be in a multiplayer match previously created with the ${this.prefix}createRoom command to use this`); break;}
+        const matchId = fromMp.split('_').pop();
+        this.matchs.map(match => {
+          if (match.if = matchId){
+            this.sendMapById(match.beatmap, fromMp, match.fullBeatmapData);
+            break;
+          }
+        });
         break;
       default:
         if (this.ignoreList.includes(params[0])) break;
-        this.irc.pm(from, `Unknown command try: ${this.prefix}infos`);
+        this.irc.pm(fromMp || from, `${fromMp ? from : ''} Unknown command try: ${this.prefix}infos`);
         break;
     }
   }
