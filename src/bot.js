@@ -1,6 +1,5 @@
 const { BeatconnectApi, getDlLink } = require('./beatconnectApi');
 const MpMatch = require('./multiplayer/mpMatch');
-//const conf = require('../conf');
 
 class Bot {
   constructor(configFile) {
@@ -10,11 +9,13 @@ class Bot {
     this.beatconnect = new BeatconnectApi(this.conf.beatconnectAPI.key);
     this.prefix = this.conf.prefix;
     this.matchs = [];
+    this.ignoreList = ['mp', 'stats', 'help', 'roll', 'where', 'faq', 'report', 'request']
     this.onMessage = this.onMessage.bind(this);
     this.onMpMessage = this.onMpMessage.bind(this);
     this.newMatch = this.newMatch.bind(this);
     this.newBeatmap = this.newBeatmap.bind(this);
     this.sendMapById = this.sendMapById.bind(this);
+    this.endMatch = this.endMatch.bind(this);
     if (this.targetServer === 'osuMain') {
       this.OsuIrc = require('./osuIrc');
       this.OsuApi = require('./osuApi');
@@ -36,8 +37,14 @@ class Bot {
   }
 
   newMatch(id, matchName, ircRoom, creator) {
-    console.log(`New match created : ${id} ${matchName} ${ircRoom}`);
-    this.matchs.push(new MpMatch(id, matchName, ircRoom, creator, this.irc, this.sendMapById));
+    console.log(`New match created : ${id} ${matchName} ${ircRoom} ${creator}`);
+    this.matchs.push(new MpMatch(id, matchName, ircRoom, creator, this.irc, this.sendMapById, this.endMatch));
+    console.log(this.matchs)
+  }
+
+  endMatch(matchId){
+    this.matchs = this.matchs.filter(match => match.id !== matchId);
+    console.log(this.matchs)
   }
 
   newBeatmap(beatmapId, matchId) {
@@ -69,7 +76,6 @@ class Bot {
   }
 
   onMessage(from, channel, text, rawMsg) {
-    //console.log(rawMsg);
     if (!text.startsWith(this.prefix)) return;
     const params = text.split(' ');
     const command = params.shift().split(this.prefix).pop();
@@ -79,15 +85,21 @@ class Bot {
         this.sendMapById(params[0], from)
         break;
       case 'infos':
-        this.irc.pm(from, this.conf.commands.map(cmd => `[https://github.com/yadpe/beatconnect_irc_bot#readme ${cmd.command}] - ${cmd.description}`).join('\n'));
+        this.irc.pm(from, this.conf.commands
+          .map(cmd => `[https://github.com/yadpe/beatconnect_irc_bot#readme ${cmd.command}] - ${cmd.description}`).join('\n'));
         break;
       case 'createRoom':
-        this.irc.makeMatch(params[0], this.newMatch, from).then(response => this.irc.pm(`Your match "-sus-" is ready !`)).catch(err => console.error(err));
+        this.irc.makeMatch(params[0], from)
+        .then(({matchId, name, matchRoom, creator}) => this.newMatch(matchId, name, matchRoom, creator))
+        .catch(err => console.error(err));
         break;
       case 'search':
-        this.beatconnect.searchBeatmap(params).then(result => this.irc.pm(from, result)).catch(err => console.error(err));
+        this.beatconnect.searchBeatmap(params)
+        .then(result => this.irc.pm(from, result))
+        .catch(err => console.error(err));
         break;
       default:
+        if (this.ignoreList.includes(params[0])) break;
         this.irc.pm(from, `Unknown command try: ${this.prefix}infos`);
         break;
     }
