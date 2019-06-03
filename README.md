@@ -20,8 +20,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 3. npm install
 
+4. get the submodule
+
+* git submodule init
+
+* git submodule update
+
 4. npm start
-  
+
 The bot start and restart if the code is edited
 
 ## License
