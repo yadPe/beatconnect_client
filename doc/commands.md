@@ -1,6 +1,6 @@
 # Available commads 
 
-##All commads starts with a prefix that can be choosed in the config file (! by default)**
+##All commads starts with a prefix that can be choosed in the config file (! by default)
 
 **createRoom** : Create a multiplayer room with the specified name and send you an invite once the room is ready
 
