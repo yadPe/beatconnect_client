@@ -18,10 +18,8 @@
   },
   "homepage": "https://github.com/yadpe/beatconnect_irc_bot#readme",
   "dependencies": {
-    "irc": "^0.5.2",
     "node-fetch": "^2.6.0",
-    "string.prototype.startswith": "^0.2.0",
-    "underscore": "^1.9.1"
+    "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

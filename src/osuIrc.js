@@ -1,4 +1,4 @@
-const irc = require('irc')
+const irc = require('../node-irc/lib/irc')
 const conf = require('../conf');
 const EventEmitter = require("events").EventEmitter;
 require('string.prototype.startswith');
