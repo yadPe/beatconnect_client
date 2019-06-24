@@ -5,23 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "start": "nodemon app.js",
+    "go": "electron ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yadPe/beatconnect_irc_bot.git"
   },
   "author": "yadpe",
-  "license": "MIT",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": ">=10.0"
+  },
   "bugs": {
     "url": "https://github.com/yadPe/beatconnect_irc_bot/issues"
   },
   "homepage": "https://github.com/yadpe/beatconnect_irc_bot#readme",
   "dependencies": {
+    "express": "^4.17.1",
+    "express-prettify": "^0.1.1",
     "node-fetch": "^2.6.0",
     "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {
+    "electron": "^5.0.5",
     "nodemon": "^1.19.1"
   }
 }

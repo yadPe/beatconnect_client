@@ -1,19 +1,26 @@
 {
+  "targetServer": "osuMain",
+  "prefix": "!",
+  "autoBeat": true,
+
   "irc": {
     "server": "irc.ppy.sh",
     "port": 6667,
     "username": "USER",
     "password": "PASS",
-    "isBotAccount": false
+    "isBotAccount": false,
+    "_comment": "Above option will limit amount of messages sent at the same time in order to avoid your account getting silenced if set to 'false' "
   },
+
   "osuApi": {
     "key": ""
   },
+
   "beatconnectAPI": {
     "key": ""
   },
-  "targetServer": "osuMain",
-  "prefix": "!",
+
+  "_comment": "Below you can change how a command is called in the chat and its description",
   "commands": [
     {
       "command": "createRoom <name>",

@@ -8,10 +8,7 @@ class OsuApi {
 
   request(query, params) {
     return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`)
-      .then(res => res.json()).then(res => {
-        //console.log(res)
-        return res;
-      });
+      .then(res => res.json());
   }
 
   getMatch(matchId) {

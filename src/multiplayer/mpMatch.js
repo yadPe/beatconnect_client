@@ -1,30 +1,36 @@
 class MpMatch {
-  constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy) {
+  constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {
     this.id = id;
     this.destroy = destroy;
     this.matchName = matchName;
     this.ircRoom = ircRoom;
     this.creator = creator;
-    this.players = [];
+    this.players =  [];
     this.beatmap = null;
     this.fullBeatmapData = null;
     this.previousBeatmap = null;
     this.host = null;
     this.timeout = null;
+    this.autoBeat = autoBeat;
     this.sendBeatmap = sendBeatmap;
     this.playerJoin = this.playerJoin.bind(this);
     this.invitePlayer = this.invitePlayer.bind(this);
     this.playerLeave = this.playerLeave.bind(this);
     this.ircClient = ircClient;
     this.creatorJoined = false;
-    this.invitePlayer(this.creator);
+    this.startTime = Date.now();
+    if (this.creator){
+      this.invitePlayer(this.creator);
+    } else {
+      this.ircClient.pm(this.ircRoom, 'BEATCONEEEEEEECT!')
+    }
   }
 
   updateBeatmap(beatmap) {
     const { beatmapset_id } = beatmap;
     this.beatmap = beatmapset_id;
     this.fullBeatmapData = beatmap;
-    if (this.previousBeatmap !== beatmapset_id) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
+    if (this.previousBeatmap !== beatmapset_id && this.autoBeat) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
     this.previousBeatmap = beatmapset_id;
   }
 
@@ -33,8 +39,22 @@ class MpMatch {
   }
 
   makeHost(player) {
+    if (!this.players.includes(player) && !player === this.creator) return
     this.ircClient.pm(this.ircRoom, `!mp host ${player}`);
     this.host = player;
+  }
+
+  kick(player){
+    if (!this.players.includes(player)) return 
+    this.ircClient.pm(this.ircRoom, `!mp kick ${player}`)
+  }
+
+  abort(){
+    this.ircClient.pm(this.ircRoom, `!mp abort`)
+  }
+
+  beatmap(beatmapId, gameMode){
+    this.ircClient.pm(this.ircRoom, `!mp map ${beatmapId} ${gameMode}`)
   }
 
   playerJoin(player) {
@@ -51,8 +71,8 @@ class MpMatch {
 
   playerLeave(player) {
     this.players = this.players.filter(p => p !== player);
-    if (!this.players.length === 0) {
-      if (this.host === player) this.makeHost(this.players[0]);
+    if (this.players.length > 0 && this.host === player) {
+      this.makeHost(this.players[0]);
     }
     else {
       if (!this.timeout) {
@@ -63,6 +83,10 @@ class MpMatch {
       }
     }
     console.log(this.matchName + ' players: ' + this.players)
+  }
+
+  start() {
+    this.ircClient.pm(this.ircRoom, '!mp start')
   }
 
   welcome() {
