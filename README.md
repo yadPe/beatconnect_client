@@ -2,7 +2,7 @@
 
 This bot gives acces to [Beatconect](https://beatconnect.io)'s API throught osu chat, enabling in-game acces to all mirrored beatmaps and more. See [available commands](./doc/commands.md)
 
-This bot is still under development.
+This is still under development.
 
 ## Getting Started
 
@@ -10,26 +10,26 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* NodeJs v10 or higher + npm
+* NodeJs v10 or higher and npm installed
 
 ### Installing
 
-1. Clone this repository
+```bash
+# Clone this repository with its submodules
+$ git clone --recurse-submodules https://github.com/yadPe/beatconnect_irc_bot.git
 
-2. Fill conf_sample.json with all the informations needed then rename it in conf.json
+# Go into the repository
+$ cd beatconnect_irc_bot
 
-3. npm install
+# Install dependencies
+$ npm i
 
-4. get the submodule
+# Fill conf_sample.json with all the informations needed then rename it in conf.json
 
-* git submodule init
-
-* git submodule update
-
-5. npm start
-
-The bot start and restart if the code is edited
+# Run the app
+$ npm start
+```
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the GNU V3.0 License.
