@@ -5,7 +5,7 @@ module.exports = class WebUi {
     this.express = require('express')
     this.prettify = require('express-prettify');
     this.template = ({ id, matchName, players, beatmap, previousBeatmap, host, startTime, autoBeat }) => (`
-      <div class="webUi">
+      <div class="webUi" style="color:#fff">
       <table style="width:80%; text-align:center; margin: 5% auto">
         <tr style="border-bottom:1px solid">
           <th>Room</th>
