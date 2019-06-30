@@ -2,7 +2,7 @@
   "name": "beatconnect_irc_bot",
   "version": "0.1.0",
   "description": "Beatconnect power for osu irc",
-  "main": "index.js",
+  "main": "electron_start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",

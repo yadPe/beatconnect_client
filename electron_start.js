@@ -1,10 +1,13 @@
 const Bot = require('./src/bot');
 const fs = require('fs');
 const electron = require('electron');
-const { app, BrowserWindow } = electron;
+const { app } = electron;
+const Window = require('./electron/Window');
+const path = require('path')
 
 
-let mainWindow, bot = null;
+
+
 // try {
 //   config = JSON.parse(fs.readFileSync('./conf.json'))
 //   //console.log(config)
@@ -16,34 +19,31 @@ let mainWindow, bot = null;
 
 // const bot = new Bot(config);
 
+// https://codeburst.io/build-a-todo-app-with-electron-d6c61f58b55a
 // https://electronjs.org/docs/api/browser-window
 // https://www.freecodecamp.org/news/building-an-electron-application-with-create-react-app-97945861647c/
 
-app.on('ready', () => {
-  
-  try {
-    config = JSON.parse(fs.readFileSync('./conf.json'))
-    //console.log(config)
 
+const main = () => {
+  let mainWindow, bot = null;
+
+  try {
+    config = JSON.parse(fs.readFileSync('./conf.json'));
   } catch (err) {
-    console.error('Cannot find config File')
+    console.error('Cannot find config File');
     process.exit();
   }
+  //bot = new Bot(config);
 
-  bot = new Bot(config);
-
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  mainWindow = new Window({
     backgroundColor: '#5b5956',
-    opacity: 0.95,
-    darkTheme: true,
+    //opacity: 0.95,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    file: path.join('src/web', 'index.html')
   });
-
-  mainWindow.loadURL('http://localhost:4000')
+  //mainWindow.loadURL('http://localhost:4000');
 
   mainWindow.on('closed', () => {
     // Dé-référence l'objet window , normalement, vous stockeriez les fenêtres
@@ -51,9 +51,12 @@ app.on('ready', () => {
     // où vous devez supprimer l'élément correspondant.
     mainWindow = null;
     bot = null;
-    process.exit();
-  })
-})
+  });
+}
 
+app.on('ready', main);
 
-
+app.on('window-all-closed', () => {
+  app.quit();
+  process.exit();
+});
