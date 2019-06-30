@@ -10,12 +10,13 @@ const defaultProps = {
 }
 
 class Window extends BrowserWindow {
-  constructor ({ file, ...windowSettings }) {
+  constructor ({ url, ...windowSettings }) {
     // calls new BrowserWindow with these props
     super({ ...defaultProps, ...windowSettings })
 
     // load the html and open devtools
-    this.loadFile(file)
+    //this.loadFile(file)
+    this.loadURL(url)
     // this.webContents.openDevTools()
 
     // gracefully show when ready to prevent flickering

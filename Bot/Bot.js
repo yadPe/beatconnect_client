@@ -1,4 +1,4 @@
-const { BeatconnectApi, getDlLink } = require('./beatconnectApi');
+const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
 const MpMatch = require('./multiplayer/mpMatch');
 const WebUi = require('./web/web')
 
@@ -20,8 +20,8 @@ class Bot {
     this.endMatch = this.endMatch.bind(this);
     this.np = this.np.bind(this);
     if (this.targetServer === 'osuMain') {
-      this.OsuIrc = require('./osuIrc');
-      this.OsuApi = require('./osuApi');
+      this.OsuIrc = require('./OsuIrc');
+      this.OsuApi = require('./OsuApi');
       this.irc = new this.OsuIrc(this.onMessage, this.onMpMessage, this.np, this.endMatch, this.conf);
       this.irc.onBeatmapChange = this.newBeatmap;
       this.osuApi = new this.OsuApi(this.conf.osuApi.key);

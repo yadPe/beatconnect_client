@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-class BeatconnectApi {
+ class BeatconnectApi {
   constructor(key) {
     this.key = key;
     this.url = "https://beatconnect.io/api/";

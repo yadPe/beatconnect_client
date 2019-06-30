@@ -1,4 +1,4 @@
-const irc = require('../node-irc/lib/irc')
+const irc = require('node-irc')
 const EventEmitter = require("events").EventEmitter;
 require('string.prototype.startswith');
 
@@ -50,7 +50,10 @@ class OsuIrc {
     this.client.addListener('raw', msg => {
       if (msg.command !== 'QUIT') {
         console.log(msg)
-        msg.nick === "BanchoBot" ? this.banchoMsg(msg) : null
+        if (msg.nick === "BanchoBot") {
+          this.banchoMsg(msg)
+        }
+       // msg.nick === "BanchoBot" ?  : null
         const args = msg.args
         if(msg.command === 'rpl_namreply' && args[3]){
           const playerList = args[3].split(' ').filter(player => !((player.startsWith('@')) || (player.startsWith('+')) || (player === '')));

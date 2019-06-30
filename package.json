@@ -3,10 +3,18 @@
   "version": "0.1.0",
   "description": "Beatconnect power for osu irc",
   "main": "electron_start.js",
+  "homepage": "./",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "go": "electron ."
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "go": "electron .",
+    "dist": "build",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "repository": {
     "type": "git",
@@ -20,15 +28,57 @@
   "bugs": {
     "url": "https://github.com/yadPe/beatconnect_irc_bot/issues"
   },
-  "homepage": "https://github.com/yadpe/beatconnect_irc_bot#readme",
+  "build": {
+    "appId": "io.beatconnect.bot",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    }
+  },
   "dependencies": {
     "express": "^4.17.1",
     "express-prettify": "^0.1.1",
     "node-fetch": "^2.6.0",
-    "string.prototype.startswith": "^0.2.0"
+    "string.prototype.startswith": "^0.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1"
   },
   "devDependencies": {
     "electron": "^5.0.5",
+    "electron-builder": "^20.44.4",
     "nodemon": "^1.19.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

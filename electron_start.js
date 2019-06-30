@@ -1,9 +1,10 @@
-const Bot = require('./src/bot');
+const Bot = require('./src/Bot');
 const fs = require('fs');
 const electron = require('electron');
 const { app } = electron;
 const Window = require('./electron/Window');
 const path = require('path')
+const url = require('url')
 
 
 
@@ -22,18 +23,20 @@ const path = require('path')
 // https://codeburst.io/build-a-todo-app-with-electron-d6c61f58b55a
 // https://electronjs.org/docs/api/browser-window
 // https://www.freecodecamp.org/news/building-an-electron-application-with-create-react-app-97945861647c/
+// https://medium.com/@brockhoff/using-electron-with-react-the-basics-e93f9761f86f
 
 
 const main = () => {
   let mainWindow, bot = null;
+  console.log('readee')
 
-  try {
-    config = JSON.parse(fs.readFileSync('./conf.json'));
-  } catch (err) {
-    console.error('Cannot find config File');
-    process.exit();
-  }
-  //bot = new Bot(config);
+  // try {
+  //   config = JSON.parse(fs.readFileSync('./conf.json'));
+  // } catch (err) {
+  //   console.error('Cannot find config File');
+  //   process.exit();
+  // }
+  // bot = new Bot(config);
 
   mainWindow = new Window({
     backgroundColor: '#5b5956',
@@ -41,7 +44,12 @@ const main = () => {
     webPreferences: {
       nodeIntegration: true
     },
-    file: path.join('src/web', 'index.html')
+    url: process.env.ELECTRON_START_URL || url.format({
+      //pathname: path.join(__dirname, '/src/web/index.html'),
+      pathname: path.join(__dirname, '/build/index.html'),
+      protocol: 'file:',
+      slashes: true
+    })
   });
   //mainWindow.loadURL('http://localhost:4000');
 
