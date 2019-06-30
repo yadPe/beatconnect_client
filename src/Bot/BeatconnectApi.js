@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
  class BeatconnectApi {
   constructor(key) {
@@ -10,7 +10,7 @@ const fetch = require('node-fetch');
   }
 
   getBeatmapById(beatmapId) {
-    return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`).then(res => res.json()).catch(err => console.error(err));
+    return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, {mode: 'cors'}).then(res => res.json()).catch(err => console.error(err));
   }
 
   searchBeatmap(query) {
@@ -42,4 +42,4 @@ const getDlLink = (beatmapInfos, pretty, extra) => {
   return `https://beatconnect.io/b/${id}/${unique_id}`
 };
 
-module.exports = { BeatconnectApi, getDlLink };
+export { BeatconnectApi, getDlLink };

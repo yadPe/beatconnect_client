@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
 class OsuApi {
   constructor(key) {
@@ -7,7 +7,7 @@ class OsuApi {
   }
 
   request(query, params) {
-    return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`)
+    return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`, {mode: 'cors'})
       .then(res => res.json());
   }
 
@@ -24,4 +24,4 @@ class OsuApi {
   }
 }
 
-module.exports = OsuApi;
+export default OsuApi;

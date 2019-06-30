@@ -1,4 +1,4 @@
-const Bot = require('./src/Bot');
+//const Bot = require('./src/Bot');
 const fs = require('fs');
 const electron = require('electron');
 const { app } = electron;
@@ -42,7 +42,8 @@ const main = () => {
     backgroundColor: '#5b5956',
     //opacity: 0.95,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     },
     url: process.env.ELECTRON_START_URL || url.format({
       //pathname: path.join(__dirname, '/src/web/index.html'),

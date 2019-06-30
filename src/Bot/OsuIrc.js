@@ -1,4 +1,4 @@
-const irc = require('node-irc')
+const irc = require('../../node-irc/lib/irc')
 const EventEmitter = require("events").EventEmitter;
 require('string.prototype.startswith');
 
@@ -140,5 +140,5 @@ class OsuIrc {
 }
 
 
-module.exports = OsuIrc;
+export default OsuIrc;
 

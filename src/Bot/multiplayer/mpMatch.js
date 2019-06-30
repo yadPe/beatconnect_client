@@ -95,4 +95,4 @@ class MpMatch {
 
 }
 
-module.exports = MpMatch;
+export default MpMatch

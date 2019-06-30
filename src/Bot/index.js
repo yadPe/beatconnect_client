@@ -1,8 +1,8 @@
-const Bot = require('./Bot');
+import Bot from './Bot'
 const fs = require('fs');
 const config = require('./conf')
 
-module.exports =  () => {
+export default  () => {
   // let config = null;
   // try {
   //   config = JSON.parse(fs.readFileSync('./conf.json'))

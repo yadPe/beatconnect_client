@@ -1,6 +1,8 @@
+import OsuIrc from './OsuIrc'
+import OsuApi from './OsuApi'
 const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
 const MpMatch = require('./multiplayer/mpMatch');
-const WebUi = require('./web/web')
+//const WebUi = require('./web/web')
 
 class Bot {
   constructor(configFile) {
@@ -20,13 +22,11 @@ class Bot {
     this.endMatch = this.endMatch.bind(this);
     this.np = this.np.bind(this);
     if (this.targetServer === 'osuMain') {
-      this.OsuIrc = require('./OsuIrc');
-      this.OsuApi = require('./OsuApi');
-      this.irc = new this.OsuIrc(this.onMessage, this.onMpMessage, this.np, this.endMatch, this.conf);
+      this.irc = new OsuIrc(this.onMessage, this.onMpMessage, this.np, this.endMatch, this.conf);
       this.irc.onBeatmapChange = this.newBeatmap;
-      this.osuApi = new this.OsuApi(this.conf.osuApi.key);
+      this.osuApi = new OsuApi(this.conf.osuApi.key);
     };
-    this.web = new WebUi(this.matchs, this.irc.makeMatch);
+    //this.web = new WebUi(this.matchs, this.irc.makeMatch);
   }
 
   sendMapById(beatmapSetId, to, extra) {
@@ -150,4 +150,4 @@ class Bot {
   }
 }
 
-module.exports = Bot;
+export default Bot

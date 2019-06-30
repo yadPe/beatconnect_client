@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import start from '../../Bot';
+import start from '../Bot';
 import './App.css';
 
 function App() {
