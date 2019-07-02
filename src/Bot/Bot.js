@@ -1,7 +1,7 @@
 import OsuIrc from './OsuIrc'
 import OsuApi from './OsuApi'
+import MpMatch from './multiplayer/mpMatch';
 const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
-const MpMatch = require('./multiplayer/mpMatch');
 //const WebUi = require('./web/web')
 
 class Bot {
@@ -52,7 +52,7 @@ class Bot {
       newMatch.players = playerList
     }
     this.matchs.push(newMatch);
-    this.web.matchs = this.matchs;
+    //this.web.matchs = this.matchs;
     console.log(this.matchs)
   }
 
