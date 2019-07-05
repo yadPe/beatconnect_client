@@ -1,6 +1,7 @@
 import OsuIrc from './OsuIrc'
 import OsuApi from './OsuApi'
 import MpMatch from './multiplayer/mpMatch';
+import store from '../store';
 const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
 //const WebUi = require('./web/web')
 
@@ -53,6 +54,7 @@ class Bot {
     }
     this.matchs.push(newMatch);
     //this.web.matchs = this.matchs;
+    store.dispatch({type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs})
     console.log(this.matchs)
   }
 

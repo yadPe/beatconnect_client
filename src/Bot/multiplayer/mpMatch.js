@@ -93,6 +93,8 @@ class MpMatch {
     this.ircClient.pm(this.ircRoom, `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`);
   }
 
+  getCurrentBeatmap = () => this.beatmap;
+
 }
 
 export default MpMatch
