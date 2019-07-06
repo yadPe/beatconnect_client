@@ -51,7 +51,7 @@
     },
     "win": {
       "target": "portable",
-      "icon": "build/icon.ico"
+      "icon": "public/favicon.ico"
     }
   },
   "dependencies": {

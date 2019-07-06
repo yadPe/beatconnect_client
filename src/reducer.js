@@ -1,5 +1,11 @@
 const initialState = {
-  mpMatchs: []
+  mpMatchs: [],
+  theme: {
+    theme: 'dark',
+    background: true,
+    color: '#121212',
+    title: 'Beatconnect'
+  }
 };
 
 const reducer = (state = initialState, action) => {
