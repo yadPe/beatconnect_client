@@ -8,18 +8,12 @@ const Cover = ({ url }) => {
   useEffect(() => {
     isLoaded(false)
     cover.setAttribute('src', url);
-    //style = {...style}
-    console.log('effect')
-    console.log('new URL', url)
-    console.log('SRC', cover.src)
-  }, [url, cover.src]);
-  
-  
+  }, [url]);
   
   const style = {
     opacity: loaded ? 1 : 0,
     filter: `blur(${loaded ? 0 + 'px' : 10 + 'px'})`,
-    transition: '1s',
+    transition: '1s all',
     width: '48%',
     paddingBottom: '15%',
     margin: '10px auto',
