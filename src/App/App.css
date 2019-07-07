@@ -1,5 +1,5 @@
 .App {
-  /* text-align: center;
+    /* text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,20 +12,82 @@
   font-family: Open Sans, sans-serif; */
 }
 
-body{
-  background-color: #121212;
+body {
+    background-color: #2a2a2a;
 }
 
-.container {
-   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  background-color: #121212;
-  text-rendering: optimizelegibility;
-  font-family: Open Sans, sans-serif;
+.menuContainer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background-color: #121212;
+    text-rendering: optimizelegibility;
+    font-family: Open Sans, sans-serif;
 }
 
+.btn {
+    margin: 8px
+}
+
+.MatchDetails ul.horizontal {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* .MatchDetails .head {
+  text-align: center;
+  background-color: #2a2a2a;
+  color: #e7e7e7;
+  font-weight: 400;
+  text-shadow: rgba(0, 0, 0, 0.004) 1px 1px 1px;
+  font-size: 1.5rem;
+} */
+
+.separator {
+    margin: 0 auto;
+    width: 90%;
+    height: 1px;
+    background-color: #fff
+}
+
+.MatchDetails .details {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90ch;
+}
+
+.MatchDetails .details div {
+    /* margin: 10px;
+    flex: 1 1 calc(45% - 20px); */
+    /* flex-grow, flex-shrink, 
+                                      flex-basis: (width - margin) */
+}
+
+.players,
+.beatmap {
+    flex: 1;
+    padding: 1rem;
+    
+    /* width: 45ch;
+    flex-grow: 5;
+    -webkit-flex-grow: 5;
+    text-align: left;
+    padding: 0.3em 0.4em 0.3em 0.4em; */
+}
+
+.players {
+    /* margin-top: auto */
+}
+
+.beatmap div{
+    /* margin-bottom: auto */
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}

@@ -65,7 +65,7 @@ class Bot {
 
   newBeatmap(beatmapId, matchId) {
     this.osuApi.getSetId(beatmapId)
-      .then(res => this.matchs.map(match => match.id === matchId ? match.updateBeatmap(res) : null))
+      .then(res => this.matchs.map(match => match.id === matchId ? match.updateBeatmap(res).then(store.dispatch({type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs})) : null))
       .catch(err => console.error(err));
   }
 

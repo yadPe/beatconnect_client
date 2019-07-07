@@ -1,3 +1,5 @@
+import store from '../store';
+
 const irc = require('irc');
 const EventEmitter = require("events").EventEmitter;
 require('string.prototype.startswith');
@@ -50,6 +52,9 @@ class OsuIrc {
     this.client.addListener('raw', msg => {
       if (msg.command !== 'QUIT') {
         console.log(msg)
+        if(msg.command === "rpl_welcome"){
+          store.dispatch({type: 'CONNECT'})
+        }
         if (msg.nick === "BanchoBot") {
           this.banchoMsg(msg)
         }

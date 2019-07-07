@@ -21,17 +21,21 @@ class MpMatch {
     this.startTime = Date.now();
     if (this.creator){
       this.invitePlayer(this.creator);
-    } else {
-      this.ircClient.pm(this.ircRoom, 'BEATCONEEEEEEECT!')
+    }else {
+      this.welcome('existingMatch');
     }
   }
 
   updateBeatmap(beatmap) {
-    const { beatmapset_id } = beatmap;
-    this.beatmap = beatmapset_id;
-    this.fullBeatmapData = beatmap;
-    if (this.previousBeatmap !== beatmapset_id && this.autoBeat) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
-    this.previousBeatmap = beatmapset_id;
+    return new Promise((resolve) => {
+      const { beatmapset_id } = beatmap;
+      this.beatmap = beatmapset_id;
+      this.fullBeatmapData = beatmap;
+      if (this.previousBeatmap !== beatmapset_id && this.autoBeat) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
+      this.previousBeatmap = beatmapset_id;
+      resolve()
+    })
+   
   }
 
   invitePlayer(player) {
@@ -62,7 +66,7 @@ class MpMatch {
     if (!this.creatorJoined && this.creator === player) {
       this.makeHost(player);
       this.creatorJoined = true;
-      this.welcome();
+      this.welcome('newMatch');
     }
     else if (this.players.length === 0) this.makeHost(player);
     this.players.push(player);
@@ -89,8 +93,11 @@ class MpMatch {
     this.ircClient.pm(this.ircRoom, '!mp start')
   }
 
-  welcome() {
-    this.ircClient.pm(this.ircRoom, `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`);
+  welcome(newMatchType) {
+    if (newMatchType === 'existingMatch')
+      this.ircClient.pm(this.ircRoom, `!mp settings BEATCONEEEEEEECT`);
+    else
+      this.ircClient.pm(this.ircRoom, `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`);
   }
 
   getCurrentBeatmap = () => this.beatmap;
