@@ -1,5 +1,3 @@
-//const Bot = require('./src/Bot');
-const fs = require('fs');
 const electron = require('electron');
 const { app } = electron;
 const Window = require('./electron/Window');
