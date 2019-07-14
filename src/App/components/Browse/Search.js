@@ -4,8 +4,8 @@ import { Button, Text, TextInput } from 'react-desktop/windows';
 const Search = ({ theme, sendResults }) => {
   const [ search, setSearch ] = useState('');
 
-  const callBeatconnect = (query) => {
-      fetch(`https://beatconnect.io/api//search/?token=3u80rns2wkcidsz7&q=${query}`)
+  const askBeatconnect = (query) => {
+      fetch(`https://beatconnect.io/api//search/?token=b3z8gl9pzt7iqa89&q=${query}`)
       .then(res => res.json())
       .then(({beatmaps}) => sendResults(beatmaps))
   }
@@ -24,7 +24,7 @@ const Search = ({ theme, sendResults }) => {
         push
         color={theme.color}
         //hidden={test.test(reqMatchId)}
-        onClick={() => callBeatconnect(search)}
+        onClick={() => askBeatconnect(search)}
       >
         <Text color='fff'>Search</Text>
       </Button>
