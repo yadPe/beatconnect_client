@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavPane, NavPaneItem, Text } from 'react-desktop/windows';
 import Start from './Start'
 import Matchs from './Matchs'
+import Browse from './Browse'
 import renderIcon from '../utils/renderIcons';
 
 
@@ -28,6 +29,7 @@ const Nav = ({ mpMatchs, theme, connected, bot }) => {
     <NavPane openLength={200} push color={theme.color} theme={theme.style}>
       {renderItem('Start', <Start connected={connected} theme={theme}/>)}
       {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
+      {renderItem('Browse', <Browse theme={theme} />)}
       {renderItem('Settings', 'Content 2')}
     </NavPane>
   );

@@ -4,6 +4,12 @@ const Window = require('./electron/Window');
 const path = require('path')
 const url = require('url')
 
+const DownloadManager = require("electron-download-manager");
+
+DownloadManager.register({
+  downloadFolder: app.getPath("downloads") + "/beatconnect"
+});
+
 
 // https://codeburst.io/build-a-todo-app-with-electron-d6c61f58b55a
 // https://electronjs.org/docs/api/browser-window
@@ -35,6 +41,21 @@ const main = () => {
     // où vous devez supprimer l'élément correspondant.
     mainWindow = null;
   });
+
+
+
+  //Single file download
+  DownloadManager.download({
+    url: "https://i.imgur.com/H124sSq.jpg"
+  }, function (error, info) {
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    console.log("DONE: " + info.url);
+  });
+
 }
 
 app.on('ready', main);

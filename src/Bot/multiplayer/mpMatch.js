@@ -1,3 +1,5 @@
+import { getDlLink } from '../BeatconnectApi';
+
 class MpMatch {
   constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {
     this.id = id;
@@ -6,7 +8,7 @@ class MpMatch {
     this.ircRoom = ircRoom;
     this.creator = creator;
     this.players =  [];
-    this.beatmap = null;
+    this.beatmapset_id = null;
     this.fullBeatmapData = null;
     this.previousBeatmap = null;
     this.host = null;
@@ -29,8 +31,8 @@ class MpMatch {
   updateBeatmap(beatmap) {
     return new Promise((resolve) => {
       const { beatmapset_id } = beatmap;
-      this.beatmap = beatmapset_id;
-      this.fullBeatmapData = beatmap;
+      this.beatmapset_id = beatmapset_id;
+      this.fullBeatmapData = { ...beatmap, beatconnectDlLink: getDlLink(beatmap) };
       if (this.previousBeatmap !== beatmapset_id && this.autoBeat) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
       this.previousBeatmap = beatmapset_id;
       resolve()
@@ -100,7 +102,7 @@ class MpMatch {
       this.ircClient.pm(this.ircRoom, `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`);
   }
 
-  getCurrentBeatmap = () => this.beatmap;
+  getCurrentBeatmap = () => this.beatmapset_id;
 
 }
 

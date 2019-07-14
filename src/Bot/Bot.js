@@ -65,7 +65,18 @@ class Bot {
 
   newBeatmap(beatmapId, matchId) {
     this.osuApi.getSetId(beatmapId)
-      .then(res => this.matchs.map(match => match.id === matchId ? match.updateBeatmap(res).then(store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })) : null))
+      .then(beatmap => this.matchs.map(match => {
+        if (match.id === matchId) {
+          this.beatconnect.getBeatmapById(beatmap.beatmapset_id)
+            .then(response => {
+              console.log('Beatconnect', response)
+              beatmap = { ...beatmap, ...response }
+              match.updateBeatmap(beatmap).then(store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs }))
+              console.log('osu', beatmap)
+              return
+            })
+        }
+      }))
       .catch(err => console.error(err));
   }
 
@@ -135,7 +146,7 @@ class Bot {
           .catch(err => console.error(err));
         break;
       case this.commandsList[4]: //beat
-        if (!fromMp) { this.irc.pm(from, `You need to be in a multiplayer match previously created with the ${this.prefix}createRoom command to use this`); break; }
+        if (!fromMp) { this.irc.pm(from, `You need to be in a multiplayer match to use this`); break; }
         const matchId = fromMp.split('_').pop();
         this.matchs.map(match => {
           if (match.if = matchId)
