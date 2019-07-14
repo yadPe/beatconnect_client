@@ -49,12 +49,12 @@ class Bot {
     })
     if (alreadyExist) return
     const newMatch = new MpMatch(id, matchName, ircRoom, creator, this.irc, this.sendMapById, this.endMatch, this.conf.autoBeat)
-    if (playerList){
+    if (playerList) {
       newMatch.players = playerList
     }
     this.matchs.push(newMatch);
     //this.web.matchs = this.matchs;
-    store.dispatch({type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs})
+    store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })
     console.log(this.matchs)
   }
 
@@ -65,7 +65,7 @@ class Bot {
 
   newBeatmap(beatmapId, matchId) {
     this.osuApi.getSetId(beatmapId)
-      .then(res => this.matchs.map(match => match.id === matchId ? match.updateBeatmap(res).then(store.dispatch({type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs})) : null))
+      .then(res => this.matchs.map(match => match.id === matchId ? match.updateBeatmap(res).then(store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })) : null))
       .catch(err => console.error(err));
   }
 
@@ -73,6 +73,12 @@ class Bot {
     this.osuApi.getSetId(beatmapId)
       .then(res => this.sendMapById(res.beatmapset_id, from))
       .catch(err => console.error(err))
+  }
+
+  joinMatch(reqMatchId, from) {
+    this.irc.joinMatch(reqMatchId)
+      .then(({ matchId, playerList }) => this.newMatch(matchId, null, `#mp_${matchId}`, null, playerList))
+      .catch(err => { console.error(err); if (from) this.irc.pm(from, 'Cannot find this room') })
   }
 
   onMpMessage(matchId, msg) {
@@ -141,9 +147,7 @@ class Bot {
           this.irc.pm(from, 'You need to provide a valid match id')
           break;
         }
-        this.irc.joinMatch(params[0])
-          .then(({matchId, playerList}) => this.newMatch(matchId, null, `#mp_${matchId}`, null, playerList))
-          .catch(err => {console.error(err); this.irc.pm(from, 'Cannot find this room')})
+        this.joinMatch(params[0], from)
         break;
       default:
         this.irc.pm(fromMp || from, `${fromMp ? from : ''} Unknown command try: ${this.prefix}infos`);

@@ -1,5 +1,3 @@
-//const fetch = require('node-fetch');
-
 class OsuApi {
   constructor(key) {
     this.key = key;

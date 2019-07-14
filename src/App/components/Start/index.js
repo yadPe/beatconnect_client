@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import start from '../../Bot';
+import start from '../../../Bot';
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
-import store from '../../store';
+import store from '../../../store';
 
 const Start = ({ connected, theme }) => {
   const connect = () => {
-    start();
-    store.dispatch({ type: 'CONNECT', status: 'connecting' });
+    store.dispatch({ type: 'CONNECT', status: 'connecting', bot: start() });
   }
 
   return (

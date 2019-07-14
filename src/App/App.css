@@ -59,10 +59,12 @@ body {
 .MatchDetails .details {
     display: flex;
     flex-wrap: wrap;
-    width: 90ch;
+    width: 100vh;
 }
 
 .MatchDetails .details div {
+    box-sizing: border-box;
+    flex: 1 1 calc(50% - 20px);
     /* margin: 10px;
     flex: 1 1 calc(45% - 20px); */
     /* flex-grow, flex-shrink, 
@@ -71,8 +73,10 @@ body {
 
 .players,
 .beatmap {
-    flex: 1;
+    /* flex: 1 1 auto; */
     padding: 1rem;
+    width: 50vh;
+    flex-grow: 5;
     
     /* width: 45ch;
     flex-grow: 5;
@@ -91,3 +95,8 @@ body {
     justify-content: center;
     margin: 0 auto;
 }
+
+/* .sqrBtn {
+    width: 5vh !important;
+    height: 5vh !important;
+} */

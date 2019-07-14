@@ -1,6 +1,7 @@
 const initialState = {
   connected: false,
   mpMatchs: [],
+  bot: {},
   theme: {
     style: 'dark',
     primary: '#121212',
@@ -16,10 +17,10 @@ const reducer = (state = initialState, action) => {
   switch (type) {
     case 'UPDATE_MATCHS_LIST':
       console.log('REDUCER', newMatchs)
-      return { ...state, mpMatchs: {...newMatchs} };
+      return { ...state, mpMatchs: [...newMatchs] };
     case 'CONNECT':
       console.log('CONNECTEDD', { ...state, connected: action.status || true })
-      return { ...state, connected: action.status || true };
+      return { ...state, connected: action.status || true, bot : action.bot || state.bot };
     default:
       return state;
   }

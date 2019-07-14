@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
-import renderIcons from '../utils/renderIcons';
+import renderIcons from '../../../utils/renderIcons';
 import Beatmap from './Beatmap'
-import TestMap from './testMap'
+import TestMap from '../../testMap'
+import Player from './PlayersList';
 
-const MatchDetails = ({ match, theme }) => {
+const MatchDetails = ({ match, theme, close }) => {
+
+  const PlayersList = () => match.players.map(player => (
+    <Player theme={theme} playerInfos={player} match={match} />
+  ))
+
   return (
     <div className='MatchDetails'>
       <div className='head'>
@@ -13,20 +19,19 @@ const MatchDetails = ({ match, theme }) => {
             className='btn back'
             push
             color={theme.primary}
-            onClick={() => alert('back')}
+            onClick={() => close()}
           >
             {renderIcons('Back', theme.style)}
           </Button >
-          <Text color='fff'>sdsdsdsdsdsdd</Text>
+          <Text color='fff'>{match.matchName}</Text>
           <Button
-            className='btn startMatch'
             push
             color={theme.color}
-            onClick={() => match.start()}
-            hidden={!match}
+            onClick={() => match.autoBeat = !match.autoBeat}
+          // hidden={!beatmap.title}
           >
-            Start
-      </Button >
+            {renderIcons('Music', theme.style)}
+          </Button>
           <Button
             className='btn endMatch'
             push
@@ -41,10 +46,12 @@ const MatchDetails = ({ match, theme }) => {
       <div className='separator' />
       <div className='details'>
         <div className='players'>
-        psum dolor sit amet, consectetur adipisicing elit.Quasi sunt explicabo aliquid, hic ipsum? Nesciunt sed consequatur velit cumque laboriosam quia eligendi, totam, provident sunt natus, consequuntu
+          {match.players ? PlayersList() : null}
         </div>
         <div className='beatmap'>
-        <Beatmap theme={theme} beatmap={match.fullBeatmapData}/>
+          {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
+
+          <Beatmap theme={theme} beatmap={match.fullBeatmapData} />
         </div>
       </div>
 

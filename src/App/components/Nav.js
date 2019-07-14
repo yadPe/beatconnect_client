@@ -6,7 +6,7 @@ import Matchs from './Matchs'
 import renderIcon from '../utils/renderIcons';
 
 
-const Nav = ({ mpMatchs, theme, connected }) => {
+const Nav = ({ mpMatchs, theme, connected, bot }) => {
   const [selected, setSelected] = useState('Start');
 
   const renderItem = (title, content) => (
@@ -27,11 +27,11 @@ const Nav = ({ mpMatchs, theme, connected }) => {
   return (
     <NavPane openLength={200} push color={theme.color} theme={theme.style}>
       {renderItem('Start', <Start connected={connected} theme={theme}/>)}
-      {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme}/>)}
+      {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
       {renderItem('Settings', 'Content 2')}
     </NavPane>
   );
 }
 
-const mapStateToProps = ({ mpMatchs, theme, connected }) => ({ mpMatchs, theme, connected });
+const mapStateToProps = ({ mpMatchs, theme, connected, bot }) => ({ mpMatchs, theme, connected, bot });
 export default connect(mapStateToProps)(Nav);
