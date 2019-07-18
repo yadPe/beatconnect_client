@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
 import renderIcons from '../../../utils/renderIcons';
-import Beatmap from './Beatmap'
+import Beatmap from '../../common/Beatmap'
 import TestMap from '../../testMap'
 import Player from './PlayersList';
 

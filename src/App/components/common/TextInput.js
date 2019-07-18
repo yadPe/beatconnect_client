@@ -4,10 +4,11 @@ import injectSheet from 'react-jss'
 const styles = {
   TextInput: {
     padding: '2px 10px 3px',
-    lineHeight: '32px',
+    lineHeight: '22px',
     border: '2px solid rgba(255, 255, 255, 0.41)',
     backgroundColor: 'transparent',
     color: 'white',
+    transition: '240ms border, 100ms backgroundColor, 100ms color',
     '&:focus': {
       outline: 'none !important',
       borderWidth: '2px',

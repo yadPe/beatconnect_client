@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import test from '../testSearchResult'
-import Beatmap from '../Matchs/MatchDetails/Beatmap'
+import Beatmap from '../common/Beatmap'
 import Search from './Search';
 
 const Browse = ({theme}) => {

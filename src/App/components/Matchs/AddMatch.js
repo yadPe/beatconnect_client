@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Text, TextInput } from 'react-desktop/windows';
+import { Button, Text } from 'react-desktop/windows';
+import TextInput from '../common/TextInput'
 
 const AddMatch = ({ bot, theme }) => {
   const [ reqMatchId, setReqMatchId ] = useState('');
