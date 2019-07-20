@@ -33,7 +33,7 @@ const DownloadBeatmapBtn = ({ theme, url }) => {
           <ProgressCircle
             className='ProgressCircle'
             color='#fff'
-            size={28}
+            size={25}
           /> :
           renderIcons('Download', theme.style)
       }

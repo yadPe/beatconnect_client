@@ -4,6 +4,7 @@ import { NavPane, NavPaneItem, Text } from 'react-desktop/windows';
 import Start from './Start'
 import Matchs from './Matchs'
 import Browse from './Browse'
+import Settings from './Settings'
 import renderIcon from '../utils/renderIcons';
 
 
@@ -30,10 +31,10 @@ const Nav = ({ mpMatchs, theme, connected, bot }) => {
       {renderItem('Start', <Start connected={connected} theme={theme}/>)}
       {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
       {renderItem('Browse', <Browse theme={theme} />)}
-      {renderItem('Settings', 'Content 2')}
+      {renderItem('Settings', <Settings theme={theme}/>)}
     </NavPane>
   );
 }
 
-const mapStateToProps = ({ mpMatchs, theme, connected, bot }) => ({ mpMatchs, theme, connected, bot });
+const mapStateToProps = ({ main }) => ({ ...main });
 export default connect(mapStateToProps)(Nav);

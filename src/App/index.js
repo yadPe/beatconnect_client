@@ -29,5 +29,5 @@ const App = ({ theme }) => {
   );
 }
 
-const mapStateToProps = ({ theme }) => ({ theme });
+const mapStateToProps = ({ main }) => ({ theme: main.theme });
 export default connect(mapStateToProps)(App);

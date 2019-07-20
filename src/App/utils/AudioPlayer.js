@@ -1,3 +1,5 @@
+import convertRange from './convertRange'
+
 class AudioPlayer {
   constructor(){
     this.audio = new Audio();
@@ -18,6 +20,9 @@ class AudioPlayer {
     this.audio.play();
   }
 
+  setVolume(value){
+    this.audio.volume = convertRange(value, 0, 100, 0, 1);
+  }
   toggle(){
     this.audio.paused ? this.audio.play() : this.audio.pause()
   }
