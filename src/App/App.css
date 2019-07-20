@@ -27,6 +27,12 @@ body {
     background-color: #121212;
     text-rendering: optimizelegibility;
     font-family: Open Sans, sans-serif;
+    height: 91vh;
+    overflow-y: auto;
+}
+
+.Beatmap {
+    width: 80%
 }
 
 .btn {
@@ -100,3 +106,19 @@ body {
     width: 5vh !important;
     height: 5vh !important;
 } */
+
+.TitleBar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.Nav {
+    padding-top: 30px;
+    position: fixed;
+    width: 100%;
+}
+
+.Nav div, a, svg {
+    transition: all 220ms;
+}

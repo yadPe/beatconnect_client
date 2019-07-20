@@ -19,7 +19,7 @@ const Matchs = ({ matchs, theme, bot }) => {
   const [selectedMatch, setSelectedMatch] = useState(null)
 
   return (
-    <div className={'menuContainer Matchs'}>
+    <div className={'menuContainer Matchs'} style={{transition: 'background 0ms'}}>
       {selectedMatch || renderMatchsList(matchs, bot, theme, setSelectedMatch)}
     </div>
   )

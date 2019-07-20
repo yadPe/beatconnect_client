@@ -16,7 +16,7 @@ const Search = ({ theme, sendResults }) => {
       <TextInput
         theme={theme.style}
         color={theme.color}
-        placeholder='Match ID'
+        placeholder='Search'
         value={search}
         onChange={ e => setSearch(e.target.value)}
       />

@@ -9,7 +9,7 @@ const Start = ({ connected, theme }) => {
   }
 
   return (
-    <div className={'menuContainer Start'}>
+    <div className={'menuContainer Start'} style={{transition: 'background 0ms'}}>
       <Button
         className='btn start'
         push

@@ -6,7 +6,7 @@ import Search from './Search';
 const Browse = ({theme}) => {
   const [results, setResults] = useState([])
   return (
-        <div>
+        <div className='menuContainer Browse' style={{transition: 'background 0ms'}}>
           <Search sendResults={setResults} theme={theme}/>
           {results.map(beatmap => <Beatmap theme={theme} beatmap={beatmap} />)}
         </div>
