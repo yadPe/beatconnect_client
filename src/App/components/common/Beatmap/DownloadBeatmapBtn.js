@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import renderIcons from '../../../utils/renderIcons'
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
 import { remote, shell } from 'electron';
+import DownloadManager from '../../../utils/DownloadManager'
 const downloadManager = remote.require("electron-download-manager");
 
 const DownloadBeatmapBtn = ({ theme, url }) => {

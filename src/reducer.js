@@ -3,6 +3,7 @@ const initialState = {
   mpMatchs: [],
   bot: {},
   searchResults: [],
+  downloadQueue: [],
   theme: {
     style: 'dark',
     primary: '#121212',
@@ -13,7 +14,7 @@ const initialState = {
   }
 };
 
-const reducer = (state = initialState, { type, newMatchs, status, bot, searchResults }) => {
+export default (state = initialState, { type, newMatchs, status, bot, searchResults }) => {
   switch (type) {
     case 'UPDATE_MATCHS_LIST':
       console.log('REDUCER', newMatchs)
@@ -28,5 +29,3 @@ const reducer = (state = initialState, { type, newMatchs, status, bot, searchRes
       return state;
   }
 };
-
-export default reducer;
