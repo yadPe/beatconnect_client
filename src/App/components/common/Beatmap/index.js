@@ -26,18 +26,20 @@ const Beatmap = ({ theme, beatmap }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }
 
+  const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
+
   return (
     <div className='Beatmap'>
       {
         beatmap
           ?
           <React.Fragment>
-            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmap.beatmapset_id || beatmap.id}/covers/cover.jpg`} />
-            <Text color='#fff'>{beatmap.title}</Text>
-            <Text color='#fff'>{beatmap.artist}</Text>
-            <Text color='#fff'>{`[${beatmap.version || ''}]`}</Text>
-            <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmap.beatmapset_id || beatmap.id} />
-            <DownloadBeatmapBtn theme={theme} url={beatmap.beatconnectDlLink || getDownloadUrl(beatmap)}/>
+            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} />
+            <Text color='#fff'>{title}</Text>
+            <Text color='#fff'>{artist}</Text>
+            <Text color='#fff'>{`[${version || ''}]`}</Text>
+            <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} />
+            <DownloadBeatmapBtn theme={theme} url={beatconnectDlLink || getDownloadUrl(beatmap)} infos={{ title, artist, creator, id: beatmapset_id || id }}/>
             <Button
               push
               color={theme.color}

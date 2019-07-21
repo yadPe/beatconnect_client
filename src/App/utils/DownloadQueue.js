@@ -1,18 +1,22 @@
 import { remote, shell } from 'electron';
+import { HistoryContext } from '../../HistoryProvider';
 
 
-class DownloadManager {
+class DownloadQueue {
+  //static contextType = HistoryContext;
   constructor() {
     this.queue = [];
-    this.currentDownload = null;
+    this.currentDownload = {};
     this.download = remote.require("electron-download-manager").download;
   }
 
-  push(url, id) {
-    this.queue.push({ url, id })
-    if (this.queue.length === 0) {
+  push(item) {
+    this.queue.push(item)
+    console.log('QUEUE', this.queue)
+    if (this.queue.length === 1) {
       this._execQueue();
     }
+
   }
 
   removeItemfromQueue(id){
@@ -20,25 +24,28 @@ class DownloadManager {
   }
 
   cancelDownload(){
-    this.currentDownload.cancel()
+    this.currentDownload.item.cancel() 
   }
 
   pauseDownload(){
-    this.currentDownload.pause()
+    this.currentDownload.item.pause()
   }
   
   resumeDownload(){
-    this.currentDownload.resume()
+    this.currentDownload.item.resume()
   }
 
   _execQueue() {
-    const { url } = this.queue.pop()
+    if (typeof this.currentDownload.item !== 'undefined') return
+    const { url, id, onFinished } =  this.currentDownload.infos = this.queue.pop()
     this.download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
       if (err) {
         this._onDownloadFailed(err)
       } else {
-        this._onDownloadSucceed(infos)
+        onFinished()
+        this._onDownloadSucceed(infos, id)
       }
+      this.currentDownload = {};
 
       if (this.queue.length !== 0){
         this._execQueue();
@@ -46,8 +53,7 @@ class DownloadManager {
     })
   }
 
-  _onDownloadSucceed(infos) {
-    this.currentDownload = null;
+  _onDownloadSucceed(infos, beatmapSetId) {
     shell.openItem(infos.filePath)
 
     /* TODO 
@@ -56,16 +62,18 @@ class DownloadManager {
     * mettre a jour l'indicateur de dl des beatmap
     */
     console.log('Finished dl', infos)
+    console.log('QUEUE', this.queue)
   }
 
   _onDownloadFailed(err) {
     console.error(err)
   }
 
-  _onDownloadProgress(progress, item) {
-    this.currentDownload = item;
+  _onDownloadProgress = (progress, item) => {
+    this.currentDownload.item = item;
+    console.log(this.currentDownload, '[rogess', progress)
   }
 }
 
 
-export default new DownloadManager();
+export default new DownloadQueue();
