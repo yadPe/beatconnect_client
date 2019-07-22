@@ -41,21 +41,6 @@ const main = () => {
     // où vous devez supprimer l'élément correspondant.
     mainWindow = null;
   });
-
-
-
-  //Single file download
-  DownloadManager.download({
-    url: "https://i.imgur.com/H124sSq.jpg"
-  }, function (error, info) {
-    if (error) {
-      console.log(error);
-      return;
-    }
-
-    console.log("DONE: " + info.url);
-  });
-
 }
 
 app.on('ready', main);

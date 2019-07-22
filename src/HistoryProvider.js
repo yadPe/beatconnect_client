@@ -49,7 +49,7 @@ class HistoryProvider extends Component {
   contains = (id) => {
     const { history } = this.state;
     console.log(typeof history[id])
-    return typeof history[id]
+    return typeof history[id] !== 'undefined'
   }
 
   _readHistory = () => {

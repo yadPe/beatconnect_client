@@ -4,24 +4,23 @@ import { ProgressCircle, Button, Text } from 'react-desktop/windows';
 import { remote, shell } from 'electron';
 import downloadQueue from '../../../utils/DownloadQueue'
 import { HistoryContext } from '../../../../HistoryProvider';
-const downloadManager = remote.require("electron-download-manager");
 
 const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
-  const history = useContext(HistoryContext);
-  const [isDownloading, setIsDownloading] = useState(false)
   const { title, artist, creator, id } = infos;
   const fullTitle = `${title} - ${artist} | ${creator}`
-  const idRegEx = /.*?(\d+)/i;
-  const beatmapSetId = id// idRegEx.exec(url)[1]
-  const downloaded = history.contains(beatmapSetId) !== 'undefined'
+  const [isDownloading, setIsDownloading] = useState(false)
+  const history = useContext(HistoryContext);
+  // const idRegEx = /.*?(\d+)/i;
+  // const beatmapSetId = id// idRegEx.exec(url)[1]
+  const downloaded = history.contains(id)
   
   const downloadBeatmap = () => {
     setIsDownloading(true)
 
-    downloadQueue.push({ url, id: beatmapSetId, onFinished: () => {
-      history.save({id: beatmapSetId, name: fullTitle})
+    downloadQueue.push({ url, id, onFinished: () => {
+      history.save({id, name: fullTitle})
       setIsDownloading(false)
-    } })
+    }})
 
     // downloadManager.download({
     //   url,
@@ -50,7 +49,6 @@ const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
             size={25}
           /> :
              downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style) 
-          
       }
     </Button>
   );
