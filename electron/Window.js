@@ -6,7 +6,7 @@ const defaultProps = {
   height: 500,
   show: false,
   darkTheme: true,
-  //frame: false
+  frame: process.env.ELECTRON_START_URL ? true : false
 }
 
 class Window extends BrowserWindow {

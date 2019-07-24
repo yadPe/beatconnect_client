@@ -1,6 +1,6 @@
 # Beatconnect irc bot
 
-This bot gives acces to [Beatconect](https://beatconnect.io)'s API throught osu chat, enabling in-game acces to all mirrored beatmaps and more. See [available commands](./doc/commands.md)
+This bot gives acces to [Beatconect](https://beatconnect.io)'s API throught osu chat, enabling in-game access to all mirrored beatmaps and more. See [available commands](./doc/commands.md)
 
 This is still under development.
 
@@ -10,13 +10,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* NodeJs v10 or higher and npm installed
+* NodeJs v8.10 or higher and npm installed
 
 ### Installing
 
 ```bash
-# Clone this repository with its submodules
-$ git clone --recurse-submodules https://github.com/yadPe/beatconnect_irc_bot.git
+# Clone this repository
+$ git clone https://github.com/yadPe/beatconnect_irc_bot.git
 
 # Go into the repository
 $ cd beatconnect_irc_bot
@@ -24,10 +24,14 @@ $ cd beatconnect_irc_bot
 # Install dependencies
 $ npm i
 
-# Fill conf_sample.json with all the informations needed then rename it in conf.json
+# Copy conf_template.js as conf.js then fill it with all the informations needed
+$ cp conf_template.js ./src/Bot/conf.js
 
-# Run the app
-$ npm start
+# Build the react App
+$ npm run build
+
+# Run the electron App
+$ npm run go
 ```
 
 ## License
