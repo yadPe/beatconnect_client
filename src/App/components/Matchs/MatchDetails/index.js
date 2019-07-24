@@ -50,8 +50,9 @@ const MatchDetails = ({ match, theme, close }) => {
         </div>
         <div className='beatmap'>
           {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
-
-          <Beatmap theme={theme} beatmap={match.fullBeatmapData} />
+          {match.fullBeatmapData ?
+            <Beatmap theme={theme} beatmap={match.fullBeatmapData} />
+            : null}
         </div>
       </div>
 
