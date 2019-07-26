@@ -1,27 +1,18 @@
 import React from 'react';
 import Cover from './Cover'
 import { Button, Text } from 'react-desktop/windows';
-import renderIcons from '../../../utils/renderIcons'
 import DownloadBeatmapBtn from './DownloadBeatmapBtn'
 import PreviewBeatmapBtn from './PreviewBeatmapBtn'
 import { shell } from 'electron'
+import renderIcons from '../../../utils/renderIcons'
+import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl'
 import OsuApi from '../../../../Bot/OsuApi';
 
+/* TODO
+* Ajouter des infos sur le status de la bm
+*/
 
 const Beatmap = ({ theme, beatmap }) => {
-  const getBeatmapUrl = ({ beatmapset_id, beatmap_id, mode, id }) => {
-    console.log(beatmap) 
-    const modes = {
-      0: 'osu',
-      1: 'taiko',
-      2: 'ctb',
-      3: 'mania'
-    }
-    if (beatmapset_id) return `https://osu.ppy.sh/beatmapsets/${beatmapset_id}/#${modes[mode]}/${beatmap_id}`
-    if (id) return `https://osu.ppy.sh/beatmapsets/${id}`
-    
-  }
-
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }
@@ -43,7 +34,7 @@ const Beatmap = ({ theme, beatmap }) => {
             <Button
               push
               color={theme.color}
-              onClick={() => shell.openExternal(getBeatmapUrl(beatmap))}
+              onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmap))}
               hidden={!beatmap.title}>
               {renderIcons('Search', theme.style)}
             </Button>
