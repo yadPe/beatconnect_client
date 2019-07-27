@@ -5,12 +5,15 @@ import App from './App';
 import { Provider } from "react-redux";
 import store from './store'
 import * as serviceWorker from './serviceWorker';
-import HistoryProvider from './HistoryProvider';
+import HistoryProvider from './Providers/HistoryProvider';
+import DownloadQueueProvider from './Providers/DownloadQueueProvider'
 
 ReactDOM.render(
   <HistoryProvider>
     <Provider store={store}>
-      <App />
+      <DownloadQueueProvider>
+        <App />
+      </DownloadQueueProvider>
     </Provider>
   </HistoryProvider>
   , document.getElementById('root'));

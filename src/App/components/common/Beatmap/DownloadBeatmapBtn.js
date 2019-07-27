@@ -2,24 +2,31 @@ import React, { useState, useContext } from 'react';
 import renderIcons from '../../../utils/renderIcons'
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
 import { remote, shell } from 'electron';
-import downloadQueue from '../../../utils/DownloadQueue'
-import { HistoryContext } from '../../../../HistoryProvider';
+// import downloadQueue from '../../../utils/DownloadQueue'
+import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider'
+import { HistoryContext } from '../../../../Providers/HistoryProvider';
 
 const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
   const { title, artist, creator, id } = infos;
   const fullTitle = `${title} - ${artist} | ${creator}`
-  const [isDownloading, setIsDownloading] = useState(false)
+  //const [isDownloading, setIsDownloading] = useState(false)
   const history = useContext(HistoryContext);
+  const { currentDownload, push, queue } = useContext(DownloadQueueContext);
   // const idRegEx = /.*?(\d+)/i;
   // const beatmapSetId = id// idRegEx.exec(url)[1]
   const downloaded = history.contains(id)
+  let isDownloading = false;
+  if ( currentDownload.infos ) {
+    isDownloading = (currentDownload.infos.id === id || 
+    queue.filter(item => item.id === id).length > 0 ? true : false)
+  }
   
   const downloadBeatmap = () => {
-    setIsDownloading(true)
+    //setIsDownloading(true)
 
-    downloadQueue.push({ url, id, onFinished: () => {
+    push({ url, id, onFinished: () => {
       history.save({id, name: fullTitle})
-      setIsDownloading(false)
+      //setIsDownloading(false)
     }})
 
     // downloadManager.download({
