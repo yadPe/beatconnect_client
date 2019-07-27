@@ -11,10 +11,10 @@ class BeatconnectApi {
     return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, { mode: 'cors' }).then(res => res.json()).catch(err => console.error(err));
   }
 
-  searchBeatmap(query) {
+  searchBeatmap(query, page) {
     query = query.join('%20')
     console.log('searching ' + query)
-    return fetch(`${this.url}/search/?token=${this.key}&q=${query}`)
+    return fetch(`${this.url}/search/?token=${this.key}&q=${query}&p=${page || 0}`)
       .then(res => res.json())
       .then(results => {
         const { beatmaps, max_page } = results;

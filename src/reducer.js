@@ -2,7 +2,11 @@ const initialState = {
   connected: false,
   mpMatchs: [],
   bot: {},
-  searchResults: [],
+  BeatconnectApi: {},
+  searchResults: {
+    search: '',
+    beatmaps: []
+  },
   downloadQueue: [],
   theme: {
     style: 'dark',
@@ -20,10 +24,10 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       console.log('REDUCER', newMatchs)
       return { ...state, mpMatchs: [...newMatchs] };
     case 'CONNECT':
-      console.log('CONNECTEDD', { ...state, connected: status || true })
+      console.log('CONNECTEDD', { ...state, connected: status || true, bot })
       return { ...state, connected: status || true, bot : bot || state.bot };
     case 'SEARCH_RESULTS':
-      console.log('SEARCH_RESULTS', { ...state, searchResults })
+      console.log('SEARCH_RESULTS', { searchResults })
       return { ...state, searchResults };
     default:
       return state;
