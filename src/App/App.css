@@ -83,7 +83,7 @@ body {
     padding: 1rem;
     width: 50vh;
     flex-grow: 5;
-    
+
     /* width: 45ch;
     flex-grow: 5;
     -webkit-flex-grow: 5;
@@ -95,7 +95,7 @@ body {
     /* margin-top: auto */
 }
 
-.beatmap div{
+.beatmap div {
     /* margin-bottom: auto */
     text-align: center;
     justify-content: center;
@@ -119,6 +119,21 @@ body {
     width: 100%;
 }
 
-.Nav div, a, svg {
+.Nav div,
+a,
+svg {
     transition: all 220ms;
+}
+
+/* webkit scroll */
+.menuContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menuContainer::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+.menuContainer::-webkit-scrollbar-thumb {
+    background: #00965f;
 }

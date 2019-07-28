@@ -12,17 +12,18 @@ class HistoryProvider extends Component {
     this.state = {
       history: {},
       save: this.save,
-      contains: this.contains
+      contains: this.contains,
+      clear: this.clear
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this._readHistory()
   }
 
   componentWillUpdate() {
     const { history } = this.state
-    if (Object.keys(history).length !== 0){
+    if (Object.keys(history).length !== 0) {
       this._writeHistory()
     }
   }
@@ -52,24 +53,34 @@ class HistoryProvider extends Component {
     return typeof history[id] !== 'undefined'
   }
 
+  clear = () => {
+    let { history } = this.state;
+    history = {};
+    this.setState({ history },
+      () => {
+        this._writeHistory();
+      }
+    )
+  }
+
   _readHistory = () => {
     readJson(this.path)
-    .then(history => this.setState({ history }))
-    .catch(this._createHistory) // assume file does not exist
+      .then(history => this.setState({ history }))
+      .catch(this._createHistory) // assume file does not exist
   }
 
   _createHistory = () => {
     const { history } = this.state
     outputJSON(this.path, history)
-    .then(() => console.log('History Created!'))
-    .catch(console.error)
+      .then(() => console.log('History Created!'))
+      .catch(console.error)
   }
 
   _writeHistory = () => {
     const { history } = this.state
     outputJSON(this.path, history)
-    .then(() => console.log('History saved!'))
-    .catch(console.error)
+      .then(() => console.log('History saved!'))
+      .catch(console.error)
   }
 
   render() {
