@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import debounce from "lodash.debounce";
 import test from '../testSearchResult'
 import Beatmap from '../common/Beatmap'
 import Search from './Search';
