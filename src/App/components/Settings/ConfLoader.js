@@ -13,7 +13,7 @@ class ConfLoader {
     }
   }
 
-  save() {
+  save = () => {
     let { conf } = this;
     const { settings } = store.getState();
     conf = { ...conf, ...settings };

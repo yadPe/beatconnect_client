@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import store from '../../../store';
 import Volume from './Volume'
@@ -8,23 +8,19 @@ import ConfLoader from './ConfLoader';
 import { updateVolume } from './actions';
 import Configuration from './Configuration';
 
-const index = ({ userPreferences, theme, config }) => {
+const Settings = ({ userPreferences, theme }) => {
+  useEffect(() => {
+    return ConfLoader.save
+  }, [])
+
   return (
     <div className='menuContainer Settings'>
       <Volume value={userPreferences.volume} onChange={(e) => updateVolume(e.target.value)} />
       <History theme={theme}/>
       <Configuration theme={theme} values={userPreferences} />
-      <Button
-        className='btn'
-        push
-        color={theme.color}
-        onClick={() => ConfLoader.save()}
-      >
-        Save settings
-      </Button>
     </div>
   );
 }
 
 const mapStateTotProps = ({ settings, main }) => ({ ...settings, theme: main.theme })
-export default connect(mapStateTotProps)(index);
+export default connect(mapStateTotProps)(Settings);
