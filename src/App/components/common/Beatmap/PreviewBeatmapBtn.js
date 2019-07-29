@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Text } from 'react-desktop/windows';
 import renderIcons from '../../../utils/renderIcons'
-import AudioPlayer from '../../../utils/AudioPlayer'
+import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 
 const PreviewBeatmapBtn = ({ beatmapSetId, theme }) => {
-  const [isPlaying, setIsPlaying] = useState(false)
+  const audioPlayer = useContext(AudioPlayerContext);
   const preview = new Audio(`https://b.ppy.sh/preview/${beatmapSetId}.mp3`)
+  const isPlaying = audioPlayer.isPlaying === beatmapSetId;
   const playPreview = () => {
-    isPlaying ? AudioPlayer.toggle() : AudioPlayer.setAudio(preview, setIsPlaying)
-    setIsPlaying(!isPlaying)
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(preview, beatmapSetId)
   }
   return (
     <Button

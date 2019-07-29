@@ -9,9 +9,9 @@ class Bot {
   constructor(configFile) {
     this.regExp = [/.*?((?:\/[\w\.\-]+)+)/i, /.*?(?:\/[\w\.\-]+)+.*?(?:\/[\w\.\-]+)+.*?((?:\/[\w\.\-]+)+)/i];
     this.conf = configFile;
-    this.targetServer = this.conf.targetServer;
+    this.targetServer = this.conf.userPreferences.targetServer;
     this.beatconnect = new BeatconnectApi(this.conf.beatconnectAPI.key);
-    this.prefix = this.conf.prefix;
+    this.prefix = this.conf.userPreferences.prefix;
     this.matchs = [];
     this.commandsList = this.conf.commands.map(cmd => cmd.command.split(' ').shift().toLowerCase());
     this.ignoreList = ['mp', 'stats', 'help', 'roll', 'where', 'faq', 'report', 'request']
@@ -25,7 +25,7 @@ class Bot {
     if (this.targetServer === 'osuMain') {
       this.irc = new OsuIrc(this.onMessage, this.onMpMessage, this.np, this.endMatch, this.conf);
       this.irc.onBeatmapChange = this.newBeatmap;
-      this.osuApi = new OsuApi(this.conf.osuApi.key);
+      this.osuApi = new OsuApi(this.conf.userPreferences.osuApi.key);
     };
     //this.web = new WebUi(this.matchs, this.irc.makeMatch);
   }

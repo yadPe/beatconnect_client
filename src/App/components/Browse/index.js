@@ -7,14 +7,15 @@ import VizSensor from 'react-visibility-sensor';
 
 
 const Browse = ({ theme, searchResults }) => {
-  const { search, beatmaps } = searchResults
+  const { query, beatmaps } = searchResults
   const that = React.createRef();
 
   const renderBeatmaps = () => {
     return beatmaps.map((beatmap, i) => {
       return beatmaps.length - i === 5 ?
         <VizSensor
-          onChange={() => console.log('yeeeeeaa')}>
+          onChange={() => console.log('yeeeeeaa')}
+          key={`fetchTrigger${beatmap.beatmapset_id || beatmap.id}`}>
           <Beatmap theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
         </VizSensor> :
         <Beatmap theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
@@ -23,7 +24,7 @@ const Browse = ({ theme, searchResults }) => {
 
   return (
     <div className='menuContainer Browse' ref={that} style={{ transition: 'background 0ms' }}>
-      <Search theme={theme} lastSearch={search} />
+      <Search theme={theme} lastSearch={query} />
       {renderBeatmaps()}
     </div>
   );

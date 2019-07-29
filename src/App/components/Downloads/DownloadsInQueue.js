@@ -7,7 +7,7 @@ const DownloadsInQueue = ({ theme }) => {
   const renderDownloads = () => {
     return queue.map(item => {
       const { id } = item;
-      return <DownloadsItem id={id} theme={theme} status='queued'/>
+      return <DownloadsItem id={id} theme={theme} status='queued' key={`queued${id}`}/>
     })
   }
   return (

@@ -31,7 +31,7 @@ $ cp conf_template.js ./src/Bot/conf.js
 $ npm run build
 
 # Run the electron App
-$ npm run go
+$ electron .
 ```
 
 ## License

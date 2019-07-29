@@ -9,7 +9,7 @@ class OsuIrc {
     this.onMpMessage = onMpMessage;
     this.np = np;
     this.endMatch = endMatch
-    this.config = config.irc;
+    this.config = config.userPreferences.irc;
     this.regExps = [/.*?(\d+)/i];
     this.prefix = config.prefix;
     this.eventEmitter = new EventEmitter();

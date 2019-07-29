@@ -3,12 +3,25 @@ import { connect } from 'react-redux'
 import store from '../../../store';
 import Volume from './Volume'
 import History from './History';
+import { Button } from 'react-desktop/windows';
+import ConfLoader from './ConfLoader';
+import { updateVolume } from './actions';
+import Configuration from './Configuration';
 
-const index = ({ volume, theme }) => {
+const index = ({ userPreferences, theme, config }) => {
   return (
     <div className='menuContainer Settings'>
-      <Volume value={volume} onChange={(e) => store.dispatch({ type: 'VOLUME', value: e.target.value })} />
+      <Volume value={userPreferences.volume} onChange={(e) => updateVolume(e.target.value)} />
       <History theme={theme}/>
+      <Configuration theme={theme} values={userPreferences} />
+      <Button
+        className='btn'
+        push
+        color={theme.color}
+        onClick={() => ConfLoader.save()}
+      >
+        Save settings
+      </Button>
     </div>
   );
 }

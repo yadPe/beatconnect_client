@@ -9,7 +9,7 @@ const DownloadedItems = ({ theme }) => {
     const items = [];
     for (let item in history) {
       const { id, date, name } = history[item];
-      items.push(<DownloadsItem id={id} date={date} name={name} theme={theme} status='downloaded' />);
+      items.push(<DownloadsItem id={id} date={date} name={name} theme={theme} status='downloaded' key={`downloaded${id}`} />);
     }
     //items.sort((a, b) => b.date - a.date);
     //console.log(items)

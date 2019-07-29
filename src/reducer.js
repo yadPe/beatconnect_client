@@ -4,7 +4,7 @@ const initialState = {
   bot: {},
   BeatconnectApi: {},
   searchResults: {
-    search: '',
+    query: '',
     beatmaps: []
   },
   downloadQueue: [],

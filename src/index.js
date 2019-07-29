@@ -7,12 +7,15 @@ import store from './store'
 import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
 import DownloadQueueProvider from './Providers/DownloadQueueProvider'
+import AudioPlayerProvider from './Providers/AudioPlayerProvider';
 
 ReactDOM.render(
   <HistoryProvider>
     <Provider store={store}>
       <DownloadQueueProvider>
-        <App />
+        <AudioPlayerProvider>
+          <App />
+        </AudioPlayerProvider>
       </DownloadQueueProvider>
     </Provider>
   </HistoryProvider>

@@ -26,8 +26,9 @@ const Search = ({ theme, lastSearch }) => {
         color={theme.color}
         placeholder='Search'
         value={search}
-        onChange={e => setSearch(e.target.value, setIsLoading)}
+        onChange={e => setSearch(e.target.value)}
         onKeyDown={searchOnEnter}
+        onBlur={() => askBeatconnect(search, setIsLoading)}
       />
       <Button
         className='btn'

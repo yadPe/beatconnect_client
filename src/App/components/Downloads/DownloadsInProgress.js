@@ -7,7 +7,7 @@ const DownloadsInProgress = ({ theme }) => {
   const renderDownloads = () => {
     const { infos, item, progress } = currentDownload;
     if (!infos) return null;
-    return <DownloadsItem id={infos.id} progress={progress} theme={theme} status='downloading'/>
+    return <DownloadsItem id={infos.id} progress={progress} theme={theme} status='downloading' key={`download${infos.id}`}/>
   }
   return (
     <React.Fragment>

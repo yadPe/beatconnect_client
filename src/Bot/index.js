@@ -1,5 +1,4 @@
 import Bot from './Bot'
-const fs = require('fs');
-const config = require('./conf')
+import store from '../store';
 
-export default  () =>  new Bot(config);
+export default  () =>  new Bot(store.getState().settings);

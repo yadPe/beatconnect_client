@@ -24,14 +24,16 @@ const styles = {
   }
 }
 
-const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown }) => (
+const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onBlur }) => (
   <input
     className={classes.TextInput}
     type={type || 'text'}
     placeholder={placeholder || ''}
     value={value}
     onChange={onChange} 
-    onKeyDown={onKeyDown}/>
+    onKeyDown={onKeyDown}
+    onBlur={onBlur}
+    />
 );
 
 export default injectSheet(styles)(TextInput);
