@@ -1,6 +1,7 @@
 # Beatconnect irc bot
 
-This bot gives acces to [Beatconect](https://beatconnect.io)'s API throught osu chat, enabling in-game access to all mirrored beatmaps and more. See [available commands](./doc/commands.md)
+This App gives you access to all the beatmaps mirrored on [Beatconect](https://beatconnect.io). You can downloads multiple beatmaps that will be automaticaly imported into osu! </br>
+Plus you can launch an irc bot from the app that will make all [available commands](./doc/commands.md) usable to peoples pming you and from all the matchs chat that the bot is connected to. (how to connect docs soon..)
 
 This is still under development.
 
