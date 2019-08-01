@@ -8,7 +8,10 @@ class BeatconnectApi {
   }
 
   getBeatmapById(beatmapId) {
-    return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, { mode: 'cors' }).then(res => res.json()).catch(err => console.error(err));
+    console.log(beatmapId)
+    return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, { mode: 'cors' })
+    .then(res => res.json())
+    .catch(err => console.error(err));
   }
 
   searchBeatmap(query, page) {

@@ -7,9 +7,7 @@ const Downloads = ({ theme }) => {
   return (
     <div className='menuContainer Downloads' style={{ transition: 'background 0ms' }}>
       <DownloadsInProgress theme={theme} />
-      <div className='separator' />
       <DownloadsInQueue theme={theme} />
-      <div className='separator' />
       <DownloadedItems theme={theme} />
     </div>
   );

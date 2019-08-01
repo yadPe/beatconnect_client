@@ -2,10 +2,13 @@ const { BrowserWindow } = require('electron')
 
 // default window settings
 const defaultProps = {
-  width: 800,
-  height: 500,
+  width: 1200,
+  height: 750,
+  minHeight: 350,
+  minWidth: 750,
   show: false,
   darkTheme: true,
+  // frame: false
   frame: process.env.ELECTRON_START_URL ? true : false
 }
 

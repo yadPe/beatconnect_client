@@ -1,6 +1,6 @@
 const electron = require('electron');
 const { app } = electron;
-const Window = require('./electron/Window');
+const Window = require('./Window');
 const path = require('path')
 const url = require('url')
 
@@ -29,7 +29,7 @@ const main = () => {
       webSecurity: false
     },
     url: process.env.ELECTRON_START_URL || url.format({
-      pathname: path.join(__dirname, '/build/index.html'),
+      pathname: path.join(__dirname, './index.html'),
       protocol: 'file:',
       slashes: true
     })

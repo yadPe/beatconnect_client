@@ -1,7 +1,7 @@
 # Beatconnect irc bot
 
 This App gives you access to all the beatmaps mirrored on [Beatconect](https://beatconnect.io). You can downloads multiple beatmaps that will be automaticaly imported into osu! </br>
-Plus, you can launch an IRC bot from the app that will make all available commands usable to peoples pming you and from all the matches chat that the bot is connected to. (how to connect docs soon..)
+Plus, you can launch an IRC bot from the app that will make all available commands usable to peoples pming you and from all the matches chats that the bot is connected to. (how to connect docs soon..)
 
 <img src="https://cdn.discordapp.com/attachments/414474227710820352/606134985971204096/unknown.png">
 
@@ -27,13 +27,10 @@ $ cd beatconnect_irc_bot
 # Install dependencies
 $ npm i
 
-# Copy conf_template.js as conf.js then fill it with all the informations needed
-$ cp conf_template.js ./src/Bot/conf.js
-
 # Build the react App
 $ npm run build
 
-# Run the electron App
+# Run electron
 $ electron .
 ```
 

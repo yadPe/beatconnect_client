@@ -30,13 +30,23 @@ const MatchDetails = ({ match, theme, close }) => {
             onClick={() => match.autoBeat = !match.autoBeat}
           // hidden={!beatmap.title}
           >
-            {renderIcons('Music', theme.style)}
+            {/* {renderIcons('Music', theme.style)} */}
+            {`AutoBeat: ${match.autoBeat}`}
           </Button>
+          <Button
+            className='btn startMatch'
+            push
+            color={theme.color}
+            onClick={() => match.start()}
+            hidden={!match}
+          >
+            Start
+      </Button >
           <Button
             className='btn endMatch'
             push
             color={theme.warning}
-            onClick={() => match.start()}
+            onClick={() => match.close()}
             hidden={!match}
           >
             Close

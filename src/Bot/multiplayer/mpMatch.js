@@ -1,4 +1,5 @@
 import { getDlLink } from '../BeatconnectApi';
+import mpSettingsMessage from '../msg/mpSettings';
 
 class MpMatch {
   constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {
@@ -21,6 +22,7 @@ class MpMatch {
     this.ircClient = ircClient;
     this.creatorJoined = false;
     this.startTime = Date.now();
+    this.mpSettingsMessage = mpSettingsMessage.bind(this);
     if (this.creator){
       this.invitePlayer(this.creator);
     }else {
@@ -93,6 +95,10 @@ class MpMatch {
 
   start() {
     this.ircClient.pm(this.ircRoom, '!mp start')
+  }
+
+  close() {
+    this.ircClient.pm(this.ircRoom, '!mp close')
   }
 
   welcome(newMatchType) {

@@ -5,9 +5,9 @@ import store from '../../../store';
 import { connect } from 'react-redux';
 
 const Start = ({ connected, theme, irc, osuApi }) => {
-  const connect = () => {
-    store.dispatch({ type: 'CONNECT', status: 'connecting', bot: start() });
-  }
+  // const connect = () => {
+  //   store.dispatch({ type: 'CONNECT', status: 'connecting', bot: start() });
+  // }
 
   const notReady = (!osuApi || !irc.username || !irc.password)
   
@@ -18,7 +18,7 @@ const Start = ({ connected, theme, irc, osuApi }) => {
         push
         hidden={notReady}
         color={theme.color}
-        onClick={connect}
+        onClick={start}
       >
         {connected === 'connecting'
           ? <ProgressCircle

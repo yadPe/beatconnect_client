@@ -26,6 +26,9 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
     case 'CONNECT':
       console.log('CONNECTEDD', { ...state, connected: status || true, bot })
       return { ...state, connected: status || true, bot : bot || state.bot };
+    case 'DISCONNECT':
+      console.log('CONNECTEDD', { ...state, connected: false })
+      return { ...state, connected: false };
     case 'SEARCH_RESULTS':
       console.log('SEARCH_RESULTS', { searchResults })
       return { ...state, searchResults };

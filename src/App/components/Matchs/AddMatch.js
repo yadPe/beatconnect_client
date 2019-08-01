@@ -18,7 +18,7 @@ const AddMatch = ({ bot, theme }) => {
         className='btn'
         push
         color={theme.color}
-        //hidden={test.test(reqMatchId)}
+        hidden={!bot.joinMatch}
         onClick={() => bot.joinMatch(reqMatchId)}
       >
         <Text color='fff'>Join</Text>

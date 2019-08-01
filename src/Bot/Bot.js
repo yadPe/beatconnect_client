@@ -27,6 +27,8 @@ class Bot {
       this.irc.onBeatmapChange = this.newBeatmap;
       this.osuApi = new OsuApi(this.conf.userPreferences.osuApi.key);
     };
+    this.connect = () => this.irc.client.connect();
+    this.disconnect = () => this.irc.client.disconnect();
     //this.web = new WebUi(this.matchs, this.irc.makeMatch);
   }
 
@@ -97,19 +99,30 @@ class Bot {
       if (match.id === matchId) {
         const { rawMsg, from, channel, text } = msg;
         const { rawCommand, args } = rawMsg;
-        if (rawCommand === 'PRIVMSG' && args[0].includes('mp') && args[1].includes('Beatmap changed to')) {
-          const beatmapId = this.regExp[1].exec(args[1])[1].split('/').pop();
-          this.newBeatmap(beatmapId, matchId);
-        } else if (rawCommand === 'PRIVMSG' && args[0].includes('mp') && args[1].includes('joined in')) {
-          const player = args[1].split(' ').shift();
-          match.playerJoin(player);
-        } else if (rawCommand === 'PRIVMSG' && args[0].includes('mp') && args[1].includes('left the game.')) {
-          const player = args[1].split(' ').shift();
-          match.playerLeave(player);
-        } else if (rawCommand === 'PRIVMSG' && args[0].includes('mp') && args[1].includes('became the host.')) {
-          const player = args[1].split(' ').shift();
-          match.host = player;
-          console.log(`Host for ${match.matchName} is now ${player}`)
+
+        if (rawCommand === 'PRIVMSG' && args[0].includes('mp')) {
+          if (args[1].includes('Beatmap changed to')) {
+            const beatmapId = this.regExp[1].exec(args[1])[1].split('/').pop();
+            this.newBeatmap(beatmapId, matchId);
+          } else if (args[1].includes('joined in')) {
+            const player = args[1].split(' ').shift();
+            match.playerJoin(player);
+          } else if (args[1].includes('left the game.')) {
+            const player = args[1].split(' ').shift();
+            match.playerLeave(player);
+          } else if (args[1].includes('became the host.')) {
+            const player = args[1].split(' ').shift();
+            match.host = player;
+            console.log(`Host for ${match.matchName} is now ${player}`)
+          }
+          else if (args[1].includes('Room name: ')
+            || args[1].includes('Room name: ')
+            || args[1].includes('Beatmap: ')
+            || args[1].includes('Team mode: ')
+            || args[1].includes('Players: ')
+            || args[1].includes('Slot 1  ')) {
+            match.mpSettingsMessage(args[1])
+          }
         }
       }
     })
@@ -149,8 +162,8 @@ class Bot {
         if (!fromMp) { this.irc.pm(from, `You need to be in a multiplayer match to use this`); break; }
         const matchId = fromMp.split('_').pop();
         this.matchs.map(match => {
-          if (match.if = matchId)
-            this.sendMapById(match.beatmap, fromMp, match.fullBeatmapData);
+          if (match.id = matchId)
+            this.sendMapById(match.beatmapset_id, fromMp, match.fullBeatmapData);
         });
         break;
       case 'join':

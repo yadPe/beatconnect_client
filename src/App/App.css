@@ -18,22 +18,38 @@ body {
 
 .menuContainer {
     text-align: center;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     /* justify-content: center; */
     font-size: calc(10px + 2vmin);
     color: white;
     background-color: #121212;
     text-rendering: optimizelegibility;
     font-family: Open Sans, sans-serif;
-    height: 91vh;
+    height: calc(98.1vh - 79px);
     overflow-y: auto;
 }
 
 .Beatmap {
-    width: 80%
+    width: 80%;
+    background: #2a2a2a;
+    margin: 1.3vh auto;
+    padding-bottom: 10px;
+    filter: brightness(0.95);
+    transition-property: filter !important;
+    /* transition-duration: 50ms !important; */
+    transition-timing-function: linear !important;
 }
+
+.Beatmap > div{
+    justify-content: center;
+}
+
+.Beatmap:hover {
+    filter: brightness(1.1)
+}
+
 
 .btn {
     margin: 8px
@@ -56,7 +72,7 @@ body {
 } */
 
 .separator {
-    margin: 0 auto;
+    margin: 15px auto;
     width: 90%;
     height: 1px;
     background-color: #fff
