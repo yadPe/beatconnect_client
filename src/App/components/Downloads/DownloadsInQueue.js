@@ -5,8 +5,9 @@ import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 const DownloadsInQueue = ({ theme }) => {
   const { queue } = useContext(DownloadQueueContext);
   const renderDownloads = () => {
+    if (queue.length === 0) return null
     return (
-      <div className='DownloadsInQueue' style={{ marginBottom: 15 }}>
+      <div className='downloadMenu DownloadsInQueue' style={{ marginBottom: '5vh' }}>
         {
           queue.map(item => {
             const { id } = item;

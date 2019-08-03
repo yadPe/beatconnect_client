@@ -8,7 +8,7 @@ const DownloadsInProgress = ({ theme }) => {
     const { infos, item, progress } = currentDownload;
     if (!infos) return null;
     return (
-      <div className='DownloadsInProgress' style={{ marginBottom: 15 }}>
+      <div className='downloadMenu DownloadsInProgress' style={{ marginBottom: '3vh' }}>
         <DownloadsItem id={infos.id} progress={progress} theme={theme} status='downloading' key={`download${infos.id}`} />
       </div>
     )

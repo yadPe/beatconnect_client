@@ -1,20 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, memo, useCallback } from 'react';
+import { shell } from 'electron'
+import injectSheet from 'react-jss'
+import { Text, Button } from 'react-desktop';
+import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl'
+import renderIcons from '../../utils/renderIcons'
+import convertRange from '../../utils/convertRange';
+import timeSince from '../../utils/timeSince';
 import Cover from '../common/Beatmap/Cover';
 import PreviewBeatmapBtn from '../common/Beatmap/PreviewBeatmapBtn';
-import { Text, Button } from 'react-desktop';
-import { shell } from 'electron'
-import renderIcons from '../../utils/renderIcons'
-import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
-import timeSince from '../../utils/timeSince';
-import injectSheet from 'react-jss'
-import convertRange from '../../utils/convertRange';
 
 const styles = {
   DownloadsItem: {
     position: 'relative',
     margin: '5px auto',
     textAlign: 'left',
+    color: '#fff'
   },
   fade: {
     //position: 'absolute',
@@ -22,7 +23,7 @@ const styles = {
     left: 0,
     width: '100%',
     //height: '100%',
-    filter: props => props.status === 'downloaded' ? 'brightness(0.3)' : `blur(${ props.progress ? convertRange(props.progress.progress, 0, 100, 10, 0) : 10}px)`,
+    filter: props => props.status === 'downloaded' ? 'brightness(0.3)' : `blur(${ props.progress ? convertRange(props.progress.progress, 0, 100, 6, 0) : 5}px) brightness(${ props.progress ? convertRange(props.progress.progress, 0, 100, 0.5, 1) : 0.5})`,
     backgroundColor: 'rgba(0, 0, 0, 1)',
     '&:hover': {
       filter: props => props.status === 'downloaded' ? ' brightness(0.9)' : ''
@@ -37,6 +38,9 @@ const styles = {
     position: 'absolute',
     bottom: '5%',
     left: '1%',
+    '&:firstChild': {
+      mixBlendMode: props => props.status === 'downloaded' ? 'normal' : 'difference',
+    }
     //transformOrigin: '50%',
   },
   rightControls: {
@@ -53,25 +57,33 @@ const styles = {
     top: '50%',
     // right: '50%',
     transform: 'translateY(-50%)',
+    //mixBlendMode: 'difference',
+    //back
+    fontSize: '1.5vw'
   }
 }
 
 const DownloadsItem = ({ id, name, date, theme, status, progress, classes }) => {
-  const [isPaused, setIsPaused] = useState(false);
+  console.log(id, 'updated')
   const { removeItemfromQueue, cancelDownload, currentDownload } = useContext(DownloadQueueContext)
-  const cancel = () => {
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const cancel = useCallback(() => {
     if (status === 'downloading') {
       cancelDownload();
     } else if (status === 'queued') {
       removeItemfromQueue(id);
     }
-  }
-  const toggleDownload = () => {
+  }, []);
+
+  const toggleDownload = useCallback(() => {
     const { item } = currentDownload
     item.isPaused() ? item.resume() : item.pause()
     setIsPaused(item.isPaused())
-  }
+  }, [currentDownload.item])
 
+  const openOsuBeatmapPage = useCallback(() => shell.openExternal(getBeatmapInfosUrl({ id })), [id])
+ 
   return (
     <div className={classes.DownloadsItem}>
       <div className={classes.fade}>
@@ -82,21 +94,21 @@ const DownloadsItem = ({ id, name, date, theme, status, progress, classes }) => 
           <div className={classes.downloadInfos}>
             <div style={{ fontSize: '1.5em' }}>{`${Math.round(progress.progress)}%`}</div>
             <div style={{ fontSize: '0.8.em' }}>{progress.speed}</div>
-
           </div> :
           null
       }
       <div className={classes.controls}>
         <div className={classes.leftControls}>
           <Text color='#fff'>{name}</Text>
+          {/* <h5 contentEditable role='textbox' aria-multiline='true' >{name}</h5> */}
           <Text color='#fff'>{status === 'downloaded' ? `Downloaded ${timeSince(new Date(date))}` : status}</Text>
           {/* <div className={classes.buttons}> */}
           <PreviewBeatmapBtn theme={theme} beatmapSetId={id} />
           <Button
             push
             color={theme.color}
-            onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}
-            hidden={false}>
+            onClick={openOsuBeatmapPage}
+          >
             {renderIcons('Search', theme.style)}
           </Button>
 
@@ -126,4 +138,23 @@ const DownloadsItem = ({ id, name, date, theme, status, progress, classes }) => 
   );
 }
 
-export default injectSheet(styles)(DownloadsItem);
+const areEqual = (prevProps, nextProps) => {
+  console.log('equalllll ?', prevProps.id)
+  return false
+  // const { status, progress } = prevProps;
+  // const { newStatus, newProgress } = nextProps;
+  // if (progress){
+  //   console.log('==================')
+  //   console.log(status === newStatus && progress.progress === newProgress.progress)
+  //   console.log('==================')
+  //   return status === newStatus && progress.progress === newProgress.progress
+  // }
+  // console.log('==================')
+  // console.log(status === newStatus)
+  // console.log('==================')
+  // return status === newStatus
+}
+
+export default memo(injectSheet(styles)(DownloadsItem), areEqual) ;
+//export default injectSheet(styles)(memo(DownloadsItem, areEqual))
+//export default injectSheet(styles)(DownloadsItem)
