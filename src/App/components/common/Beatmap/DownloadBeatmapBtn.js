@@ -25,7 +25,7 @@ const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
     //setIsDownloading(true)
 
     push({
-      url, id, onFinished: () => {
+      url, id, fullTitle, onFinished: () => {
         history.save({ id, name: fullTitle })
         //setIsDownloading(false)
       }
