@@ -43,6 +43,7 @@ class DownloadQueueProvider extends Component {
   cancelDownload = () => {
     let { currentDownload } = this.state;
     currentDownload.item.cancel()
+    this.downloading = false
     currentDownload = {};
     this.setState({ currentDownload },
       () => {
@@ -65,25 +66,29 @@ class DownloadQueueProvider extends Component {
 
   _execQueue = () => {
     let { queue, currentDownload } = this.state;
-    if (typeof currentDownload.item !== 'undefined') return
+    if (this.downloading) return
+    this.downloading = true;
     const { url, id, onFinished } = currentDownload.infos = queue.pop()
-    this.download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
-      if (err) {
-        this._onDownloadFailed(err)
-      } else {
-        onFinished()
-        this._onDownloadSucceed(infos, id)
-      }
-      currentDownload = {};
-      queue = this.state.queue; // Check if queue was updated since we started dling
-      this.setState({ queue, currentDownload },
-        () => {
-          if (this.state.queue.length !== 0) {
-            this._execQueue();
-          }
+    this.setState({ currentDownload },
+      () => this.download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
+        if (err) {
+          this._onDownloadFailed(err)
+        } else {
+          onFinished()
+          this._onDownloadSucceed(infos, id)
         }
-      )
-    })
+        currentDownload = {};
+        this.downloading = false;
+        queue = this.state.queue; // Check if queue was updated since we started dling
+        this.setState({ queue, currentDownload },
+          () => {
+            if (this.state.queue.length !== 0) {
+              this._execQueue();
+            }
+          }
+        )
+      })
+    )
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
