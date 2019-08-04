@@ -1,4 +1,4 @@
-export default {
+export default { // From osu API
     beatmapset_id: '189643',
     beatmap_id: '451812',
     approved: '1',

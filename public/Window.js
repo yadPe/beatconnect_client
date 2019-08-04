@@ -5,7 +5,7 @@ const defaultProps = {
   width: 1200,
   height: 750,
   minHeight: 350,
-  minWidth: 750,
+  minWidth: 850,
   show: false,
   darkTheme: true,
   // frame: false

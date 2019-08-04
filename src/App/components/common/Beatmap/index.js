@@ -7,7 +7,9 @@ import { shell } from 'electron'
 import renderIcons from '../../../utils/renderIcons'
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl'
 import OsuApi from '../../../../Bot/OsuApi';
+import Badge from '../Badge';
 
+const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 /* TODO
 * Ajouter des infos sur le status de la bm
 */
@@ -33,6 +35,15 @@ const Beatmap = ({ theme, beatmap }) => {
     filter: `brightness(${brightness})`,
     transitionDuration: `${50}ms`
   } : {}
+
+  const modePillsStyle = (mode) => ({
+    backgroundImage: `url(${reqImgAssets(`./${mode}.png`)})`,
+    width: 20,
+    height: 20,
+    margin: 'auto 0.2vw',
+    backgroundSize: 'contain',
+    filter: 'brightness(0.8)',
+  })
 
   useEffect(() => {
     if (isPlaying) {
@@ -67,11 +78,20 @@ const Beatmap = ({ theme, beatmap }) => {
               hidden={!beatmap.title}>
               {renderIcons('Search', theme.style)}
             </Button>
+            <div className='rightContainer' style={{position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw'}}>
+              {/* <img src={reqImgAssets('./fruits.png')} alt='hop' height={24}/> */}
+              <div className='availableModes' style={{padding: '0 5%', display: 'inline-flex'}}>
+                { beatmap.mode_std ? <div className='pill std' style={modePillsStyle('std')} /> : null }
+                { beatmap.mode_mania ? <div className='pill mania' style={modePillsStyle('mania')} /> : null }
+                { beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null }
+                { beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null }
+              </div>
+              <Badge status={beatmap.status} />
+            </div>
           </React.Fragment>
           :
           null
       }
-
     </div>
   );
 }

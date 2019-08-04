@@ -3,6 +3,7 @@ const { app } = electron;
 const Window = require('./Window');
 const path = require('path')
 const url = require('url')
+require('update-electron-app')()
 
 const DownloadManager = require("electron-download-manager");
 

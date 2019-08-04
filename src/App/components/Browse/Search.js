@@ -9,7 +9,7 @@ const Search = ({ theme, lastSearch }) => {
 
   const searchOnEnter = (e) => {
     if (e.keyCode === 13) {
-      askBeatconnect(search, setIsLoading)
+      askBeatconnect(search, setIsLoading, { status: 'ranked' })
     }
   }
 
@@ -28,14 +28,14 @@ const Search = ({ theme, lastSearch }) => {
         value={search}
         onChange={e => setSearch(e.target.value)}
         onKeyDown={searchOnEnter}
-        onBlur={() => askBeatconnect(search, setIsLoading)}
+        onBlur={() => askBeatconnect(search, setIsLoading, { status: 'ranked' })}
       />
       <Button
         className='btn'
         push
         color={theme.color}
         //hidden={test.test(reqMatchId)}
-        onClick={() => askBeatconnect(search, setIsLoading)}
+        onClick={() => askBeatconnect(search, setIsLoading, { status: 'ranked' })}
       >
         {
           isLoading ?
