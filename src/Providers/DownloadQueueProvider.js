@@ -22,6 +22,7 @@ class DownloadQueueProvider extends Component {
 
   push = (item) => {
     const { queue } = this.state;
+    if (queue.some(e => e.id === item.id)) return
     queue.push(item)
     console.log('QUEUE', queue)
     this.setState({ queue },

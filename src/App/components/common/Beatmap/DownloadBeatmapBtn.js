@@ -16,18 +16,20 @@ const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
   // const beatmapSetId = id// idRegEx.exec(url)[1]
   const downloaded = history.contains(id)
   let isDownloading = false;
-  if ( currentDownload.infos ) {
-    isDownloading = (currentDownload.infos.id === id || 
-    queue.filter(item => item.id === id).length > 0 ? true : false)
+  if (currentDownload.infos) {
+    isDownloading = (currentDownload.infos.id === id ||
+      queue.filter(item => item.id === id).length > 0 ? true : false)
   }
-  
+
   const downloadBeatmap = () => {
     //setIsDownloading(true)
 
-    push({ url, id, onFinished: () => {
-      history.save({id, name: fullTitle})
-      //setIsDownloading(false)
-    }})
+    push({
+      url, id, fullTitle, onFinished: () => {
+        history.save({ id, name: fullTitle })
+        //setIsDownloading(false)
+      }
+    })
 
     // downloadManager.download({
     //   url,
@@ -50,12 +52,14 @@ const DownloadBeatmapBtn = ({ theme, url, downloadHistory, infos }) => {
       onClick={downloadBeatmap}>
       {
         isDownloading ?
-          <ProgressCircle
-            className='ProgressCircle'
-            color='#fff'
-            size={25}
-          /> :
-             downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style) 
+          <div>
+            <ProgressCircle
+              className='ProgressCircle'
+              color='#fff'
+              size={28}
+            />
+          </div> :
+          downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style)
       }
     </Button>
   );

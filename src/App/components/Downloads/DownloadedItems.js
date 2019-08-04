@@ -1,24 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo, useCallback } from 'react'
 import { HistoryContext } from '../../../Providers/HistoryProvider';
-import DownloadsItem from './DownloadsItem';
+import DownloadsItem from './Item';
 
 const DownloadedItems = ({ theme }) => {
+  console.log('DownloadedItems updated')
   const { history } = useContext(HistoryContext);
-  //console.log(history)
-  const renderDownloads = () => {
     const items = [];
     for (let item in history) {
       const { id, date, name } = history[item];
-      items.push(<DownloadsItem id={id} date={date} name={name} theme={theme} status='downloaded' key={`downloaded${id}`} />);
+      items.push(<DownloadsItem id={id} date={date} name={name} theme={theme} status='downloaded' key={id} />);
     }
-    //items.sort((a, b) => b.date - a.date);
-    //console.log(items)
-    return items.sort((a, b) => b.props.date - a.props.date);
-  }
+  items.sort((a, b) => b.props.date - a.props.date);
   return (
-    <React.Fragment>
-      {renderDownloads()}
-    </React.Fragment>
+    <div className='downloadMenu DownloadsItem'>
+      {items}
+    </div>
   );
 }
 

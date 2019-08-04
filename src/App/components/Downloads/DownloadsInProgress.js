@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import DownloadsItem from './DownloadsItem';
+import DownloadsItem from './Item';
 import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 
 const DownloadsInProgress = ({ theme }) => {
-  const { currentDownload } = useContext(DownloadQueueContext);
+  const { cancelDownload, currentDownload } = useContext(DownloadQueueContext);
   const renderDownloads = () => {
-    const { infos, item, progress } = currentDownload;
+    const { infos, progress, item } = currentDownload;
     if (!infos) return null;
     return (
-      <div className='DownloadsInProgress' style={{ marginBottom: 15 }}>
-        <DownloadsItem id={infos.id} progress={progress} theme={theme} status='downloading' key={`download${infos.id}`} />
+      <div className='downloadMenu DownloadsInProgress' style={{ marginBottom: '3vh' }}>
+        <DownloadsItem id={infos.id} item={item} name={infos.fullTitle} {...progress} theme={theme} cancel={cancelDownload} status='downloading' key={infos.id} />
       </div>
     )
   }

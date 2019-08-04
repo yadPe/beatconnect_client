@@ -153,3 +153,10 @@ svg {
 .menuContainer::-webkit-scrollbar-thumb {
     background: #00965f;
 }
+
+.downloadMenu{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #2a2a2a
+}
+

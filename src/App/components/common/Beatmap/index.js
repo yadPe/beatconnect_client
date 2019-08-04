@@ -13,6 +13,7 @@ import OsuApi from '../../../../Bot/OsuApi';
 */
 
 const Beatmap = ({ theme, beatmap }) => {
+  console.log(beatmap.id, 'updated')
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }

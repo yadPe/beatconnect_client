@@ -2,14 +2,18 @@ import React, { useContext } from 'react'
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
+import { HistoryContext } from '../../../Providers/HistoryProvider';
 
 const Downloads = ({ theme }) => {
+  //const { history } = useContext(HistoryContext);
   return (
-    <div className='menuContainer Downloads' style={{ transition: 'background 0ms' }}>
+    <React.Fragment>
       <DownloadsInProgress theme={theme} />
-      <DownloadsInQueue theme={theme} />
-      <DownloadedItems theme={theme} />
-    </div>
+      <div className='menuContainer Downloads' style={{ transition: 'background 0ms' }}>
+        <DownloadsInQueue theme={theme} />
+        <DownloadedItems theme={theme} />
+      </div>
+    </React.Fragment>
   );
 }
 
