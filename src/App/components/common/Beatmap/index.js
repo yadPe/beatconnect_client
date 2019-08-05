@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Cover from './Cover'
 import { Button, Text } from 'react-desktop/windows';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn'
@@ -6,13 +6,9 @@ import PreviewBeatmapBtn from './PreviewBeatmapBtn'
 import { shell } from 'electron'
 import renderIcons from '../../../utils/renderIcons'
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl'
-import OsuApi from '../../../../Bot/OsuApi';
 import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
-/* TODO
-* Ajouter des infos sur le status de la bm
-*/
 
 const Beatmap = ({ theme, beatmap }) => {
   console.log(beatmap.id, 'updated')
@@ -22,14 +18,14 @@ const Beatmap = ({ theme, beatmap }) => {
   const [brightness, setBrightness] = useState(0.95)
   const [isPlaying, setIsPLaying] = useState(false)
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
-  const playpreview = null;
-  const downloadBeatmap = null;
+  // const playpreview = null;
+  // const downloadBeatmap = null;
 
   let bpmFlash = null;
 
-  const handleClick = () => {
+  // const handleClick = () => {
 
-  }
+  // }
 
   const style = isPlaying ? {
     filter: `brightness(${brightness})`,
@@ -42,7 +38,7 @@ const Beatmap = ({ theme, beatmap }) => {
     height: 20,
     margin: 'auto 0.2vw',
     backgroundSize: 'contain',
-    filter: 'brightness(0.8)',
+    filter: 'brightness(0.85)',
   })
 
   useEffect(() => {
@@ -78,13 +74,13 @@ const Beatmap = ({ theme, beatmap }) => {
               hidden={!beatmap.title}>
               {renderIcons('Search', theme.style)}
             </Button>
-            <div className='rightContainer' style={{position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw'}}>
+            <div className='rightContainer' style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}>
               {/* <img src={reqImgAssets('./fruits.png')} alt='hop' height={24}/> */}
-              <div className='availableModes' style={{padding: '0 5%', display: 'inline-flex'}}>
-                { beatmap.mode_std ? <div className='pill std' style={modePillsStyle('std')} /> : null }
-                { beatmap.mode_mania ? <div className='pill mania' style={modePillsStyle('mania')} /> : null }
-                { beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null }
-                { beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null }
+              <div className='availableModes' style={{ padding: '0 5%', display: 'inline-flex' }}>
+                {beatmap.mode_std ? <div className='pill std' style={modePillsStyle('std')} /> : null}
+                {beatmap.mode_mania ? <div className='pill mania' style={modePillsStyle('mania')} /> : null}
+                {beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null}
+                {beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null}
               </div>
               <Badge status={beatmap.status} />
             </div>
@@ -96,4 +92,5 @@ const Beatmap = ({ theme, beatmap }) => {
   );
 }
 
-export default Beatmap;
+const areEqual = (prevProps, nextProps) => (prevProps.beatmap.beatmapset_id || prevProps.beatmap.id === nextProps.beatmap.beatmapset_id || nextProps.beatmap.id);
+export default memo(Beatmap, areEqual);
