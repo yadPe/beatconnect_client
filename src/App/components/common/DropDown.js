@@ -3,7 +3,7 @@ import injectSheet from 'react-jss'
 
 const styles = {
   DropDown: {
-    height: '3.1vmin',
+    height: '30px',
     backgroundColor: 'transparent',
     color: 'rgba(255,255,255,0.35)',
     border: '2px solid rgba(255, 255, 255, 0.41)',
