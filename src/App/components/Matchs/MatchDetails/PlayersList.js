@@ -4,7 +4,7 @@ import Player from './Player';
 
 const styles = {
   PlayersList: {
-    height: '50vmin',
+    height: '42vmin',
     backgroundColor: '#2a2a2a',
     overflowY: 'auto',
     '&::-webkit-scrollbar':{

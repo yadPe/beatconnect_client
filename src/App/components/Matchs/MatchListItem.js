@@ -1,23 +1,33 @@
 import React from 'react';
 import MatchDetails from './MatchDetails'
-import { ProgressCircle, Button, Text, TextInput } from 'react-desktop/windows';
+import injectSheet from 'react-jss';
 
-const MatchListItem = ({ match, theme, setSelected }) => {
+const styles = {
+  MatchListItem: {
+    padding: 0,
+    listStyle: 'none',
+    display: 'flex',
+    backgroundColor: '#2a2a2a',
+    margin: 0,
+    userSelect: 'none',
+    '&:hover': {
+      filter: 'brightness(1.1)'
+    }
+  },
+};
+const MatchListItem = ({ classes, match, theme, setSelected }) => {
   const closeMatchItem = () => setSelected(null)
   return (
-    <div className='MatchListItem'>
-      <p>{match.matchName}</p>
-      <Button
-        className='btn'
-        push
-        color={theme.color}
-        //hidden={test.test(reqMatchId)}
-        onClick={() => setSelected(<MatchDetails match={match} theme={theme} close={closeMatchItem}/>)}
-      >
-        <p>Select</p>
-      </Button>
-    </div>
+    <ul className={classes.MatchListItem} onClick={() => setSelected(<MatchDetails match={match} theme={theme} close={closeMatchItem} />)}>
+      <li></li>
+      <li>
+        {match.matchName}
+      </li>
+      <li>
+        {`${match.players.length} players`}
+      </li>
+    </ul>
   );
 }
 
-export default MatchListItem;
+export default injectSheet(styles)(MatchListItem);

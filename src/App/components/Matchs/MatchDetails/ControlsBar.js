@@ -9,7 +9,7 @@ const styles = {
     padding: 0,
     listStyle: 'none',
     display: 'flex',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: 'transparent',
     margin: 0,
     userSelect: 'none',
   },

@@ -92,7 +92,11 @@ class Bot {
   joinMatch(reqMatchId, from) {
     this.irc.joinMatch(reqMatchId)
       .then(({ matchId, playerList }) => this.newMatch(matchId, null, `#mp_${matchId}`, null, playerList))
-      .catch(err => { console.error(err); if (from) this.irc.pm(from, 'Cannot find this room') })
+      .catch(err => { 
+        console.error(err); 
+        if (from) this.irc.pm(from, 'Cannot find this room')
+        store.dispatch({type: 'ERROR', payload: reqMatchId})
+       })
   }
 
   onMpMessage(matchId, msg) {

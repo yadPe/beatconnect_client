@@ -7,6 +7,7 @@ const initialState = {
     query: '',
     beatmaps: []
   },
+  errors:[],
   downloadQueue: [],
   theme: {
     style: 'dark',
@@ -18,7 +19,7 @@ const initialState = {
   }
 };
 
-export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch }) => {
+export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {
   switch (type) {
     case 'UPDATE_MATCHS_LIST':
       return { ...state, mpMatchs: [...newMatchs] };
@@ -27,14 +28,15 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       mpMatchs = mpMatchs.map(match => match.id === newMatch.id ? newMatch : match)
       return { ...state, mpMatchs: [...mpMatchs] };
     case 'CONNECT':
-      console.log('CONNECTEDD', { ...state, connected: status || true, bot })
       return { ...state, connected: status || true, bot : bot || state.bot };
     case 'DISCONNECT':
-      console.log('CONNECTEDD', { ...state, connected: false })
       return { ...state, connected: false };
     case 'SEARCH_RESULTS':
-      console.log('SEARCH_RESULTS', { searchResults })
       return { ...state, searchResults };
+    case 'ERROR':
+      const {errors} = state;
+      errors.push(payload)
+      return { ...state, errors: [...errors]};
     default:
       return state;
   }
