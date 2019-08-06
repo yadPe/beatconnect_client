@@ -33,6 +33,9 @@
       "build/**/*",
       "node_modules/**/*"
     ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "extraMetadata": {
       "main": "./build/electron.js",
       "prune": true
