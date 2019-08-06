@@ -1,15 +1,14 @@
 import store from '../../../store';
 
-const askBeatconnect = (query, onLoading, additionalParams) => {
-  const { page, status } = additionalParams || {};
+const askBeatconnect = (search, onLoading) => {
+  const { query, page, status, mode } = search;
   console.log(status)
   onLoading(true)
   const formatQuery = query.split(' ').join('%20')
-  fetch(`https://beatconnect.io/api//search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}`)
+  fetch(`https://beatconnect.io/api//search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`)
     .then(res => res.json())
     .then(({ beatmaps, max_page }) => {
-      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { query, beatmaps, max_page, page } })
-      //sendResults(beatmaps)
+      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { query, beatmaps, max_page, page }})
       onLoading(false)
     })
 }

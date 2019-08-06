@@ -11,7 +11,6 @@ const Start = ({ connected, theme, irc, osuApi }) => {
     that.current.parentNode.style.padding = 0; // Dirty way to custom react-desktop component
   }, [])
 
-
   return (
     <div className={'menuContainer Start'} style={{ transition: 'background 0ms', textAlign: 'center' }} ref={that}>
       <Button
@@ -38,9 +37,9 @@ const Start = ({ connected, theme, irc, osuApi }) => {
       }
       {
         notReady ?
-          <Text color='#fff'>
+          <p style={{ fontSize: '80%' }}>
             Warning: no irc credential or osu API key found. Please go to settings section
-          </Text> : null
+          </p> : null
       }
     </div>
   )
