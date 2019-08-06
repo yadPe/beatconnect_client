@@ -3,6 +3,7 @@ const { app } = electron;
 const Window = require('./Window');
 const path = require('path')
 const url = require('url')
+const isDev = require('electron-is-dev');
 require('update-electron-app')()
 
 const DownloadManager = require("electron-download-manager");
@@ -29,11 +30,16 @@ const main = () => {
       nodeIntegration: true,
       webSecurity: false
     },
-    url: process.env.ELECTRON_START_URL || url.format({
+    url: isDev ? process.env.ELECTRON_START_URL || url.format({
       pathname: path.join(__dirname, '../build/index.html'),
       protocol: 'file:',
       slashes: true
-    })
+    }) :
+      url.format({
+        pathname: path.join(__dirname, './index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
   });
 
   mainWindow.on('closed', () => {
