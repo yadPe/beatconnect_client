@@ -82,7 +82,7 @@ const Beatmap = ({ theme, beatmap }) => {
                 {beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null}
                 {beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null}
               </div>
-              <Badge status={beatmap.status} />
+              {beatmap.status ? <Badge status={beatmap.status} /> : null}
             </div>
           </React.Fragment>
           :
@@ -92,5 +92,13 @@ const Beatmap = ({ theme, beatmap }) => {
   );
 }
 
-const areEqual = (prevProps, nextProps) => (prevProps.beatmap.beatmapset_id || prevProps.beatmap.id === nextProps.beatmap.beatmapset_id || nextProps.beatmap.id);
+const areEqual = (prevProps, nextProps) => {
+  if (prevProps.beatmap.beatmapset_id){
+    return prevProps.beatmap.beatmapset_id === nextProps.beatmap.beatmapset_id
+  }
+  if (prevProps.beatmap.id){
+    return prevProps.beatmap.id === nextProps.beatmap.id
+  }
+  return false
+}
 export default memo(Beatmap, areEqual);

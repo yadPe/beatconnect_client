@@ -1,71 +1,30 @@
 import React, { useState } from 'react'
-import { ProgressCircle, Button, Text } from 'react-desktop/windows';
-import renderIcons from '../../../utils/renderIcons';
 import Beatmap from '../../common/Beatmap'
-import TestMap from '../../testMap'
-import Player from './PlayersList';
+import PlayersList from './PlayersList'
+import ControlsBar from './ControlsBar';
 
 const MatchDetails = ({ match, theme, close }) => {
 
-  const PlayersList = () => match.players.map(player => (
-    <Player theme={theme} playerInfos={player} match={match} />
-  ))
+  // const PlayersList = () => match.players.map(player => (
+  //   <Player theme={theme} playerInfos={player} match={match} />
+  // ))
 
   return (
     <div className='MatchDetails'>
       <div className='head'>
-        <ul className="horizontal">
-          <Button
-            className='btn back'
-            push
-            color={theme.primary}
-            onClick={() => close()}
-          >
-            {renderIcons('Back', theme.style)}
-          </Button >
-          <Text color='fff'>{match.matchName}</Text>
-          <Button
-            push
-            color={theme.color}
-            onClick={() => match.autoBeat = !match.autoBeat}
-          // hidden={!beatmap.title}
-          >
-            {/* {renderIcons('Music', theme.style)} */}
-            {`AutoBeat: ${match.autoBeat}`}
-          </Button>
-          <Button
-            className='btn startMatch'
-            push
-            color={theme.color}
-            onClick={() => match.start()}
-            hidden={!match}
-          >
-            Start
-      </Button >
-          <Button
-            className='btn endMatch'
-            push
-            color={theme.warning}
-            onClick={() => match.close()}
-            hidden={!match}
-          >
-            Close
-      </Button >
-        </ul>
+        <ControlsBar match={match} theme={theme} close={close} />
       </div>
-      <div className='separator' />
       <div className='details'>
         <div className='players'>
-          {match.players ? PlayersList() : null}
+          {match.players ? <PlayersList theme={theme} players={match.players} match={match} /> : null}
         </div>
         <div className='beatmap'>
           {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
           {match.fullBeatmapData ?
             <Beatmap theme={theme} beatmap={match.fullBeatmapData} />
-            : null}
+            : 'Asking peppy...'} 
         </div>
       </div>
-
     </div>
   );
 }

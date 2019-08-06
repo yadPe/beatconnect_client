@@ -14,7 +14,7 @@ const Settings = ({ userPreferences, theme }) => {
   }, [])
 
   return (
-    <div className='menuContainer Settings' style={{transition: 'background 0ms'}}>
+    <div className='menuContainer Settings' style={{transition: 'background 0ms', textAlign: 'center'}}>
       <Volume value={userPreferences.volume} onChange={(e) => updateVolume(e.target.value)} />
       <History theme={theme}/>
       <Configuration theme={theme} values={userPreferences} />

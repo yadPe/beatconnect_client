@@ -62,6 +62,7 @@ class Bot {
 
   endMatch(matchId) {
     this.matchs = this.matchs.filter(match => match.id !== matchId);
+    store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })
     console.log(`Current matchs : ${this.matchs}`)
   }
 
@@ -107,12 +108,15 @@ class Bot {
           } else if (args[1].includes('joined in')) {
             const player = args[1].split(' ').shift();
             match.playerJoin(player);
+            store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })
           } else if (args[1].includes('left the game.')) {
             const player = args[1].split(' ').shift();
             match.playerLeave(player);
+            store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })
           } else if (args[1].includes('became the host.')) {
             const player = args[1].split(' ').shift();
             match.host = player;
+            store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs })
             console.log(`Host for ${match.matchName} is now ${player}`)
           }
           else if (args[1].includes('Room name: ')

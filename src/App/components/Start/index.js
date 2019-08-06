@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, createRef } from 'react'
 import start from '../../../Bot';
 import { ProgressCircle, Button, Text } from 'react-desktop/windows';
-import store from '../../../store';
 import { connect } from 'react-redux';
 
 const Start = ({ connected, theme, irc, osuApi }) => {
-  // const connect = () => {
-  //   store.dispatch({ type: 'CONNECT', status: 'connecting', bot: start() });
-  // }
-
+  const that = createRef();
   const notReady = (!osuApi || !irc.username || !irc.password)
-  
+
+  useEffect(() => {
+    that.current.parentNode.style.padding = 0; // Dirty way to custom react-desktop component
+  }, [])
+
+
   return (
-    <div className={'menuContainer Start'} style={{ transition: 'background 0ms' }}>
+    <div className={'menuContainer Start'} style={{ transition: 'background 0ms', textAlign: 'center' }} ref={that}>
       <Button
         className='btn start'
         push
@@ -29,12 +30,12 @@ const Start = ({ connected, theme, irc, osuApi }) => {
           : connected ? 'Stop' : 'Start'
         }
       </Button >
-      <Text
-        color='#fff'
-        hidden={!connected}
-      >
-        {connected === 'connecting' ? 'Connecting to Bancho via IRC..' : 'connected!'}
-      </Text>
+      {connected ? <p style={{ fontSize: '50%' }}>
+        {connected === 'connecting' ?
+          'Connecting to Bancho via IRC..'
+          : 'Connected!'}
+      </p> : null
+      }
       {
         notReady ?
           <Text color='#fff'>

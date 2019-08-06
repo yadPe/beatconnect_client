@@ -27,7 +27,7 @@ body {
     background-color: #121212;
     text-rendering: optimizelegibility;
     font-family: Open Sans, sans-serif;
-    height: calc(98.1vh - 79px);
+    height: calc(100vh - 79px);
     overflow-y: auto;
 }
 
@@ -50,7 +50,6 @@ body {
     filter: brightness(1.1)
 }
 
-
 .btn {
     margin: 8px
 }
@@ -71,17 +70,12 @@ body {
   font-size: 1.5rem;
 } */
 
-.separator {
-    margin: 15px auto;
-    width: 90%;
-    height: 1px;
-    background-color: #fff
-}
+
 
 .MatchDetails .details {
     display: flex;
     flex-wrap: wrap;
-    width: 100vh;
+    width: 100%;
 }
 
 .MatchDetails .details div {
@@ -141,6 +135,13 @@ svg {
     transition: all 220ms;
 }
 
+.separator {
+    margin: 15px auto;
+    width: 90%;
+    height: 1px;
+    background-color: #fff
+}
+
 /* webkit scroll */
 .menuContainer::-webkit-scrollbar {
     width: 8px;
@@ -159,3 +160,7 @@ svg {
     margin: 0 auto;
     background-color: #2a2a2a
 }
+
+/* p{
+    font-size: 50%;
+} */

@@ -1,5 +1,6 @@
 import { getDlLink } from '../BeatconnectApi';
 import mpSettingsMessage from '../msg/mpSettings';
+import store from '../../store';
 
 class MpMatch {
   constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {
@@ -25,8 +26,10 @@ class MpMatch {
     this.mpSettingsMessage = mpSettingsMessage.bind(this);
     if (this.creator){
       this.invitePlayer(this.creator);
+      this.matchType = 'tournament'
     }else {
       this.welcome('existingMatch');
+      this.matchType = 'standard'
     }
   }
 
@@ -83,11 +86,13 @@ class MpMatch {
       this.makeHost(this.players[0]);
     }
     else {
-      if (!this.timeout) {
+      if (this.matchType === 'tournament' && !this.timeout) {
         this.timeout = setTimeout(() => {
           this.ircClient.pm(this.ircRoom, '!mp close');
           this.destroy(this.id);
         }, 60000 * 0.30)
+      } else {
+        this.destroy(this.id);
       }
     }
     console.log(this.matchName + ' players: ' + this.players)
@@ -109,6 +114,11 @@ class MpMatch {
   }
 
   getCurrentBeatmap = () => this.beatmapset_id;
+
+  toggleAutoBeat = () => {
+    this.autoBeat = !this.autoBeat;
+    store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: this });
+  }
 
 }
 

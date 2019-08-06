@@ -1,6 +1,5 @@
 import React from 'react'
 import TextInput from '../common/TextInput';
-import { Text } from 'react-desktop';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setAutoBeat } from './actions';
 
 const Configuration = ({ theme, values }) => {
@@ -11,14 +10,14 @@ const Configuration = ({ theme, values }) => {
     { name: 'irc bot account', value: irc.isBotAccount, action: setIRCIsBot, type: Boolean },
     { name: 'osu api key', value: osuApi.key, action: setOSUApiKey, type: String, pass: true },
     { name: 'bot prefix', value: prefix, action: setPrefix, type: String },
-    { name: 'autoBeat', value: autoBeat, action: setAutoBeat, type: Boolean }
+    // { name: 'autoBeat', value: autoBeat, action: setAutoBeat, type: Boolean }
   ]
   const renderFields = () => {
     return items.map(item => {
       if (item.type === String) {
         return (
           <React.Fragment key={item.name}>
-            <Text color='#fff'>{item.name}</Text>
+            <p style={{fontSize: '50%'}}>{item.name}</p>
             <TextInput
               theme={theme.style}
               color={theme.color}
@@ -33,7 +32,7 @@ const Configuration = ({ theme, values }) => {
       if (item.type === Boolean) {
         return (
           <React.Fragment key={item.name}>
-            <Text color='#fff'>{item.name}</Text>
+            <p style={{fontSize: '50%'}}>{item.name}</p>
             <input
               type="checkbox"
               checked={item.value}

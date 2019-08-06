@@ -1,4 +1,8 @@
+import store from "../../store";
+
 export default function(msg) {
+  const osuApi = store.getState().main.bot.osuApi
+
   let msgDatas = msg.split(',').map((data) => data.split(/:(?!\/)/g));
   //msgDatas =  msgDatas
   console.log(msgDatas);
@@ -21,18 +25,30 @@ export default function(msg) {
     }
     mpData.player.push(player);
     console.log(player)
+    if (player.isHost === '[Host]'){
+      this.host = player.userName
+      store.dispatch({type: 'UPDATE_SINGLE_MATCH', newMatch: this})
+    }
 
     return mpData;
   }
 
   // number of players and beatmapId
+  // dont work when beatmap name contain ","
   if (msgDatas.length === 1) {
     let data = msgDatas[0];
     data = data.map(d => d.includes('https://osu.ppy.sh/b/') ? /.*?(\d+)/i.exec(d.split(' ')[1])[1] : d.replace(/\s/g, ''))
     mpData[data[0]] = data[1]
     console.log(mpData)
     if (data[0] === 'Beatmap'){
-      // this.beatmapset_id = data[1]
+      console.log('osuApi', data[1])
+      osuApi.getSetId(data[1])
+      .then(beatmap => {
+        this.beatmapset_id = beatmap.beatmapset_id;
+        this.fullBeatmapData = beatmap;
+        store.dispatch({type: 'UPDATE_SINGLE_MATCH', newMatch: this})
+        console.log('osuapi', beatmap)
+      })
     }
     return mpData
   }
