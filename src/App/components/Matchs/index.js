@@ -5,6 +5,7 @@ import AddMatch from './AddMatch'
 import MatchListItem from './MatchListItem'
 
 const renderMatchsList = (matchs, bot, theme, setSelected) => {
+  // matchs = new Array(20).fill({matchName: 'test', players: new Array(16).fill('PEPPY')})
   if (matchs.length > 0) return (
     <React.Fragment>
       <AddMatch bot={bot} theme={theme} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const Cover = ({ url }) => {
+const Cover = ({ url, width, height }) => {
   const [loaded, isLoaded] = useState(false);
   const cover = new Image()
   cover.onload = () => isLoaded(true)
@@ -14,7 +14,8 @@ const Cover = ({ url }) => {
     opacity: loaded ? 1 : 0,
     filter: `blur(${loaded ? 0 + 'px' : 10 + 'px'})`,
     transition: '1s all',
-    width: '100%',
+    width: width || '100%',
+    height: height || null,
     paddingBottom: '15%',
     // margin: 'auto 0 auto 10px',
     backgroundPosition: 'center center',

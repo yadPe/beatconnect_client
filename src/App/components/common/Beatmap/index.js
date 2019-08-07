@@ -10,7 +10,7 @@ import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
-const Beatmap = ({ theme, beatmap }) => {
+const Beatmap = ({ theme, beatmap, width }) => {
   console.log(beatmap.id, 'updated')
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
@@ -28,9 +28,12 @@ const Beatmap = ({ theme, beatmap }) => {
   // }
 
   const style = isPlaying ? {
+    width: width || '80%',
     filter: `brightness(${brightness})`,
     transitionDuration: `${50}ms`
-  } : {}
+  } : {
+    width: width || '80%',
+  }
 
   const modePillsStyle = (mode) => ({
     backgroundImage: `url(${reqImgAssets(`./${mode}.png`)})`,

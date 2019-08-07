@@ -21,7 +21,7 @@ const MatchDetails = ({ match, theme, close }) => {
         <div className='beatmap'>
           {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
           {match.fullBeatmapData ?
-            <Beatmap theme={theme} beatmap={match.fullBeatmapData} />
+            <Beatmap theme={theme} beatmap={match.fullBeatmapData} width={'100%'}/>
             : 'Asking peppy...'} 
         </div>
       </div>

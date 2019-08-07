@@ -92,7 +92,6 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
-    console.log('autoImport', this.props.autoImport)
     if (this.props.autoImport) {
       shell.openItem(infos.filePath)
     }
