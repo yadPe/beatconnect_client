@@ -28,10 +28,10 @@ const styles = {
   }
 };
 
-const DropDown = ({classes, className, options, onSelect, onBlur}) => {
+const DropDown = ({classes, className, options, onSelect, onBlur, value}) => {
   return (
-    <select className={`${classes.DropDown} ${className}`} onChange={onSelect} onBlur={onBlur}>
-      {options.map(option => <option className={classes.option} value={option}>{option}</option> )}
+    <select className={`${classes.DropDown} ${className}`} onChange={onSelect} onBlur={onBlur} value={value}>
+      {options.map(option => <option key={option} className={classes.option} value={option}>{option}</option> )}
     </select>
   );
 }

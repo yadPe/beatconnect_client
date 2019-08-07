@@ -7,7 +7,7 @@ import VizSensor from 'react-visibility-sensor';
 
 
 const Browse = ({ theme, searchResults }) => {
-  const { query, beatmaps } = searchResults
+  const { search, beatmaps } = searchResults
   const that = React.createRef();
 
   const renderBeatmaps = () => {
@@ -24,7 +24,7 @@ const Browse = ({ theme, searchResults }) => {
 
   return (
     <div className='menuContainer Browse' ref={that} style={{ transition: 'background 0ms' }}>
-      <Search theme={theme} lastSearch={query} />
+      <Search theme={theme} lastSearch={search} />
       {renderBeatmaps()}
     </div>
   );

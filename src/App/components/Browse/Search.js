@@ -8,7 +8,7 @@ const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked',
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
 
 const Search = ({ theme, lastSearch }) => {
-  const [search, setSearch] = useState({ query: lastSearch, mode: 'all', status: 'ranked' });
+  const [search, setSearch] = useState(lastSearch);
   const [isLoading, setIsLoading] = useState(false);
 
   const searchOnEnter = (e) => {
@@ -27,9 +27,11 @@ const Search = ({ theme, lastSearch }) => {
     <React.Fragment>
       <DropDown
         options={availableModes}
+        value={search.mode}
         onSelect={(e) => { setSearch({ ...search, mode: e.target.value }); askBeatconnect({ ...search, mode: e.target.value }, setIsLoading) }} />
       <DropDown
         options={availableStatus}
+        value={search.status}
         onSelect={(e) => { setSearch({ ...search, status: e.target.value }); askBeatconnect({ ...search, status: e.target.value }, setIsLoading) }} />
       <TextInput
         theme={theme.style}
