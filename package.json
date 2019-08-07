@@ -1,6 +1,6 @@
 {
   "name": "beatconnect_irc_bot",
-  "version": "0.1.3-early",
+  "version": "0.1.3",
   "description": "Beatconnect power for osu irc",
   "main": "./public/electron.js",
   "homepage": "./",
@@ -22,7 +22,7 @@
   "author": "yadpe",
   "license": "GPL-3.0",
   "engines": {
-    "node": ">=10.0"
+    "node": ">=8.11"
   },
   "bugs": {
     "url": "https://github.com/yadPe/beatconnect_client/issues"
@@ -61,7 +61,7 @@
       ]
     },
     "win": {
-      "target": "portable",
+      "target": "NSIS",
       "icon": "public/favicon.ico"
     }
   },
