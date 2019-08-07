@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/yadPe/beatconnect_irc_bot.git
+$ git clone https://github.com/yadPe/beatconnect_client.git
 
 # Go into the repository
 $ cd beatconnect_irc_bot
