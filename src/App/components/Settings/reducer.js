@@ -24,6 +24,9 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
     case 'AUTOBEAT':
       userPreferences = { ...userPreferences, autoBeat: payload }
       return { ...settings, userPreferences: {...userPreferences} }
+    case 'AUTOIMPORT':
+      userPreferences = { ...userPreferences, autoImport: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
     default:
       return settings;
   }

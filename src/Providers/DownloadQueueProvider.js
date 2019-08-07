@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { remote, shell } from 'electron';
-//import { HistoryContext } from '../../Providers/HistoryProvider';
+import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
@@ -92,7 +92,10 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
-    shell.openItem(infos.filePath)
+    console.log('autoImport', this.props.autoImport)
+    if (this.props.autoImport) {
+      shell.openItem(infos.filePath)
+    }
 
     /* TODO 
     * Sauvegarder l'id des beatmap telechargees
@@ -123,5 +126,5 @@ class DownloadQueueProvider extends Component {
   }
 }
 
-
-export default DownloadQueueProvider;
+const mapStateToProps = ({settings}) => ({autoImport: settings.userPreferences.autoImport})
+export default connect(mapStateToProps)(DownloadQueueProvider);

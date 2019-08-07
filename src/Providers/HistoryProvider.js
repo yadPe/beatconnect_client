@@ -77,7 +77,7 @@ class HistoryProvider extends Component {
 
   _writeHistory = () => {
     const { history } = this.state
-    outputJSON(this.path, history)
+    outputJSON(this.path, {...history})
       .then(() => console.log('History saved!'))
       .catch(console.error)
   }

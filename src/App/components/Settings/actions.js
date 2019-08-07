@@ -14,3 +14,5 @@ export const setPrefix = payload => store.dispatch({type: 'PREFIX', payload});
 
 export const setAutoBeat = payload => store.dispatch({type: 'AUTOBEAT', payload});
 
+export const setAutoImport = payload => store.dispatch({type: 'AUTOIMPORT', payload});
+

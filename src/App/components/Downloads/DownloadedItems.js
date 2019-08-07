@@ -13,7 +13,7 @@ const DownloadedItems = ({ theme }) => {
   items.sort((a, b) => b.props.date - a.props.date);
   return (
     <div className='downloadMenu DownloadsItem'>
-      {items}
+      {items.length > 0 ? items : 'The beatmaps you download will go here'}
     </div>
   );
 }

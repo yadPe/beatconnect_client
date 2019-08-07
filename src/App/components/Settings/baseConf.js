@@ -4,6 +4,7 @@ module.exports = {
     targetServer: 'osuMain',
     prefix: '!',
     autoBeat: true,
+    autoImport: true,
     irc: {
       server: 'irc.ppy.sh',
       port: 6667,
