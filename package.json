@@ -1,7 +1,9 @@
 {
-  "name": "beatconnect_irc_bot",
+  "name": "Beatconnect Client",
   "version": "0.1.3",
   "description": "Beatconnect power for osu irc",
+  "author": "yadpe <petitot.py@gmail.com>",
+  "license": "GPL-3.0",
   "main": "./public/electron.js",
   "homepage": "./",
   "scripts": {
@@ -10,6 +12,7 @@
     "test": "node scripts/test.js",
     "go": "electron .",
     "dist": "npm run build && npx electron-builder build",
+    "gh-publish": "npm run build && npx electron-builder build -p",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   },
   "eslintConfig": {
@@ -19,8 +22,6 @@
     "type": "git",
     "url": "git+https://github.com/yadPe/beatconnect_client.git"
   },
-  "author": "yadpe",
-  "license": "GPL-3.0",
   "engines": {
     "node": ">=8.11"
   },
@@ -58,7 +59,8 @@
       "target": [
         "AppImage",
         "deb"
-      ]
+      ],
+      "icon": "public/icon.png"
     },
     "win": {
       "target": "NSIS",
@@ -81,6 +83,7 @@
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
     "electron-download-manager": "^2.1.2",
+    "electron-is-dev": "^1.1.0",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
@@ -134,7 +137,6 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "devDependencies": {
-    "electron-is-dev": "^1.1.0",
     "electron-builder": "^20.44.4",
     "nodemon": "^1.19.1",
     "electron": "^5.0.5",
