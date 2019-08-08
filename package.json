@@ -1,5 +1,5 @@
 {
-  "name": "Beatconnect Client",
+  "name": "beatconnect_client",
   "version": "0.1.3",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
@@ -30,6 +30,7 @@
   },
   "build": {
     "appId": "io.beatconnect.bot",
+    "productName": "Beatconnect Client",
     "files": [
       "build/**/*",
       "node_modules/**/*"
