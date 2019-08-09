@@ -1,16 +1,17 @@
-const electron = require('electron');
-const { app } = electron;
+const { app } = require('electron');
+// const { app } = electron;
 const Window = require('./Window');
 const path = require('path')
 const url = require('url')
 const isDev = require('electron-is-dev');
-require('update-electron-app')({
-  repo: 'yadPe/beatconnect_client.git',
-  logger: require('electron-log')
-})
-
+const { autoUpdater } = require('electron-updater');
 const DownloadManager = require("electron-download-manager");
+// require('update-electron-app')({
+//   repo: 'yadPe/beatconnect_client.git',
+//   logger: require('electron-log')
+// })
 
+autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"
 });

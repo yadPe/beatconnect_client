@@ -15,7 +15,7 @@
     "dist": "npm run build && npx npx electron-builder --win --linux --ia32",
     "dist-win": "npm run build && npx electron-builder build --win --ia32",
     "dist-linux": "npm run build && npx electron-builder build --linux --ia32",
-    "gh-publish": "npm run build && npx electron-builder build -p onTag",
+    "gh-publish": "npm run build && npx electron-builder build --win --linux --ia32 -p always",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   },
   "eslintConfig": {
@@ -33,6 +33,13 @@
   },
   "build": {
     "appId": "io.beatconnect.client",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "yadPe",
+        "repo": "beatconnect_client"
+      }
+    ],
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -89,6 +96,7 @@
     "electron-download-manager": "^2.1.2",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.7",
+    "electron-updater": "^4.1.2",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
