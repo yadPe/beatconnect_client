@@ -1,4 +1,5 @@
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('electron');
+const path = require('path');
 
 // default window settings
 const defaultProps = {
