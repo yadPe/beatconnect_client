@@ -4,7 +4,10 @@ const Window = require('./Window');
 const path = require('path')
 const url = require('url')
 const isDev = require('electron-is-dev');
-require('update-electron-app')()
+require('update-electron-app')({
+  repo: 'yadPe/beatconnect_client.git',
+  logger: require('electron-log')
+})
 
 const DownloadManager = require("electron-download-manager");
 

@@ -2,6 +2,7 @@ const { BrowserWindow } = require('electron')
 
 // default window settings
 const defaultProps = {
+  icon: path.join(__dirname, '/icon.png'),
   width: 1200,
   height: 750,
   minHeight: 350,
