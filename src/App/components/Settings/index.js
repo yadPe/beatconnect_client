@@ -8,6 +8,7 @@ import { Button } from 'react-desktop/windows';
 import ConfLoader from './ConfLoader';
 import { updateVolume } from './actions';
 import Configuration from './Configuration';
+import Theme from './Theme';
 
 const Settings = ({ userPreferences, theme }) => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const Settings = ({ userPreferences, theme }) => {
       <Volume value={userPreferences.volume} onChange={(e) => updateVolume(e.target.value)} />
       <History theme={theme}/>
       <Configuration theme={theme} values={userPreferences} />
+      <Theme theme={theme} />
       <div>{`Beatconnect client v${remote.app.getVersion()}`}</div>
     </div>
   );
