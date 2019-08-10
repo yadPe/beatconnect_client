@@ -19,7 +19,7 @@ The official client for [Beatconnect](https://beatconnect.io) which is a mirror 
 
 - You can launch an <b>IRC bot</b> from the app that will make all [available commands](./docs/commands.md) usable to peoples pming you and from all the matches chats that the bot is connected to. (how to connect docs soon..)</br>
 Comming with the <b>autobeat</b> feature that send the Beatconnect download link in the #multuplayer channel each time host change the beatmap
-<img src="./docs/m3krbwj3sfdGM.gif">
+<img src="./docs/m3krbwj3sfdG480M.gif">
 
 - Manage connected matchs
 <img src="https://cdn.discordapp.com/attachments/414474227710820352/609813246198939687/unknown.png">
