@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app, dialog } = require('electron');
 // const { app } = electron;
 const Window = require('./Window');
 const path = require('path')
@@ -11,6 +11,9 @@ const DownloadManager = require("electron-download-manager");
 //   logger: require('electron-log')
 // })
 
+autoUpdater.on('error', (error) => {
+  dialog.showErrorBox('Error: ', error == null ? "unknown" : (error.stack || error).toString())
+})
 autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"
