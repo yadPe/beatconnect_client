@@ -1,6 +1,6 @@
 import React, { useEffect, createRef } from 'react'
 import start from '../../../Bot';
-import { ProgressCircle, Button, Text } from 'react-desktop/windows';
+import { ProgressCircle, Button } from 'react-desktop/windows';
 import { connect } from 'react-redux';
 
 const Start = ({ connected, theme, irc, osuApi }) => {
@@ -9,6 +9,7 @@ const Start = ({ connected, theme, irc, osuApi }) => {
 
   useEffect(() => {
     that.current.parentNode.style.padding = 0; // Dirty way to custom react-desktop component
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

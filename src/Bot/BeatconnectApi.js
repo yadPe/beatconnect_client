@@ -36,7 +36,7 @@ const getDlLink = (beatmapInfos, pretty, extra) => {
     '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'
   };
   if (extra) {
-    const { creator, approved, version, creator_id, bpm, max_combo, difficultyrating, diff_approach, mode } = extra;
+    const { creator, approved, version, creator_id, bpm, max_combo, diff_approach } = extra;
     return `[${status[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title || ''}  [${version || ''}]] by [https://osu.ppy.sh/u/${creator_id} ${creator || 'peppy'}] | BPM ${bpm || 0} | AR ${diff_approach || 0} ${max_combo ? '| Max combo: ' + max_combo : ''}`;
   }
   if (pretty) return `[https://beatconnect.io/b/${id}/${unique_id} ${artist} - ${title}]`;

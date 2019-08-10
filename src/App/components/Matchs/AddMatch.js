@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 const AddMatch = ({ bot, theme, errors, ircUsername }) => {
   const [ reqMatchId, setReqMatchId ] = useState('');
   const error = errors.filter(id => id === reqMatchId).length === 1
-  const test = /^[0-9]{4,10}$/g;
   return (
     <React.Fragment>
       <TextInput

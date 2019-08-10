@@ -1,26 +1,20 @@
-const electron = require('electron');
-const { app } = electron;
+const { app } = require('electron');
+const log = require('electron-log');
+const isDev = require('electron-is-dev');
+const { autoUpdater } = require('electron-updater');
+const DownloadManager = require("electron-download-manager");
 const Window = require('./Window');
 const path = require('path')
 const url = require('url')
-const isDev = require('electron-is-dev');
-require('update-electron-app')({
-  repo: 'yadPe/beatconnect_client.git',
-  logger: require('electron-log')
-})
 
-const DownloadManager = require("electron-download-manager");
 
+autoUpdater.on('error', (error) => {
+  log.warn(`Error: \n ${error == null ? "unknown" : (error.stack || error).toString()}`);
+});
+autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"
 });
-
-
-// https://codeburst.io/build-a-todo-app-with-electron-d6c61f58b55a
-// https://electronjs.org/docs/api/browser-window
-// https://www.freecodecamp.org/news/building-an-electron-application-with-create-react-app-97945861647c/
-// https://medium.com/@brockhoff/using-electron-with-react-the-basics-e93f9761f86f
-
 
 const main = () => {
   let mainWindow = null;

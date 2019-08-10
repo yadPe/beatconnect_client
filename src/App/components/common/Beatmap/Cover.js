@@ -8,6 +8,7 @@ const Cover = ({ url, width, height }) => {
   useEffect(() => {
     isLoaded(false)
     cover.setAttribute('src', url);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
   
   const style = {

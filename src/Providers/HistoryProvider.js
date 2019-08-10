@@ -1,7 +1,7 @@
 /* Provides download history from {localUser}/Documents/Beatconnect/history.json */
 import React, { Component } from 'react';
-import { remote, shell } from 'electron';
-import { outputJSON, readJson, ensureDir } from 'fs-extra';
+import { remote } from 'electron';
+import { outputJSON, readJson } from 'fs-extra';
 
 export const HistoryContext = React.createContext();
 
@@ -27,17 +27,6 @@ class HistoryProvider extends Component {
       this._writeHistory()
     }
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log('update')
-  //   const { history } = this.state;
-  //   const prevHistory = prevState.history;
-  //   console.log('update', history, 'prev', prevHistory)
-  //   if (JSON.stringify(history) !== JSON.stringify(prevHistory)){
-  //     console.log('updateDIFF')
-  //     this._writeHistory()
-  //   }
-  // }
 
   save = (item) => {
     const { id, name } = item;

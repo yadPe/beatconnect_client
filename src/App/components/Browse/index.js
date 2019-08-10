@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import test from '../testSearchResult'
 import Beatmap from '../common/Beatmap'
 import Search from './Search';
 import VizSensor from 'react-visibility-sensor';

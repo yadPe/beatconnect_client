@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useRef } from 'react';
 import Cover from './Cover'
 import { Button, Text } from 'react-desktop/windows';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn'
@@ -18,14 +18,8 @@ const Beatmap = ({ theme, beatmap, width }) => {
   const [brightness, setBrightness] = useState(0.95)
   const [isPlaying, setIsPLaying] = useState(false)
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
-  // const playpreview = null;
-  // const downloadBeatmap = null;
-
-  let bpmFlash = null;
-
-  // const handleClick = () => {
-
-  // }
+  
+  const bpmFlash = useRef(null);
 
   const style = isPlaying ? {
     width: width || '80%',
@@ -46,12 +40,13 @@ const Beatmap = ({ theme, beatmap, width }) => {
 
   useEffect(() => {
     if (isPlaying) {
-      bpmFlash = setInterval(() => {
+      bpmFlash.current = setInterval(() => {
         setBrightness(1.08)
         setTimeout(() => setBrightness(0.95), (60000 / beatmap.bpm) / 2.5)
       }, 60000 / beatmap.bpm)
     }
     return () => bpmFlash ? clearInterval(bpmFlash) : undefined
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
   useEffect(() => {
