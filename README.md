@@ -1,13 +1,39 @@
 # Beatconnect client
+The official client for [Beatconnect](https://beatconnect.io) which is a mirror for [Osu!](https://osu.ppy.sh/home) Beatmaps
 
-This App gives you access to all the beatmaps mirrored on [Beatconnect](https://beatconnect.io). You can downloads multiple beatmaps that will be automaticaly imported into osu! </br>
-Plus, you can launch an IRC bot from the app that will make all [available commands](./docs/commands.md) usable to peoples pming you and from all the matches chats that the bot is connected to. (how to connect docs soon..)
+**Table of contents:**
 
+<!-- toc -->
+
+- [Quick Tour](#quick-tour)
+- [Technology](#technology)
+- [Development](#development)
+- [Download](#download)
+- [License](#license)
+
+<!-- tocstop -->
+
+## Quick Tour
+- This App gives you access to all the beatmaps mirrored on [Beatconnect](https://beatconnect.io). You can downloads multiple beatmaps that will be automaticaly imported into osu! </br>
 <img src="https://cdn.discordapp.com/attachments/414474227710820352/609783969952694283/unknown.png">
 
-This is still under development.
+- You can launch an <b>IRC bot</b> from the app that will make all [available commands](./docs/commands.md) usable to peoples pming you and from all the matches chats that the bot is connected to. (how to connect docs soon..)</br>
+Comming with the <b>autobeat</b> feature that send the Beatconnect download link in the #multuplayer channel each time host change the beatmap
+<img src="./docs/m3krbwj3sfdGM.gif">
 
-## Getting Started
+- Manage connected matchs
+<img src="https://cdn.discordapp.com/attachments/414474227710820352/609813246198939687/unknown.png">
+
+## Technology
+
+- The application is powered by **[Electron](https://electronjs.org),
+  with [React](https://facebook.github.io/react/),
+  [Redux](http://redux.js.org/),
+  and [NodeJs](https://nodejs.org)**
+
+- The bot uses a slightly modified version of **[node-irc](https://github.com/yadPe/node-irc) to connect to game IRC.**
+
+## Development
 
 These instructions will get you a copy of the project up and running on your local machine.
 
@@ -33,6 +59,9 @@ $ npm run build
 # Run electron
 $ electron .
 ```
+
+## Download 
+- Latest release available [here](https://github.com/yadPe/beatconnect_client/releases/latest)
 
 ## License
 
