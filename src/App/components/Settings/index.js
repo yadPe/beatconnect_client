@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
+import { remote } from 'electron';
 import store from '../../../store';
 import Volume from './Volume'
 import History from './History';
@@ -18,6 +19,7 @@ const Settings = ({ userPreferences, theme }) => {
       <Volume value={userPreferences.volume} onChange={(e) => updateVolume(e.target.value)} />
       <History theme={theme}/>
       <Configuration theme={theme} values={userPreferences} />
+      <div>{`Beatconnect client v${remote.app.getVersion()}`}</div>
     </div>
   );
 }
