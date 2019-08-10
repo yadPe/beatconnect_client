@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { remote } from 'electron';
-import store from '../../../store';
 import Volume from './Volume'
 import History from './History';
-import { Button } from 'react-desktop/windows';
 import ConfLoader from './ConfLoader';
 import { updateVolume } from './actions';
 import Configuration from './Configuration';

@@ -1,6 +1,6 @@
 // Affiche la liste des matchs si aucun match n'est selectionné 
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import AddMatch from './AddMatch'
 import MatchListItem from './MatchListItem'
 

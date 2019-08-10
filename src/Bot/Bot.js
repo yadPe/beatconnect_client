@@ -7,7 +7,7 @@ const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
 
 class Bot {
   constructor(configFile) {
-    this.regExp = [/.*?((?:\/[\w\.\-]+)+)/i, /.*?(?:\/[\w\.\-]+)+.*?(?:\/[\w\.\-]+)+.*?((?:\/[\w\.\-]+)+)/i];
+    this.regExps = [/.*?(?:\/[\w.-]+)+.*?(?:\/[\w.-]+)+.*?((?:\/[\w.-]+)+)/i];
     this.conf = configFile;
     this.targetServer = this.conf.userPreferences.targetServer;
     this.beatconnect = new BeatconnectApi(this.conf.beatconnectAPI.key);
@@ -44,7 +44,7 @@ class Bot {
 
   newMatch(id, matchName, ircRoom, creator, playerList) {
     console.log(`New match created : ${id} ${matchName} ${ircRoom} ${creator}`);
-    const alreadyExist = false;
+    let alreadyExist = false;
     this.matchs.map(match => {
       if (match.id === id)
         alreadyExist = true
@@ -102,12 +102,12 @@ class Bot {
   onMpMessage(matchId, msg) {
     this.matchs.map(match => {
       if (match.id === matchId) {
-        const { rawMsg, from, channel, text } = msg;
+        const { rawMsg } = msg;
         const { rawCommand, args } = rawMsg;
 
         if (rawCommand === 'PRIVMSG' && args[0].includes('mp')) {
           if (args[1].includes('Beatmap changed to')) {
-            const beatmapId = this.regExp[1].exec(args[1])[1].split('/').pop();
+            const beatmapId = this.regExps[0].exec(args[1])[1].split('/').pop();
             this.newBeatmap(beatmapId, matchId);
           } else if (args[1].includes('joined in')) {
             const player = args[1].split(' ').shift();
@@ -170,7 +170,7 @@ class Bot {
         if (!fromMp) { this.irc.pm(from, `You need to be in a multiplayer match to use this`); break; }
         const matchId = fromMp.split('_').pop();
         this.matchs.map(match => {
-          if (match.id = matchId)
+          if (match.id === matchId)
             this.sendMapById(match.beatmapset_id, fromMp, match.fullBeatmapData);
         });
         break;

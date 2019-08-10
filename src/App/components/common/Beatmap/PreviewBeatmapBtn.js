@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Text } from 'react-desktop/windows';
+import { Button } from 'react-desktop/windows';
 import renderIcons from '../../../utils/renderIcons'
 import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 

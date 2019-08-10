@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 import DownloadsItem from './Item';
 import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 

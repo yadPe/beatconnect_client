@@ -176,5 +176,7 @@ export default function(name, style) {
               L311.1,311.1z"/>
         </svg>
       );
+      default: 
+        return null
     }
   }

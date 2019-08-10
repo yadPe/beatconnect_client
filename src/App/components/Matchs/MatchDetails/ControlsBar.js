@@ -1,8 +1,7 @@
 import React from 'react'
 import injectSheet from 'react-jss';
-import { Button, Text } from 'react-desktop/windows';
+import { Button } from 'react-desktop/windows';
 import renderIcons from '../../../utils/renderIcons';
-import store from '../../../../store';
 
 const styles = {
   ControlsBar: {
@@ -46,7 +45,6 @@ const ControlsBar = ({ classes, theme, match, close }) => {
           push
           color={theme.color}
           onClick={match.toggleAutoBeat}
-        // hidden={!beatmap.title}
         >
           {`AutoBeat: ${match.autoBeat ? ' on' : 'off'}`}
         </Button>

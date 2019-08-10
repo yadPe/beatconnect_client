@@ -1,4 +1,4 @@
-import React, { useContext, memo, useCallback } from 'react'
+import React, { useContext } from 'react'
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import DownloadsItem from './Item';
 

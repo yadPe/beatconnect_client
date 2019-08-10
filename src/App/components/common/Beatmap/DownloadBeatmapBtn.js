@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import renderIcons from '../../../utils/renderIcons'
-import { ProgressCircle, Button, Text } from 'react-desktop/windows';
+import { ProgressCircle, Button } from 'react-desktop/windows';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider'
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 

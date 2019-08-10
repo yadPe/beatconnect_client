@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { NavPane, NavPaneItem, Text } from 'react-desktop/windows';
+import { NavPane, NavPaneItem } from 'react-desktop/windows';
 import Start from './Start'
 import Matchs from './Matchs'
 import Browse from './Browse'
