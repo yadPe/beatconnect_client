@@ -1,11 +1,15 @@
-# Available commads 
+# Bot commands 
 
-## All commads starts with a prefix that can be choosed in the config file (! by default)
+**!get** `beatmap ID or beatmapset ID`: Return the beatconnect download link for the corresponding beatmap.
 
-**createRoom** : Create a multiplayer room with the specified name and send you an invite once the room is ready
+**!search** `query`: Perform a search as on beatconnect’s website and return the 5 first ranked occurrences.
 
-**search** : Search for beatmaps and return the 5 first occurences
+**!beat** : Return beatconnect dl link of the current beatmap in a multiplayer match.
 
-**get** : Return the download link for the requested beatmapId
+**!createRoom** `room name`: Create a multiplayer room with the specified name and send you an invite once the room is ready.
 
-**infos** : Prints all available commands
+**!join** `match ID` : Request the bot to connect to the specified match (Bot must be added as match referee before with `!mp addref`).
+
+**!infos** : Return a list of all available commands.
+
+These examples use the `!` prefix you can change it in the settings section of the app.
