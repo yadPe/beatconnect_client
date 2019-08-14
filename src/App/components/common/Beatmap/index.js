@@ -22,11 +22,11 @@ const Beatmap = ({ theme, beatmap, width }) => {
   const bpmFlash = useRef(null);
 
   const style = isPlaying ? {
-    width: width || '80%',
+    width: width || '',
     filter: `brightness(${brightness})`,
     transitionDuration: `${50}ms`
   } : {
-    width: width || '80%',
+    width: width || '',
   }
 
   const modePillsStyle = (mode) => ({
@@ -36,7 +36,7 @@ const Beatmap = ({ theme, beatmap, width }) => {
     margin: 'auto 0.2vw',
     backgroundSize: 'contain',
     filter: 'brightness(0.85)',
-  })
+  });
 
   useEffect(() => {
     if (isPlaying) {
@@ -59,7 +59,7 @@ const Beatmap = ({ theme, beatmap, width }) => {
         beatmap
           ?
           <React.Fragment>
-            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} />
+            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} height={130} />
             <Text color='#fff'>{title}</Text>
             <Text color='#fff'>{artist}</Text>
             {version ? <Text color='#fff'>{`[${version || ''}]`}</Text> : null}

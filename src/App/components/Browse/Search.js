@@ -3,6 +3,7 @@ import { Button, Text, ProgressCircle } from 'react-desktop/windows';
 import TextInput from '../common/TextInput'
 import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';
+import renderIcons from '../../utils/renderIcons';
 
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
@@ -25,6 +26,23 @@ const Search = ({ theme, lastSearch }) => {
 
   return (
     <React.Fragment>
+      <Button
+        className='btn'
+        push
+        color={theme.color}
+        onClick={() => askBeatconnect(search, setIsLoading)}
+      >
+        {
+          isLoading ?
+            <ProgressCircle
+              className='ProgressCircle'
+              color='#fff'
+              size={25}
+            /> :
+            renderIcons('Search', theme.style)
+            // <Text color='fff'>Search</Text>
+        }
+      </Button>
       <DropDown
         options={availableModes}
         value={search.mode}
@@ -42,22 +60,6 @@ const Search = ({ theme, lastSearch }) => {
         onKeyDown={searchOnEnter}
         onBlur={() => askBeatconnect(search, setIsLoading)}
       />
-      <Button
-        className='btn'
-        push
-        color={theme.color}
-        onClick={() => askBeatconnect(search, setIsLoading)}
-      >
-        {
-          isLoading ?
-            <ProgressCircle
-              className='ProgressCircle'
-              color='#fff'
-              size={25}
-            /> :
-            <Text color='fff'>Search</Text>
-        }
-      </Button>
     </React.Fragment>
   );
 }

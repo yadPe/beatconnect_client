@@ -25,6 +25,7 @@ const DownloadedItems = ({ theme, window }) => {
         height={window.height - 79}
         itemCount={items.length}
         itemSize={130}
+        overscanCount={2}
         width={'100%'}
         className={'downloadMenu'}
       >
