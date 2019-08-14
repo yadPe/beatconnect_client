@@ -1,8 +1,11 @@
+import './App/resize';
+
 const initialState = {
   connected: false,
   mpMatchs: [],
   bot: {},
   BeatconnectApi: {},
+  window: {width: window.innerWidth, height: window.innerHeight},
   searchResults: {
     search: { query: '', mode: 'all', status: 'ranked' },
     beatmaps: []
@@ -33,6 +36,9 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       return { ...state, connected: false };
     case 'SEARCH_RESULTS':
       return { ...state, searchResults };
+    case 'RESIZE':
+      console.log('resize', payload)
+      return { ...state, window: payload };
     case 'ERROR':
       const {errors} = state;
       errors.push(payload)
