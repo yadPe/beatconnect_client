@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const Cover = ({ url, width, height }) => {
+const Cover = ({ url, width, height, paddingBottom }) => {
   const [loaded, isLoaded] = useState(false);
   const cover = new Image()
   cover.onload = () => isLoaded(true)
@@ -17,7 +17,7 @@ const Cover = ({ url, width, height }) => {
     transition: '1s all',
     width: width || '100%',
     height: height || null,
-    paddingBottom: '15%',
+    paddingBottom: paddingBottom ? '15%' : 0,
     // margin: 'auto 0 auto 10px',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',

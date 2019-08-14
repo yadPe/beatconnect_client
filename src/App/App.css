@@ -156,10 +156,22 @@ svg {
     background: #00965f;
 }
 
-.downloadMenu{
+.downloadMenu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.downloadMenu::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+.downloadMenu::-webkit-scrollbar-thumb {
+    background: #00965f;
+}
+
+/* .downloadMenu{
     width: 80%;
     margin: 0 auto;
-}
+} */
 
 /* p{
     font-size: 50%;
