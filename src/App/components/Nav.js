@@ -28,7 +28,12 @@ const Nav = ({ mpMatchs, theme, connected, bot }) => {
   );
 
   return (
-    <NavPane openLength={150} push color={theme.color} theme={theme.style}>
+    <NavPane 
+    paneExpandedLength={150} 
+    // defaultIsPaneExpanded={false}
+    push 
+    color={theme.color} 
+    theme={theme.style}>
       {renderItem('Start', <Start connected={connected} theme={theme}/>)}
       {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
       {renderItem('Browse', <Browse theme={theme} />)}

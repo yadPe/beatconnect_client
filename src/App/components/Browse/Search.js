@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, ProgressCircle } from 'react-desktop/windows';
+import { Button, ProgressCircle } from 'react-desktop/windows';
 import TextInput from '../common/TextInput'
 import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';

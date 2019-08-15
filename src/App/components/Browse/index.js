@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import Beatmap from '../common/Beatmap'
 import Search from './Search';
-import VizSensor from 'react-visibility-sensor';
 
 const styles = {
   list: {
