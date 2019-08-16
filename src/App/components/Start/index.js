@@ -2,6 +2,7 @@ import React, { useEffect, createRef } from 'react'
 import start from '../../../Bot';
 import { ProgressCircle, Button } from 'react-desktop/windows';
 import { connect } from 'react-redux';
+import Toggle from '../common/Toggle';
 
 const Start = ({ connected, theme, irc, osuApi }) => {
   const that = createRef();

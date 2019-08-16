@@ -2,6 +2,7 @@ import React from 'react'
 import TextInput from '../common/TextInput';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setAutoBeat, setAutoImport } from './actions';
 import injectSheet from 'react-jss';
+import Toggle from '../common/Toggle';
 
 const styles = {
   Configuration: {
@@ -44,8 +45,8 @@ const Configuration = ({ classes, theme, values }) => {
         return (
           <div key={item.name}>
             <p style={{ fontSize: '50%' }}>{item.name}</p>
-            <input
-              type="checkbox"
+            <Toggle
+              theme={theme}
               checked={item.value}
               onChange={e => item.action(e.target.checked)}
             />
