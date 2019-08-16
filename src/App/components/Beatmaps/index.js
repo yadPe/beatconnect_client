@@ -13,7 +13,7 @@ const styles = {
   }
 };
 
-const Browse = ({ theme, searchResults, classes }) => {
+const Beatmaps = ({ theme, searchResults, classes }) => {
   const { search, beatmaps } = searchResults
   const that = React.createRef();
 
@@ -36,7 +36,7 @@ const Browse = ({ theme, searchResults, classes }) => {
   }
 
   return (
-    <div className='menuContainer Browse' ref={that} style={{ transition: 'background 0ms' }}>
+    <div className='menuContainer Beatmaps' ref={that} style={{ transition: 'background 0ms' }}>
       <Search theme={theme} lastSearch={search} />
       <div className={classes.list}>
         {renderBeatmaps()}
@@ -46,4 +46,4 @@ const Browse = ({ theme, searchResults, classes }) => {
 }
 
 const mapStateToProps = ({ main }) => ({ searchResults: main.searchResults })
-export default connect(mapStateToProps)(injectSheet(styles)(Browse));
+export default connect(mapStateToProps)(injectSheet(styles)(Beatmaps));

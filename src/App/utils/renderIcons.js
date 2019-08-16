@@ -166,7 +166,7 @@ export default function(name, style) {
             s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/>
         </svg>
       );
-    case 'Browse':
+    case 'Beatmaps':
       return (
         <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 510 510">
           <path 
