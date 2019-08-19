@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
+//const window = remote.getCurrentWindow();
+
 class DownloadQueueProvider extends Component {
   //static contextType = HistoryContext;
   constructor(props) {
@@ -114,6 +116,7 @@ class DownloadQueueProvider extends Component {
     currentDownload.item = item;
     currentDownload.progress = progress;
     console.log(currentDownload, 'progess', progress)
+    remote.getCurrentWindow().setProgressBar(progress.progress / 100)
     this.setState({ currentDownload })
   }
 
