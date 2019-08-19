@@ -14,6 +14,7 @@ const initialState = {
   downloadQueue: [],
   theme: {
     style: 'dark',
+    dark: true,
     primary: '#121212',
     secondary: '#2a2a2a',
     warning: '#ed2828',
