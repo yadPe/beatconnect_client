@@ -30,7 +30,7 @@ const Matchs = ({ matchs, theme, bot }) => {
   // }, [matchs])
 
   return (
-    <div className={'menuContainer Matchs'} style={{ transition: 'background 0ms' }}>
+    <div className={'Matchs'} style={{ transition: 'background 0ms' }}>
       {selectedMatch || renderMatchsList(matchs, bot, theme, setSelectedMatch)}
     </div>
   )

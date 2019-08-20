@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { NavPane, NavPaneItem } from 'react-desktop/windows';
-import Start from './Start'
-import Matchs from './Matchs'
+import Bot from './Bot'
 import Beatmaps from './Beatmaps'
 import Settings from './Settings'
 import Downloads from './Downloads';
@@ -13,7 +11,7 @@ import store from '../../store';
 
 
 const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
-  const [selected, setSelected] = useState('Start');
+  const [selected, setSelected] = useState('Beatmaps');
 
   const renderItem = (title, content) => (
     <NavPanelItem
@@ -38,8 +36,7 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
     theme={theme}
     //color={theme.color} 
     dark={theme.style}>
-      {renderItem('Start', <Start connected={connected} theme={theme}/>)}
-      {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
+      {renderItem('Bot', <Bot connected={connected} matchs={mpMatchs} bot={bot} theme={theme}/>)}
       {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
       {renderItem('Settings', <Settings theme={theme}/>)}

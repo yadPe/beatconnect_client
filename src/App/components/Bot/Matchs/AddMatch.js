@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Text } from 'react-desktop/windows';
-import TextInput from '../common/TextInput';
+import TextInput from '../../common/TextInput';
 import { connect } from 'react-redux';
 
 const AddMatch = ({ bot, theme, errors, ircUsername }) => {

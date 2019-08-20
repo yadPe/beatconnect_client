@@ -1,5 +1,5 @@
 import React from 'react'
-import Beatmap from '../../common/Beatmap'
+import Beatmap from '../../../common/Beatmap'
 import PlayersList from './PlayersList'
 import ControlsBar from './ControlsBar';
 

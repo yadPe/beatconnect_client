@@ -8,13 +8,8 @@ const Start = ({ connected, theme, irc, osuApi }) => {
   const that = createRef();
   const notReady = (!osuApi || !irc.username || !irc.password)
 
-  useEffect(() => {
-    that.current.parentNode.style.padding = 0; // Dirty way to custom react-desktop component
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
-    <div className={'menuContainer Start'} style={{ transition: 'background 0ms', textAlign: 'center' }} ref={that}>
+    <div className={'Start'} style={{ transition: 'background 0ms', textAlign: 'center' }} ref={that}>
       <Button
         className='btn start'
         push
