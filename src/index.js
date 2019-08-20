@@ -8,17 +8,20 @@ import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
 import DownloadQueueProvider from './Providers/DownloadQueueProvider'
 import AudioPlayerProvider from './Providers/AudioPlayerProvider';
+import ErrorBoundary from './ErrorBoundary';
 
 ReactDOM.render(
-  <HistoryProvider>
-    <Provider store={store}>
-      <DownloadQueueProvider>
-        <AudioPlayerProvider>
-          <App />
-        </AudioPlayerProvider>
-      </DownloadQueueProvider>
-    </Provider>
-  </HistoryProvider>
+  <ErrorBoundary>
+    <HistoryProvider>
+      <Provider store={store}>
+        <DownloadQueueProvider>
+          <AudioPlayerProvider>
+            <App />
+          </AudioPlayerProvider>
+        </DownloadQueueProvider>
+      </Provider>
+    </HistoryProvider>
+  </ErrorBoundary>
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
