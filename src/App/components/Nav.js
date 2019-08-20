@@ -9,9 +9,10 @@ import Downloads from './Downloads';
 import renderIcon from '../utils/renderIcons';
 import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
+import store from '../../store';
 
 
-const Nav = ({ mpMatchs, theme, connected, bot }) => {
+const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
   const [selected, setSelected] = useState('Start');
 
   const renderItem = (title, content) => (
@@ -31,7 +32,8 @@ const Nav = ({ mpMatchs, theme, connected, bot }) => {
   return (
     <NavPanel
     paneExpandedLength={150} 
-    // defaultIsPaneExpanded={false}
+    defaultIsPanelExpanded={sidePanelExpended}
+    onExpended={(expended) => store.dispatch({type: 'SIDEPANELEXPENDED', payload: expended})}
     push 
     theme={theme}
     //color={theme.color} 
@@ -45,5 +47,5 @@ const Nav = ({ mpMatchs, theme, connected, bot }) => {
   );
 }
 
-const mapStateToProps = ({ main }) => ({ ...main });
+const mapStateToProps = ({ main, settings }) => ({ ...main, sidePanelExpended: settings.userPreferences.sidePanelExpended });
 export default connect(mapStateToProps)(Nav);

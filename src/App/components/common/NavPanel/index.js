@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import SidePanel from './SidePanel';
+import store from '../../../../store';
 
 const styles = {
   NavPanel: {
@@ -44,12 +45,12 @@ const styles = {
   }
 };
 
-const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultIsPanelExpanded, dark, color, children, theme }) => {
+const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultIsPanelExpanded, dark, color, children, theme, onExpended }) => {
   const [isExpended, setIsExpended] = useState(defaultIsPanelExpanded)
   console.log(children)
   return (
     <div className={classes.NavPanel}>
-      <SidePanel items={children} theme={theme} expended={isExpended} setExpended={setIsExpended} defaultIsPanelExpanded={defaultIsPanelExpanded} panelCompactedLength={panelCompactedLength} panelExpandedLength={panelExpandedLength} />
+      <SidePanel items={children} theme={theme} expended={isExpended} setExpended={(expended) => {setIsExpended(expended); onExpended(expended)}} defaultIsPanelExpanded={defaultIsPanelExpanded} panelCompactedLength={panelCompactedLength} panelExpandedLength={panelExpandedLength} />
       <div className={classes.contentContainer}>
         <div className={classes.contentSubContainer}>
           <div>

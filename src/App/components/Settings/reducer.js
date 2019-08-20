@@ -27,6 +27,10 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
     case 'AUTOIMPORT':
       userPreferences = { ...userPreferences, autoImport: payload }
       return { ...settings, userPreferences: {...userPreferences} }
+    case 'SIDEPANELEXPENDED':
+      console.log('sdsd')
+      userPreferences = { ...userPreferences, sidePanelExpended: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
     default:
       return settings;
   }
