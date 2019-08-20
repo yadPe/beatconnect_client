@@ -13,6 +13,9 @@ const styles = {
     },
     '&:hover .indicator': {
       height: props => props.selected ? '48px' : '24px'
+    },
+    '&:hover .tooltiptext': {
+      visibility: props => props.expended ? 'hidden' : 'visible',
     }
 
   },
@@ -43,16 +46,30 @@ const styles = {
   },
   title: {
     visibility: props => props.expended ? 'visible' : 'hidden'
-  }
+  },
+  tooltiptext: {
+    visibility: 'hidden',
+    width: '120px',
+    backgroundColor: '#2a2a2a',
+    color: '#fff',
+    textAlign: 'center',
+    padding: '5px 0',
+    borderRadius: '6px',
+    position: 'absolute',
+    left: '105%',
+    zIndex: 1,
+  },
 };
-const Tab = ({classes, selected, icon, title, onSelect}) => {
-  console.log(selected)    
+
+const Tab = ({ classes, selected, icon, title, onSelect }) => {
+  console.log(selected)
   return (
     <a
       data-radium="true"
       className={classes.a}
       onClick={onSelect}
     >
+      <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>
       <span
         data-radium="true"
         className={classes.span}

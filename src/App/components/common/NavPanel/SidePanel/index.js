@@ -11,7 +11,7 @@ const styles = {
     flexGrow: 0,
     flexShrink: 0,
     flexDirection: 'column',
-    overflow: 'hidden',
+    overflow: 'visible',
     width: props => props.expended ? props.panelExpandedLength : props.panelCompactedLength,
   },
   head: {
