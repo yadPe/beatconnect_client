@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import Beatmap from '../common/Beatmap'
 import Search from './Search';
+import NavPanelItem from '../common/NavPanel/Header';
+import renderIcons from '../../utils/renderIcons';
 
 const styles = {
   list: {
@@ -15,7 +17,6 @@ const styles = {
 
 const Beatmaps = ({ theme, searchResults, classes }) => {
   const { search, beatmaps } = searchResults
-  const that = React.createRef();
 
   // const renderBeatmaps = () => {
   //   return beatmaps.map((beatmap, i) => {
@@ -36,12 +37,22 @@ const Beatmaps = ({ theme, searchResults, classes }) => {
   }
 
   return (
-    <div className='menuContainer Beatmaps' ref={that} style={{ transition: 'background 0ms' }}>
-      <Search theme={theme} lastSearch={search} />
-      <div className={classes.list}>
-        {renderBeatmaps()}
+    // <NavPanelItem
+    //   title={'Beatmaps'}
+    //   icon={renderIcons('Beatmaps', theme.style)}
+    //   theme={theme}
+    //   background={theme.primary}
+    //   selected={selected === title}
+    //   onSelect={() => setSelected(title)}
+    //   padding="10px 20px"
+    // >
+      <div className='Beatmaps' >
+        <Search theme={theme} lastSearch={search} />
+        <div className={classes.list}>
+          {renderBeatmaps()}
+        </div>
       </div>
-    </div>
+    // </NavPanelItem>
   );
 }
 
