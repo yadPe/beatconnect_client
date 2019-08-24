@@ -75,7 +75,6 @@ const styles = {
 
 const VolumeControl = ({ classes, selected, icon, title, onSelect, theme }) => {
   const [volumeValue, setVolumeValue] = useState()
-  console.log('volumeValue', volumeValue)
   const updateIcon = () => {
     if (volumeValue < 1) return renderIcons('VolumeMute', theme.style)
     if (volumeValue < 35) return renderIcons('VolumeLow', theme.style)
