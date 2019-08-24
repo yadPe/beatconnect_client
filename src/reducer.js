@@ -38,7 +38,6 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
     case 'SEARCH_RESULTS':
       return { ...state, searchResults };
     case 'RESIZE':
-      console.log('resize', payload)
       return { ...state, window: payload };
     case 'ERROR':
       const {errors} = state;

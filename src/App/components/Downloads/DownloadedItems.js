@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import DownloadsItem from './Item';
 
 const DownloadedItems = ({ theme, window }) => {
-  console.log('DownloadedItems updated')
   const { history } = useContext(HistoryContext);
   const items = [];
   for (let item in history) {

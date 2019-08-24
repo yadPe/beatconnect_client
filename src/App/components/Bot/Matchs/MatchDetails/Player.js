@@ -26,7 +26,6 @@ const styles = {
 };
 
 const Player = ({ classes, theme, playerInfos, match }) => {
-  console.log(playerInfos, match.host)
   return (
     <ul className={classes.Player}>
       <li className={classes.playerNameContainer}><p className={classes.playerName} >{playerInfos}</p></li>

@@ -62,7 +62,6 @@ const styles = {
 };
 
 const Tab = ({ classes, selected, icon, title, onSelect }) => {
-  console.log(selected)
   return (
     <a
       data-radium="true"

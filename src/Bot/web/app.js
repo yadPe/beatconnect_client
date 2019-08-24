@@ -3,7 +3,6 @@ const fs = require('fs');
 document.getElementById('go').addEventListener('click', () => go())
 
 const go = () => {
-  console.log('gooo')
   let config = null;
   try {
     config = JSON.parse(fs.readFileSync('./conf.json'))

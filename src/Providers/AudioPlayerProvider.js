@@ -12,7 +12,6 @@ class AudioPlayerProvider extends Component{
     })
     this.audio = new Audio();
     this.volume = convertRange(store.getState().settings.userPreferences.volume, 0, 100, 0, 1);
-    console.log(this.volume)
     this.state = {
       isPlaying: false,
       setAudio: this.setAudio,
