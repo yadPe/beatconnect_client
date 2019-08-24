@@ -28,7 +28,7 @@ const Start = ({ classes, connected, theme, irc, osuApi }) => {
         margin={'auto 10px auto 0'}
       />
 
-      <p style={{ fontSize: '100%' }}>
+      <p>
         {connected ? connected === 'connecting' ?
           'Connecting to Bancho via IRC..'
           : 'Online'
@@ -37,7 +37,7 @@ const Start = ({ classes, connected, theme, irc, osuApi }) => {
       </p>
       {
         notReady ?
-          <p style={{ fontSize: '80%' }}>
+          <p style={{ margin: 'auto 10px' }}> 
             Warning: no irc credential or osu API key found. Please go to settings section
           </p> : null
       }
