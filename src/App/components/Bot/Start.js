@@ -31,8 +31,8 @@ const Start = ({ classes, connected, theme, irc, osuApi }) => {
       <p style={{ fontSize: '100%' }}>
         {connected ? connected === 'connecting' ?
           'Connecting to Bancho via IRC..'
-          : 'Bot online'
-          : 'Bot offline'
+          : 'Online'
+          : 'Offline'
         }
       </p>
       {
