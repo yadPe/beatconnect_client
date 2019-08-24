@@ -5,11 +5,13 @@ const styles = {
   Toggle: {
     position: 'relative',
     display: 'inline-block',
-    width: '40px',
-    height: '20px',
+    width: props => props.width || '40px',
+    height: props => props.height ||'20px',
     borderRadius: '25px',
+    margin: props => props.margin,
     // backgroundColor: '#989898',
-    backgroundColor: props => props.checked ? props.theme.color : '#2a2a2a',
+    backgroundColor: props => props.checked ? props.theme.color : props.background || '#2a2a2a',
+    opacity: props => props.disabled ? 0.5 : 1
   },
   input: {
     display: 'none'
@@ -26,7 +28,7 @@ const styles = {
   }
 };
 
-const Toggle = ({ theme, classes, onChange, checked }) => {
+const Toggle = ({ classes, onChange, checked, disabled }) => {
   return (
     <label 
     className={classes.Toggle}
@@ -36,6 +38,7 @@ const Toggle = ({ theme, classes, onChange, checked }) => {
       type="checkbox"
       onChange={onChange}
       checked={checked}
+      disabled={disabled}
       />
       <div className={classes.div} />
     </label>
