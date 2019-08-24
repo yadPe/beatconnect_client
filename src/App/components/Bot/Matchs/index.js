@@ -4,23 +4,23 @@ import React, { useState } from 'react'
 import AddMatch from './AddMatch'
 import MatchListItem from './MatchListItem'
 
-const renderMatchsList = (matchs, bot, theme, setSelected) => {
+const renderMatchsList = (matchs, bot, theme, setSelected, connected) => {
   // matchs = new Array(20).fill({matchName: 'test', players: new Array(16).fill('PEPPY')})
   if (matchs.length > 0) return (
     <React.Fragment>
-      <AddMatch bot={bot} theme={theme} />
+      <AddMatch bot={bot} theme={theme} connected={connected} />
       {matchs.map(match => <MatchListItem match={match} theme={theme} setSelected={setSelected} />)}
     </React.Fragment> 
   )
   return (
     <React.Fragment>
-      <AddMatch bot={bot} theme={theme} />
-      {bot.joinMatch ? <p>Not connected to any match</p> : <p>Please start the bot before connecting to a match</p>}
+      <AddMatch bot={bot} theme={theme} connected={connected}/>
+      {connected && connected !== 'connecting' ? <p>Not connected to any match</p> : <p>Please start the bot before connecting to a match</p>}
     </React.Fragment>
   )
 }
 
-const Matchs = ({ matchs, theme, bot }) => {
+const Matchs = ({ matchs, theme, bot, connected }) => {
   const [selectedMatch, setSelectedMatch] = useState(null)
 
   // useEffect(() => {
@@ -31,7 +31,7 @@ const Matchs = ({ matchs, theme, bot }) => {
 
   return (
     <div className={'Matchs'} style={{ transition: 'background 0ms' }}>
-      {selectedMatch || renderMatchsList(matchs, bot, theme, setSelectedMatch)}
+      {selectedMatch || renderMatchsList(matchs, bot, theme, setSelectedMatch, connected)}
     </div>
   )
 };

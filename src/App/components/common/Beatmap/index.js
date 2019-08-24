@@ -18,7 +18,7 @@ const Beatmap = ({ theme, beatmap, width }) => {
   const [brightness, setBrightness] = useState(0.95)
   const [isPlaying, setIsPLaying] = useState(false)
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
-  
+
   const bpmFlash = useRef(null);
 
   const style = isPlaying ? {
@@ -26,8 +26,8 @@ const Beatmap = ({ theme, beatmap, width }) => {
     filter: `brightness(${brightness})`,
     transitionDuration: `${50}ms`
   } : {
-    width: width || '',
-  }
+      width: width || '',
+    }
 
   const modePillsStyle = (mode) => ({
     backgroundImage: `url(${reqImgAssets(`./${mode}.png`)})`,
@@ -45,12 +45,12 @@ const Beatmap = ({ theme, beatmap, width }) => {
         setTimeout(() => setBrightness(0.95), (60000 / beatmap.bpm) / 2.5)
       }, 60000 / beatmap.bpm)
     }
-    return () => bpmFlash ? clearInterval(bpmFlash) : undefined
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => bpmFlash.current ? clearInterval(bpmFlash.current) : undefined
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
   useEffect(() => {
-    return () => bpmFlash ? clearInterval(bpmFlash) : undefined
+    return () => bpmFlash.current ? clearInterval(bpmFlash.current) : undefined
   }, [])
 
   return (
@@ -91,10 +91,10 @@ const Beatmap = ({ theme, beatmap, width }) => {
 }
 
 const areEqual = (prevProps, nextProps) => {
-  if (prevProps.beatmap.beatmapset_id){
+  if (prevProps.beatmap.beatmapset_id) {
     return prevProps.beatmap.beatmapset_id === nextProps.beatmap.beatmapset_id
   }
-  if (prevProps.beatmap.id){
+  if (prevProps.beatmap.id) {
     return prevProps.beatmap.id === nextProps.beatmap.id
   }
   return false

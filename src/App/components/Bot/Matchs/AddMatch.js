@@ -3,7 +3,7 @@ import { Button, Text } from 'react-desktop/windows';
 import TextInput from '../../common/TextInput';
 import { connect } from 'react-redux';
 
-const AddMatch = ({ bot, theme, errors, ircUsername }) => {
+const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
   const [ reqMatchId, setReqMatchId ] = useState('');
   const error = errors.filter(id => id === reqMatchId).length === 1
   return (
@@ -19,7 +19,7 @@ const AddMatch = ({ bot, theme, errors, ircUsername }) => {
         className='btn'
         push
         color={theme.color}
-        hidden={!bot.joinMatch}
+        hidden={!(connected && connected !== 'connecting')}
         onClick={() => bot.joinMatch(reqMatchId)}
       >
         <Text color='fff'>Join</Text>

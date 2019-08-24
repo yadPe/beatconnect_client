@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
 
-const Downloads = ({ theme }) => {
+const Downloads = ({ theme, setHeaderContent }) => {
+
+  // useEffect(() => {
+  //   setHeaderContent(<div>sdsdsdsds</div>)
+  //   return () => setHeaderContent(null)
+  // }, [setHeaderContent])
+
   return (
     <React.Fragment>
       <DownloadsInProgress theme={theme} />

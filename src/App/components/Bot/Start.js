@@ -1,37 +1,40 @@
-import React, { useEffect, createRef } from 'react'
+import React from 'react'
 import start from '../../../Bot';
-import { ProgressCircle, Button } from 'react-desktop/windows';
 import { connect } from 'react-redux';
 import Toggle from '../common/Toggle';
+import injectSheet from 'react-jss';
 
-const Start = ({ connected, theme, irc, osuApi }) => {
-  const that = createRef();
+const styles = {
+  Start: {
+    transition: 'background 0ms',
+    display: 'flex',
+    'div p ': {
+      margin: '10px'
+    }
+  }
+};
+
+const Start = ({ classes, connected, theme, irc, osuApi }) => {
   const notReady = (!osuApi || !irc.username || !irc.password)
 
   return (
-    <div className={'Start'} style={{ transition: 'background 0ms', textAlign: 'center' }} ref={that}>
-      <Button
-        className='btn start'
-        push
-        hidden={notReady}
-        color={theme.color}
-        onClick={start}
-      >
-        {connected === 'connecting'
-          ? <ProgressCircle
-            className='ProgressCircle'
-            color='#fff'
-            size={28}
-          />
-          : connected ? 'Stop' : 'Start'
-        }
-      </Button >
-      {connected ? <p style={{ fontSize: '50%' }}>
-        {connected === 'connecting' ?
+    <div className={classes.Start}>
+      <Toggle
+        disabled={notReady}
+        checked={connected}
+        onChange={start}
+        theme={theme}
+        background={'#505050'}
+        margin={'auto 10px auto 0'}
+      />
+
+      <p style={{ fontSize: '100%' }}>
+        {connected ? connected === 'connecting' ?
           'Connecting to Bancho via IRC..'
-          : 'Connected!'}
-      </p> : null
-      }
+          : 'Bot online'
+          : 'Bot offline'
+        }
+      </p>
       {
         notReady ?
           <p style={{ fontSize: '80%' }}>
@@ -43,4 +46,4 @@ const Start = ({ connected, theme, irc, osuApi }) => {
 };
 
 const mapStateToProps = ({ settings }) => ({ irc: settings.userPreferences.irc, osuApi: settings.userPreferences.osuApi.key });
-export default connect(mapStateToProps)(Start);
+export default connect(mapStateToProps)(injectSheet(styles)(Start));

@@ -17,21 +17,6 @@ body {
     user-select: none;
 }
 
-.menuContainer {
-    text-align: center;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-    /* justify-content: center; */
-    font-size: calc(10px + 2vmin);
-    color: white;
-    background-color: #121212;
-    text-rendering: optimizelegibility;
-    font-family: Open Sans, sans-serif;
-    height: calc(100vh - 79px);
-    overflow-y: auto;
-}
-
 .Beatmap {
     width: 80%;
     background: #2a2a2a;
@@ -144,18 +129,6 @@ svg {
 }
 
 /* webkit scroll */
-.menuContainer::-webkit-scrollbar {
-    width: 8px;
-}
-
-.menuContainer::-webkit-scrollbar-track {
-    background: #2a2a2a;
-}
-
-.menuContainer::-webkit-scrollbar-thumb {
-    background: #00965f;
-}
-
 .downloadMenu::-webkit-scrollbar {
     width: 8px;
 }
