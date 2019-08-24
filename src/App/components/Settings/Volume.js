@@ -1,18 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { connect } from 'react-redux'
 import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
+import { updateVolume } from '../Settings/actions';
+import RangeSlider from '../common/RangeSlider';
 
 const Volume = ({ value, onChange }) => {
+  useEffect(() => {
+    if (onChange) onChange(value);
+  }, [onChange, value])
   const { setVolume } = useContext(AudioPlayerContext);
   const handleChange = (e) => {
     const value = e.target.value;
-    setVolume(value)
-    onChange(e)
+    setVolume(value);
+    updateVolume(value);
   }
   return (
   <React.Fragment>
-    <p>Volume</p>
-    <input type="range" min="0" max="100" value={value} className="Volume" id="myRange" onChange={handleChange}></input>
+    <RangeSlider min="0" max="100" value={value} onChange={handleChange} theme={{color: 'rgb(0, 150, 95)'}}/>
   </React.Fragment>
 )};
 
-export default Volume;
+const mapStateTotProps = ({ settings }) => ({ value: settings.userPreferences.volume})
+export default connect(mapStateTotProps)(Volume);

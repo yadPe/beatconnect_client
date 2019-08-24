@@ -1,6 +1,7 @@
 import React from 'react'
 import injectSheet from 'react-jss';
 import Tab from './Tab';
+import VolumeControl from './VolumeControl';
 
 const styles = {
   SidePanel: {
@@ -29,9 +30,18 @@ const styles = {
   },
 };
 
-const SidePanel = ({ classes, color, dark, items, panelExpandedLength, panelCompactedLength, expended, setExpended }) => {
+const SidePanel = ({ classes, color, dark, items, panelExpandedLength, panelCompactedLength, expended, setExpended, theme }) => {
 
-  const itemHead = () => items.map(item => <Tab {...item.props} expended={expended} />)
+  const itemTab = () => items.map((item, i) => {
+    if (items.length - i === 1) return (
+      <React.Fragment>
+        <VolumeControl theme={theme} expended={expended} />
+        <Tab {...item.props} expended={expended} />
+      </React.Fragment>
+    )
+    return <Tab {...item.props} expended={expended} />
+  })
+  
   return (
     <div className={classes.SidePanel}>
       <div className={classes.head} />
@@ -51,7 +61,7 @@ const SidePanel = ({ classes, color, dark, items, panelExpandedLength, panelComp
         >
         </path>
       </svg>
-      {itemHead()}
+      {itemTab()}
     </div>
   );
 }

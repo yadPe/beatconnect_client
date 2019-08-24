@@ -224,7 +224,7 @@ export default function(name, style) {
       );
     case 'VolumeLow':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 46 46">
+        <svg x="0px" y="1px" width="19px" height="19px" viewBox="0 0 54 47">
           <g>
             <path 
               fill={fill}
@@ -243,7 +243,7 @@ export default function(name, style) {
       );
     case 'VolumeMid':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 52.026 52.026">
+        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 54 54">
           <g>
             <path 
               fill={fill}
@@ -269,7 +269,7 @@ export default function(name, style) {
       );
     case 'VolumeHigh':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 52.026 52.026">
+        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 54 60">
          <g>
             <path 
               fill={fill}
