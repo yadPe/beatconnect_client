@@ -44,7 +44,7 @@ const styles = {
   }
 };
 
-const Item = ({ classes, color, icon, selected, title, dark, padding, children, background, onSelect, theme }) => {
+const Item = ({ classes, color, icon, selected, title, dark, padding, children, background, onSelect, header, theme }) => {
   //console.log(children)
   const [headerContent, setHeaderContent] = useState(null);
   // const lastSection = useRef(title);
@@ -64,9 +64,12 @@ const Item = ({ classes, color, icon, selected, title, dark, padding, children, 
     <div className={classes.contentContainer}>
       <div className={classes.contentSubContainer}>
         <div>
-          <Header title={title} theme={theme}>
-            {headerContent}
-          </Header>
+          {
+            header ?
+              <Header title={title} theme={theme}>
+                {headerContent}
+              </Header> : null
+          }
         </div>
         <div className={classes.content}>
           {children(setHeaderContent)}

@@ -11,7 +11,7 @@ import store from '../../store';
 
 
 const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
-  const [selected, setSelected] = useState('Beatmaps'); 
+  const [selected, setSelected] = useState('Beatmaps');
 
   const renderItem = (title, content) => (
     <NavPanelItem
@@ -22,6 +22,7 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
       selected={selected === title}
       onSelect={() => setSelected(title)}
       padding="10px 20px"
+      header
     >
       {setHeader => cloneElement(content, { setHeaderContent: setHeader })}
     </NavPanelItem>
@@ -32,10 +33,10 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
       paneExpandedLength={150}
       defaultIsPanelExpanded={sidePanelExpended}
       onExpended={(expended) => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
-      push
+      volume
+      expendable
       theme={theme}
-      //color={theme.color} 
-      dark={theme.style}>
+    >
       {renderItem('Bot', <Bot connected={connected} matchs={mpMatchs} bot={bot} theme={theme} />)}
       {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}

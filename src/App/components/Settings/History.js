@@ -11,7 +11,7 @@ const History = ({ theme }) => {
         className='btn'
         push
         color={theme.color}
-        onClick={() => history.clear()}
+        onClick={history.clear}
       >
         Clear history
       </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import injectSheet from 'react-jss';
 import convertRange from '../../utils/convertRange';
 

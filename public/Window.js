@@ -7,7 +7,7 @@ const defaultProps = {
   width: 1200,
   height: 750,
   minHeight: 350,
-  minWidth: 850,
+  minWidth: 890,
   show: false,
   darkTheme: true,
   frame: process.env.ELECTRON_START_URL ? true : false
