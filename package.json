@@ -5,7 +5,7 @@
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./public/electron.js",
+  "main": "./public/electron/electron.js",
   "homepage": "./",
   "scripts": {
     "start": "node scripts/start.js",

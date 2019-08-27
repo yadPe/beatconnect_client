@@ -3,7 +3,7 @@ const path = require('path');
 
 // default window settings
 const defaultProps = {
-  icon: path.join(__dirname, '/icon.png'),
+  icon: path.join(__dirname, '../icon.png'),
   width: 1200,
   height: 750,
   minHeight: 350,
