@@ -1,35 +1,55 @@
-import React, { useEffect, useState, cloneElement } from 'react';
+import React, { useEffect, useState, cloneElement, useContext } from 'react';
 import { connect } from 'react-redux'
-import { remote } from 'electron';
-import Volume from './Volume'
-import History from './History';
+import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setAutoBeat, setAutoImport } from './actions';
 import ConfLoader from './ConfLoader';
-import { updateVolume } from './actions';
-import Configuration from './Configuration';
-import Theme from './Theme';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
-import renderIcons from '../../utils/renderIcons';
+import Setting from './Setting';
+import { HistoryContext } from '../../../Providers/HistoryProvider';
+
 
 
 const Settings = ({ userPreferences, theme }) => {
+  const history = useContext(HistoryContext)
+  const { irc, osuApi, prefix, autoImport } = userPreferences;
   const [selected, setSelected] = useState('Bot');
   useEffect(() => {
     return ConfLoader.save
   }, [])
 
-  const renderItem = (title, content) => (
-    <NavPanelItem
-      title={title}
+  const settings = {
+    Bot: {
+      irc: [
+        { name: 'irc user', value: irc.username, action: setIrcUser, type: String },
+        { name: 'irc password', value: irc.password, action: setIrcPass, type: String, pass: true },
+        { name: 'special bot account', value: irc.isBotAccount, action: setIRCIsBot, type: Boolean },
+      ],
+      misc: [
+        { name: 'osu api key', value: osuApi.key, action: setOSUApiKey, type: String, pass: true },
+        { name: 'bot prefix', value: prefix, action: setPrefix, type: String }
+      ]
+    },
+    Downloads: {
+      import: [
+        { name: 'auto import maps', value: autoImport, action: setAutoImport, type: Boolean },
+        { name: 'clear history', action: history.clear, type: 'Button' }
+      ]
+    }
+  }
+
+  const renderItems = () => {
+    return Object.keys(settings).map(setting => <NavPanelItem
+      title={setting}
       theme={theme}
       background={theme.primary}
-      selected={selected === title}
-      onSelect={() => setSelected(title)}
+      selected={selected === setting}
+      onSelect={() => setSelected(setting)}
       padding="10px 20px"
     >
-      {setHeader => cloneElement(content, { setHeaderContent: setHeader })}
+      {setHeader => cloneElement(<Setting theme={theme} settingCategory={settings[setting]} />, { setHeaderContent: setHeader })}
     </NavPanelItem>
-  );
+    )
+  };
 
   return (
     <div className='menuContainer Settings' style={{ transition: 'background 0ms', textAlign: 'center' }}>
@@ -39,10 +59,7 @@ const Settings = ({ userPreferences, theme }) => {
         sidePanelBackground='#1d1d1d'
         theme={theme}
       >
-        {renderItem('Bot', <Configuration theme={theme} values={userPreferences} />)}
-        {renderItem('Downloads', <History theme={theme} />)}
-        {renderItem('Theme (Beta)', <Theme theme={theme} />)}
-        {renderItem(`v${remote.app.getVersion()}`, <div>Thank you for using Beatconnect!</div>)}
+        {renderItems()}
       </NavPanel>
     </div>
   );
