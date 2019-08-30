@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import { Button } from 'react-desktop/windows';
+import { ipcRenderer } from 'electron';
 
 const History = ({ theme }) => {
-  const history = useContext(HistoryContext)
+  const { history, clear, set } = useContext(HistoryContext)
   return (
     <React.Fragment>
       <p>History</p>
@@ -11,9 +12,25 @@ const History = ({ theme }) => {
         className='btn'
         push
         color={theme.color}
-        onClick={history.clear}
+        onClick={clear}
       >
         Clear history
+      </Button>
+      <Button
+        className='btn'
+        push
+        color={theme.color}
+        onClick={() => {
+          // TODO 
+          ipcRenderer.send('osuSongsScan', 'D:/Games/osu!') // User osu folder path
+          ipcRenderer.on('osuSongsScanResults', (e, args) => {
+            args = JSON.parse(args)
+            if (args.err) console.error(`Error while scannings song: ${args.err}`)
+            else set({ ...history, ...args })
+          })
+        }}
+      >
+        scan
       </Button>
     </React.Fragment>
   );

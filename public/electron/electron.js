@@ -4,8 +4,9 @@ const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const DownloadManager = require("electron-download-manager");
 const Window = require('./Window');
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
+require('./ipcMessages');
 
 
 autoUpdater.on('error', (error) => {
