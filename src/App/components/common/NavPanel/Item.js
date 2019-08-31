@@ -6,7 +6,7 @@ const styles = {
   contentContainer: {
     position: 'relative',
     flexGrow: 1,
-    flexShrink: 0,
+    flexShrink: 1,
     display: 'flex',
   },
   contentSubContainer: {
