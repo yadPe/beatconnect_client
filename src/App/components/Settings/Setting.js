@@ -6,19 +6,50 @@ import {Button} from 'react-desktop/windows';
 
 const styles = {
   Setting: {
-    width: '80%',
-    margin: '0 auto',
-    display: 'flex',
+    margin: '0 4vmin',
+    paddingTop : '20px' ,
     justifyContent: 'space-evenly',
     '& p': {
-      fontSize: '50%',
+      fontSize: '1.05rem',
       textAlign: 'left',
       margin: 0,
       marginLeft: 5
     }
   },
   subCategory: {
-    border: '2px solid black'
+    padding: '20px 20px 20px 20px', 
+    display: 'flex',
+    flex:3,
+    flexWrap: 'wrap',
+    border: '1px solid #2a2a2a',
+    borderRadius: '5px',
+    marginTop: '15px',
+    '&:hover': {
+      backgroundColor : 'rgba(255, 255, 255, 0.04)',
+    },
+    '& > :last-child': {
+      marginRight: '0px',
+      order: 1
+    },
+    '& div': {
+      marginRight: '20px',
+      '& p' : {
+        fontWeight: 'bold',
+      }
+    }
+  },
+  Toggle: {
+    display: 'inline-flex',
+    margin: '0px auto 10px auto',
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    padding: '5px',
+    borderRadius: '5px',
+    // cursor: 'pointer',
+    marginRight: '0px !important',
+    '& label':{
+      margin: 'auto 10px',
+    }
   }
 };
 
@@ -28,7 +59,6 @@ const Setting = ({ classes, theme, settingCategory }) => {
     return Object.keys(settingCategory).map(subCategory => {
       return(
         <div className={classes.subCategory} >
-          <p>{subCategory}</p>
           {
             settingCategory[subCategory].map(item => {
               switch (item.type) {
@@ -48,8 +78,11 @@ const Setting = ({ classes, theme, settingCategory }) => {
                   )
                 case Boolean:
                   return (
-                    <div key={item.name}>
+                    <div key={item.name} className={classes.Toggle}>
+                      <div style={{margin: 'auto auto auto 0'}}>
                       <p>{item.name}</p>
+                      <p style={{fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)'}}>{item.description}</p>
+                      </div>
                       <Toggle
                         theme={theme}
                         checked={item.value}
@@ -68,6 +101,8 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     Clear history
                   </Button>
                   )
+                default: 
+                  return <div>{item.name}</div>
               }
             })
           }

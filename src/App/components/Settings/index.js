@@ -1,13 +1,12 @@
 import React, { useEffect, useState, cloneElement, useContext } from 'react';
-import { connect } from 'react-redux'
+import { remote } from 'electron';
+import { connect } from 'react-redux';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setAutoBeat, setAutoImport } from './actions';
 import ConfLoader from './ConfLoader';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
 import Setting from './Setting';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
-
-
 
 const Settings = ({ userPreferences, theme }) => {
   const history = useContext(HistoryContext)
@@ -20,9 +19,9 @@ const Settings = ({ userPreferences, theme }) => {
   const settings = {
     Bot: {
       irc: [
-        { name: 'irc user', value: irc.username, action: setIrcUser, type: String },
+        { name: 'special bot account', value: irc.isBotAccount, action: setIRCIsBot, type: Boolean, description: 'Disable flood protection (2.5sec cooldown per msg) only for granteed account' },
+        { name: 'irc username', value: irc.username, action: setIrcUser, type: String },
         { name: 'irc password', value: irc.password, action: setIrcPass, type: String, pass: true },
-        { name: 'special bot account', value: irc.isBotAccount, action: setIRCIsBot, type: Boolean },
       ],
       misc: [
         { name: 'osu api key', value: osuApi.key, action: setOSUApiKey, type: String, pass: true },
@@ -33,6 +32,11 @@ const Settings = ({ userPreferences, theme }) => {
       import: [
         { name: 'auto import maps', value: autoImport, action: setAutoImport, type: Boolean },
         { name: 'clear history', action: history.clear, type: 'Button' }
+      ]
+    },
+    Version :{
+      version: [
+        { name: `Thanks for using Beatconnect! - ${remote.app.getVersion()}` }
       ]
     }
   }
