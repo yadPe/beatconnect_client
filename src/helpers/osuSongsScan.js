@@ -2,11 +2,9 @@ const parse = require('./beatmapParse');
 const path = require('path');
 const fs = require('fs');
 
-const osuSongsScan = osuDir => new Promise((resolve, reject) => {
+const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
   try {
-    const songsDirectoryPath = path.join(osuDir, 'Songs');
     const output = {};
-
     fs.readdirSync(songsDirectoryPath)
       .forEach(beatmap => {
         const beatmapPath = path.join(songsDirectoryPath, beatmap);
@@ -21,7 +19,7 @@ const osuSongsScan = osuDir => new Promise((resolve, reject) => {
               const { Metadata } = parse(data)
               if (!(typeof Metadata === 'undefined')) {
                 const { BeatmapSetID, Title, Artist } = Metadata;
-                if (BeatmapSetID && BeatmapSetID !== '-1' && BeatmapSetID !== '0') 
+                if (BeatmapSetID && BeatmapSetID !== '-1' && BeatmapSetID !== '0')
                   output[BeatmapSetID] = { id: BeatmapSetID, name: `${Title} | ${Artist}`, date }
                 break
               }
@@ -41,14 +39,14 @@ process.on('message', (data) => {
   switch (msg) {
     case 'start':
       osuSongsScan(osuDir)
-      .then(songs => {
-        console.log('sent results')
-        process.send(JSON.stringify(songs))
-      })
-      .catch(err => {
-        console.log('sent error')
-        process.send(JSON.stringify({err}))
-      })
+        .then(songs => {
+          console.log('osuSongsScan: sent results', songs)
+          process.send(JSON.stringify(songs))
+        })
+        .catch(err => {
+          console.log('osuSongsScan: sent error', err)
+          process.send(JSON.stringify({ err }))
+        })
   }
 })
 

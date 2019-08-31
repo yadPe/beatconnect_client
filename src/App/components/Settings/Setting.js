@@ -34,7 +34,7 @@ const styles = {
     '& div': {
       marginRight: '20px',
       '& p' : {
-        fontWeight: 'bold',
+        fontWeight: '600',
       }
     }
   },
@@ -98,7 +98,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     color={theme.color}
                     onClick={item.action}
                   >
-                    Clear history
+                    {item.name}
                   </Button>
                   )
                 default: 
