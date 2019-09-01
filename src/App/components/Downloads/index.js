@@ -1,11 +1,13 @@
-import React, { useEffect, useState, cloneElement } from 'react'
+import React, { useEffect, useState, cloneElement, useContext } from 'react'
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
+import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 
 const Downloads = ({ theme, setHeaderContent }) => {
+  const DownloadQueue = useContext(DownloadQueueContext);
   const [selected, setSelected] = useState('Downloaded');
   // useEffect(() => {
   //   setHeaderContent(<div>sdsdsdsds</div>)
@@ -35,7 +37,7 @@ const Downloads = ({ theme, setHeaderContent }) => {
         sidePanelBackground='#1d1d1d'
         theme={theme}
       >
-        {renderItem('Queued', <DownloadsInQueue theme={theme} />)}
+        {renderItem(`Queued ${DownloadQueue.length > 0 ? DownloadQueue.length : ''}`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>
       </div>

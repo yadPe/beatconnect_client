@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import DownloadsItem from './Item';
-import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 
-const DownloadsInQueue = ({ theme }) => {
-  const { queue, removeItemfromQueue } = useContext(DownloadQueueContext);
+const DownloadsInQueue = ({ theme, DownloadQueue }) => {
+  const { queue, removeItemfromQueue } = DownloadQueue;
   
   const renderDownloads = () => {
     if (queue.length === 0) return null
