@@ -37,8 +37,8 @@ const Settings = ({ userPreferences, theme }) => {
     Bot: {
       irc: [
         { name: 'Special bot account', value: irc.isBotAccount, action: setIRCIsBot, type: Boolean, description: 'Disable flood protection (2.5sec cooldown per msg) only for granteed account' },
-        { name: 'Irc username', value: irc.username, action: setIrcUser, type: String },
-        { name: 'Irc password', value: irc.password, action: setIrcPass, type: String, pass: true },
+        { name: 'Username', value: irc.username, action: setIrcUser, type: String },
+        { name: 'Password', value: irc.password, action: setIrcPass, type: String, pass: true },
       ],
       misc: [
         { name: 'Osu api key', value: osuApi.key, action: setOSUApiKey, type: String, pass: true },
