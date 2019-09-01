@@ -103,6 +103,7 @@ class DownloadQueueProvider extends Component {
     * Ouvrir les beatmap seulement si l'option est active
     * mettre a jour l'indicateur de dl des beatmap
     */
+    remote.getCurrentWindow().setProgressBar(-1)
     console.log('Finished dl', infos)
     console.log('QUEUE', this.state.queue)
   }
