@@ -14,6 +14,7 @@ class DownloadQueueProvider extends Component {
     this.state = {
       queue: [],
       currentDownload: {},
+      overallProgress: 0,
       push: this.push,
       removeItemfromQueue: this.removeItemfromQueue,
       cancelDownload: this.cancelDownload,
@@ -103,6 +104,7 @@ class DownloadQueueProvider extends Component {
     * Ouvrir les beatmap seulement si l'option est active
     * mettre a jour l'indicateur de dl des beatmap
     */
+    remote.getCurrentWindow().setProgressBar(-1)
     console.log('Finished dl', infos)
     console.log('QUEUE', this.state.queue)
   }
@@ -112,12 +114,13 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadProgress = (progress, item) => {
-    const { currentDownload } = this.state;
+    let { overallProgress } = this.state;
+    const { currentDownload, queue } = this.state;
     currentDownload.item = item;
     currentDownload.progress = progress;
-    console.log(currentDownload, 'progess', progress)
-    remote.getCurrentWindow().setProgressBar(progress.progress / 100)
-    this.setState({ currentDownload })
+    overallProgress = (progress.progress / 100) / (queue.length + 1);
+    remote.getCurrentWindow().setProgressBar(overallProgress);
+    this.setState({ currentDownload, overallProgress });
   }
 
   render() {

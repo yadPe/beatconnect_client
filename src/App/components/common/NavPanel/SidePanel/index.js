@@ -2,6 +2,7 @@ import React from 'react'
 import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
+import TasksControl from './TasksControl';
 
 const styles = {
   SidePanel: {
@@ -31,10 +32,11 @@ const styles = {
   },
 };
 
-const SidePanel = ({ classes, color, dark, items, panelExpandedLength, panelCompactedLength, expended, expendable, volume, setExpended, theme, background }) => {
+const SidePanel = ({ classes, color, dark, items, panelExpandedLength, panelCompactedLength, expended, expendable, volume, tasks, setExpended, theme, background }) => {
   const itemTab = () => items.map((item, i) => {
     if (items.length - i === 1) return (
       <React.Fragment>
+        { tasks ? <TasksControl theme={theme} expended={expended} tasks={tasks} /> : null }
         { volume ? <VolumeControl theme={theme} expended={expended} /> : null}
         <Tab {...item.props} expended={expended} />
       </React.Fragment>

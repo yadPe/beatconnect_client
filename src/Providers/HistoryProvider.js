@@ -13,7 +13,8 @@ class HistoryProvider extends Component {
       history: {},
       save: this.save,
       contains: this.contains,
-      clear: this.clear
+      clear: this.clear,
+      set: this.set
     }
   }
 
@@ -21,11 +22,18 @@ class HistoryProvider extends Component {
     this._readHistory()
   }
 
-  componentWillUpdate() {
-    const { history } = this.state
-    if (Object.keys(history).length !== 0) {
+  componentDidUpdate() {
+    // const { history } = this.state
+    //if (Object.keys(history).length !== 0) {
       this._writeHistory()
-    }
+    //}
+  }
+
+  set = (data) => {
+    let { history } = this.state;
+    console.log(data)
+    history = {...data}
+    this.setState({ history })
   }
 
   save = (item) => {

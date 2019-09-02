@@ -4,8 +4,9 @@ const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const DownloadManager = require("electron-download-manager");
 const Window = require('./Window');
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
+require('./ipcMessages');
 
 
 autoUpdater.on('error', (error) => {
@@ -28,12 +29,12 @@ const main = () => {
       webSecurity: false
     },
     url: isDev ? process.env.ELECTRON_START_URL || url.format({
-      pathname: path.join(__dirname, '../build/index.html'),
+      pathname: path.join(__dirname, '../../build/index.html'),
       protocol: 'file:',
       slashes: true
     }) :
       url.format({
-        pathname: path.join(__dirname, './index.html'),
+        pathname: path.join(__dirname, '.././index.html'),
         protocol: 'file:',
         slashes: true
       })
