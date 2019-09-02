@@ -11,7 +11,7 @@ const styles = {
   }
 };
 
-const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultIsPanelExpanded, expendable, volume, sidePanelBackground, dark, color, children, theme, onExpended }) => {
+const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultIsPanelExpanded, expendable, volume, tasks, sidePanelBackground, dark, color, children, theme, onExpended }) => {
   const [isExpended, setIsExpended] = useState(defaultIsPanelExpanded);
   return (
     <div className={classes.NavPanel}>
@@ -26,6 +26,7 @@ const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultI
         expendable={expendable}
         background={sidePanelBackground}
         volume={volume}
+        tasks={tasks}
       />
 
       {children.filter(child => child.props.selected)}

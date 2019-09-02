@@ -31,8 +31,10 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
       userPreferences = { ...userPreferences, sidePanelExpended: payload }
       return { ...settings, userPreferences: {...userPreferences} }
     case 'SONGSPATH':
-      console.log('reducer', payload)
       userPreferences = { ...userPreferences, osuSongsPath: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
+    case 'LASTSCAN':
+      userPreferences = { ...userPreferences, lastScan: payload }
       return { ...settings, userPreferences: {...userPreferences} }
     default:
       return settings;

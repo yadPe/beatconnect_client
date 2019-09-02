@@ -35,7 +35,6 @@ const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
 
 process.on('message', (data) => {
   const { msg, osuDir } = JSON.parse(data)
-  console.log(msg, osuDir)
   switch (msg) {
     case 'start':
       osuSongsScan(osuDir)

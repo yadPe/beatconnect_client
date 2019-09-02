@@ -11,6 +11,7 @@ class ConfLoader {
     } catch (err) { // assume conf file does not exist 
       this.conf = baseConf
     }
+    console.log('confLoader', this.conf)
   }
 
   save = () => {

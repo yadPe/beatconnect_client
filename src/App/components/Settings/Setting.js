@@ -59,7 +59,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
     return Object.keys(settingCategory).map(subCategory => {
       return (
         <React.Fragment>
-          <p style={{fontWeight: '600'}}>{subCategory.toUpperCase()}</p>
+          <p style={{ fontWeight: '600' }}>{subCategory.toUpperCase()}</p>
           <div className={classes.subCategory} >
             {
               settingCategory[subCategory].map(item => {
@@ -94,14 +94,26 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     )
                   case 'Button':
                     return (
-                      <Button
-                        className='btn'
-                        push
-                        color={theme.color}
-                        onClick={item.action}
-                      >
-                        {item.name}
-                      </Button>
+                      <div style={{ textAlign: 'start' }}>
+                        <Button
+                          className='btn'
+                          push
+                          color={theme.color}
+                          onClick={item.action}
+                        >
+                          {item.name}
+                        </Button>
+                        <div style={{ fontSize: '0.8rem', margin: '0px 8px' }}>{item.description}</div>
+                      </div>
+                    )
+                  case 'Text':
+                    return (
+                      <div key={item.name} className={classes.Toggle} onClick={item.action} style={{cursor: item.action ? 'pointer' : 'auto'}}>
+                        <div style={{ margin: 'auto auto auto 0' }}>
+                          <p>{item.name}</p>
+                          <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
+                        </div>
+                      </div>
                     )
                   default:
                     return <div>{item.name}</div>

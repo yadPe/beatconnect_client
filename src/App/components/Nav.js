@@ -34,6 +34,7 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
       defaultIsPanelExpanded={sidePanelExpended}
       onExpended={(expended) => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
       volume
+      tasks
       expendable
       theme={theme}
     >
