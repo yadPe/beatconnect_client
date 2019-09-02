@@ -8,7 +8,9 @@ import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 
 const Downloads = ({ theme, setHeaderContent }) => {
   const DownloadQueue = useContext(DownloadQueueContext);
-  const [selected, setSelected] = useState('Downloaded');
+  const { queue } = DownloadQueue;
+  const queueActive = queue.length !== 0;
+  const [selected, setSelected] = useState(queueActive ? `Queued ${queueActive ? queue.length : ''}` : 'Downloaded');
   // useEffect(() => {
   //   setHeaderContent(<div>sdsdsdsds</div>)
   //   return () => setHeaderContent(null)
@@ -37,7 +39,7 @@ const Downloads = ({ theme, setHeaderContent }) => {
         sidePanelBackground='#1d1d1d'
         theme={theme}
       >
-        {renderItem(`Queued ${DownloadQueue.length > 0 ? DownloadQueue.length : ''}`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
+        {renderItem(`Queued ${queueActive ? queue.length : ''}`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>
       </div>
