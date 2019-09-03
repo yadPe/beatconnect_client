@@ -3,6 +3,7 @@ import TextInput from '../common/TextInput';
 import injectSheet from 'react-jss';
 import Toggle from '../common/Toggle';
 import { Button } from 'react-desktop/windows';
+import DropDown from '../common/DropDown';
 
 const styles = {
   Setting: {
@@ -108,11 +109,26 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     )
                   case 'Text':
                     return (
-                      <div key={item.name} className={classes.Toggle} onClick={item.action} style={{cursor: item.action ? 'pointer' : 'auto'}}>
+                      <div key={item.name} className={classes.Toggle} onClick={item.action} style={{ cursor: item.action ? 'pointer' : 'auto' }}>
                         <div style={{ margin: 'auto auto auto 0' }}>
                           <p>{item.name}</p>
                           <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
                         </div>
+                      </div>
+                    )
+                  case 'Select':
+                    return (
+                      <div key={item.name} className={classes.Toggle}>
+                        <div style={{ margin: 'auto auto auto 0' }}>
+                          <p>{item.name}</p>
+                          <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
+                        </div>
+                        <DropDown
+                          onSelect={item.action}
+                          options={item.options}
+                          onBlur={item.action}
+                          value={item.value}
+                        />
                       </div>
                     )
                   default:

@@ -56,6 +56,7 @@ const Settings = ({ userPreferences, theme }) => {
     Downloads: {
       History: [
         { name: 'Auto import maps', value: autoImport, action: setAutoImport, type: Boolean },
+        // { name: 'Beatmaps import method', value: 'auto', action: null, options: ['auto', 'bulk', 'manual'], type: 'Select' },
         { name: 'Clear history', action: history.clear, type: 'Button' },
       ],
       'Beatmaps location': [
