@@ -118,7 +118,7 @@ body {
 .Nav div,
 a,
 svg {
-    transition: all 220ms;
+    transition: all 200ms;
 }
 
 .separator {

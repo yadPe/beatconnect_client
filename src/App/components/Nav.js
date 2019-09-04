@@ -38,9 +38,9 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
       expendable
       theme={theme}
     >
-      {renderItem('Bot', <Bot connected={connected} matchs={mpMatchs} bot={bot} theme={theme} />)}
       {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
+      {renderItem('Bot', <Bot connected={connected} matchs={mpMatchs} bot={bot} theme={theme} />)}
       {renderItem('Settings', <Settings theme={theme} />)}
     </NavPanel>
   );

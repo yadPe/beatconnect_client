@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet from 'react-jss';
@@ -9,19 +9,18 @@ import Search from './Search';
 
 const styles = {
   list: {
-    display: 'grid',
-    alignItems: 'center',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(700px, 1fr))',
-    //gridGap: '10px'
-  },
-  item: {
-    // margin: '10%'
+    // display: 'grid',
+    // alignItems: 'center',
+    // gridTemplateColumns: 'repeat(auto-fit, minmax(700px, 1fr))',
+    // //gridGap: '10px'
   }
 };
 
 const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
   const { search, beatmaps } = searchResults
-  const displayGrid = window.width - (panelExpended ? 150 : 44) >= 700;
+  const gridWidth = (window.width - (panelExpended ? 150 : 48))
+  const gridHeight = window.height - 79
+  const displayGrid = gridWidth >= 960;
 
   useEffect(() => {
     setHeaderContent(<Search theme={theme} lastSearch={search} />)
@@ -30,23 +29,25 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
     return (
-      <div style={style} className={classes.item}>
+      <div style={style}>
+        {displayGrid ? 
         <Beatmap width='90%' theme={theme} beatmap={beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)]} key={`beatmap${beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)].beatmapset_id || beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)].id}`} />
+      :
+      <Beatmap width='90%' theme={theme} beatmap={beatmaps[rowIndex]} key={`beatmap${beatmaps[rowIndex].beatmapset_id || beatmaps[rowIndex].id}`} />}
       </div>
     )
   }
 
-  console.log((window.width / 2) - 100)
   return (
-    <div className='Beatmaps' >
+    <div className='Beatmaps'>
       <FixedSizeGrid
         columnCount={displayGrid ? 2 : 1}
-        columnWidth={(window.width / 2) - 100}
+        columnWidth={displayGrid ? (gridWidth / 2)-9 : gridWidth - 18}
         rowCount={displayGrid ? beatmaps.length / 2 : beatmaps.length}
-        rowHeight={222}
+        rowHeight={250}
         overscanCount={10}
-        height={window.height - 79}
-        width={(window.width - (panelExpended ? 150 : 44))}
+        height={gridHeight}
+        width={gridWidth}
       >
         {renderBeatmaps}
       </FixedSizeGrid>
@@ -54,5 +55,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   );
 }
 
+const areEqual = (prevProps, nextProps) => (JSON.stringify(prevProps.searchResults) === JSON.stringify(nextProps.searchResults)) && (JSON.stringify(prevProps.window)) === (JSON.stringify(nextProps.window))
 const mapStateToProps = ({ main, settings }) => ({ searchResults: main.searchResults, window: main.window, panelExpended: settings.userPreferences.sidePanelExpended })
-export default connect(mapStateToProps)(injectSheet(styles)(Beatmaps));
+export default connect(mapStateToProps)(memo(injectSheet(styles)(Beatmaps), areEqual));
