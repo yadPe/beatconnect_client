@@ -30,12 +30,12 @@ const Beatmap = ({ theme, beatmap, width, noFade }) => {
     }
 
   const modePillsStyle = (mode) => ({
-    backgroundImage: `url(${reqImgAssets(`./${mode}.png`)})`,
     width: 20,
     height: 20,
-    margin: 'auto 0.2vw',
+    margin: '3px',
     backgroundSize: 'contain',
     filter: 'brightness(0.85)',
+    content: `url(${reqImgAssets(`./${mode}.png`)})`
   });
 
   useEffect(() => {
@@ -73,12 +73,11 @@ const Beatmap = ({ theme, beatmap, width, noFade }) => {
               {renderIcons('Search', theme.style)}
             </Button>
             <div className='rightContainer' style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}>
-              {/* <img src={reqImgAssets('./fruits.png')} alt='hop' height={24}/> */}
-              <div className='availableModes' style={{ padding: '0 5%', display: 'inline-flex' }}>
-                {beatmap.mode_std ? <div className='pill std' style={modePillsStyle('std')} /> : null}
-                {beatmap.mode_mania ? <div className='pill mania' style={modePillsStyle('mania')} /> : null}
-                {beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null}
-                {beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null}
+              <div className='availableModes' style={{ padding: '0 3px', display: 'inline-flex' }}>
+                {beatmap.mode_std ? <img alt='std' className='pill std' style={modePillsStyle('std')} /> : null}
+                {beatmap.mode_mania ? <img alt='mania' className='pill mania' style={modePillsStyle('mania')} /> : null}
+                {beatmap.mode_taiko ? <img alt='taiko' className='pill taiko' style={modePillsStyle('taiko')} /> : null}
+                {beatmap.mode_ctb ? <img alt='ctb' className='pill ctb' style={modePillsStyle('ctb')} /> : null}
               </div>
               {beatmap.status ? <Badge status={beatmap.status} /> : null}
             </div>
