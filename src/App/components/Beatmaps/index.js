@@ -24,7 +24,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const lastScrollPosition = useRef(lastScroll || 0)
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
   const gridHeight = window.height - 79
-  const displayGrid = gridWidth >= 960;
+  const displayGrid = gridWidth >= 1200;
   const rowCount = displayGrid ? beatmaps.length / 2 : beatmaps.length
   const onScroll = ({ scrollTop }) => lastScrollPosition.current = scrollTop
   const loadMore = () => {
@@ -85,6 +85,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   );
 }
 
-const areEqual = (prevProps, nextProps) => (JSON.stringify(prevProps.searchResults) === JSON.stringify(nextProps.searchResults)) && (JSON.stringify(prevProps.window)) === (JSON.stringify(nextProps.window))
+const areEqual = (prevProps, nextProps) => (JSON.stringify(prevProps.searchResults) === JSON.stringify(nextProps.searchResults)) && (JSON.stringify(prevProps.window)) === (JSON.stringify(nextProps.window)) && (prevProps.panelExpended === nextProps.panelExpended)
 const mapStateToProps = ({ main, settings }) => ({ searchResults: main.searchResults, window: main.window, panelExpended: settings.userPreferences.sidePanelExpended })
 export default connect(mapStateToProps)(memo(injectSheet(styles)(Beatmaps), areEqual));
