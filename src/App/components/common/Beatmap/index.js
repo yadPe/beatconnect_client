@@ -10,8 +10,8 @@ import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
-const Beatmap = ({ theme, beatmap, width }) => {
-  console.log(beatmap.id, 'updated')
+const Beatmap = ({ theme, beatmap, width, noFade }) => {
+  // console.log(beatmap.id, 'updated') 
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }
@@ -59,7 +59,7 @@ const Beatmap = ({ theme, beatmap, width }) => {
         beatmap
           ?
           <React.Fragment>
-            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} height={130} />
+            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} height={130} noFade={noFade}/>
             <Text color='#fff'>{title}</Text>
             <Text color='#fff'>{artist}</Text>
             {version ? <Text color='#fff'>{`[${version || ''}]`}</Text> : null}

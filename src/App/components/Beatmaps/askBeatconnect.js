@@ -9,7 +9,7 @@ const askBeatconnect = (search, onLoading) => {
     .then(res => res.json())
     .then(({ beatmaps, max_page }) => {
       if (page > 0) beatmaps = [...prevBeatmaps, ...beatmaps]
-      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { search, beatmaps, max_page, page }})
+      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { search, beatmaps, max_page, page: page || 0 }})
       onLoading(false)
     })
 }
