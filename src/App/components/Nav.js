@@ -10,8 +10,8 @@ import NavPanelItem from './common/NavPanel/Item';
 import store from '../../store';
 
 
-const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
-  const [selected, setSelected] = useState('Beatmaps');
+const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended, activeSection }) => {
+  // const [selected, setSelected] = useState(activeSection);
 
   const renderItem = (title, content) => (
     <NavPanelItem
@@ -19,8 +19,8 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended }) => {
       icon={renderIcon(title, theme.style)}
       theme={theme}
       background={theme.primary}
-      selected={selected === title}
-      onSelect={() => setSelected(title)}
+      selected={activeSection === title}
+      onSelect={() => store.dispatch({type: 'UPDATEACTIVESECTION', payload: title})}
       padding="10px 20px"
       header
     >

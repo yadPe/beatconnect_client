@@ -27,7 +27,7 @@ const Settings = ({ userPreferences, theme }) => {
 
   const scanOsuSongs = () => {
     if (!osuSongsPath) return alert('You need to select your songs folder before')
-    add({ name: 'Scanning beatmaps folder', status: 'running', description: ''  })
+    add({ name: 'Scanning beatmaps folder', status: 'running', description: '', section: 'Settings' })
     ipcRenderer.send('osuSongsScan', osuSongsPath) // User osu folder path
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
       if (tasks['Scanning beatmaps folder']) tasks['Scanning beatmaps folder'].terminate('Finished')
