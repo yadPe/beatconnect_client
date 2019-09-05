@@ -26,7 +26,7 @@ const DownloadedItems = ({ theme, window }) => {
         itemSize={130}
         overscanCount={2}
         width={'100%'}
-        className={'downloadMenu'}
+        className={'downloadMenu customScroll'}
       >
         {items.length > 0 ? renderItems : 'The beatmaps you download will go here'}
       </FixedSizeList>

@@ -11,10 +11,11 @@ const Downloads = ({ theme, setHeaderContent }) => {
   const { queue } = DownloadQueue;
   const queueActive = queue.length !== 0;
   const [selected, setSelected] = useState(queueActive ? `Queued ${queueActive ? queue.length : ''}` : 'Downloaded');
-  // useEffect(() => {
-  //   setHeaderContent(<div>sdsdsdsds</div>)
-  //   return () => setHeaderContent(null)
-  // }, [setHeaderContent])
+
+  useEffect(() => {
+    setHeaderContent(<DownloadsInProgress theme={theme}/>)
+    return () => setHeaderContent(null)
+  }, [setHeaderContent])
 
   const renderItem = (title, content) => (
     <NavPanelItem

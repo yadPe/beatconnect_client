@@ -8,7 +8,7 @@ import renderIcons from '../../utils/renderIcons';
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
 
-const Search = ({ theme, lastSearch }) => {
+const Search = ({ theme, lastSearch, isBusy }) => {
   const [search, setSearch] = useState(lastSearch);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,7 @@ const Search = ({ theme, lastSearch }) => {
         onClick={() => askBeatconnect(search, setIsLoading)}
       >
         {
-          isLoading ?
+          isLoading || isBusy ?
             <ProgressCircle
               className='ProgressCircle'
               color='#fff'

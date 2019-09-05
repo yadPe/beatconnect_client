@@ -39,6 +39,9 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       return { ...state, searchResults };
     case 'RESIZE':
       return { ...state, window: payload };
+    case 'SAVEBEATMAPSSCROLLPOS':
+      console.log({...state.searchResults, lastScroll: payload} )
+      return { ...state, searchResults: {...state.searchResults, lastScroll: payload} };
     case 'ERROR':
       const {errors} = state;
       errors.push(payload)
