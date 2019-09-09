@@ -2,6 +2,7 @@ import './App/resize';
 
 const initialState = {
   connected: false,
+  activeSection: 'Beatmaps',
   mpMatchs: [],
   bot: {},
   BeatconnectApi: {},
@@ -39,6 +40,8 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       return { ...state, searchResults };
     case 'RESIZE':
       return { ...state, window: payload };
+    case 'UPDATEACTIVESECTION':
+      return { ...state, activeSection: payload };
     case 'SAVEBEATMAPSSCROLLPOS':
       console.log({...state.searchResults, lastScroll: payload} )
       return { ...state, searchResults: {...state.searchResults, lastScroll: payload} };

@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import injectSheet from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import { TasksContext } from '../../../../../Providers/TasksProvider';
+import store from '../../../../../store';
 
 const styles = {
   '@keyframes spin': {
@@ -72,12 +73,9 @@ const styles = {
     visibility: props => props.expended ? 'visible' : 'hidden'
   },
   tooltiptext: {
-    visibility: 'hidden',
     width: '120px',
     backgroundColor: '#2a2a2a',
     color: '#fff',
-    textAlign: 'center',
-    padding: '5px 0',
     borderRadius: '6px',
     position: 'absolute',
     left: '100%',
@@ -95,18 +93,19 @@ const styles = {
 };
 
 const TasksControl = ({ classes, onSelect, theme }) => {
-  const { tasks, lastTask } = useContext(TasksContext)
+  const { tasks } = useContext(TasksContext)
   const tasksKeys = Object.keys(tasks);
   const active = tasksKeys.length > 0
   const renderContent = () => {
     if (active) return(
     <div>
       {tasksKeys.map(task => (
-        <div className='task'>
+        <div className='task' onClick={() => store.dispatch({type: 'UPDATEACTIVESECTION', payload: tasks[task].section})}>
           <div className={classes.divider} />
           <div style={{ fontSize: '1rem' }}>{tasks[task].name}</div>
           <div style={{ fontSize: '0.8rem' }}>
             <div>{tasks[task].description}</div>
+            <div>{tasks[task].description1}</div>
           </div>
           <div className={classes.divider} />
         </div>

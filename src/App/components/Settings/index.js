@@ -27,11 +27,16 @@ const Settings = ({ userPreferences, theme }) => {
 
   const scanOsuSongs = () => {
     if (!osuSongsPath) return alert('You need to select your songs folder before')
-    add({ name: 'Scanning beatmaps folder', status: 'running', description: ''  })
+    add({ name: 'Scanning beatmaps folder', status: 'running', description: '', section: 'Settings' })
     ipcRenderer.send('osuSongsScan', osuSongsPath) // User osu folder path
+    ipcRenderer.on('osuSongsScanStatus', (e, args) => {
+      //const {status} = args
+      console.log('status', args)
+      add({ name: 'Scanning beatmaps folder', status: 'running', description: `${Math.round(args * 100)}%`, section: 'Settings' })
+    })
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
       if (tasks['Scanning beatmaps folder']) tasks['Scanning beatmaps folder'].terminate('Finished')
-      args = JSON.parse(args)
+      //args = JSON.parse(args)
       if (args.err) console.error(`Error while scannings song: ${args.err}`)
       else {
         history.set({ ...history.history, ...args })
