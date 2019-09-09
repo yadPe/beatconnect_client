@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import injectSheet from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import { TasksContext } from '../../../../../Providers/TasksProvider';
-import { isTemplateElement } from '@babel/types';
 import store from '../../../../../store';
 
 const styles = {
