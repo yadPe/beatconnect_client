@@ -23,7 +23,8 @@ const Cover = ({ url, width, height, paddingBottom, noFade }) => {
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundImage: `url('${url}')`
+    backgroundImage: `url('${url}')`,
+    backgroundColor: 'rgba(255, 255, 255, 0.02)'
   }
   return (
     <div className='cover' style={style} />
