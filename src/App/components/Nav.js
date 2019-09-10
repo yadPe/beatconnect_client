@@ -10,7 +10,7 @@ import NavPanelItem from './common/NavPanel/Item';
 import store from '../../store';
 
 
-const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended, activeSection }) => {
+const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
   // const [selected, setSelected] = useState(activeSection);
 
   const renderItem = (title, content) => (
@@ -40,7 +40,7 @@ const Nav = ({ mpMatchs, theme, connected, bot, sidePanelExpended, activeSection
     >
       {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
-      {renderItem('Bot', <Bot connected={connected} matchs={mpMatchs} bot={bot} theme={theme} />)}
+      {renderItem('Bot', <Bot connected={connected} bot={bot} theme={theme} />)}
       {renderItem('Settings', <Settings theme={theme} />)}
     </NavPanel>
   );

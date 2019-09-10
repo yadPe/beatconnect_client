@@ -1,6 +1,6 @@
-import React from 'react'
-import Beatmap from '../../../common/Beatmap'
-import PlayersList from './PlayersList'
+import React from 'react';
+import Beatmap from '../../../common/Beatmap';
+import PlayersList from './PlayersList';
 import ControlsBar from './ControlsBar';
 
 const MatchDetails = ({ match, theme, close }) => {
@@ -8,6 +8,8 @@ const MatchDetails = ({ match, theme, close }) => {
   // const PlayersList = () => match.players.map(player => (
   //   <Player theme={theme} playerInfos={player} match={match} />
   // ))
+
+  console.log('update Match', match)
 
   return (
     <div className='MatchDetails'>
