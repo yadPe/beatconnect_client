@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
-//const window = remote.getCurrentWindow();
+const { download } = remote.require("electron-download-manager")
 
 class DownloadQueueProvider extends Component {
-  //static contextType = HistoryContext;
   constructor(props) {
-    super(props);
-    this.download = remote.require("electron-download-manager").download;
+    super(props); 
     this.state = {
       queue: [],
       currentDownload: {},
@@ -45,6 +43,7 @@ class DownloadQueueProvider extends Component {
 
   cancelDownload = () => {
     let { currentDownload } = this.state;
+    if (!currentDownload.item) return
     currentDownload.item.cancel()
     this.downloading = false
     currentDownload = {};
@@ -73,7 +72,8 @@ class DownloadQueueProvider extends Component {
     this.downloading = true;
     const { url, id, onFinished } = currentDownload.infos = queue.pop()
     this.setState({ currentDownload },
-      () => this.download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
+      () => download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
+        console.log('dl Callback')
         if (err) {
           this._onDownloadFailed(err)
         } else {
@@ -95,6 +95,7 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
+    console.log('ondlSUCC')
     if (this.props.autoImport) {
       shell.openItem(infos.filePath)
     }

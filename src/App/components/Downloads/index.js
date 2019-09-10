@@ -10,12 +10,12 @@ const Downloads = ({ theme, setHeaderContent }) => {
   const DownloadQueue = useContext(DownloadQueueContext);
   const { queue } = DownloadQueue;
   const queueActive = queue.length !== 0;
-  const [selected, setSelected] = useState(queueActive ? `Queued ${queueActive ? queue.length : ''}` : 'Downloaded');
+  const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
 
   useEffect(() => {
     setHeaderContent(<DownloadsInProgress theme={theme}/>)
     return () => setHeaderContent(null)
-  }, [setHeaderContent])
+  }, [setHeaderContent, theme])
 
   const renderItem = (title, content) => (
     <NavPanelItem
@@ -32,7 +32,6 @@ const Downloads = ({ theme, setHeaderContent }) => {
 
   return (
     <React.Fragment>
-      {/* <DownloadsInProgress theme={theme} /> */}
       <div className='menuContainer Downloads' style={{ transition: 'background 0ms' }}>
       <NavPanel
         paneExpandedLength={150}
@@ -40,7 +39,7 @@ const Downloads = ({ theme, setHeaderContent }) => {
         sidePanelBackground='#1d1d1d'
         theme={theme}
       >
-        {renderItem(`Queued ${queueActive ? queue.length : ''}`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
+        {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>
       </div>

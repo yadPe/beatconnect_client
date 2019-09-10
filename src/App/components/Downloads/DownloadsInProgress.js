@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react'
-import DownloadsItem from './Item';
 import injectSheet from 'react-jss';
-import { Text, Button } from 'react-desktop';
+import { Button } from 'react-desktop';
 import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
 import renderIcons from '../../utils/renderIcons';
 
 const styles = {
   DownloadsInProgress: {
     display: 'inline-flex',
-    '& p': {
-      margin: 'auto'
+    width: '100%',
+    '& p:last-of-type': {
+      margin: 'auto 5px'
+    },
+    '& p:first-of-type': {
+      marginRight: 'auto'
     }
   }
 };
@@ -19,7 +22,11 @@ const DownloadsInProgress = ({ theme, classes }) => {
   const [isPaused, setIsPaused] = useState(false);
   const { infos, progress, item } = currentDownload;
   const toggleDownload = () => {
+    if (!item) {
+      return alert("If your download is stuck or won't start try restating the app. Sorry for the inconvenience")
+    }
     item.isPaused() ? item.resume() : item.pause()
+    setIsPaused(item.isPaused())
   }
   const renderDownloads = () => {
     if (!infos) return null;
@@ -30,7 +37,7 @@ const DownloadsInProgress = ({ theme, classes }) => {
           progress ?
             (
               <React.Fragment>
-                <p>{`${Math.round(progress.progress)}% |`}</p>
+                <p>{`${Math.round(progress.progress)}% @`}</p>
                 <p>{progress.speed}</p>
               </React.Fragment>
             )
@@ -42,7 +49,7 @@ const DownloadsInProgress = ({ theme, classes }) => {
           color={theme.color}
           onClick={toggleDownload}
         >
-          {renderIcons(renderIcons(isPaused ? 'Download' : 'Pause', theme.style))}
+          {renderIcons(isPaused ? 'Download' : 'Pause', theme.style)}
         </Button>
         <Button
           push
@@ -51,7 +58,6 @@ const DownloadsInProgress = ({ theme, classes }) => {
         >
           {renderIcons('Cancel', theme.style)}
         </Button>
-        {/* <DownloadsItem id={infos.id} item={item} name={infos.fullTitle} {...progress} theme={theme} cancel={cancelDownload} status='downloading' key={infos.id} /> */}
       </div>
     )
   }
