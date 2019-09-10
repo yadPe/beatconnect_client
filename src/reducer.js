@@ -8,7 +8,7 @@ const initialState = {
   BeatconnectApi: {},
   window: {width: window.innerWidth, height: window.innerHeight},
   searchResults: {
-    search: { query: '', mode: 'all', status: 'ranked' },
+    search: { query: '', mode: 'all', status: 'ranked', page: 0 },
     beatmaps: []
   },
   errors:[],

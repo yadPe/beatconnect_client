@@ -22,6 +22,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   let { page } = searchResults
   const canLoadMore = page < max_page
   const lastScrollPosition = useRef(lastScroll || 0)
+  if (lastScroll) lastScrollPosition.current = lastScroll
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
   const gridHeight = window.height - 79
   const displayGrid = gridWidth >= 1200;

@@ -141,6 +141,7 @@
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
+    "underscore": "^1.9.1",
     "update-electron-app": "^1.5.0",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",

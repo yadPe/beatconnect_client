@@ -4,25 +4,29 @@ import TextInput from '../common/TextInput'
 import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
+import _ from 'underscore';
+import { connect } from 'react-redux';
 
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
 
-const Search = ({ theme, lastSearch, isBusy }) => {
+const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
   const [search, setSearch] = useState(lastSearch);
   const [isLoading, setIsLoading] = useState(false);
-
   const searchOnEnter = (e) => {
     if (e.keyCode === 13) {
-      askBeatconnect(search, setIsLoading)
+      execSearch()
+    }
+  }
+  const execSearch = (force) => {
+    if (!_.isEqual(lastSearch, search) || force) {
+      askBeatconnect(search, setIsLoading, true)
     }
   }
 
   useEffect(() => {
-    if (search.query === '') {
-      askBeatconnect(search, setIsLoading)
-    }
-  }, [search])
+    if (beatmapCount === 0) execSearch(true)
+  }, [])
 
   return (
     <React.Fragment>
@@ -30,7 +34,7 @@ const Search = ({ theme, lastSearch, isBusy }) => {
         className='btn'
         push
         color={theme.color}
-        onClick={() => askBeatconnect(search, setIsLoading)}
+        onClick={execSearch}
       >
         {
           isLoading || isBusy ?
@@ -40,17 +44,17 @@ const Search = ({ theme, lastSearch, isBusy }) => {
               size={25}
             /> :
             renderIcons('Search', theme.style)
-            // <Text color='fff'>Search</Text>
+          // <Text color='fff'>Search</Text>
         }
       </Button>
       <DropDown
         options={availableModes}
         value={search.mode}
-        onSelect={(e) => { setSearch({ ...search, mode: e.target.value }); askBeatconnect({ ...search, mode: e.target.value }, setIsLoading) }} />
+        onSelect={(e) => setSearch({ ...search, mode: e.target.value })} />
       <DropDown
         options={availableStatus}
         value={search.status}
-        onSelect={(e) => { setSearch({ ...search, status: e.target.value }); askBeatconnect({ ...search, status: e.target.value }, setIsLoading) }} />
+        onSelect={(e) => setSearch({ ...search, status: e.target.value })} />
       <TextInput
         theme={theme.style}
         color={theme.color}
@@ -58,10 +62,11 @@ const Search = ({ theme, lastSearch, isBusy }) => {
         value={search.query}
         onChange={e => setSearch({ ...search, query: e.target.value })}
         onKeyDown={searchOnEnter}
-        onBlur={() => askBeatconnect(search, setIsLoading)}
+        onBlur={execSearch}
       />
     </React.Fragment>
   );
 }
 
-export default Search;
+const mapStateToProps = ({ main }) => ({ beatmapCount: main.searchResults.beatmaps.length })
+export default connect(mapStateToProps)(Search);
