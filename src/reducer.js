@@ -1,4 +1,5 @@
 import './App/resize';
+import _ from 'underscore';
 
 const initialState = {
   connected: false,
@@ -27,11 +28,13 @@ const initialState = {
 export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {
   switch (type) {
     case 'UPDATE_MATCHS_LIST':
+      console.log('UPDATE_MATCHS_LIST')
       return { ...state, mpMatchs: [...newMatchs] };
     case 'UPDATE_SINGLE_MATCH':
+      console.log('UPDATE_SINGLE_MATCH')
       let { mpMatchs } = state;
       mpMatchs = mpMatchs.map(match => match.id === newMatch.id ? newMatch : match)
-      return { ...state, mpMatchs: [...mpMatchs] };
+      return { ...state, mpMatchs: _.clone(mpMatchs) };
     case 'CONNECT':
       return { ...state, connected: status || true, bot : bot || state.bot };
     case 'DISCONNECT':

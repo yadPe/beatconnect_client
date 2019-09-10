@@ -25,9 +25,8 @@ const styles = {
   }
 };
 const MatchListItem = ({ classes, match, theme, setSelected }) => {
-  const closeMatchItem = () => setSelected(null)
-  return (
-    <ul className={classes.MatchListItem} onClick={() => setSelected(<MatchDetails match={match} theme={theme} close={closeMatchItem} />)}>
+  return ( // setSelected(<MatchDetails match={match} theme={theme} close={() => setSelected(null)} />)
+    <ul className={classes.MatchListItem} onClick={() => setSelected(match.id)}>
       <li>
         <Cover url={`https://b.ppy.sh/thumb/${match.beatmapset_id}.jpg`} height='5vmin' width='10vmin' />
       </li>
