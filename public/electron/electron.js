@@ -8,10 +8,8 @@ const path = require('path');
 const url = require('url');
 require('./ipcMessages');
 
-
-autoUpdater.on('error', (error) => {
-  log.warn(`Error: \n ${error == null ? "unknown" : (error.stack || error).toString()}`);
-});
+log.transports.file.level = "debug";
+autoUpdater.logger = log;
 autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"

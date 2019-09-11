@@ -1,10 +1,10 @@
 import React from 'react';
-import MatchDetails from './MatchDetails'
 import injectSheet from 'react-jss';
 import Cover from '../../common/Beatmap/Cover';
 
 const styles = {
   MatchListItem: {
+    height: '60px',
     width: '80%',
     margin: '10px auto',
     padding: 0,
@@ -28,7 +28,7 @@ const MatchListItem = ({ classes, match, theme, setSelected }) => {
   return ( // setSelected(<MatchDetails match={match} theme={theme} close={() => setSelected(null)} />)
     <ul className={classes.MatchListItem} onClick={() => setSelected(match.id)}>
       <li>
-        <Cover url={`https://b.ppy.sh/thumb/${match.beatmapset_id}.jpg`} height='5vmin' width='10vmin' />
+        <Cover url={`https://b.ppy.sh/thumb/${match.beatmapset_id}.jpg`} height='60px' width='10vmin' />
       </li>
       <li className={classes.matchName}>
         {match.matchName}

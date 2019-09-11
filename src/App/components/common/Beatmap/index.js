@@ -11,7 +11,7 @@ import Badge from '../Badge';
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
 const Beatmap = ({ theme, beatmap, width, noFade }) => {
-  // console.log(beatmap.id, 'updated') 
+  // console.log('updated', beatmap) 
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }
