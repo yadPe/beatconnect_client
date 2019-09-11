@@ -25,8 +25,13 @@ const renderMatchsList = (mpMatchs, bot, theme, setSelected, connected) => {
 
 const Matchs = ({ mpMatchs, theme, bot, connected }) => {
   const [selectedMatch, setSelectedMatch] = useState(null)
+  console.log('selectedMatch', selectedMatch)
 
-  const renderSelectedMatch = () => mpMatchs.map(match => match.id === selectedMatch ? <MatchDetails match={match} theme={theme} close={() => setSelectedMatch(null)} /> : null)
+  const renderSelectedMatch = () => {
+    const currentMatch = mpMatchs.map(match => match.id === selectedMatch ? <MatchDetails match={match} theme={theme} close={() => setSelectedMatch(null)} /> : null)
+    if (currentMatch.length === 1) return currentMatch
+    return setSelectedMatch(null)
+  }
   // useEffect(() => {
   //   if (selectedMatch){
   //     if (mpMatchs.filter(match => selectedMatch.id === match.id).length === 0) setSelectedMatch(null)
