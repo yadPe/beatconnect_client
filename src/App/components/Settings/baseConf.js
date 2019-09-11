@@ -34,24 +34,28 @@ module.exports = {
       description: 'Create a multiplayer room with the specified name and send you an invite once the room is ready'
     },
     {
-      command: 'search <beatmap name>',
-      description: 'Search for beatmaps and return the 5 first occurences'
+      command: 'search <texte>',
+      description: 'Perform a search as on beatconnect’s website and return the 4 first ranked occurrences and a link to the other results on Beatconnect.'
     },
     {
-      command: 'get <beatmapId>',
+      command: 'get <beatmapSet Id>',
       description: 'Return the download link for the requested beatmapId'
     },
     {
-      command: 'pp <beatmapId>',
-      description: 'Return the pp value for the requested beatmapId'
+      command: 'pp <beatmap Id>',
+      description: 'Return the pp value for the requested beatmapId WIP'
     },
     {
       command: 'beat',
-      description: 'From a multiplayer lobby previously created with createRoom, return the download link of the current beatmap'
+      description: 'Return the beatconnect download link of the current beatmap in a multiplayer match.'
     },
     {
       command: 'infos',
       description: 'Print available commands'
+    },
+    {
+      command: 'join <match Id>',
+      description: 'Request the bot to connect to the specified match (Bot must be added as match referee before with `!mp addref`).'
     }
   ]
 }
