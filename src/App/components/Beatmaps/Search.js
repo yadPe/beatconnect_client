@@ -25,8 +25,8 @@ const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
   }
 
   useEffect(() => {
-    if (beatmapCount === 0) execSearch(true)
-  }, [])
+    if (beatmapCount === 0 || (lastSearch.status !== search.status || lastSearch.mode !== search.mode)) execSearch(true) 
+  }, [search])
 
   return (
     <React.Fragment>
@@ -50,11 +50,17 @@ const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
       <DropDown
         options={availableModes}
         value={search.mode}
-        onSelect={(e) => setSearch({ ...search, mode: e.target.value })} />
+        onSelect={(e) => {
+          setSearch({ ...search, mode: e.target.value })
+          execSearch()
+        }} />
       <DropDown
         options={availableStatus}
         value={search.status}
-        onSelect={(e) => setSearch({ ...search, status: e.target.value })} />
+        onSelect={(e) => {
+          setSearch({ ...search, status: e.target.value })
+          execSearch()
+          }} />
       <TextInput
         theme={theme.style}
         color={theme.color}
