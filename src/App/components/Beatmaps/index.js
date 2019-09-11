@@ -40,7 +40,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
     // const visibleStartIndex = overscanRowStartIndex * overscanColumnStopIndex;
     const visibleStopIndex = displayGrid ? (overscanRowStopIndex * overscanColumnStopIndex) : overscanRowStopIndex;
 
-    if (visibleStopIndex === rowCount - 1 && canLoadMore) {
+    if (visibleStopIndex === rowCount - 3 && canLoadMore) {
       loadMore()
     }
   };
