@@ -18,9 +18,9 @@ const styles = {
 
 const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
   const [isLoading, setIsloading] = useState(false);
-  const { search, beatmaps, max_page, lastScroll } = searchResults
+  const { search, beatmaps, lastScroll } = searchResults
   let { page } = searchResults
-  const canLoadMore = page < max_page
+  const canLoadMore = beatmaps.length % 50 === 0
   const lastScrollPosition = useRef(lastScroll || 0)
   if (lastScroll) lastScrollPosition.current = lastScroll
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
