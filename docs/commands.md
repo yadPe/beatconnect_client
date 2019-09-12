@@ -13,3 +13,6 @@
 **!infos** : Return a list of all available commands.
 
 These examples use the `!` prefix you can change it in the settings section of the app ( need a restart of the app to be applied ).
+
+### Related documentation
+- [Connect to a multiplayer match](./connect-to-multiplayer-match.md)
