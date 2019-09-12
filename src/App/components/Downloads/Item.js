@@ -20,7 +20,7 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
   return (
     <div className={classes.DownloadsItem}>
       <div className={classes.fade}>
-        <Cover url={`https://assets.ppy.sh/beatmaps/${id}/covers/cover.jpg`} />
+        <Cover url={`https://assets.ppy.sh/beatmaps/${id}/covers/cover.jpg`} height={130} />
       </div>
       {
         progress ?

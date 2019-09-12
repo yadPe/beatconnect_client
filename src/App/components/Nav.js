@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, cloneElement } from 'react';
 import { connect } from 'react-redux';
-import { NavPane, NavPaneItem } from 'react-desktop/windows';
-import Start from './Start'
-import Matchs from './Matchs'
-import Browse from './Browse'
+import Bot from './Bot'
+import Beatmaps from './Beatmaps'
 import Settings from './Settings'
 import Downloads from './Downloads';
 import renderIcon from '../utils/renderIcons';
+import NavPanel from './common/NavPanel';
+import NavPanelItem from './common/NavPanel/Item';
+import store from '../../store';
 
 
-const Nav = ({ mpMatchs, theme, connected, bot }) => {
-  const [selected, setSelected] = useState('Start');
+const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
+  // const [selected, setSelected] = useState(activeSection);
 
   const renderItem = (title, content) => (
-    <NavPaneItem
+    <NavPanelItem
       title={title}
       icon={renderIcon(title, theme.style)}
-      theme={theme.style}
+      theme={theme}
       background={theme.primary}
-      selected={selected === title}
-      onSelect={() => setSelected(title)}
+      selected={activeSection === title}
+      onSelect={() => store.dispatch({type: 'UPDATEACTIVESECTION', payload: title})}
       padding="10px 20px"
-      push
+      header
     >
-      {content}
-    </NavPaneItem>
+      {setHeader => cloneElement(content, { setHeaderContent: setHeader })}
+    </NavPanelItem>
   );
 
   return (
-    <NavPane openLength={150} push color={theme.color} theme={theme.style}>
-      {renderItem('Start', <Start connected={connected} theme={theme}/>)}
-      {renderItem('Matchs', <Matchs matchs={mpMatchs} theme={theme} bot={bot}/>)}
-      {renderItem('Browse', <Browse theme={theme} />)}
+    <NavPanel
+      paneExpandedLength={150}
+      defaultIsPanelExpanded={sidePanelExpended}
+      onExpended={(expended) => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
+      volume
+      tasks
+      expendable
+      theme={theme}
+    >
+      {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
-      {renderItem('Settings', <Settings theme={theme}/>)}
-    </NavPane>
+      {renderItem('Bot', <Bot connected={connected} bot={bot} theme={theme} />)}
+      {renderItem('Settings', <Settings theme={theme} />)}
+    </NavPanel>
   );
 }
 
-const mapStateToProps = ({ main }) => ({ ...main });
+const mapStateToProps = ({ main, settings }) => ({ ...main, sidePanelExpended: settings.userPreferences.sidePanelExpended });
 export default connect(mapStateToProps)(Nav);

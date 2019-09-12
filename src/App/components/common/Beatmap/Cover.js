@@ -1,32 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 
-const Cover = ({ url, width, height }) => {
+const Cover = ({ url, width, height, paddingBottom, noFade }) => {
   const [loaded, isLoaded] = useState(false);
   const cover = new Image()
-  cover.onload = () => isLoaded(true)
+  cover.onload = () => isLoaded(url)
   
   useEffect(() => {
-    isLoaded(false)
-    cover.setAttribute('src', url);
+    // isLoaded(false)
+    if (loaded !== url)
+      cover.setAttribute('src', url);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, loaded]);
   
   const style = {
-    opacity: loaded ? 1 : 0,
-    filter: `blur(${loaded ? 0 + 'px' : 10 + 'px'})`,
-    transition: '1s all',
+    opacity: noFade ? 1 : loaded ? 1 : 0,
+    filter: noFade ? '' : `blur(${loaded ? 0 + 'px' : 10 + 'px'})`,
+    transition: '200ms all',
     width: width || '100%',
     height: height || null,
-    paddingBottom: '15%',
+    paddingBottom: paddingBottom ? '15%' : 0,
     // margin: 'auto 0 auto 10px',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundImage: `url('${url}')`
+    backgroundImage: `url('${url}')`,
+    backgroundColor: 'rgba(255, 255, 255, 0.02)'
   }
   return (
     <div className='cover' style={style} />
   );
 }
 
-export default Cover;
+const areEqual = (prevProps, nextProps) => {
+  console.log(JSON.stringify(prevProps) === JSON.stringify(nextProps))
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps)
+}
+export default memo(Cover, areEqual);

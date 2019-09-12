@@ -10,33 +10,33 @@ import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
-const Beatmap = ({ theme, beatmap, width }) => {
-  console.log(beatmap.id, 'updated')
+const Beatmap = ({ theme, beatmap, width, noFade }) => {
+  // console.log('updated', beatmap) 
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
   }
   const [brightness, setBrightness] = useState(0.95)
   const [isPlaying, setIsPLaying] = useState(false)
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
-  
+
   const bpmFlash = useRef(null);
 
   const style = isPlaying ? {
-    width: width || '80%',
+    width: width || '',
     filter: `brightness(${brightness})`,
     transitionDuration: `${50}ms`
   } : {
-    width: width || '80%',
-  }
+      width: width || '',
+    }
 
   const modePillsStyle = (mode) => ({
-    backgroundImage: `url(${reqImgAssets(`./${mode}.png`)})`,
     width: 20,
     height: 20,
-    margin: 'auto 0.2vw',
+    margin: '3px',
     backgroundSize: 'contain',
     filter: 'brightness(0.85)',
-  })
+    content: `url(${reqImgAssets(`./${mode}.png`)})`
+  });
 
   useEffect(() => {
     if (isPlaying) {
@@ -45,12 +45,12 @@ const Beatmap = ({ theme, beatmap, width }) => {
         setTimeout(() => setBrightness(0.95), (60000 / beatmap.bpm) / 2.5)
       }, 60000 / beatmap.bpm)
     }
-    return () => bpmFlash ? clearInterval(bpmFlash) : undefined
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => bpmFlash.current ? clearInterval(bpmFlash.current) : undefined
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
   useEffect(() => {
-    return () => bpmFlash ? clearInterval(bpmFlash) : undefined
+    return () => bpmFlash.current ? clearInterval(bpmFlash.current) : undefined
   }, [])
 
   return (
@@ -59,7 +59,7 @@ const Beatmap = ({ theme, beatmap, width }) => {
         beatmap
           ?
           <React.Fragment>
-            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} />
+            <Cover url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`} height={130} noFade={noFade}/>
             <Text color='#fff'>{title}</Text>
             <Text color='#fff'>{artist}</Text>
             {version ? <Text color='#fff'>{`[${version || ''}]`}</Text> : null}
@@ -73,12 +73,11 @@ const Beatmap = ({ theme, beatmap, width }) => {
               {renderIcons('Search', theme.style)}
             </Button>
             <div className='rightContainer' style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}>
-              {/* <img src={reqImgAssets('./fruits.png')} alt='hop' height={24}/> */}
-              <div className='availableModes' style={{ padding: '0 5%', display: 'inline-flex' }}>
-                {beatmap.mode_std ? <div className='pill std' style={modePillsStyle('std')} /> : null}
-                {beatmap.mode_mania ? <div className='pill mania' style={modePillsStyle('mania')} /> : null}
-                {beatmap.mode_taiko ? <div className='pill taiko' style={modePillsStyle('taiko')} /> : null}
-                {beatmap.mode_ctb ? <div className='pill ctb' style={modePillsStyle('ctb')} /> : null}
+              <div className='availableModes' style={{ padding: '0 3px', display: 'inline-flex' }}>
+                {beatmap.mode_std ? <img alt='std' className='pill std' style={modePillsStyle('std')} /> : null}
+                {beatmap.mode_mania ? <img alt='mania' className='pill mania' style={modePillsStyle('mania')} /> : null}
+                {beatmap.mode_taiko ? <img alt='taiko' className='pill taiko' style={modePillsStyle('taiko')} /> : null}
+                {beatmap.mode_ctb ? <img alt='ctb' className='pill ctb' style={modePillsStyle('ctb')} /> : null}
               </div>
               {beatmap.status ? <Badge status={beatmap.status} /> : null}
             </div>
@@ -91,10 +90,10 @@ const Beatmap = ({ theme, beatmap, width }) => {
 }
 
 const areEqual = (prevProps, nextProps) => {
-  if (prevProps.beatmap.beatmapset_id){
+  if (prevProps.beatmap.beatmapset_id) {
     return prevProps.beatmap.beatmapset_id === nextProps.beatmap.beatmapset_id
   }
-  if (prevProps.beatmap.id){
+  if (prevProps.beatmap.id) {
     return prevProps.beatmap.id === nextProps.beatmap.id
   }
   return false

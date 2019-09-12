@@ -5,13 +5,15 @@ export default {
     position: 'relative',
     margin: '5px auto',
     textAlign: 'left',
-    color: '#fff'
+    color: '#fff',
+    height: '130',
+    width: '90%'
   },
   fade: {
     top: 0,
     left: 0,
     width: '100%',
-    filter: props => props.status === 'downloaded' ? 'brightness(0.3)' : `blur(${props.progress ? convertRange(props.progress, 0, 100, 6, 0) : 5}px) brightness(${props.progress ? convertRange(props.progress, 0, 100, 0.5, 1) : 0.5})`,
+    filter: props => props.status === 'downloaded' ? 'brightness(0.3)' : `blur(${props.progress ? convertRange(props.progress, 0, 100, 5, 0) : 4}px) brightness(${props.progress ? convertRange(props.progress, 0, 100, 0.5, 1) : 0.5})`,
     backgroundColor: 'rgba(0, 0, 0, 1)',
     '&:hover': {
       filter: props => props.status === 'downloaded' ? ' brightness(0.9)' : ''

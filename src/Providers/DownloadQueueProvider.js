@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
+const { download } = remote.require("electron-download-manager")
+
 class DownloadQueueProvider extends Component {
-  //static contextType = HistoryContext;
   constructor(props) {
-    super(props);
-    this.download = remote.require("electron-download-manager").download;
+    super(props); 
     this.state = {
       queue: [],
       currentDownload: {},
+      overallProgress: 0,
       push: this.push,
       removeItemfromQueue: this.removeItemfromQueue,
       cancelDownload: this.cancelDownload,
@@ -42,6 +43,7 @@ class DownloadQueueProvider extends Component {
 
   cancelDownload = () => {
     let { currentDownload } = this.state;
+    if (!currentDownload.item) return
     currentDownload.item.cancel()
     this.downloading = false
     currentDownload = {};
@@ -70,7 +72,8 @@ class DownloadQueueProvider extends Component {
     this.downloading = true;
     const { url, id, onFinished } = currentDownload.infos = queue.pop()
     this.setState({ currentDownload },
-      () => this.download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
+      () => download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
+        console.log('dl Callback')
         if (err) {
           this._onDownloadFailed(err)
         } else {
@@ -92,6 +95,7 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
+    console.log('ondlSUCC')
     if (this.props.autoImport) {
       shell.openItem(infos.filePath)
     }
@@ -101,6 +105,7 @@ class DownloadQueueProvider extends Component {
     * Ouvrir les beatmap seulement si l'option est active
     * mettre a jour l'indicateur de dl des beatmap
     */
+    remote.getCurrentWindow().setProgressBar(-1)
     console.log('Finished dl', infos)
     console.log('QUEUE', this.state.queue)
   }
@@ -110,11 +115,13 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadProgress = (progress, item) => {
-    const { currentDownload } = this.state;
+    let { overallProgress } = this.state;
+    const { currentDownload, queue } = this.state;
     currentDownload.item = item;
     currentDownload.progress = progress;
-    console.log(currentDownload, 'progess', progress)
-    this.setState({ currentDownload })
+    overallProgress = (progress.progress / 100) / (queue.length + 1);
+    remote.getCurrentWindow().setProgressBar(overallProgress);
+    this.setState({ currentDownload, overallProgress });
   }
 
   render() {

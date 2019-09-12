@@ -45,7 +45,7 @@ class Bot {
   newMatch(id, matchName, ircRoom, creator, playerList) {
     console.log(`New match created : ${id} ${matchName} ${ircRoom} ${creator}`);
     let alreadyExist = false;
-    this.matchs.map(match => {
+    this.matchs.forEach(match => {
       if (match.id === id)
         alreadyExist = true
     })
@@ -68,14 +68,14 @@ class Bot {
 
   newBeatmap(beatmapId, matchId) {
     this.osuApi.getSetId(beatmapId)
-      .then(beatmap => this.matchs.map(match => {
+      .then(beatmap => this.matchs.forEach(match => {
         if (match.id === matchId) {
           this.beatconnect.getBeatmapById(beatmap.beatmapset_id)
             .then(response => {
               console.log('Beatconnect', response)
               beatmap = { ...beatmap, ...response }
               match.updateBeatmap(beatmap).then(store.dispatch({ type: 'UPDATE_MATCHS_LIST', newMatchs: this.matchs }))
-              console.log('osu', beatmap)
+              console.log('osu', beatmap, this.matchs) 
               return
             })
         }
@@ -145,15 +145,15 @@ class Bot {
     if (channel.startsWith('#mp')) fromMp = channel;
 
     switch (command) {
-      case this.commandsList[2]: //get
-        if (!parseInt(params[0])) { this.irc.pm(fromMp || from, `${fromMp ? from : ''} You need to specify a beatmap id`); break; }
+      case this.commandsList[2]: // get
+        if (!parseInt(params[0])) { this.irc.pm(fromMp || from, `${fromMp ? from : ''} You need to specify a beatmapSet id`); break; }
         this.sendMapById(params[0], from)
         break;
-      case this.commandsList[5]: //infos
+      case this.commandsList[5]: // infos
         this.irc.pm(fromMp || from, this.conf.commands
           .map(cmd => `[https://github.com/yadpe/beatconnect_irc_bot#readme ${cmd.command}] - ${cmd.description}`).join('\n'));
         break;
-      case this.commandsList[0]: //createroom
+      case this.commandsList[0]: // createroom
         this.irc.makeMatch(params[0], from)
           .then(({ matchId, name, matchRoom, creator }) => this.newMatch(matchId, name, matchRoom, creator))
           .catch(err => {
@@ -161,12 +161,12 @@ class Bot {
             this.irc.pm(from, 'Unable to create the match, maybe you already have too many matchs currently open');
           });
         break;
-      case this.commandsList[1]: //search
+      case this.commandsList[1]: // search
         this.beatconnect.searchBeatmap(params)
           .then(result => this.irc.pm(fromMp || from, result))
           .catch(err => console.error(err));
         break;
-      case this.commandsList[4]: //beat
+      case this.commandsList[4]: // beat
         if (!fromMp) { this.irc.pm(from, `You need to be in a multiplayer match to use this`); break; }
         const matchId = fromMp.split('_').pop();
         this.matchs.map(match => {
@@ -174,7 +174,7 @@ class Bot {
             this.sendMapById(match.beatmapset_id, fromMp, match.fullBeatmapData);
         });
         break;
-      case 'join':
+      case this.commandsList[6]: // join
         if (!parseInt(params[0])) {
           this.irc.pm(from, 'You need to provide a valid match id')
           break;

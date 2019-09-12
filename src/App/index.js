@@ -18,8 +18,6 @@ const App = ({ theme }) => {
           onCloseClick={() => window.close()}
           onMaximizeClick={() => window.isMaximized() ? window.unmaximize() : window.maximize()}
           onMinimizeClick={() => window.minimize()}
-          onMouseDown={() => window.setOpacity(0.70)}
-          onMouseUp={() => window.setOpacity(1)}
         />
       </div>
       <div className='Nav'> 

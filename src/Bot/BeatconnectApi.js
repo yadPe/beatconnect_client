@@ -1,7 +1,7 @@
 class BeatconnectApi {
   constructor(key) {
     this.key = key;
-    this.url = "https://beatconnect.io/api/";
+    this.url = "https://beatconnect.io/api";
     this.status = {
       '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'
     }
@@ -30,7 +30,8 @@ class BeatconnectApi {
 }
 
 const getDlLink = (beatmapInfos, pretty, extra) => {
-  if (beatmapInfos.error) throw new Error(beatmapInfos.error) // Need Test 
+  console.log('getdlLimk', beatmapInfos)
+  if (beatmapInfos.error) throw new Error(beatmapInfos.error) // Need Test
   const { id, artist, title, unique_id } = beatmapInfos;
   const status = {
     '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'

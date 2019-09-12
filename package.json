@@ -1,11 +1,11 @@
 {
   "name": "beatconnect_client",
   "productName": "Beatconnect Client",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./public/electron.js",
+  "main": "./public/electron/electron.js",
   "homepage": "./",
   "scripts": {
     "start": "node scripts/start.js",
@@ -49,7 +49,7 @@
       "buildResources": "assets"
     },
     "extraMetadata": {
-      "main": "./build/electron.js",
+      "main": "./build/electron/electron.js",
       "prune": true
     },
     "dmg": {
@@ -132,15 +132,16 @@
     "react-jss": "^8.6.1",
     "react-redux": "^7.1.0",
     "react-visibility-sensor": "^5.1.1",
+    "react-window": "^1.8.5",
     "redux": "^4.0.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
     "string.prototype.startswith": "^0.2.0",
     "style-loader": "0.23.1",
-    "styled-components": "^4.3.2",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
+    "underscore": "^1.9.1",
     "update-electron-app": "^1.5.0",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",
