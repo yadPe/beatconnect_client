@@ -7,6 +7,7 @@ The official client for [Beatconnect](https://beatconnect.io) which is a mirror 
 
 - [Quick Tour](#quick-tour)
 - [Technology](#technology)
+- [Documentation](#documentation)
 - [Development](#development)
 - [Download](#download)
 - [License](#license)
@@ -32,6 +33,13 @@ Comming with the <b>autobeat</b> feature that send the Beatconnect download link
   and [NodeJs](https://nodejs.org)**
 
 - The bot uses a slightly modified version of **[node-irc](https://github.com/yadPe/node-irc) to connect to game IRC.**
+
+## Documentation
+
+**Available ressources:**
+
+- [Connect to a multiplayer match](./docs/connect-to-multiplayer-match.md)
+- [Bot commands](./docs/commands.md)
 
 ## Development
 
