@@ -1,16 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ProgressCircle } from 'react-desktop/windows';
+import _ from 'underscore';
+import { connect } from 'react-redux';
+import injectSheet from 'react-jss';
 import TextInput from '../common/TextInput'
 import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
-import _ from 'underscore';
-import { connect } from 'react-redux';
+import Toggle from '../common/Toggle';
 
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
+const styles = {
+  Search: {
+    width: '100%',
+    display: 'inline-flex',
+    '& div, select, input, label': {
+      marginTop: 'auto',
+      marginBottom: 'auto'
+    }
+  },
+  right: {
+    marginLeft: 'auto'
+  },
+  hideDownloaded: {
+    cursor: 'pointer'
+  }
+}
 
-const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
+const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   const [search, setSearch] = useState(lastSearch);
   const [isLoading, setIsLoading] = useState(false);
   const searchOnEnter = (e) => {
@@ -25,11 +43,13 @@ const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
   }
 
   useEffect(() => {
-    if (beatmapCount === 0 || (lastSearch.status !== search.status || lastSearch.mode !== search.mode)) execSearch(true) 
+    if (beatmapCount === 0 
+      || (lastSearch.status !== search.status || lastSearch.mode !== search.mode || lastSearch.hideDownloaded !== search.hideDownloaded)
+      ) execSearch(true) 
   }, [search])
 
   return (
-    <React.Fragment>
+    <div className={classes.Search}>
       <Button
         className='btn'
         push
@@ -70,9 +90,22 @@ const Search = ({ theme, lastSearch, isBusy, beatmapCount }) => {
         onKeyDown={searchOnEnter}
         onBlur={execSearch}
       />
-    </React.Fragment>
+      <div className={classes.right}/>
+      <div
+      className={classes.hideDownloaded}
+      onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
+      title='Hide downloaded beatmaps'
+      >
+        {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.color : null)}
+      </div>
+      {/* <Toggle
+        theme={theme}
+        checked={search.hideDownloaded}
+        onChange={e => setSearch({ ...search, hideDownloaded: e.target.checked })}
+      /> */}
+    </div>
   );
 }
 
 const mapStateToProps = ({ main }) => ({ beatmapCount: main.searchResults.beatmaps.length })
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(injectSheet(styles)(Search));
