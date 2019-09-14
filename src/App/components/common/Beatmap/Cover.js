@@ -32,7 +32,6 @@ const Cover = ({ url, width, height, paddingBottom, noFade }) => {
 }
 
 const areEqual = (prevProps, nextProps) => {
-  console.log(JSON.stringify(prevProps) === JSON.stringify(nextProps))
   return JSON.stringify(prevProps) === JSON.stringify(nextProps)
 }
 export default memo(Cover, areEqual);
