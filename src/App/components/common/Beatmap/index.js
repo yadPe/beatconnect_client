@@ -74,10 +74,10 @@ const Beatmap = ({ theme, beatmap, width, noFade }) => {
             </Button>
             <div className='rightContainer' style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}>
               <div className='availableModes' style={{ padding: '0 3px', display: 'inline-flex' }}>
-                {beatmap.mode_std ? <img alt='std' className='pill std' style={modePillsStyle('std')} /> : null}
-                {beatmap.mode_mania ? <img alt='mania' className='pill mania' style={modePillsStyle('mania')} /> : null}
-                {beatmap.mode_taiko ? <img alt='taiko' className='pill taiko' style={modePillsStyle('taiko')} /> : null}
-                {beatmap.mode_ctb ? <img alt='ctb' className='pill ctb' style={modePillsStyle('ctb')} /> : null}
+                {beatmap.mode_std ? <img alt='std' title='Standard' className='pill std' style={modePillsStyle('std')} /> : null}
+                {beatmap.mode_mania ? <img alt='mania' title='Mania' className='pill mania' style={modePillsStyle('mania')} /> : null}
+                {beatmap.mode_taiko ? <img alt='taiko' title='Taiko' className='pill taiko' style={modePillsStyle('taiko')} /> : null}
+                {beatmap.mode_ctb ? <img alt='ctb' title='Catch The Beat' className='pill ctb' style={modePillsStyle('ctb')} /> : null}
               </div>
               {beatmap.status ? <Badge status={beatmap.status} /> : null}
             </div>
