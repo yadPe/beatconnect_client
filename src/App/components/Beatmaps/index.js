@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useState, useRef } from 'react';
+import React, { useEffect, useContext, memo, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet from 'react-jss';
@@ -6,6 +6,7 @@ import Beatmap from '../common/Beatmap'
 import Search from './Search';
 import askBeatconnect from './askBeatconnect';
 import store from '../../../store';
+import { HistoryContext } from '../../../Providers/HistoryProvider';
 
 const styles = {
   list: {
@@ -17,10 +18,12 @@ const styles = {
 };
 
 const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
+  const history = useContext(HistoryContext);
   const [isLoading, setIsloading] = useState(false);
-  const { search, beatmaps, lastScroll } = searchResults
-  let { page } = searchResults
-  const canLoadMore = beatmaps.length % 50 === 0
+  const { search, lastScroll, hideDownloaded, lastPage } = searchResults
+  let { beatmaps, page } = searchResults
+  if (hideDownloaded) beatmaps = beatmaps.filter(({beatmapset_id, id}) => !history.contains(id || beatmapset_id));
+  const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const lastScrollPosition = useRef(lastScroll || 0)
   if (lastScroll) lastScrollPosition.current = lastScroll
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
@@ -33,6 +36,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
     console.log('MORE')
     askBeatconnect({ ...search, page: page += 1 }, setIsloading)
   }
+  if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
   const newItemsRendered = ({
     overscanRowStopIndex,
     overscanColumnStopIndex
