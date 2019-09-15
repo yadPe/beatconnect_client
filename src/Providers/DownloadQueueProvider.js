@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
-const { download } = remote.require("electron-download-manager")
+const { download } = remote.require("electron-download-manager");
+const { app } = remote;
 
 class DownloadQueueProvider extends Component {
   constructor(props) {
@@ -18,6 +19,18 @@ class DownloadQueueProvider extends Component {
       cancelDownload: this.cancelDownload,
       pauseDownload: this.pauseDownload,
       resumeDownload: this.resumeDownload
+    }
+  }
+
+  componentDidMount() {
+    const { importMethod, osuSongsPath } = this.props;
+    this._setDlPath(importMethod, osuSongsPath)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { importMethod, osuSongsPath } = this.props;
+    if (prevProps.importMethod !== importMethod || prevProps.osuSongsPath !== osuSongsPath) {
+      this._setDlPath(importMethod, osuSongsPath)
     }
   }
 
@@ -72,8 +85,7 @@ class DownloadQueueProvider extends Component {
     this.downloading = true;
     const { url, id, onFinished } = currentDownload.infos = queue.pop()
     this.setState({ currentDownload },
-      () => download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
-        console.log('dl Callback')
+      () => download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
         if (err) {
           this._onDownloadFailed(err)
         } else {
@@ -95,8 +107,8 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
-    console.log('ondlSUCC')
-    if (this.props.autoImport) {
+    const { importMethod } = this.props;
+    if (importMethod === 'auto') {
       shell.openItem(infos.filePath)
     }
 
@@ -124,6 +136,14 @@ class DownloadQueueProvider extends Component {
     this.setState({ currentDownload, overallProgress });
   }
 
+  _setDlPath = (importMethod, osuSongsPath) => {
+    if (importMethod === 'bulk') {
+      this.dlPath = osuSongsPath
+    } else {
+      this.dlPath = app.getPath("downloads") + "\\beatconnect"
+    }
+  }
+
   render() {
     const { children } = this.props;
     return (
@@ -132,5 +152,8 @@ class DownloadQueueProvider extends Component {
   }
 }
 
-const mapStateToProps = ({settings}) => ({autoImport: settings.userPreferences.autoImport})
+const mapStateToProps = ({settings}) => {
+  const { autoImport, importMethod, osuSongsPath } = settings.userPreferences;
+  return { autoImport, importMethod, osuSongsPath } 
+}
 export default connect(mapStateToProps)(DownloadQueueProvider);

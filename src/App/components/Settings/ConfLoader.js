@@ -7,7 +7,7 @@ class ConfLoader {
   constructor() {
     this.path = remote.app.getPath('documents') + '/Beatconnect/config.json';
     try {
-      this.conf = readJSONSync(this.path)
+      this.conf = {...baseConf, ...readJSONSync(this.path)}
     } catch (err) { // assume conf file does not exist 
       this.conf = baseConf
     }

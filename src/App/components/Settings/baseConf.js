@@ -5,6 +5,7 @@ module.exports = {
     prefix: '!',
     autoBeat: true,
     autoImport: true,
+    importMethod: 'auto',
     irc: {
       server: 'irc.ppy.sh',
       port: 6667,
