@@ -29,7 +29,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
   const gridHeight = window.height - 79
   const displayGrid = gridWidth >= 1200;
-  const rowCount = displayGrid ? beatmaps.length / 2 : beatmaps.length
+  const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length
   const onScroll = ({ scrollTop }) => lastScrollPosition.current = scrollTop
   const loadMore = () => {
     if (isLoading) return console.log('NOPE')
@@ -59,10 +59,12 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   }, [])
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
+    const beatmap = beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)];
+    if (!beatmap) return <div style={style} />
     return (
       <div style={style}>
         {displayGrid ?
-          <Beatmap noFade width='90%' theme={theme} beatmap={beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)]} key={`beatmap${beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)].beatmapset_id || beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)].id}`} />
+          <Beatmap noFade width='90%' theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
           :
           <Beatmap noFade width='90%' theme={theme} beatmap={beatmaps[rowIndex]} key={`beatmap${beatmaps[rowIndex].beatmapset_id || beatmaps[rowIndex].id}`} />}
       </div>
