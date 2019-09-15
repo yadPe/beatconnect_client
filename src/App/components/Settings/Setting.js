@@ -4,6 +4,7 @@ import injectSheet from 'react-jss';
 import Toggle from '../common/Toggle';
 import { Button } from 'react-desktop/windows';
 import DropDown from '../common/DropDown';
+import CheckBox from '../common/CheckBox';
 
 const styles = {
   Setting: {
@@ -116,7 +117,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                         </div>
                       </div>
                     )
-                  case 'Select':
+                  case 'DropDownSelect':
                     return (
                       <div key={item.name} className={classes.Toggle}>
                         <div style={{ margin: 'auto auto auto 0' }}>
@@ -128,6 +129,20 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           options={item.options}
                           onBlur={item.action}
                           value={item.value}
+                        />
+                      </div>
+                    )
+                  case 'CheckBox':
+                    return (
+                      <div key={item.name} className={classes.Toggle} onClick={item.action}>
+                        <div style={{ margin: 'auto auto auto 0' }}>
+                          <p>{item.name}</p>
+                          <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
+                        </div>
+                        <CheckBox
+                          onChange={item.action}
+                          checked={item.value}
+                          theme={theme}
                         />
                       </div>
                     )

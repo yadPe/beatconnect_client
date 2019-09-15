@@ -69,7 +69,12 @@ const Settings = ({ userPreferences, theme }) => {
         { name: 'Select your Osu! Songs folder', value: autoImport, action: osuPathSetup, type: 'Button' },
         { name: 'Osu! beatmaps scan', description: 'Scan your osu folder to import all your previously downloded beatmaps to your Beatconnect history', type: 'Text' },
         { name: osuSongsPath ? 'Scan Osu! songs' : 'Songs folder not selected', value: autoImport, action: scanOsuSongs, description: lastScan ? `${lastScan.beatmaps} beatmaps found - Last scan ${new Date(lastScan.date).toDateString()}` : '', type: 'Button' },
-      ]
+      ],
+      // 'Beatmaps import method': [
+      //   { name: 'Auto', value: autoImport, action: () => console.log('click'), description: 'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not running)', type: 'CheckBox' },
+      //   { name: 'Bulk', value: autoImport, action: setAutoImport, description: 'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection', type: 'CheckBox' },
+      //   { name: 'Manual', value: autoImport, action: setAutoImport, description: 'Downloaded beatmaps are stored as is in your download folder inside the Beatconnect folder', type: 'CheckBox' },
+      // ]
     }, 
     Version: {
       version: [
