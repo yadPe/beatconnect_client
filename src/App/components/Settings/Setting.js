@@ -52,6 +52,9 @@ const styles = {
     '& label': {
       margin: 'auto 10px',
     }
+  },
+  clickable: {
+    cursor: 'pointer'
   }
 };
 
@@ -134,7 +137,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     )
                   case 'CheckBox':
                     return (
-                      <div key={item.name} className={classes.Toggle} onClick={item.action}>
+                      <div key={item.name} className={`${classes.Toggle} ${classes.clickable}`} onClick={item.action}>
                         <div style={{ margin: 'auto auto auto 0' }}>
                           <p>{item.name}</p>
                           <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
