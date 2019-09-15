@@ -20,5 +20,7 @@ export const setOsuSongsPath = payload => store.dispatch({type: 'SONGSPATH', pay
 
 export const setLastScan = payload => store.dispatch({type: 'LASTSCAN', payload});
 
+export const setImportMethod = payload => store.dispatch({type: 'SETIMPORTMETHOD', payload})
+
 
 
