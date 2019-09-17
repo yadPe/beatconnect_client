@@ -10,7 +10,7 @@ import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
-const Beatmap = ({ theme, beatmap, width, noFade }) => {
+const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
   // console.log('updated', beatmap) 
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`
@@ -64,7 +64,7 @@ const Beatmap = ({ theme, beatmap, width, noFade }) => {
             <Text color='#fff'>{artist}</Text>
             {version ? <Text color='#fff'>{`[${version || ''}]`}</Text> : null}
             <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
-            <DownloadBeatmapBtn theme={theme} url={beatconnectDlLink || getDownloadUrl(beatmap)} infos={{ title, artist, creator, id: beatmapset_id || id }} />
+            <DownloadBeatmapBtn theme={theme} autoDl={autoDl} url={beatconnectDlLink || getDownloadUrl(beatmap)} infos={{ title, artist, creator, id: beatmapset_id || id }} />
             <Button
               push
               color={theme.color}

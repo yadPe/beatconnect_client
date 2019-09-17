@@ -41,7 +41,7 @@ class DownloadQueueProvider extends Component {
     console.log('QUEUE', queue)
     this.setState({ queue },
       () => {
-        if (this.state.queue.length === 1) {
+        if (this.state.queue.length >= 1) {
           this._execQueue();
         }
       }
