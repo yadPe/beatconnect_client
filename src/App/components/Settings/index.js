@@ -68,7 +68,7 @@ const Settings = ({ userPreferences, theme }) => {
       ],
       'Beatmaps import method': [
         { name: 'Auto', value: importMethod === 'auto', action: () => setImportMethod('auto'), description: 'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not running)', type: 'CheckBox' },
-        { name: 'Bulk', value: importMethod === 'bulk',  action: () => setImportMethod('bulk'), description: 'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection', type: 'CheckBox' },
+        { name: 'Bulk', value: importMethod === 'bulk',  action: () => setImportMethod('bulk'), description: 'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection', disabled: !osuSongsPath || osuSongsPath === '', type: 'CheckBox' },
         { name: 'Manual', value: importMethod === 'manual',  action: () => setImportMethod('manual'), description: 'Downloaded beatmaps are stored as is in your download folder inside the Beatconnect folder', type: 'CheckBox' },
       ]
     }, 
