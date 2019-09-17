@@ -27,6 +27,9 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
     case 'AUTOIMPORT':
       userPreferences = { ...userPreferences, autoImport: payload }
       return { ...settings, userPreferences: {...userPreferences} }
+    case 'SETIMPORTMETHOD':
+      userPreferences = { ...userPreferences, importMethod: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
     case 'SIDEPANELEXPENDED':
       userPreferences = { ...userPreferences, sidePanelExpended: payload }
       return { ...settings, userPreferences: {...userPreferences} }
