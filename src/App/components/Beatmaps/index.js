@@ -9,15 +9,13 @@ import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 
 const styles = {
-  list: {
-    // display: 'grid',
-    // alignItems: 'center',
-    // gridTemplateColumns: 'repeat(auto-fit, minmax(700px, 1fr))',
-    // //gridGap: '10px'
+  Beatmaps: {
+    outline: 'none'
   }
 };
 
 const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
+  const [autoDl, setAutoDl] = useState(false);
   const history = useContext(HistoryContext);
   const [isLoading, setIsloading] = useState(false);
   const { search, lastScroll, hideDownloaded, lastPage } = searchResults
@@ -64,21 +62,25 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
     return (
       <div style={style}>
         {displayGrid ?
-          <Beatmap noFade width='90%' theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
+          <Beatmap noFade width='90%' autoDl={autoDl && hideDownloaded} theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
           :
-          <Beatmap noFade width='90%' theme={theme} beatmap={beatmaps[rowIndex]} key={`beatmap${beatmaps[rowIndex].beatmapset_id || beatmaps[rowIndex].id}`} />}
+          <Beatmap noFade width='90%' autoDl={autoDl && hideDownloaded} theme={theme} beatmap={beatmaps[rowIndex]} key={`beatmap${beatmaps[rowIndex].beatmapset_id || beatmaps[rowIndex].id}`} />}
       </div>
     )
   }
 
   return (
-    <div className='Beatmaps'>
+    <div
+      className={`Beatmaps ${classes.Beatmaps}`}
+      onKeyDown={(e) => e.keyCode === 48 ? setAutoDl(!autoDl) : console.log(e.keyCode)}
+      tabIndex="0"
+    >
       <FixedSizeGrid
         columnCount={displayGrid ? 2 : 1}
         columnWidth={displayGrid ? (gridWidth / 2) - 9 : gridWidth - 18}
         rowCount={rowCount}
         rowHeight={250}
-        overscanRowCount={7}
+        overscanRowCount={7} 
         height={gridHeight}
         width={gridWidth}
         onItemsRendered={newItemsRendered}

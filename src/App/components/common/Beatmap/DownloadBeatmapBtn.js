@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import renderIcons from '../../../utils/renderIcons'
 import { ProgressCircle, Button } from 'react-desktop/windows';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider'
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 
-const DownloadBeatmapBtn = ({ theme, url, infos }) => {
+const DownloadBeatmapBtn = ({ theme, url, infos, autoDl }) => {
   const { title, artist, creator, id } = infos;
   const fullTitle = `${title} - ${artist} | ${creator}`
   const history = useContext(HistoryContext);
@@ -23,6 +23,10 @@ const DownloadBeatmapBtn = ({ theme, url, infos }) => {
       }
     })
   }
+
+  useEffect(() => {
+    if (autoDl) downloadBeatmap()
+  },[autoDl])
 
   return (
     <Button

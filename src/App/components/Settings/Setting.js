@@ -137,7 +137,12 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     )
                   case 'CheckBox':
                     return (
-                      <div key={item.name} className={`${classes.Toggle} ${classes.clickable}`} onClick={item.action}>
+                      <div 
+                      key={item.name} 
+                      className={`${classes.Toggle} ${classes.clickable}`} 
+                      onClick={item.disabled ? undefined : item.action}
+                      style={{opacity: item.disabled ? 0.5 : 1}}
+                      >
                         <div style={{ margin: 'auto auto auto 0' }}>
                           <p>{item.name}</p>
                           <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>{item.description}</p>
@@ -146,6 +151,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           onChange={item.action}
                           checked={item.value}
                           theme={theme}
+                          disabled={item.disabled}
                         />
                       </div>
                     )
