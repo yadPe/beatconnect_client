@@ -10,6 +10,9 @@ require('./ipcMessages');
 
 log.transports.file.level = "debug";
 autoUpdater.logger = log;
+autoUpdater.on('update-available', () => {
+  // TODO send ipc message to render to show that an update is being downloaded in bg
+})
 autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"

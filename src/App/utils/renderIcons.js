@@ -338,6 +338,14 @@ export default function(name, style, customColor) {
           </g>
         </svg>
       );
+      case 'Filter':
+      return (
+        <svg x="0px" y="0px" width="23px" height="23px" viewBox="0 0 459 459">
+          <path 
+            fill={fill}
+            d="M178.5,382.5h102v-51h-102V382.5z M0,76.5v51h459v-51H0z M76.5,255h306v-51h-306V255z"/>
+        </svg>
+      );
       default: 
         return null 
     }
