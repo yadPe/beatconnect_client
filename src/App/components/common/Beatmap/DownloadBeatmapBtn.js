@@ -11,10 +11,9 @@ const DownloadBeatmapBtn = ({ theme, url, infos, autoDl }) => {
   const { currentDownload, push, queue } = useContext(DownloadQueueContext);
   const downloaded = history.contains(id)
   let isDownloading = false;
-  if (currentDownload.infos) {
-    isDownloading = (currentDownload.infos.id === id ||
-      queue.filter(item => item.id === id).length > 0 ? true : false)
-  }
+  isDownloading = queue.filter(item => item.id === id).length > 0 ? true : false || 
+  currentDownload.infos ? currentDownload.infos.id === id : false
+
 
   const downloadBeatmap = () => {
     push({
