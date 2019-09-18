@@ -16,15 +16,17 @@ class TasksProvider extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     const { tasks } = this.state
-    if (!this.context.currentDownload.item) {
+    const { queue } = this.context;
+    if (!this.context.currentDownload.item && queue.length === 0) {
       if (tasks['Downloading']) tasks['Downloading'].terminate() 
     }
   } 
   componentWillUpdate() {
     const { tasks } = this.state
+    const { overallProgress, queue } = this.context;
     if (this.context.currentDownload.item) {
       if (!tasks['Downloading']) return this.add({name: 'Downloading', status: 'running', description: `initializing`, section: 'Downloads'})
-      const description = `${Math.round(this.context.overallProgress * 100)}% - ${this.context.queue.length} items in queue`
+      const description = `${Math.round(overallProgress * 100)}% - ${queue.length} items in queue`
       if (tasks['Downloading'].description !== description) {
         tasks['Downloading'].description = description
         this.setState({tasks})

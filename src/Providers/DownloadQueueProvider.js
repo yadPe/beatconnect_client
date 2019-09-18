@@ -38,7 +38,6 @@ class DownloadQueueProvider extends Component {
     const { queue } = this.state;
     if (queue.some(e => e.id === item.id)) return
     queue.push(item)
-    console.log('QUEUE', queue)
     this.setState({ queue },
       () => {
         if (this.state.queue.length >= 1) {
@@ -108,21 +107,21 @@ class DownloadQueueProvider extends Component {
 
   _onDownloadSucceed(infos, beatmapSetId) {
     const { importMethod } = this.props;
+    const { queue } = this.state;
     if (importMethod === 'auto') {
       shell.openItem(infos.filePath)
     }
-
-    /* TODO 
-    * Sauvegarder l'id des beatmap telechargees
-    * Ouvrir les beatmap seulement si l'option est active
-    * mettre a jour l'indicateur de dl des beatmap
-    */
-    remote.getCurrentWindow().setProgressBar(-1)
+    if (queue.length === 0) this._onQueueTerminated()
     console.log('Finished dl', infos)
     console.log('QUEUE', this.state.queue)
   }
 
+  _onQueueTerminated(){
+    remote.getCurrentWindow().setProgressBar(-1)
+  }
+
   _onDownloadFailed(err) {
+    remote.getCurrentWindow().setProgressBar(-1)
     console.error(err)
   }
 
