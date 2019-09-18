@@ -1,7 +1,7 @@
 {
   "name": "beatconnect_client",
   "productName": "Beatconnect Client",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
