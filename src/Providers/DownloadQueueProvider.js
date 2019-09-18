@@ -83,7 +83,7 @@ class DownloadQueueProvider extends Component {
     let { queue, currentDownload } = this.state;
     if (this.downloading) return
     this.downloading = true;
-    const { url, id, onFinished } = currentDownload.infos = queue.pop()
+    const { url, id, onFinished } = currentDownload.infos = queue.shift()
     this.setState({ currentDownload },
       () => download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
         if (err) {
