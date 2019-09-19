@@ -6,12 +6,10 @@ import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {
   const audioPlayer = useContext(AudioPlayerContext);
   const [isPlayable, setIsPlayable] = useState(true);
-  const preview = new Audio(`https://b.ppy.sh/preview/${beatmapSetId}.mp3`);
-  preview.onerror = () => setIsPlayable(false);
   const isPlaying = audioPlayer.isPlaying === beatmapSetId;
   if (setIsPLaying) setIsPLaying(isPlaying);
   const playPreview = () => {
-    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(preview, beatmapSetId)
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, setIsPlayable)
   }
   return (
     isPlayable ?
