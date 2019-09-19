@@ -12,7 +12,7 @@ class AudioPlayerProvider extends Component{
     })
     this.audio = new Audio();
     this.audio.onended = () => this.setState({isPlaying: false})
-    this.volume = convertRange(store.getState().settings.userPreferences.volume, 0, 100, 0, 1);
+    this.audio.volume = convertRange(store.getState().settings.userPreferences.volume, 0, 100, 0, 1);
     this.state = {
       isPlaying: false,
       setAudio: this.setAudio,
@@ -37,7 +37,6 @@ class AudioPlayerProvider extends Component{
 
   setVolume = (value) => {
     const converted = convertRange(value, 0, 100, 0, 1)
-    this.volume = converted
     this.audio.volume = converted
   }
 
