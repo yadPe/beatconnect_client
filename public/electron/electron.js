@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app, webContents  } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
@@ -10,8 +10,17 @@ require('./ipcMessages');
 
 log.transports.file.level = "debug";
 autoUpdater.logger = log;
+autoUpdater.on('checking-for-update', () => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'checkingUpdate' })
+})
 autoUpdater.on('update-available', () => {
-  // TODO send ipc message to render to show that an update is being downloaded in bg
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateAvailable' })
+})
+autoUpdater.on('update-downloaded', ({ releaseName }) => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateDownloaded', releaseName })
+})
+autoUpdater.on('update-not-available', () => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' })
 })
 autoUpdater.checkForUpdatesAndNotify()
 DownloadManager.register({

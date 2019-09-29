@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ipcRenderer } from 'electron';
 import { DownloadQueueContext } from './DownloadQueueProvider';
 
 export const TasksContext = React.createContext();
@@ -11,8 +12,27 @@ class TasksProvider extends Component {
       tasks: {},
       lastTask: {},
       add: this.add
-
     }
+    ipcRenderer.on('autoUpdater', ({ status, releaseName }) => {
+      switch(status){
+        case 'checkingUpdate':
+          this.add({ name: 'Checking for update', status: 'running', section: 'Settings' })
+          break
+        case 'noUpdateAvailable':
+          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate()
+          break
+        case 'updateAvailable':
+          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate()
+          this.add({ name: 'Downloading update', status: 'running', section: 'Settings' })
+          break
+        case 'updateDownloaded':
+          if (this.state.tasks['Downloading update']) this.state.tasks['Downloading update'].terminate()
+          this.add({ name: 'New version downloaded', status: 'running', section: 'Settings', description: 'You can now restart the app' })
+          break
+        default:
+          break
+      }
+    })
   }
   componentDidUpdate(prevProps, prevState) {
     const { tasks } = this.state
