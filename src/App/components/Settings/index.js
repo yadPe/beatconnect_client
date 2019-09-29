@@ -30,20 +30,24 @@ const Settings = ({ userPreferences, theme }) => {
 
 
   const scanOsuSongs = () => {
-    if (!osuSongsPath) return alert('You need to select your songs folder before')
-    add({ name: 'Scanning beatmaps folder', status: 'running', description: '', section: 'Settings' })
-    ipcRenderer.send('osuSongsScan', osuSongsPath) // User osu folder path
+    if (!osuPath && !osuSongsPath) return alert('You need to select your osu! or songs folder before')
+    add({ name: 'Scanning beatmaps', status: 'running', description: '', section: 'Settings' })
+    ipcRenderer.send('osuSongsScan', { osuPath, osuSongsPath, allowLegacy: true }) // User osu folder path
     ipcRenderer.on('osuSongsScanStatus', (e, args) => {
-      add({ name: 'Scanning beatmaps folder', status: 'running', description: `${Math.round(args * 100)}%`, section: 'Settings' })
+      add({ name: 'Scanning beatmaps', status: 'running', description: `${Math.round(args * 100)}%`, section: 'Settings' })
     })
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
-      if (tasks['Scanning beatmaps folder']) tasks['Scanning beatmaps folder'].terminate('Finished')
+      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Finished')
       //args = JSON.parse(args)
       if (args.err) console.error(`Error while scannings song: ${args.err}`)
       else {
         history.set({ ...history.history, ...args })
         setLastScan({date: Date.now(), beatmaps: Object.keys(args).length})
       }
+    })
+    ipcRenderer.on('osuSongsScanError', (e, args) => {
+      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Failed')
+      alert('Failed to scan beatmaps, check your songs and osu! path in settings section')
     })
   }
 
@@ -64,7 +68,7 @@ const Settings = ({ userPreferences, theme }) => {
       History: [
         { name: 'Clear history', action: history.clear, type: 'Button' },
         { name: 'Osu! beatmaps scan', description: 'Scan your osu folder to import all your previously downloded beatmaps to your Beatconnect history', type: 'Text' },
-        { name: osuSongsPath ? 'Scan Osu! songs' : 'Songs folder not selected', value: autoImport, action: scanOsuSongs, description: lastScan ? `${lastScan.beatmaps} beatmaps found - Last scan ${new Date(lastScan.date).toDateString()}` : '', type: 'Button' },
+        { name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not selected', action: scanOsuSongs, description: lastScan ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toDateString()}` : '', type: 'Button' },
       ],
       'Beatmaps location': [
         { name: osuPath || 'Osu! folder no selected', description: 'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game', type: 'Text' },

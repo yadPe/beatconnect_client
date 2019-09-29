@@ -3,12 +3,13 @@ const path = require('path');
 const fs = require('fs');
 
 const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
+  console.log('trying folder', songsDirectoryPath)
   try {
     const output = {};
     const beatmaps = fs.readdirSync(songsDirectoryPath)
     const beatmapsCount = beatmaps.length
     beatmaps.forEach((beatmap, i) => {
-      if (i % 50 === 0 ) {
+      if (i % 50 === 0) {
         const progress = (i / beatmapsCount).toFixed(2)
         process.send(JSON.stringify({ status: progress }))
       }
@@ -38,19 +39,26 @@ const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
   }
 })
 
-process.on('message', (data) => {
-  const { msg, osuDir } = JSON.parse(data)
+const osuDbScan = osuPath => new Promise((resolve, reject) => {
+  console.log('trying osuDb', osuPath)
+  resolve({})
+});
+
+process.on('message', async (data) => {
+  const { msg, osuPath, osuSongsPath, allowLegacy } = JSON.parse(data)
   switch (msg) {
     case 'start':
-      osuSongsScan(osuDir)
-        .then(songs => {
-          // console.log('osuSongsScan: sent results', songs)
-          process.send(JSON.stringify({ results: songs }))
-        })
-        .catch(err => {
-          console.log('osuSongsScan: sent error', err)
-          process.send(JSON.stringify({ err }))
-        })
+      console.log('receive scan start', data)
+      let beatmaps = [];
+      try {
+        if (osuPath) beatmaps = await osuDbScan(osuPath);
+        if (!Object.keys(beatmaps).length && allowLegacy) beatmaps = await osuSongsScan(osuSongsPath);
+      } catch (err) {
+        console.log('osuSongsScan: sent error', err)
+        return process.send(JSON.stringify({ err }))
+      }
+      console.log('bm', beatmaps, Object.keys(beatmaps).length, !Object.keys(beatmaps).length)
+      process.send(JSON.stringify({ results: beatmaps }));
       break
     default:
       break
