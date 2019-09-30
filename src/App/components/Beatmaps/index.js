@@ -42,7 +42,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
     // const visibleStartIndex = overscanRowStartIndex * overscanColumnStopIndex;
     const visibleStopIndex = displayGrid ? (overscanRowStopIndex * overscanColumnStopIndex) : overscanRowStopIndex;
 
-    if (visibleStopIndex === rowCount - 3 && canLoadMore) {
+    if (visibleStopIndex >= rowCount - 3 && canLoadMore) {
       loadMore()
     }
   };
@@ -57,14 +57,11 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   }, [])
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
-    const beatmap = beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)];
-    if (!beatmap) return <div style={style} />
+    const beatmap = displayGrid && beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + (columnIndex)] || beatmaps[rowIndex];
+    if (!beatmap) return <div style={style} className='NoBeatmap'/>
     return (
       <div style={style}>
-        {displayGrid ?
-          <Beatmap noFade width='90%' autoDl={autoDl && hideDownloaded} theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
-          :
-          <Beatmap noFade width='90%' autoDl={autoDl && hideDownloaded} theme={theme} beatmap={beatmaps[rowIndex]} key={`beatmap${beatmaps[rowIndex].beatmapset_id || beatmaps[rowIndex].id}`} />}
+        <Beatmap noFade width='90%' autoDl={autoDl && hideDownloaded} theme={theme} beatmap={beatmap} key={`beatmap${beatmap.beatmapset_id || beatmap.id}`} />
       </div>
     )
   }
