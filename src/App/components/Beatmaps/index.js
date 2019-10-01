@@ -15,6 +15,7 @@ const styles = {
 };
 
 const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
+  const gridContainer = useRef(null);
   const [autoDl, setAutoDl] = useState(false);
   const history = useContext(HistoryContext);
   const [isLoading, setIsloading] = useState(false);
@@ -23,7 +24,10 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   if (hideDownloaded) beatmaps = beatmaps.filter(({beatmapset_id, id}) => !history.contains(id || beatmapset_id));
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const lastScrollPosition = useRef(lastScroll || 0)
-  if (lastScroll) lastScrollPosition.current = lastScroll
+  if (typeof lastScroll === 'number') {
+    lastScrollPosition.current = lastScroll
+    if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current
+  }
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
   const gridHeight = window.height - 79
   const displayGrid = gridWidth >= 1200;
@@ -71,6 +75,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
       className={`Beatmaps ${classes.Beatmaps}`}
       onKeyDown={(e) => e.keyCode === 48 ? setAutoDl(!autoDl) : console.log(e.keyCode)}
       tabIndex="0"
+      ref={gridContainer}
     >
       <FixedSizeGrid
         columnCount={displayGrid ? 2 : 1}
