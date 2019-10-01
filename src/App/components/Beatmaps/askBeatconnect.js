@@ -4,8 +4,10 @@ import _ from 'underscore';
 const askBeatconnect = (search, onLoading, resetPage) => {
   let lastPage;
   const { query, status, mode, hideDownloaded } = search;
-  let { page } = search
-  if (resetPage) page = 0
+  let { page, lastScroll } = search
+  if (resetPage) {
+    lastScroll = page = 0
+  }
   const prevBeatmaps = store.getState().main.searchResults.beatmaps
   onLoading(true)
   const formatQuery = query.split(' ').join('%20')
@@ -18,7 +20,7 @@ const askBeatconnect = (search, onLoading, resetPage) => {
       }
       if (beatmaps.length === 0) lastPage = true;
       if (page > 0) beatmaps = _.union(prevBeatmaps, beatmaps)
-      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { search, beatmaps: beatmaps || [], max_page, page: page || 0, hideDownloaded, lastPage }})
+      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { search, beatmaps: beatmaps || [], max_page, page: page || 0, hideDownloaded, lastPage, lastScroll }})
       onLoading(false)
     })
 }
