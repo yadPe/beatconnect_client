@@ -17,7 +17,7 @@
     "dist-win": "npm run build && npx electron-builder build --win --ia32",
     "dist-linux": "npm run build && npx electron-builder build --linux --ia32",
     "gh-publish": "npm run build && npx electron-builder build --win --linux --ia32 -p always",
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
+    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -150,6 +150,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "devDependencies": {
+    "cross-env": "^6.0.0",
     "electron-builder": "^20.44.4",
     "electron": "^5.0.5",
     "typescript": "^3.5.3"
