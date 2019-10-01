@@ -18,6 +18,8 @@ export const setAutoImport = payload => store.dispatch({type: 'AUTOIMPORT', payl
 
 export const setOsuSongsPath = payload => store.dispatch({type: 'SONGSPATH', payload});
 
+export const setOsuPath = payload => store.dispatch({type: 'OSUPATH', payload})
+
 export const setLastScan = payload => store.dispatch({type: 'LASTSCAN', payload});
 
 export const setImportMethod = payload => store.dispatch({type: 'SETIMPORTMETHOD', payload})
