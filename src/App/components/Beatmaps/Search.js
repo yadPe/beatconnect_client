@@ -92,7 +92,8 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         onBlur={execSearch}
       />
       <div className={classes.right} />
-      <ToggleContent
+      {/* Advanced search panel WIP}
+      {/* <ToggleContent
         toggle={(isShown, setIsShown) => (
           <div
             title='Advanced filters'
@@ -110,7 +111,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
           <button onClick={hide}>Close</button>
           </Modal>
         )}
-      />
+      /> */}
       <div
         className={classes.hideDownloaded}
         onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
