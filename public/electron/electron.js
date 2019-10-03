@@ -22,7 +22,7 @@ autoUpdater.on('update-downloaded', ({ releaseName }) => {
 autoUpdater.on('update-not-available', () => {
   webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' })
 })
-autoUpdater.checkForUpdatesAndNotify()
+
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"
 });
@@ -49,6 +49,12 @@ const main = () => {
         slashes: true
       })
   });
+
+  mainWindow.on('show', () => {
+    setTimeout(() => {
+      autoUpdater.checkForUpdatesAndNotify()
+    }, 5000)
+  })
 
   mainWindow.on('closed', () => {
     // Dé-référence l'objet window , normalement, vous stockeriez les fenêtres

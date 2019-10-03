@@ -13,7 +13,7 @@ class TasksProvider extends Component {
       lastTask: {},
       add: this.add
     }
-    ipcRenderer.on('autoUpdater', ({ status, releaseName }) => {
+    ipcRenderer.on('autoUpdater', (e, { status, releaseName }) => {
       switch(status){
         case 'checkingUpdate':
           this.add({ name: 'Checking for update', status: 'running', section: 'Settings' })
@@ -27,7 +27,7 @@ class TasksProvider extends Component {
           break
         case 'updateDownloaded':
           if (this.state.tasks['Downloading update']) this.state.tasks['Downloading update'].terminate()
-          this.add({ name: 'New version downloaded', status: 'running', section: 'Settings', description: 'You can now restart the app' })
+          this.add({ name: `Version ${releaseName} ready`, status: 'running', section: 'Settings', description: 'You can now restart the app' })
           break
         default:
           break
