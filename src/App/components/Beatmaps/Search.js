@@ -8,6 +8,7 @@ import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
 import Toggle from '../common/Toggle';
+import Modal, { ToggleContent } from '../common/Modal';
 
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
@@ -43,9 +44,9 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   }
 
   useEffect(() => {
-    if (beatmapCount === 0 
+    if (beatmapCount === 0
       || (lastSearch.status !== search.status || lastSearch.mode !== search.mode || lastSearch.hideDownloaded !== search.hideDownloaded)
-      ) execSearch(true) 
+    ) execSearch(true)
   }, [search])
 
   return (
@@ -80,7 +81,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         onSelect={(e) => {
           setSearch({ ...search, status: e.target.value })
           execSearch()
-          }} />
+        }} />
       <TextInput
         theme={theme.style}
         color={theme.color}
@@ -90,11 +91,31 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         onKeyDown={searchOnEnter}
         onBlur={execSearch}
       />
-      <div className={classes.right}/>
+      <div className={classes.right} />
+      {/* Advanced search panel WIP}
+      {/* <ToggleContent
+        toggle={(isShown, setIsShown) => (
+          <div
+            title='Advanced filters'
+            style={{ margin: 'auto 15px' }}
+            onClick={() => setIsShown(!isShown)}
+          >
+            {renderIcons('Filter', theme.style, isShown ? theme.color : null)}
+          </div>
+        )}
+        content={hide => (
+          <Modal
+            close={hide}
+          >
+            There is no spoon...
+          <button onClick={hide}>Close</button>
+          </Modal>
+        )}
+      /> */}
       <div
-      className={classes.hideDownloaded}
-      onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
-      title='Hide downloaded beatmaps'
+        className={classes.hideDownloaded}
+        onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
+        title='Hide downloaded beatmaps'
       >
         {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.color : null)}
       </div>

@@ -72,6 +72,7 @@ const Item = ({ classes, color, icon, selected, title, dark, padding, children, 
           }
         </div>
         <div className={classes.content}>
+          <div id="modal-root"/>
           {children(setHeaderContent)}
         </div>
       </div>
