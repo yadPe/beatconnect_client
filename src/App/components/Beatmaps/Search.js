@@ -7,8 +7,8 @@ import TextInput from '../common/TextInput'
 import askBeatconnect from './askBeatconnect'
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
-import Toggle from '../common/Toggle';
-import Modal, { ToggleContent } from '../common/Modal';
+// import Toggle from '../common/Toggle';
+// import Modal, { ToggleContent } from '../common/Modal';
 
 const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
 const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb']
@@ -89,7 +89,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         value={search.query}
         onChange={e => setSearch({ ...search, query: e.target.value })}
         onKeyDown={searchOnEnter}
-        onBlur={execSearch}
+        onBlur={() => execSearch()}
       />
       <div className={classes.right} />
       {/* Advanced search panel WIP}

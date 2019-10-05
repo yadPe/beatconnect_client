@@ -34,8 +34,8 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length
   const onScroll = ({ scrollTop }) => lastScrollPosition.current = scrollTop
   const loadMore = () => {
-    if (isLoading) return console.log('NOPE')
-    console.log('MORE')
+    if (isLoading) return console.log('Trying to load more while loading more... What?')
+    console.log('loading more..')
     askBeatconnect({ ...search, page: page += 1 }, setIsloading)
   }
   if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
@@ -43,7 +43,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
     overscanRowStopIndex,
     overscanColumnStopIndex
   }) => {
-    // const visibleStartIndex = overscanRowStartIndex * overscanColumnStopIndex;
     const visibleStopIndex = displayGrid ? (overscanRowStopIndex * overscanColumnStopIndex) : overscanRowStopIndex;
 
     if (visibleStopIndex >= rowCount - 3 && canLoadMore) {
@@ -73,7 +72,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   return (
     <div
       className={`Beatmaps ${classes.Beatmaps}`}
-      onKeyDown={(e) => e.keyCode === 48 ? setAutoDl(!autoDl) : console.log(e.keyCode)}
+      onKeyDown={(e) => e.keyCode === 48 && setAutoDl(!autoDl)}
       tabIndex="0"
       ref={gridContainer}
     >
@@ -96,6 +95,5 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   );
 }
 
-const areEqual = (prevProps, nextProps) => (JSON.stringify(prevProps.searchResults) === JSON.stringify(nextProps.searchResults)) && (JSON.stringify(prevProps.window)) === (JSON.stringify(nextProps.window)) && (prevProps.panelExpended === nextProps.panelExpended)
 const mapStateToProps = ({ main, settings }) => ({ searchResults: main.searchResults, window: main.window, panelExpended: settings.userPreferences.sidePanelExpended })
-export default connect(mapStateToProps)(memo(injectSheet(styles)(Beatmaps), areEqual));
+export default connect(mapStateToProps)(injectSheet(styles)(Beatmaps));
