@@ -82,11 +82,13 @@ const Settings = ({ userPreferences, theme }) => {
         { name: 'Manual', value: importMethod === 'manual',  action: () => setImportMethod('manual'), description: 'Downloaded beatmaps are stored as is in your download folder inside the Beatconnect folder', type: 'CheckBox' },
       ]
     }, 
-    Version: {
-      version: [
-        { name: `Thanks for using Beatconnect! - ${remote.app.getVersion()}` }
-      ]
-    }
+  }
+
+  const appVersion = remote.app.getVersion();
+  settings[appVersion] = {
+    version: [
+      { name: `Thanks for using Beatconnect! - v${appVersion}` }
+    ]
   }
 
   const renderItems = () => {
