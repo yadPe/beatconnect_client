@@ -31,7 +31,6 @@ const styles = {
 
 const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   const [search, setSearch] = useState(lastSearch);
-  const [isLoading, setIsLoading] = useState(false);
   const searchOnEnter = (e) => {
     if (e.keyCode === 13) {
       execSearch()
@@ -39,7 +38,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   }
   const execSearch = (force) => {
     if (!_.isEqual(lastSearch, search) || force) {
-      askBeatconnect(search, setIsLoading, true)
+      askBeatconnect(search, undefined, true)
     }
   }
 
@@ -47,7 +46,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
     if (beatmapCount === 0
       || (lastSearch.status !== search.status || lastSearch.mode !== search.mode || lastSearch.hideDownloaded !== search.hideDownloaded)
     ) execSearch(true)
-  }, [search])
+  }, [search]) 
 
   return (
     <div className={classes.Search}>
@@ -58,14 +57,13 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         onClick={execSearch}
       >
         {
-          isLoading || isBusy ?
+          isBusy ?
             <ProgressCircle
               className='ProgressCircle'
               color='#fff'
               size={25}
             /> :
             renderIcons('Search', theme.style)
-          // <Text color='fff'>Search</Text>
         }
       </Button>
       <DropDown
@@ -128,5 +126,9 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   );
 }
 
-const mapStateToProps = ({ main }) => ({ beatmapCount: main.searchResults.beatmaps.length })
+const mapStateToProps = ({ main }) => ({
+  lastSearch: main.searchResults.search,
+  beatmapCount: main.searchResults.beatmaps.length,
+  isBusy: main.fetchingBeatmaps.isFetching,
+})
 export default connect(mapStateToProps)(injectSheet(styles)(Search));

@@ -18,7 +18,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const gridContainer = useRef(null);
   const [autoDl, setAutoDl] = useState(false);
   const history = useContext(HistoryContext);
-  const [isLoading, setIsloading] = useState(false);
   const { search, lastScroll, hideDownloaded, lastPage } = searchResults
   let { beatmaps, page } = searchResults
   if (hideDownloaded) beatmaps = beatmaps.filter(({beatmapset_id, id}) => !history.contains(id || beatmapset_id));
@@ -34,9 +33,9 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length
   const onScroll = ({ scrollTop }) => lastScrollPosition.current = scrollTop
   const loadMore = () => {
-    if (isLoading) return console.log('Trying to load more while loading more... What?')
+    if ( store.getState().main.fetchingBeatmaps.isFetching ) return console.log('Trying to load more while loading more... What?')
     console.log('loading more..')
-    askBeatconnect({ ...search, page: page += 1 }, setIsloading)
+    askBeatconnect({ ...search, page: page += 1 })
   }
   if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
   const newItemsRendered = ({
@@ -51,9 +50,9 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   };
 
   useEffect(() => {
-    setHeaderContent(<Search theme={theme} lastSearch={search} isBusy={isLoading} />)
+    setHeaderContent(<Search theme={theme} />)
     return () => setHeaderContent(null)
-  }, [setHeaderContent, search, theme, isLoading])
+  }, [setHeaderContent, theme])
 
   useEffect(() => {
     return () => store.dispatch({type: 'SAVEBEATMAPSSCROLLPOS', payload: lastScrollPosition.current})
@@ -95,5 +94,9 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   );
 }
 
-const mapStateToProps = ({ main, settings }) => ({ searchResults: main.searchResults, window: main.window, panelExpended: settings.userPreferences.sidePanelExpended })
+const mapStateToProps = ({ main, settings }) => ({
+  searchResults: main.searchResults,
+  window: main.window,
+  panelExpended: settings.userPreferences.sidePanelExpended
+})
 export default connect(mapStateToProps)(injectSheet(styles)(Beatmaps));
