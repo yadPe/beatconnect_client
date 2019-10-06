@@ -30,7 +30,6 @@ const styles = {
 }
 
 const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
-  console.log('last search', lastSearch) 
   const [search, setSearch] = useState(lastSearch);
   const searchOnEnter = (e) => {
     if (e.keyCode === 13) {
@@ -44,7 +43,6 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
   }
 
   useEffect(() => {
-    console.log('search changed', search)
     if (beatmapCount === 0
       || (lastSearch.status !== search.status || lastSearch.mode !== search.mode || lastSearch.hideDownloaded !== search.hideDownloaded)
     ) execSearch(true)

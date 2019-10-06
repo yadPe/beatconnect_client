@@ -6,18 +6,16 @@ const askBeatconnect = (search, __, resetPage) => {
   let lastPage;
   const { query, status, mode, hideDownloaded } = search;
   let { page, lastScroll } = search
-  console.log('resetPage && page', resetPage, page, lastScroll)
-  if (resetPage && !page) lastScroll = page = 0;
+  if (resetPage && !page) lastScroll = 0;
+  else lastScroll = undefined;
   const { searchResults, fetchingBeatmaps } = store.getState().main;
   const prevBeatmaps = searchResults.beatmaps;
-  console.log(fetchingBeatmaps, search)
   if (fetchingBeatmaps && fetchingBeatmaps.isFetching) {
     fetchingBeatmaps.abort();
     store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
   }
-  console.log(fetchingBeatmaps, search)
   const formatQuery = query.split(' ').join('%20')
-  fetch(`https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`,
+  fetch(`https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, 
     { signal: controller.signal }
   )
     .then(res => res.ok && res.json())
