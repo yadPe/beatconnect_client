@@ -16,7 +16,8 @@
     "dist": "npm run build && npx npx electron-builder --win --linux --ia32",
     "dist-win": "npm run build && npx electron-builder build --win --ia32",
     "dist-linux": "npm run build && npx electron-builder build --linux --ia32",
-    "gh-publish": "npm run build && npx electron-builder build --win --linux --ia32 -p always",
+    "dist-mac": "npm run build && npx electron-builder build --mac --x64",
+    "gh-publish": "npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
   },
   "eslintConfig": {
@@ -53,6 +54,8 @@
       "prune": true
     },
     "dmg": {
+      "icon": "icon.icns",
+      "backgroundColor": "#2a2a2a",
       "contents": [
         {
           "x": 110,
@@ -71,11 +74,11 @@
         "AppImage",
         "deb"
       ],
-      "icon": "public/icon.png"
+      "icon": "icon.icns"
     },
     "win": {
       "target": "NSIS",
-      "icon": "public/favicon.ico",
+      "icon": "favicon.ico",
       "publish": "github"
     }
   },
