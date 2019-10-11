@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app, webContents  } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
@@ -10,7 +10,19 @@ require('./ipcMessages');
 
 log.transports.file.level = "debug";
 autoUpdater.logger = log;
-autoUpdater.checkForUpdatesAndNotify()
+autoUpdater.on('checking-for-update', () => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'checkingUpdate' })
+})
+autoUpdater.on('update-available', () => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateAvailable' })
+})
+autoUpdater.on('update-downloaded', ({ releaseName }) => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateDownloaded', releaseName })
+})
+autoUpdater.on('update-not-available', () => {
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' })
+})
+
 DownloadManager.register({
   downloadFolder: app.getPath("downloads") + "/beatconnect"
 });
@@ -37,6 +49,12 @@ const main = () => {
         slashes: true
       })
   });
+
+  mainWindow.on('show', () => {
+    setTimeout(() => {
+      autoUpdater.checkForUpdatesAndNotify()
+    }, 5000)
+  })
 
   mainWindow.on('closed', () => {
     // Dé-référence l'objet window , normalement, vous stockeriez les fenêtres

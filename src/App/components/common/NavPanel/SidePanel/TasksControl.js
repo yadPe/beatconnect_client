@@ -22,10 +22,10 @@ const styles = {
     backgroundColor: 'transparent',
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: 'rgba(255,255,255,0.05)',
+      background: props => props.expended ? 'rgba(255,255,255,0.05)' : 'linear-gradient(to top, rgba(255,255,255,0.05) 44px, transparent 44px )',
     },
     ' &:active': {
-      backgroundColor: 'rgba(255,255,255,0.05)',
+      background: props => props.expended ? 'rgba(255,255,255,0.05)' : 'linear-gradient(to top, rgba(255,255,255,0.05) 44px, transparent 44px )',
     },
     '&:hover .indicator': {
       height: props => props.selected ? '48px' : '24px'
@@ -35,9 +35,11 @@ const styles = {
     },
     '&:hover .tooltiptext': {
       visibility: props => props.expended ? 'none' : 'visible',
+      opacity: props => props.expended ? '0' : '1',
     },
     '&:active .tooltiptext': {
       visibility: props => props.expended ? 'none' : 'visible',
+      opacity: props => props.expended ? '0' : '1',
     }
 
   },
@@ -70,7 +72,8 @@ const styles = {
     backgroundColor: props => props.theme.color,
   },
   title: {
-    visibility: props => props.expended ? 'visible' : 'hidden'
+    visibility: props => props.expended ? 'visible' : 'hidden',
+    opacity: props => props.expended ? '1' : '0',
   },
   tooltiptext: {
     width: '120px',
@@ -83,6 +86,7 @@ const styles = {
     textAlign: 'left',
     padding: '0 0.6rem',
     visibility: props => props.pop ? 'visible' : 'hidden',
+    opacity: props => props.pop ? '1' : '0',
   },
   divider: {
     width: '80px',

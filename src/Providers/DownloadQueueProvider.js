@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
-const { download } = remote.require("electron-download-manager")
+const { download } = remote.require("electron-download-manager");
+const { app } = remote;
 
 class DownloadQueueProvider extends Component {
   constructor(props) {
@@ -21,14 +22,25 @@ class DownloadQueueProvider extends Component {
     }
   }
 
+  componentDidMount() {
+    const { importMethod, osuSongsPath } = this.props;
+    this._setDlPath(importMethod, osuSongsPath)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { importMethod, osuSongsPath } = this.props;
+    if (prevProps.importMethod !== importMethod || prevProps.osuSongsPath !== osuSongsPath) {
+      this._setDlPath(importMethod, osuSongsPath)
+    }
+  }
+
   push = (item) => {
     const { queue } = this.state;
     if (queue.some(e => e.id === item.id)) return
     queue.push(item)
-    console.log('QUEUE', queue)
     this.setState({ queue },
       () => {
-        if (this.state.queue.length === 1) {
+        if (this.state.queue.length >= 1) {
           this._execQueue();
         }
       }
@@ -70,10 +82,9 @@ class DownloadQueueProvider extends Component {
     let { queue, currentDownload } = this.state;
     if (this.downloading) return
     this.downloading = true;
-    const { url, id, onFinished } = currentDownload.infos = queue.pop()
+    const { url, id, onFinished } = currentDownload.infos = queue.shift()
     this.setState({ currentDownload },
-      () => download({ url, onProgress: this._onDownloadProgress }, (err, infos) => {
-        console.log('dl Callback')
+      () => download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
         if (err) {
           this._onDownloadFailed(err)
         } else {
@@ -95,22 +106,22 @@ class DownloadQueueProvider extends Component {
   }
 
   _onDownloadSucceed(infos, beatmapSetId) {
-    console.log('ondlSUCC')
-    if (this.props.autoImport) {
+    const { importMethod } = this.props;
+    const { queue } = this.state;
+    if (importMethod === 'auto') {
       shell.openItem(infos.filePath)
     }
-
-    /* TODO 
-    * Sauvegarder l'id des beatmap telechargees
-    * Ouvrir les beatmap seulement si l'option est active
-    * mettre a jour l'indicateur de dl des beatmap
-    */
-    remote.getCurrentWindow().setProgressBar(-1)
+    if (queue.length === 0) this._onQueueTerminated()
     console.log('Finished dl', infos)
     console.log('QUEUE', this.state.queue)
   }
 
+  _onQueueTerminated(){
+    remote.getCurrentWindow().setProgressBar(-1)
+  }
+
   _onDownloadFailed(err) {
+    remote.getCurrentWindow().setProgressBar(-1)
     console.error(err)
   }
 
@@ -124,6 +135,14 @@ class DownloadQueueProvider extends Component {
     this.setState({ currentDownload, overallProgress });
   }
 
+  _setDlPath = (importMethod, osuSongsPath) => {
+    if (importMethod === 'bulk') {
+      this.dlPath = osuSongsPath
+    } else {
+      this.dlPath = app.getPath("downloads") + "\\beatconnect"
+    }
+  }
+
   render() {
     const { children } = this.props;
     return (
@@ -132,5 +151,8 @@ class DownloadQueueProvider extends Component {
   }
 }
 
-const mapStateToProps = ({settings}) => ({autoImport: settings.userPreferences.autoImport})
+const mapStateToProps = ({settings}) => {
+  const { autoImport, importMethod, osuSongsPath } = settings.userPreferences;
+  return { autoImport, importMethod, osuSongsPath } 
+}
 export default connect(mapStateToProps)(DownloadQueueProvider);

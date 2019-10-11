@@ -27,11 +27,18 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
     case 'AUTOIMPORT':
       userPreferences = { ...userPreferences, autoImport: payload }
       return { ...settings, userPreferences: {...userPreferences} }
+    case 'SETIMPORTMETHOD':
+      userPreferences = { ...userPreferences, importMethod: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
     case 'SIDEPANELEXPENDED':
       userPreferences = { ...userPreferences, sidePanelExpended: payload }
       return { ...settings, userPreferences: {...userPreferences} }
     case 'SONGSPATH':
       userPreferences = { ...userPreferences, osuSongsPath: payload }
+      return { ...settings, userPreferences: {...userPreferences} }
+    case 'OSUPATH':
+      console.log('osuPath')
+      userPreferences = { ...userPreferences, osuPath: payload }
       return { ...settings, userPreferences: {...userPreferences} }
     case 'LASTSCAN':
       userPreferences = { ...userPreferences, lastScan: payload }

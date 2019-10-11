@@ -1,7 +1,7 @@
 {
   "name": "beatconnect_client",
   "productName": "Beatconnect Client",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
@@ -16,8 +16,9 @@
     "dist": "npm run build && npx npx electron-builder --win --linux --ia32",
     "dist-win": "npm run build && npx electron-builder build --win --ia32",
     "dist-linux": "npm run build && npx electron-builder build --linux --ia32",
-    "gh-publish": "npm run build && npx electron-builder build --win --linux --ia32 -p always",
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
+    "dist-mac": "npm run build && npx electron-builder build --mac --x64",
+    "gh-publish": "npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always",
+    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +54,8 @@
       "prune": true
     },
     "dmg": {
+      "icon": "icon.icns",
+      "backgroundColor": "#2a2a2a",
       "contents": [
         {
           "x": 110,
@@ -71,11 +74,11 @@
         "AppImage",
         "deb"
       ],
-      "icon": "public/icon.png"
+      "icon": "icon.icns"
     },
     "win": {
       "target": "NSIS",
-      "icon": "public/favicon.ico",
+      "icon": "favicon.ico",
       "publish": "github"
     }
   },
@@ -116,6 +119,7 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.7.1",
     "jest-watch-typeahead": "0.3.0",
+    "long": "^4.0.0",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
@@ -141,6 +145,7 @@
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
+    "uleb128": "^1.0.1",
     "underscore": "^1.9.1",
     "update-electron-app": "^1.5.0",
     "url-loader": "1.1.2",
@@ -150,8 +155,9 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "devDependencies": {
-    "electron-builder": "^20.44.4",
+    "cross-env": "^6.0.3",
     "electron": "^5.0.5",
+    "electron-builder": "^20.44.4",
     "typescript": "^3.5.3"
   },
   "browserslist": {

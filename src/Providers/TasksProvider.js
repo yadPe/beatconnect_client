@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ipcRenderer } from 'electron';
 import { DownloadQueueContext } from './DownloadQueueProvider';
 
 export const TasksContext = React.createContext();
@@ -11,20 +12,41 @@ class TasksProvider extends Component {
       tasks: {},
       lastTask: {},
       add: this.add
-
     }
+    ipcRenderer.on('autoUpdater', (e, { status, releaseName }) => {
+      switch(status){
+        case 'checkingUpdate':
+          this.add({ name: 'Checking for update', status: 'running', section: 'Settings' })
+          break
+        case 'noUpdateAvailable':
+          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate()
+          break
+        case 'updateAvailable':
+          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate()
+          this.add({ name: 'Downloading update', status: 'running', section: 'Settings' })
+          break
+        case 'updateDownloaded':
+          if (this.state.tasks['Downloading update']) this.state.tasks['Downloading update'].terminate()
+          this.add({ name: `Version ${releaseName} ready`, status: 'running', section: 'Settings', description: 'You can now restart the app' })
+          break
+        default:
+          break
+      }
+    })
   }
   componentDidUpdate(prevProps, prevState) {
     const { tasks } = this.state
-    if (!this.context.currentDownload.item) {
+    const { queue } = this.context;
+    if (!this.context.currentDownload.item && queue.length === 0) {
       if (tasks['Downloading']) tasks['Downloading'].terminate() 
     }
   } 
   componentWillUpdate() {
     const { tasks } = this.state
+    const { overallProgress, queue } = this.context;
     if (this.context.currentDownload.item) {
       if (!tasks['Downloading']) return this.add({name: 'Downloading', status: 'running', description: `initializing`, section: 'Downloads'})
-      const description = `${Math.round(this.context.overallProgress * 100)}% - ${this.context.queue.length} items in queue`
+      const description = `${Math.round(overallProgress * 100)}% - ${queue.length} items in queue`
       if (tasks['Downloading'].description !== description) {
         tasks['Downloading'].description = description
         this.setState({tasks})

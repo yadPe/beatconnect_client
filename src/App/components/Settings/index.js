@@ -1,7 +1,7 @@
 import React, { useEffect, useState, cloneElement, useContext } from 'react';
 import { remote, ipcRenderer, shell } from 'electron';
 import { connect } from 'react-redux';
-import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setAutoBeat, setAutoImport, setOsuSongsPath, setLastScan } from './actions';
+import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix, setOsuSongsPath, setOsuPath, setLastScan, setImportMethod } from './actions';
 import ConfLoader from './ConfLoader';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
@@ -12,36 +12,42 @@ import { TasksContext } from '../../../Providers/TasksProvider';
 const Settings = ({ userPreferences, theme }) => {
   const history = useContext(HistoryContext)
   const { add, tasks } = useContext(TasksContext)
-  const { irc, osuApi, prefix, autoImport, osuSongsPath, lastScan } = userPreferences;
+  const { irc, osuApi, prefix, autoImport, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selected, setSelected] = useState('Bot');
   useEffect(() => {
     return ConfLoader.save
   }, [])
 
-  const osuPathSetup = () => {
+  const osuPathSetup = (song) => {
     const path = remote.dialog.showOpenDialog({
       properties: ['openDirectory']
     });
-    if (path) setOsuSongsPath(path[0])
+    if (path) {
+      if (song === 'song') setOsuSongsPath(path[0])
+      else setOsuPath(path[0])
+    }
   }
 
+
   const scanOsuSongs = () => {
-    if (!osuSongsPath) return alert('You need to select your songs folder before')
-    add({ name: 'Scanning beatmaps folder', status: 'running', description: '', section: 'Settings' })
-    ipcRenderer.send('osuSongsScan', osuSongsPath) // User osu folder path
+    if (!osuPath && !osuSongsPath) return alert('You need to select your osu! or songs folder before')
+    add({ name: 'Scanning beatmaps', status: 'running', description: '', section: 'Settings' })
+    ipcRenderer.send('osuSongsScan', { osuPath, osuSongsPath, allowLegacy: true }) // User osu folder path
     ipcRenderer.on('osuSongsScanStatus', (e, args) => {
-      //const {status} = args
-      console.log('status', args)
-      add({ name: 'Scanning beatmaps folder', status: 'running', description: `${Math.round(args * 100)}%`, section: 'Settings' })
+      add({ name: 'Scanning beatmaps', status: 'running', description: `${Math.round(args * 100)}%`, section: 'Settings' })
     })
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
-      if (tasks['Scanning beatmaps folder']) tasks['Scanning beatmaps folder'].terminate('Finished')
+      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Finished')
       //args = JSON.parse(args)
       if (args.err) console.error(`Error while scannings song: ${args.err}`)
       else {
         history.set({ ...history.history, ...args })
         setLastScan({date: Date.now(), beatmaps: Object.keys(args).length})
       }
+    })
+    ipcRenderer.on('osuSongsScanError', (e, args) => {
+      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Failed')
+      alert('Failed to scan beatmaps, check your songs and osu! path in settings section')
     })
   }
 
@@ -60,22 +66,29 @@ const Settings = ({ userPreferences, theme }) => {
     },
     Downloads: {
       History: [
-        { name: 'Auto import maps', value: autoImport, action: setAutoImport, type: Boolean },
-        // { name: 'Beatmaps import method', value: 'auto', action: null, options: ['auto', 'bulk', 'manual'], type: 'Select' },
         { name: 'Clear history', action: history.clear, type: 'Button' },
+        { name: 'Osu! beatmaps scan', description: 'Scan your osu folder to import all your previously downloded beatmaps to your Beatconnect history', type: 'Text' },
+        { name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not selected', action: scanOsuSongs, description: lastScan ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toDateString()}` : '', type: 'Button' },
       ],
       'Beatmaps location': [
+        { name: osuPath || 'Osu! folder no selected', description: 'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game', type: 'Text' },
+        { name: 'Select your Osu! folder', action: osuPathSetup, type: 'Button' },
         { name: osuSongsPath || 'No songs folder selected', description: 'By selecting your osu songs folder enable the Bulk import and scan option', type: 'Text' },
-        { name: 'Select your Osu! Songs folder', value: autoImport, action: osuPathSetup, type: 'Button' },
-        { name: 'Osu! beatmaps scan', description: 'Scan your osu folder to import all your previously downloded beatmaps to your Beatconnect history', type: 'Text' },
-        { name: osuSongsPath ? 'Scan Osu! songs' : 'Songs folder not selected', value: autoImport, action: scanOsuSongs, description: lastScan ? `${lastScan.beatmaps} beatmaps found - Last scan ${new Date(lastScan.date).toDateString()}` : '', type: 'Button' },
+        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
+      ],
+      'Beatmaps import method': [
+        { name: 'Auto', value: importMethod === 'auto', action: () => setImportMethod('auto'), description: 'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not running)', type: 'CheckBox' },
+        { name: 'Bulk', value: importMethod === 'bulk',  action: () => setImportMethod('bulk'), description: 'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection', disabled: !osuSongsPath || osuSongsPath === '', type: 'CheckBox' },
+        { name: 'Manual', value: importMethod === 'manual',  action: () => setImportMethod('manual'), description: 'Downloaded beatmaps are stored as is in your download folder inside the Beatconnect folder', type: 'CheckBox' },
       ]
     }, 
-    Version: {
-      version: [
-        { name: `Thanks for using Beatconnect! - ${remote.app.getVersion()}` }
-      ]
-    }
+  }
+
+  const appVersion = remote.app.getVersion();
+  settings[appVersion] = {
+    version: [
+      { name: `Thanks for using Beatconnect! - v${appVersion}` }
+    ]
   }
 
   const renderItems = () => {

@@ -14,6 +14,7 @@ const initialState = {
   },
   errors:[],
   downloadQueue: [],
+  fetchingBeatmaps : {},
   theme: {
     style: 'dark',
     dark: true,
@@ -48,6 +49,9 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
     case 'SAVEBEATMAPSSCROLLPOS':
       console.log({...state.searchResults, lastScroll: payload} )
       return { ...state, searchResults: {...state.searchResults, lastScroll: payload} };
+    case 'FETCHINGBEATMAPS':
+      console.log('FETCHINGBEATMAPS', payload) 
+      return { ...state, fetchingBeatmaps: payload }
     case 'ERROR':
       const {errors} = state;
       errors.push(payload)
