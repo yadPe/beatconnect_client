@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, memo, useState, useRef } from 'react';
+import _ from 'underscore';
 import { connect } from 'react-redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet from 'react-jss';
@@ -19,12 +20,14 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const [autoDl, setAutoDl] = useState(false);
   const history = useContext(HistoryContext);
   const { search, lastScroll, hideDownloaded, lastPage } = searchResults
+  const lastSearch = useRef(search);
   let { beatmaps, page } = searchResults
   if (hideDownloaded) beatmaps = beatmaps.filter(({beatmapset_id, id}) => !history.contains(id || beatmapset_id));
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const lastScrollPosition = useRef(lastScroll || 0)
-  if (typeof lastScroll === 'number') {
+  if (typeof lastScroll === 'number' && !_.isEqual(search, lastSearch.current)) {
     lastScrollPosition.current = lastScroll
+    lastSearch.current = search;
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current
   }
   const gridWidth = (window.width - (panelExpended ? 150 : 48))
