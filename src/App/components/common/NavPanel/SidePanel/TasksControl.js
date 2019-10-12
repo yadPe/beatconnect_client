@@ -102,8 +102,8 @@ const TasksControl = ({ classes, onSelect, theme }) => {
   const active = tasksKeys.length > 0
   const renderContent = () => {
     if (active) return(
-    <div>
-      {tasksKeys.map(task => (
+    <>
+      { tasksKeys.map(task => (
         <div className='task' onClick={() => store.dispatch({type: 'UPDATEACTIVESECTION', payload: tasks[task].section})}>
           <div className={classes.divider} />
           <div style={{ fontSize: '1rem' }}>{tasks[task].name}</div>
@@ -124,7 +124,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
       </div> : null
       
     } */}
-    </div>
+    </>
   )}
   return (
     <a

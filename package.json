@@ -18,9 +18,9 @@
     "lint:es": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
     "lint:fix:es": "eslint --fix '**/*.{js,jsx,mjs,ts,tsx}'",
     "go": "electron .",
-    "dist": "npm run build && npx npx electron-builder --win --linux --ia32",
-    "dist-win": "npm run build && npx electron-builder build --win --ia32",
-    "dist-linux": "npm run build && npx electron-builder build --linux --ia32",
+    "dist": "npm run build && npx npx electron-builder --win --linux --x64",
+    "dist-win": "npm run build && npx electron-builder build --win --x64",
+    "dist-linux": "npm run build && npx electron-builder build --linux --x64",
     "dist-mac": "npm run build && npx electron-builder build --mac --x64",
     "dist:gh-publish": "npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
