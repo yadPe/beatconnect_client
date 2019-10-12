@@ -3,9 +3,9 @@ const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const DownloadManager = require("electron-download-manager");
-const Window = require('./Window');
 const path = require('path');
 const url = require('url');
+const Window = require('./Window');
 require('./ipcMessages');
 
 log.transports.file.level = "debug";
@@ -33,7 +33,6 @@ const main = () => {
 
   mainWindow = new Window({
     backgroundColor: '#121212',
-    //opacity: 0.95,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false
@@ -44,7 +43,7 @@ const main = () => {
       slashes: true
     }) :
       url.format({
-        pathname: path.join(__dirname, '.././index.html'),
+        pathname: path.join(__dirname, '../index.html'),
         protocol: 'file:',
         slashes: true
       })
