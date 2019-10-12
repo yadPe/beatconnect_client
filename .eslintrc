@@ -25,7 +25,8 @@
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
-    "object-curly-newline":"off"
+    "object-curly-newline":"off",
+    "no-plusplus":"off"
   },
   "settings": {
     "import/resolver": {
