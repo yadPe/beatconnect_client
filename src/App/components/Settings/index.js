@@ -15,8 +15,9 @@ const Settings = ({ userPreferences, theme }) => {
   const { irc, osuApi, prefix, autoImport, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selected, setSelected] = useState('Bot');
   useEffect(() => {
+    ConfLoader.save()
     return ConfLoader.save
-  }, [])
+  }, [userPreferences])
 
   const osuPathSetup = (song) => {
     const path = remote.dialog.showOpenDialog({
