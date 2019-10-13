@@ -50,7 +50,7 @@ workflows:
             <<: *filter-tag-only
       - build-win-linux:
           requires:
-            - hold
+            - await-approval
           # requires:
           #   - lint
           filters:
