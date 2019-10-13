@@ -45,8 +45,10 @@ workflows:
             branches:
               only: electron
       - await-approval:
-        type: approval
+          type: approval
       - build-win-linux:
+          requires:
+            - hold
           # requires:
           #   - lint
           filters:
