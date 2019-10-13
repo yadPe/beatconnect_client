@@ -1,10 +1,10 @@
-const parser = require('./beatmapParser');
-const { readOsuDB } = require('./osudb');
+const log = require('electron-log');
 const path = require('path');
 const fs = require('fs');
+const parser = require('./beatmapParser');
+const { readOsuDB } = require('./osudb');
 
 const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
-  console.log('trying folder', songsDirectoryPath)
   try {
     const output = {};
     const beatmaps = fs.readdirSync(songsDirectoryPath)
@@ -40,8 +40,8 @@ const osuSongsScan = songsDirectoryPath => new Promise((resolve, reject) => {
   }
 })
 
-const osuDbScan = osuPath => new Promise((resolve, reject) => {
-  readOsuDB(osuPath + '/osu!.db').then(({ beatmaps }) => {
+const osuDbScan = osuPath => new Promise((resolve) => {
+  readOsuDB(`${osuPath}/osu!.db`).then(({ beatmaps }) => {
     const out = {};
     beatmaps.forEach(beatmap => {
       if (beatmap.beatmapSetId === -1) return
@@ -50,7 +50,7 @@ const osuDbScan = osuPath => new Promise((resolve, reject) => {
         date: beatmap.lastModificationMs,
         name: `${beatmap.title} | ${beatmap.artist}`,
         creator: beatmap.creator,
-        isUnplayed: beatmap.isUnplayed === 1 ? true : false,
+        isUnplayed: beatmap.isUnplayed === 1,
         hash: beatmap.md5
       }
     })
@@ -58,16 +58,17 @@ const osuDbScan = osuPath => new Promise((resolve, reject) => {
   }).catch(() => resolve({}))
 });
 
+// eslint-disable-next-line consistent-return
 process.on('message', async (data) => {
   const { msg, osuPath, osuSongsPath, allowLegacy } = JSON.parse(data)
+  let beatmaps = [];
   switch (msg) {
     case 'start':
-      let beatmaps = [];
       try {
         if (osuPath) beatmaps = await osuDbScan(osuPath);
         if (!Object.keys(beatmaps).length && allowLegacy) beatmaps = await osuSongsScan(osuSongsPath);
       } catch (err) {
-        console.log('osuSongsScan: sent error', err)
+        log.error(`OsuSongScan: ${JSON.stringify(err)}`)
         return process.send(JSON.stringify({ err }))
       }
       process.send(JSON.stringify({ results: beatmaps }));
