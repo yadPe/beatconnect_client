@@ -41,7 +41,7 @@ workflows:
     jobs:
       - lint:
           filters:
-            <<: *filter-tag
+            # <<: *filter-tag
             branches:
               only: electron
       - build-win-linux:
