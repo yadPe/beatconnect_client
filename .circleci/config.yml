@@ -1,0 +1,69 @@
+version: 2.1
+
+executors:
+  docker-env:
+    docker:
+      - image: circleci/node:10.15.2-jessie-browsers-legacy
+  macos-env:
+    macos:
+      xcode: "10.2.0"
+
+step-install: &step-install
+  run: npm i
+
+step-build: &step-build
+  run: npm run build
+
+filter-tag: &filter-tag
+  tags:
+    only: /^v.*/
+
+filter-tag-only: &filter-tag-only
+  <<: *filter-tag
+  branches:
+    ignore: /.*/
+
+jobs:
+  lint:
+    executor: docker-env
+    steps:
+      - checkout
+      - *step-install
+      - run: npm run lint
+  build-macos:
+    environment:
+      GH_TOKEN: $GH_TOKEN
+    executor: macos-env
+    steps:
+      - checkout
+      - *step-install
+      - *step-build
+      - run: electron-builder build --mac --x64 --ia32 -p always
+  build-win-linux:
+    environment:
+      GH_TOKEN: $GH_TOKEN
+    docker:
+      - image: electronuserland/builder:wine
+    steps:
+      - checkout
+      - *step-install
+      - *step-build
+      - run: electron-builder build --win --linux --x64 --ia32 -p always
+
+workflows:
+  version: 2
+  lint-test-build:
+    jobs:
+      # - lint:
+      #     filters:
+      #       <<: *filter-tag
+      - build-win-linux:
+          # requires:
+          #   - lint
+          filters:
+            <<: *filter-tag-only
+      - build-macos:
+          # requires:
+          #   - lint
+          filters:
+            <<: *filter-tag-only
