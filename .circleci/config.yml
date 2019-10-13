@@ -44,8 +44,9 @@ workflows:
             # <<: *filter-tag
             branches:
               only: electron
+      - await-approval:
+        type: approval
       - build-win-linux:
-          type: approval
           # requires:
           #   - lint
           filters:
