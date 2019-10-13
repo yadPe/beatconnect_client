@@ -24,7 +24,6 @@ jobs:
       - *step-install
       - run: npm run lint
   build-win-linux:
-    type: approval
     environment:
       GH_TOKEN: $GH_TOKEN
       CI: false
@@ -40,10 +39,14 @@ workflows:
   version: 2
   dist:
     jobs:
-      - build-win-linux
-      # - lint:
-      #     filters:
-      #       <<: *filter-tag
-      # - build-win-linux:
-      #     requires:
-      #       - lint
+      - lint:
+          filters:
+            <<: *filter-tag
+            branches:
+              only: electron
+      - build-win-linux:
+          type: approval
+          # requires:
+          #   - lint
+          filters:
+            <<: *filter-tag-only
