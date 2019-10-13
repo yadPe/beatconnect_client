@@ -46,9 +46,11 @@ workflows:
               only: electron
       - await-approval:
           type: approval
+          filters:
+            <<: *filter-tag-only
       - build-win-linux:
           requires:
-            - await-approval
+            - hold
           # requires:
           #   - lint
           filters:
