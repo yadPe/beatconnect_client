@@ -1,4 +1,5 @@
-# Beatconnect client
+Beatconnect client [![license](https://img.shields.io/github/license/yadpe/beatconnect_client.svg?style=flat-square)]() <a target="_blank" rel="noopener noreferrer" href="https://snyk.io/test/github/yadPe/beatconnect_client?targetFile=package.json"><img src="https://snyk.io/test/github/yadPe/beatconnect_client/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/yadPe/beatconnect_client" style="max-width:100%;"></a> [![CircleCI](https://circleci.com/gh/yadPe/beatconnect_client.svg?style=svg)](https://circleci.com/gh/yadPe/beatconnect_client)
+======
 The official client for [Beatconnect](https://beatconnect.io) which is a mirror for [Osu!](https://osu.ppy.sh/home) Beatmaps
 
 **Table of contents:**
