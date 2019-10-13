@@ -57,6 +57,7 @@
     },
     "dmg": {
       "icon": "icon.icns",
+      "category": "public.app-category.music-games",
       "backgroundColor": "#2a2a2a",
       "contents": [
         {
@@ -76,6 +77,7 @@
         "AppImage",
         "deb"
       ],
+      "category": "Music",
       "icon": "icon.icns"
     },
     "win": {
