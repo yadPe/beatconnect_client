@@ -48,7 +48,7 @@ workflows:
           type: approval
       - build-win-linux:
           requires:
-            - hold
+            - await-approval
           # requires:
           #   - lint
           filters:
