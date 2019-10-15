@@ -5,7 +5,7 @@ import injectSheet from 'react-jss';
 const styles = {
   Modal: {
     backgroundColor: 'rgba(42, 42, 42, 0.95)',
-    width: '100%'
+    width: '100%',
   },
   ModalBg: {
     position: 'absolute',
@@ -17,9 +17,9 @@ const styles = {
     // padding: '12px',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     // border: '1px solid grey',
-    zIndex: 10
-  }
-}
+    zIndex: 10,
+  },
+};
 
 export const ToggleContent = ({ toggle, content }) => {
   const [isShown, setIsShown] = useState(false);
@@ -34,15 +34,14 @@ export const ToggleContent = ({ toggle, content }) => {
   );
 };
 
-const Modal = ({ children, close, classes }) => (
+const Modal = ({ children, close, classes }) =>
   ReactDOM.createPortal(
     <div className={classes.ModalBg} onClick={close}>
       <div className={classes.Modal} onClick={e => e.stopPropagation()}>
         {children}
       </div>
     </div>,
-    document.getElementById('modal-root')
-  )
-);
+    document.getElementById('modal-root'),
+  );
 
-export default injectSheet(styles)(Modal)
+export default injectSheet(styles)(Modal);

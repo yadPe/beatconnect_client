@@ -1,14 +1,13 @@
 import React, { useState, cloneElement } from 'react';
 import { connect } from 'react-redux';
-import Bot from './Bot'
-import Beatmaps from './Beatmaps'
-import Settings from './Settings'
+import Bot from './Bot';
+import Beatmaps from './Beatmaps';
+import Settings from './Settings';
 import Downloads from './Downloads';
 import renderIcon from '../utils/renderIcons';
 import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
 import store from '../../store';
-
 
 const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
   // const [selected, setSelected] = useState(activeSection);
@@ -20,7 +19,7 @@ const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
       theme={theme}
       background={theme.primary}
       selected={activeSection === title}
-      onSelect={() => store.dispatch({type: 'UPDATEACTIVESECTION', payload: title})}
+      onSelect={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: title })}
       padding="10px 20px"
       header
     >
@@ -32,7 +31,7 @@ const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
     <NavPanel
       paneExpandedLength={150}
       defaultIsPanelExpanded={sidePanelExpended}
-      onExpended={(expended) => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
+      onExpended={expended => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
       volume
       tasks
       expendable
@@ -44,7 +43,10 @@ const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
       {renderItem('Settings', <Settings theme={theme} />)}
     </NavPanel>
   );
-}
+};
 
-const mapStateToProps = ({ main, settings }) => ({ ...main, sidePanelExpended: settings.userPreferences.sidePanelExpended });
+const mapStateToProps = ({ main, settings }) => ({
+  ...main,
+  sidePanelExpended: settings.userPreferences.sidePanelExpended,
+});
 export default connect(mapStateToProps)(Nav);

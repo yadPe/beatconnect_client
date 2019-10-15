@@ -1,5 +1,5 @@
 import React from 'react';
-import injectSheet from 'react-jss'
+import injectSheet from 'react-jss';
 
 const styles = {
   TextInput: {
@@ -20,9 +20,9 @@ const styles = {
     '&:hover': {
       outline: 'none !important',
       border: '2px solid white',
-    }
-  }
-}
+    },
+  },
+};
 
 const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onBlur }) => (
   <input
@@ -30,10 +30,10 @@ const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onB
     type={type || 'text'}
     placeholder={placeholder || ''}
     value={value}
-    onChange={onChange} 
+    onChange={onChange}
     onKeyDown={onKeyDown}
     onBlur={onBlur}
-    />
+  />
 );
 
 export default injectSheet(styles)(TextInput);

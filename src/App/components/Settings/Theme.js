@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 /* TODO
-* make a dedicated theme provider
-* store theme variant in userPreferences
-* add custom themes
-*/
+ * make a dedicated theme provider
+ * store theme variant in userPreferences
+ * add custom themes
+ */
 
 const Theme = () => {
   return (
@@ -14,10 +14,14 @@ const Theme = () => {
       <input
         type="checkbox"
         //checked={item.value}
-        onChange={e => e.target.checked ? document.body.style.backgroundColor = 'transparent' : document.body.style.backgroundColor= '#2a2a2a'}
+        onChange={e =>
+          e.target.checked
+            ? (document.body.style.backgroundColor = 'transparent')
+            : (document.body.style.backgroundColor = '#2a2a2a')
+        }
       />
     </React.Fragment>
   );
-}
+};
 
 export default Theme;

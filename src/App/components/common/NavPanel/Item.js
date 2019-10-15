@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import injectSheet from 'react-jss';
-import Header from './Header'
+import Header from './Header';
 
 const styles = {
   contentContainer: {
@@ -32,19 +32,31 @@ const styles = {
     overflowY: 'auto',
 
     '&::-webkit-scrollbar': {
-      width: '8px'
+      width: '8px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#2a2a2a'
+      background: '#2a2a2a',
     },
     '&::-webkit-scrollbar-thumb': {
-      background: '#00965f'
-    }
-
-  }
+      background: '#00965f',
+    },
+  },
 };
 
-const Item = ({ classes, color, icon, selected, title, dark, padding, children, background, onSelect, header, theme }) => {
+const Item = ({
+  classes,
+  color,
+  icon,
+  selected,
+  title,
+  dark,
+  padding,
+  children,
+  background,
+  onSelect,
+  header,
+  theme,
+}) => {
   //console.log(children)
   const [headerContent, setHeaderContent] = useState(null);
   // const lastSection = useRef(title);
@@ -58,32 +70,31 @@ const Item = ({ classes, color, icon, selected, title, dark, padding, children, 
   //   }
   //   console.log('==============')
   //   return () => lastSection.current = title;
-  // }, [title, headerContent]); 
+  // }, [title, headerContent]);
 
   return (
     <div className={classes.contentContainer}>
       <div className={classes.contentSubContainer}>
         <div>
-          {
-            header ?
-              <Header title={title} theme={theme}>
-                {headerContent}
-              </Header> : null
-          }
+          {header ? (
+            <Header title={title} theme={theme}>
+              {headerContent}
+            </Header>
+          ) : null}
         </div>
         <div className={classes.content}>
-          <div id="modal-root"/>
+          <div id="modal-root" />
           {children(setHeaderContent)}
         </div>
       </div>
     </div>
   );
-}
+};
 
 Item.defaultProps = {
   title: '',
   background: '#000',
   padding: 0,
-}
+};
 
 export default injectSheet(styles)(Item);

@@ -5,7 +5,7 @@ const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
   let lastPage;
   const { query, status, mode, hideDownloaded } = search;
-  let { page, lastScroll } = search
+  let { page, lastScroll } = search;
   if (resetPage && !page) lastScroll = 0;
   else lastScroll = undefined;
   const { searchResults, fetchingBeatmaps } = store.getState().main;
@@ -14,9 +14,11 @@ const askBeatconnect = (search, __, resetPage) => {
     fetchingBeatmaps.abort();
     store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
   }
-  const formatQuery = query.split(' ').join('%20')
-  fetch(`https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, 
-    { signal: controller.signal }
+  const formatQuery = query.split(' ').join('%20');
+  fetch(
+    `https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status ||
+      'ranked'}&m=${mode || 'all'}`,
+    { signal: controller.signal },
   )
     .then(res => res.ok && res.json())
     .then(({ beatmaps, max_page, error, error_message }) => {
@@ -24,13 +26,24 @@ const askBeatconnect = (search, __, resetPage) => {
       if (beatmaps.length === 0) lastPage = true;
       if (page > 0) beatmaps = _.union(prevBeatmaps, beatmaps);
       store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
-      store.dispatch({ type: 'SEARCH_RESULTS', searchResults: { search, beatmaps: beatmaps || [], max_page, page: page || 0, hideDownloaded, lastPage, lastScroll } })
+      store.dispatch({
+        type: 'SEARCH_RESULTS',
+        searchResults: {
+          search,
+          beatmaps: beatmaps || [],
+          max_page,
+          page: page || 0,
+          hideDownloaded,
+          lastPage,
+          lastScroll,
+        },
+      });
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
       err.name !== 'AbortError' && store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
     });
   store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: true, abort: controller.abort.bind(controller) } });
-}
+};
 
-export default askBeatconnect
+export default askBeatconnect;

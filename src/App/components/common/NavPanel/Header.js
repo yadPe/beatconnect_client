@@ -14,7 +14,7 @@ const style = {
     overflow: 'hidden',
     cursor: 'default',
     userSelect: 'none',
-    color: props => props.theme.dark ? '#fff' : '#000'
+    color: props => (props.theme.dark ? '#fff' : '#000'),
   },
   divider: {
     margin: '0 10px',
@@ -23,16 +23,16 @@ const style = {
     position: 'relative',
     boxSizing: 'border-box',
     backgroundColor: 'hsla(0,0%,100%,.1)',
-  }
+  },
 };
 const Header = ({ title, classes, children }) => {
   return (
     <div className={classes.header}>
       <span data-radium="true">{title}</span>
-      <div className={classes.divider}/>
+      <div className={classes.divider} />
       {children}
     </div>
   );
-}
+};
 
 export default injectSheet(style)(Header);

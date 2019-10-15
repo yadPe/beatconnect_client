@@ -8,10 +8,24 @@ const styles = {
     flexWrap: 'nowrap',
     position: 'relative',
     flex: '1 1 0%',
-  }
+  },
 };
 
-const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultIsPanelExpanded, expendable, volume, tasks, sidePanelBackground, dark, color, children, theme, onExpended }) => {
+const NavPanel = ({
+  classes,
+  panelExpandedLength,
+  panelCompactedLength,
+  defaultIsPanelExpanded,
+  expendable,
+  volume,
+  tasks,
+  sidePanelBackground,
+  dark,
+  color,
+  children,
+  theme,
+  onExpended,
+}) => {
   const [isExpended, setIsExpended] = useState(defaultIsPanelExpanded);
   return (
     <div className={classes.NavPanel}>
@@ -19,7 +33,10 @@ const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultI
         items={children}
         theme={theme}
         expended={isExpended}
-        setExpended={(expended) => { setIsExpended(expended); onExpended(expended) }}
+        setExpended={expended => {
+          setIsExpended(expended);
+          onExpended(expended);
+        }}
         defaultIsPanelExpanded={defaultIsPanelExpanded}
         panelCompactedLength={panelCompactedLength}
         panelExpandedLength={panelExpandedLength}
@@ -30,15 +47,14 @@ const NavPanel = ({ classes, panelExpandedLength, panelCompactedLength, defaultI
       />
 
       {children.filter(child => child.props.selected)}
- 
     </div>
   );
-}
+};
 
 NavPanel.defaultProps = {
   panelExpandedLength: 150,
   panelCompactedLength: 48,
-  defaultIsPanelExpanded: false
-}
+  defaultIsPanelExpanded: false,
+};
 
 export default injectSheet(styles)(NavPanel);

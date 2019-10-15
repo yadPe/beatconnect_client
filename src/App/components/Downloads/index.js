@@ -1,10 +1,10 @@
-import React, { useEffect, useState, cloneElement, useContext } from 'react'
+import React, { useEffect, useState, cloneElement, useContext } from 'react';
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
-import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider'
+import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider';
 
 const Downloads = ({ theme, setHeaderContent }) => {
   const DownloadQueue = useContext(DownloadQueueContext);
@@ -13,9 +13,9 @@ const Downloads = ({ theme, setHeaderContent }) => {
   const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
 
   useEffect(() => {
-    setHeaderContent(<DownloadsInProgress theme={theme}/>)
-    return () => setHeaderContent(null)
-  }, [setHeaderContent, theme])
+    setHeaderContent(<DownloadsInProgress theme={theme} />);
+    return () => setHeaderContent(null);
+  }, [setHeaderContent, theme]);
 
   const renderItem = (title, content) => (
     <NavPanelItem
@@ -32,19 +32,14 @@ const Downloads = ({ theme, setHeaderContent }) => {
 
   return (
     <React.Fragment>
-      <div className='menuContainer Downloads' style={{ transition: 'background 0ms' }}>
-      <NavPanel
-        paneExpandedLength={150}
-        defaultIsPanelExpanded
-        sidePanelBackground='#1d1d1d'
-        theme={theme}
-      >
-        {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue}/>)}
-        {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
-      </NavPanel>
+      <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
+        <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground="#1d1d1d" theme={theme}>
+          {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue} />)}
+          {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
+        </NavPanel>
       </div>
     </React.Fragment>
   );
-}
+};
 
 export default Downloads;

@@ -52,7 +52,7 @@ export default {
           count_total: 195,
           last_updated: '2019-06-07T18:04:54Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/903871'
+          url: 'https://osu.ppy.sh/beatmaps/903871',
         },
         {
           beatmapset: 417408,
@@ -72,7 +72,7 @@ export default {
           count_total: 292,
           last_updated: '2019-06-07T18:04:54Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/908460'
+          url: 'https://osu.ppy.sh/beatmaps/908460',
         },
         {
           beatmapset: 417408,
@@ -92,7 +92,7 @@ export default {
           count_total: 632,
           last_updated: '2019-06-07T18:04:55Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/911517'
+          url: 'https://osu.ppy.sh/beatmaps/911517',
         },
         {
           beatmapset: 417408,
@@ -100,7 +100,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.61033,
-          version: '[ -Scarlet- ]\'s Extra',
+          version: "[ -Scarlet- ]'s Extra",
           total_length: 113,
           cs: 4,
           drain: 5.6,
@@ -112,7 +112,7 @@ export default {
           count_total: 755,
           last_updated: '2019-06-07T18:04:55Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/911537'
+          url: 'https://osu.ppy.sh/beatmaps/911537',
         },
         {
           beatmapset: 417408,
@@ -120,7 +120,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.65491,
-          version: 'GimBab\'s Another',
+          version: "GimBab's Another",
           total_length: 113,
           cs: 4,
           drain: 5,
@@ -132,7 +132,7 @@ export default {
           count_total: 676,
           last_updated: '2019-06-07T18:04:56Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/977326'
+          url: 'https://osu.ppy.sh/beatmaps/977326',
         },
         {
           beatmapset: 417408,
@@ -152,9 +152,9 @@ export default {
           count_total: 414,
           last_updated: '2019-06-07T18:04:56Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/993540'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/993540',
+        },
+      ],
     },
     {
       id: 849369,
@@ -170,7 +170,8 @@ export default {
       bpm: 160,
       source: '하이파이브',
       covers: 849369,
-      tags: 'high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games pachiru minorsonek m2usonek akareh',
+      tags:
+        'high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games pachiru minorsonek m2usonek akareh',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -208,7 +209,7 @@ export default {
           count_total: 716,
           last_updated: '2019-04-12T16:24:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1776148'
+          url: 'https://osu.ppy.sh/beatmaps/1776148',
         },
         {
           beatmapset: 849369,
@@ -216,7 +217,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.8014,
-          version: 'Akareh\'s Insane',
+          version: "Akareh's Insane",
           total_length: 118,
           cs: 4.3,
           drain: 6,
@@ -228,7 +229,7 @@ export default {
           count_total: 772,
           last_updated: '2019-04-12T16:24:24Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1802751'
+          url: 'https://osu.ppy.sh/beatmaps/1802751',
         },
         {
           beatmapset: 849369,
@@ -236,7 +237,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.483,
-          version: 'Minorsonek\'s Expert',
+          version: "Minorsonek's Expert",
           total_length: 118,
           cs: 4.4,
           drain: 7,
@@ -248,7 +249,7 @@ export default {
           count_total: 731,
           last_updated: '2019-04-12T16:24:24Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1812405'
+          url: 'https://osu.ppy.sh/beatmaps/1812405',
         },
         {
           beatmapset: 849369,
@@ -268,7 +269,7 @@ export default {
           count_total: 549,
           last_updated: '2019-04-12T16:24:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1845665'
+          url: 'https://osu.ppy.sh/beatmaps/1845665',
         },
         {
           beatmapset: 849369,
@@ -288,7 +289,7 @@ export default {
           count_total: 487,
           last_updated: '2019-04-12T16:24:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1857444'
+          url: 'https://osu.ppy.sh/beatmaps/1857444',
         },
         {
           beatmapset: 849369,
@@ -296,7 +297,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.18319,
-          version: 'Pachiru\'s Normal',
+          version: "Pachiru's Normal",
           total_length: 118,
           cs: 3.3,
           drain: 4,
@@ -308,9 +309,9 @@ export default {
           count_total: 374,
           last_updated: '2019-04-12T16:24:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1861268'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1861268',
+        },
+      ],
     },
     {
       id: 898791,
@@ -364,7 +365,7 @@ export default {
           count_total: 516,
           last_updated: '2019-04-07T19:46:32Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1877629'
+          url: 'https://osu.ppy.sh/beatmaps/1877629',
         },
         {
           beatmapset: 898791,
@@ -384,7 +385,7 @@ export default {
           count_total: 336,
           last_updated: '2019-04-07T19:46:32Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1881649'
+          url: 'https://osu.ppy.sh/beatmaps/1881649',
         },
         {
           beatmapset: 898791,
@@ -392,7 +393,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.22341,
-          version: 'Aeril\'s Hard',
+          version: "Aeril's Hard",
           total_length: 110,
           cs: 3,
           drain: 4,
@@ -404,7 +405,7 @@ export default {
           count_total: 452,
           last_updated: '2019-04-07T19:46:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1883741'
+          url: 'https://osu.ppy.sh/beatmaps/1883741',
         },
         {
           beatmapset: 898791,
@@ -412,7 +413,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.99037,
-          version: 'M2Usonek\'s Insane',
+          version: "M2Usonek's Insane",
           total_length: 110,
           cs: 4,
           drain: 5,
@@ -424,7 +425,7 @@ export default {
           count_total: 640,
           last_updated: '2019-04-07T19:46:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1883742'
+          url: 'https://osu.ppy.sh/beatmaps/1883742',
         },
         {
           beatmapset: 898791,
@@ -444,7 +445,7 @@ export default {
           count_total: 663,
           last_updated: '2019-04-07T19:46:34Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1911123'
+          url: 'https://osu.ppy.sh/beatmaps/1911123',
         },
         {
           beatmapset: 898791,
@@ -452,7 +453,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.19492,
-          version: 'Dirdam\'s Expert',
+          version: "Dirdam's Expert",
           total_length: 110,
           cs: 4,
           drain: 6.5,
@@ -464,7 +465,7 @@ export default {
           count_total: 757,
           last_updated: '2019-04-07T19:46:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1935239'
+          url: 'https://osu.ppy.sh/beatmaps/1935239',
         },
         {
           beatmapset: 898791,
@@ -472,7 +473,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.45993,
-          version: 'ylvy\'s Insane',
+          version: "ylvy's Insane",
           total_length: 110,
           cs: 4,
           drain: 5,
@@ -484,7 +485,7 @@ export default {
           count_total: 599,
           last_updated: '2019-04-07T19:46:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1935240'
+          url: 'https://osu.ppy.sh/beatmaps/1935240',
         },
         {
           beatmapset: 898791,
@@ -492,7 +493,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.07338,
-          version: 'frogy\'s Expert',
+          version: "frogy's Expert",
           total_length: 109,
           cs: 4.8,
           drain: 5,
@@ -504,9 +505,9 @@ export default {
           count_total: 624,
           last_updated: '2019-04-07T19:46:36Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1964221'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1964221',
+        },
+      ],
     },
     {
       id: 897790,
@@ -522,7 +523,8 @@ export default {
       bpm: 185,
       source: 'EarthBound',
       covers: 897790,
-      tags: 'mother 2 ness snes battle theme instrumental nintendo retro weird glitch video game ost ギーグの逆襲 minorsonek m2usonek',
+      tags:
+        'mother 2 ness snes battle theme instrumental nintendo retro weird glitch video game ost ギーグの逆襲 minorsonek m2usonek',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -560,7 +562,7 @@ export default {
           count_total: 229,
           last_updated: '2019-04-07T11:57:11Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1875550'
+          url: 'https://osu.ppy.sh/beatmaps/1875550',
         },
         {
           beatmapset: 897790,
@@ -580,7 +582,7 @@ export default {
           count_total: 91,
           last_updated: '2019-04-07T11:57:12Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1922423'
+          url: 'https://osu.ppy.sh/beatmaps/1922423',
         },
         {
           beatmapset: 897790,
@@ -588,7 +590,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.05142,
-          version: 'Minorsonek\'s Normal',
+          version: "Minorsonek's Normal",
           total_length: 42,
           cs: 3,
           drain: 3,
@@ -600,7 +602,7 @@ export default {
           count_total: 117,
           last_updated: '2019-04-07T11:57:12Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1922424'
+          url: 'https://osu.ppy.sh/beatmaps/1922424',
         },
         {
           beatmapset: 897790,
@@ -620,7 +622,7 @@ export default {
           count_total: 178,
           last_updated: '2019-04-07T11:57:13Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1922425'
+          url: 'https://osu.ppy.sh/beatmaps/1922425',
         },
         {
           beatmapset: 897790,
@@ -628,7 +630,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.43077,
-          version: 'Minorsonek\'s Insane',
+          version: "Minorsonek's Insane",
           total_length: 42,
           cs: 5,
           drain: 5,
@@ -640,9 +642,9 @@ export default {
           count_total: 178,
           last_updated: '2019-04-07T11:57:13Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1925164'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1925164',
+        },
+      ],
     },
     {
       id: 859022,
@@ -658,7 +660,8 @@ export default {
       bpm: 155,
       source: 'Tomba! 2: The Evil Swine Return',
       covers: 859022,
-      tags: 'parachute minorsonek pink squirrel suit tombi! m2usonek video game instrumental playstation 1 ost the wild adventures トンバ！ザ・ワイルドアドベンチャー',
+      tags:
+        'parachute minorsonek pink squirrel suit tombi! m2usonek video game instrumental playstation 1 ost the wild adventures トンバ！ザ・ワイルドアドベンチャー',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -696,7 +699,7 @@ export default {
           count_total: 365,
           last_updated: '2019-04-05T18:16:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1795143'
+          url: 'https://osu.ppy.sh/beatmaps/1795143',
         },
         {
           beatmapset: 859022,
@@ -716,7 +719,7 @@ export default {
           count_total: 259,
           last_updated: '2019-04-05T18:16:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1799889'
+          url: 'https://osu.ppy.sh/beatmaps/1799889',
         },
         {
           beatmapset: 859022,
@@ -724,7 +727,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.13766,
-          version: 'Minorsonek\'s Hard',
+          version: "Minorsonek's Hard",
           total_length: 87,
           cs: 4,
           drain: 5,
@@ -736,9 +739,9 @@ export default {
           count_total: 345,
           last_updated: '2019-04-05T18:16:11Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1801419'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1801419',
+        },
+      ],
     },
     {
       id: 755647,
@@ -792,7 +795,7 @@ export default {
           count_total: 758,
           last_updated: '2019-03-16T23:20:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1590446'
+          url: 'https://osu.ppy.sh/beatmaps/1590446',
         },
         {
           beatmapset: 755647,
@@ -800,7 +803,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.79891,
-          version: 'LCFC\'s Insane',
+          version: "LCFC's Insane",
           total_length: 119,
           cs: 4.5,
           drain: 6,
@@ -812,7 +815,7 @@ export default {
           count_total: 667,
           last_updated: '2019-03-16T23:20:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1911796'
+          url: 'https://osu.ppy.sh/beatmaps/1911796',
         },
         {
           beatmapset: 755647,
@@ -832,7 +835,7 @@ export default {
           count_total: 260,
           last_updated: '2019-03-16T23:20:31Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1911797'
+          url: 'https://osu.ppy.sh/beatmaps/1911797',
         },
         {
           beatmapset: 755647,
@@ -852,9 +855,9 @@ export default {
           count_total: 525,
           last_updated: '2019-03-16T23:20:32Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1950724'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1950724',
+        },
+      ],
     },
     {
       id: 730369,
@@ -870,7 +873,8 @@ export default {
       bpm: 185,
       source: 'いつだって僕らの恋は10センチだった。',
       covers: 730369,
-      tags: 'ハニワ honeyworks 勇次郎 yuujirou 愛蔵 aizou 内山昂輝 uchiyama kouki 島﨑信長 shimazaki nobunaga ハルヨシ halyosy itsudatte bokura no koi wa 10 cm datta. ノンファンタジー nonfantasy どっちのkissか、選べよ。 docchi no kiss ka erabe yo. 告白実行委員会〜恋愛シリーズ〜 kokuhaku jikkou iinkai renai series confession executive committee love tv size アニメ anime 挿入歌 insert song 初音ミク hatsune miku メグッポイド グミ megpoid gumi ボーカロイド ボカロ vocaloid シト shito チョリスp chorisu-p ケイキ cake 中西 nakanishi 樋口幸佑 higuchi kousuke jack j_a_c_k niruko shunao shogunmoon m2usonek minorsonek kyle y kyle_y habiholic elcheer',
+      tags:
+        'ハニワ honeyworks 勇次郎 yuujirou 愛蔵 aizou 内山昂輝 uchiyama kouki 島﨑信長 shimazaki nobunaga ハルヨシ halyosy itsudatte bokura no koi wa 10 cm datta. ノンファンタジー nonfantasy どっちのkissか、選べよ。 docchi no kiss ka erabe yo. 告白実行委員会〜恋愛シリーズ〜 kokuhaku jikkou iinkai renai series confession executive committee love tv size アニメ anime 挿入歌 insert song 初音ミク hatsune miku メグッポイド グミ megpoid gumi ボーカロイド ボカロ vocaloid シト shito チョリスp chorisu-p ケイキ cake 中西 nakanishi 樋口幸佑 higuchi kousuke jack j_a_c_k niruko shunao shogunmoon m2usonek minorsonek kyle y kyle_y habiholic elcheer',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -896,7 +900,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.00307,
-          version: 'Ky\'s Insane',
+          version: "Ky's Insane",
           total_length: 79,
           cs: 4.2,
           drain: 6,
@@ -908,7 +912,7 @@ export default {
           count_total: 470,
           last_updated: '2019-03-11T00:12:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1545193'
+          url: 'https://osu.ppy.sh/beatmaps/1545193',
         },
         {
           beatmapset: 730369,
@@ -928,7 +932,7 @@ export default {
           count_total: 315,
           last_updated: '2019-03-11T00:12:06Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1549413'
+          url: 'https://osu.ppy.sh/beatmaps/1549413',
         },
         {
           beatmapset: 730369,
@@ -936,7 +940,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.73685,
-          version: 'Shunao\'s Hard',
+          version: "Shunao's Hard",
           total_length: 79,
           cs: 3.7,
           drain: 5,
@@ -948,7 +952,7 @@ export default {
           count_total: 393,
           last_updated: '2019-03-11T00:12:06Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1559628'
+          url: 'https://osu.ppy.sh/beatmaps/1559628',
         },
         {
           beatmapset: 730369,
@@ -956,7 +960,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.00592,
-          version: 'niruko\'s Easy',
+          version: "niruko's Easy",
           total_length: 79,
           cs: 2.5,
           drain: 2,
@@ -968,7 +972,7 @@ export default {
           count_total: 191,
           last_updated: '2019-03-11T00:12:07Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1579927'
+          url: 'https://osu.ppy.sh/beatmaps/1579927',
         },
         {
           beatmapset: 730369,
@@ -976,7 +980,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.49813,
-          version: 'Elcheer\'s Devotion',
+          version: "Elcheer's Devotion",
           total_length: 79,
           cs: 3.8,
           drain: 6.2,
@@ -988,7 +992,7 @@ export default {
           count_total: 445,
           last_updated: '2019-03-11T00:12:08Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1584052'
+          url: 'https://osu.ppy.sh/beatmaps/1584052',
         },
         {
           beatmapset: 730369,
@@ -996,7 +1000,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.67377,
-          version: 'Minorsonek\'s Insane',
+          version: "Minorsonek's Insane",
           total_length: 79,
           cs: 4,
           drain: 5.5,
@@ -1008,7 +1012,7 @@ export default {
           count_total: 448,
           last_updated: '2019-03-11T00:12:08Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1589045'
+          url: 'https://osu.ppy.sh/beatmaps/1589045',
         },
         {
           beatmapset: 730369,
@@ -1016,7 +1020,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.34865,
-          version: 'Habi\'s Extra',
+          version: "Habi's Extra",
           total_length: 79,
           cs: 4,
           drain: 6,
@@ -1028,9 +1032,9 @@ export default {
           count_total: 447,
           last_updated: '2019-03-11T00:12:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1617153'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1617153',
+        },
+      ],
     },
     {
       id: 891377,
@@ -1084,7 +1088,7 @@ export default {
           count_total: 755,
           last_updated: '2019-03-10T19:40:29Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863311'
+          url: 'https://osu.ppy.sh/beatmaps/1863311',
         },
         {
           beatmapset: 891377,
@@ -1104,7 +1108,7 @@ export default {
           count_total: 573,
           last_updated: '2019-03-10T19:40:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1865160'
+          url: 'https://osu.ppy.sh/beatmaps/1865160',
         },
         {
           beatmapset: 891377,
@@ -1112,7 +1116,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.15387,
-          version: 'Minorsonek\'s Hour',
+          version: "Minorsonek's Hour",
           total_length: 129,
           cs: 4.4,
           drain: 6,
@@ -1124,7 +1128,7 @@ export default {
           count_total: 651,
           last_updated: '2019-03-10T19:40:31Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1874990'
+          url: 'https://osu.ppy.sh/beatmaps/1874990',
         },
         {
           beatmapset: 891377,
@@ -1144,7 +1148,7 @@ export default {
           count_total: 372,
           last_updated: '2019-03-10T19:40:31Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1874991'
+          url: 'https://osu.ppy.sh/beatmaps/1874991',
         },
         {
           beatmapset: 891377,
@@ -1164,9 +1168,9 @@ export default {
           count_total: 629,
           last_updated: '2019-03-10T19:40:32Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1939889'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1939889',
+        },
+      ],
     },
     {
       id: 872517,
@@ -1220,7 +1224,7 @@ export default {
           count_total: 61,
           last_updated: '2019-02-22T19:50:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1823416'
+          url: 'https://osu.ppy.sh/beatmaps/1823416',
         },
         {
           beatmapset: 872517,
@@ -1240,7 +1244,7 @@ export default {
           count_total: 37,
           last_updated: '2019-02-22T19:50:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1823417'
+          url: 'https://osu.ppy.sh/beatmaps/1823417',
         },
         {
           beatmapset: 872517,
@@ -1260,7 +1264,7 @@ export default {
           count_total: 79,
           last_updated: '2019-02-22T19:50:11Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1823418'
+          url: 'https://osu.ppy.sh/beatmaps/1823418',
         },
         {
           beatmapset: 872517,
@@ -1280,7 +1284,7 @@ export default {
           count_total: 168,
           last_updated: '2019-02-22T19:50:12Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1823419'
+          url: 'https://osu.ppy.sh/beatmaps/1823419',
         },
         {
           beatmapset: 872517,
@@ -1300,9 +1304,9 @@ export default {
           count_total: 118,
           last_updated: '2019-02-22T19:50:13Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1824020'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1824020',
+        },
+      ],
     },
     {
       id: 695826,
@@ -1318,7 +1322,7 @@ export default {
       bpm: 128,
       source: '少女終末旅行',
       covers: 695826,
-      tags: 'op shoujo shuumatsu ryouko girl\'s last tour asuka_- karia minorsonek m2usonek waifuiscute fluffy hair',
+      tags: "op shoujo shuumatsu ryouko girl's last tour asuka_- karia minorsonek m2usonek waifuiscute fluffy hair",
       video: false,
       storyboard: false,
       ranked: '1',
@@ -1344,7 +1348,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.78532,
-          version: 'Asuka_-\'s Hard',
+          version: "Asuka_-'s Hard",
           total_length: 89,
           cs: 4,
           drain: 5,
@@ -1356,7 +1360,7 @@ export default {
           count_total: 299,
           last_updated: '2019-02-18T13:56:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1475995'
+          url: 'https://osu.ppy.sh/beatmaps/1475995',
         },
         {
           beatmapset: 695826,
@@ -1364,7 +1368,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.79003,
-          version: 'Karia\'s Normal',
+          version: "Karia's Normal",
           total_length: 89,
           cs: 3.5,
           drain: 3,
@@ -1376,7 +1380,7 @@ export default {
           count_total: 196,
           last_updated: '2019-02-18T13:56:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1476702'
+          url: 'https://osu.ppy.sh/beatmaps/1476702',
         },
         {
           beatmapset: 695826,
@@ -1396,7 +1400,7 @@ export default {
           count_total: 334,
           last_updated: '2019-02-18T13:56:04Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1537200'
+          url: 'https://osu.ppy.sh/beatmaps/1537200',
         },
         {
           beatmapset: 695826,
@@ -1404,7 +1408,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.23005,
-          version: 'Minorsonek\'s Tour',
+          version: "Minorsonek's Tour",
           total_length: 89,
           cs: 4.2,
           drain: 6,
@@ -1416,9 +1420,9 @@ export default {
           count_total: 388,
           last_updated: '2019-02-18T13:56:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1665623'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1665623',
+        },
+      ],
     },
     {
       id: 916847,
@@ -1472,7 +1476,7 @@ export default {
           count_total: 157,
           last_updated: '2019-02-06T19:34:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1914837'
+          url: 'https://osu.ppy.sh/beatmaps/1914837',
         },
         {
           beatmapset: 916847,
@@ -1492,7 +1496,7 @@ export default {
           count_total: 138,
           last_updated: '2019-02-06T19:34:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1914838'
+          url: 'https://osu.ppy.sh/beatmaps/1914838',
         },
         {
           beatmapset: 916847,
@@ -1512,9 +1516,9 @@ export default {
           count_total: 91,
           last_updated: '2019-02-06T19:34:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1914839'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1914839',
+        },
+      ],
     },
     {
       id: 901085,
@@ -1568,7 +1572,7 @@ export default {
           count_total: 582,
           last_updated: '2019-02-06T03:51:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1881625'
+          url: 'https://osu.ppy.sh/beatmaps/1881625',
         },
         {
           beatmapset: 901085,
@@ -1588,7 +1592,7 @@ export default {
           count_total: 448,
           last_updated: '2019-02-06T03:51:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1881626'
+          url: 'https://osu.ppy.sh/beatmaps/1881626',
         },
         {
           beatmapset: 901085,
@@ -1608,7 +1612,7 @@ export default {
           count_total: 338,
           last_updated: '2019-02-06T03:51:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1881627'
+          url: 'https://osu.ppy.sh/beatmaps/1881627',
         },
         {
           beatmapset: 901085,
@@ -1616,7 +1620,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.37852,
-          version: 'ylvy\'s Insane',
+          version: "ylvy's Insane",
           total_length: 95,
           cs: 4.5,
           drain: 5.4,
@@ -1628,9 +1632,9 @@ export default {
           count_total: 501,
           last_updated: '2019-02-06T03:51:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1881628'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1881628',
+        },
+      ],
     },
     {
       id: 891581,
@@ -1646,7 +1650,8 @@ export default {
       bpm: 160,
       source: '',
       covers: 891581,
-      tags: 'minorsonek cptsqbany yugu akareh zelq matsubara_kanon matsubara kanon rvmathew cris- walaowey electronic instrumental',
+      tags:
+        'minorsonek cptsqbany yugu akareh zelq matsubara_kanon matsubara kanon rvmathew cris- walaowey electronic instrumental',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -1672,7 +1677,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.02331,
-          version: 'Akareh\'s Snap (Another)',
+          version: "Akareh's Snap (Another)",
           total_length: 132,
           cs: 4.7,
           drain: 6,
@@ -1684,7 +1689,7 @@ export default {
           count_total: 820,
           last_updated: '2019-01-26T06:51:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863863'
+          url: 'https://osu.ppy.sh/beatmaps/1863863',
         },
         {
           beatmapset: 891581,
@@ -1692,7 +1697,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.18317,
-          version: 'Cris & Kanon\'s Lock (Hard)',
+          version: "Cris & Kanon's Lock (Hard)",
           total_length: 132,
           cs: 4,
           drain: 5,
@@ -1704,7 +1709,7 @@ export default {
           count_total: 642,
           last_updated: '2019-01-26T06:51:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863864'
+          url: 'https://osu.ppy.sh/beatmaps/1863864',
         },
         {
           beatmapset: 891581,
@@ -1724,7 +1729,7 @@ export default {
           count_total: 339,
           last_updated: '2019-01-26T06:51:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863865'
+          url: 'https://osu.ppy.sh/beatmaps/1863865',
         },
         {
           beatmapset: 891581,
@@ -1732,7 +1737,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.25899,
-          version: 'Mathew\'s Pop (Hyper)',
+          version: "Mathew's Pop (Hyper)",
           total_length: 132,
           cs: 4.2,
           drain: 5.5,
@@ -1744,7 +1749,7 @@ export default {
           count_total: 734,
           last_updated: '2019-01-26T06:51:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863867'
+          url: 'https://osu.ppy.sh/beatmaps/1863867',
         },
         {
           beatmapset: 891581,
@@ -1752,7 +1757,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.71848,
-          version: 'Skubi\'s Acceleration',
+          version: "Skubi's Acceleration",
           total_length: 132,
           cs: 4,
           drain: 6,
@@ -1764,7 +1769,7 @@ export default {
           count_total: 757,
           last_updated: '2019-01-26T06:51:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863868'
+          url: 'https://osu.ppy.sh/beatmaps/1863868',
         },
         {
           beatmapset: 891581,
@@ -1784,7 +1789,7 @@ export default {
           count_total: 859,
           last_updated: '2019-01-26T06:51:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863869'
+          url: 'https://osu.ppy.sh/beatmaps/1863869',
         },
         {
           beatmapset: 891581,
@@ -1792,7 +1797,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.30859,
-          version: 'Yugu\'s Jerk (Extra)',
+          version: "Yugu's Jerk (Extra)",
           total_length: 132,
           cs: 4.2,
           drain: 5.5,
@@ -1804,7 +1809,7 @@ export default {
           count_total: 817,
           last_updated: '2019-01-26T06:51:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863870'
+          url: 'https://osu.ppy.sh/beatmaps/1863870',
         },
         {
           beatmapset: 891581,
@@ -1812,7 +1817,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.5966,
-          version: 'Zelq\'s Crackle (Insane)',
+          version: "Zelq's Crackle (Insane)",
           total_length: 132,
           cs: 3,
           drain: 5.8,
@@ -1824,9 +1829,9 @@ export default {
           count_total: 701,
           last_updated: '2019-01-26T06:51:10Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1863871'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1863871',
+        },
+      ],
     },
     {
       id: 823347,
@@ -1880,7 +1885,7 @@ export default {
           count_total: 698,
           last_updated: '2019-01-14T10:19:19Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1725484'
+          url: 'https://osu.ppy.sh/beatmaps/1725484',
         },
         {
           beatmapset: 823347,
@@ -1900,7 +1905,7 @@ export default {
           count_total: 556,
           last_updated: '2019-01-14T10:19:19Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1765020'
+          url: 'https://osu.ppy.sh/beatmaps/1765020',
         },
         {
           beatmapset: 823347,
@@ -1920,7 +1925,7 @@ export default {
           count_total: 404,
           last_updated: '2019-01-14T10:19:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1765090'
+          url: 'https://osu.ppy.sh/beatmaps/1765090',
         },
         {
           beatmapset: 823347,
@@ -1940,7 +1945,7 @@ export default {
           count_total: 169,
           last_updated: '2019-01-14T10:19:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1771642'
+          url: 'https://osu.ppy.sh/beatmaps/1771642',
         },
         {
           beatmapset: 823347,
@@ -1948,7 +1953,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 2.25523,
-          version: 'Leaf\'s Futsuu',
+          version: "Leaf's Futsuu",
           total_length: 103,
           cs: 3,
           drain: 7,
@@ -1960,9 +1965,9 @@ export default {
           count_total: 282,
           last_updated: '2019-01-14T10:19:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1793658'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1793658',
+        },
+      ],
     },
     {
       id: 886402,
@@ -2004,7 +2009,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.96005,
-          version: 'Agatsu\'s Insane',
+          version: "Agatsu's Insane",
           total_length: 96,
           cs: 4,
           drain: 5,
@@ -2016,7 +2021,7 @@ export default {
           count_total: 461,
           last_updated: '2019-01-01T21:39:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1853004'
+          url: 'https://osu.ppy.sh/beatmaps/1853004',
         },
         {
           beatmapset: 886402,
@@ -2036,7 +2041,7 @@ export default {
           count_total: 557,
           last_updated: '2019-01-01T21:39:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1853005'
+          url: 'https://osu.ppy.sh/beatmaps/1853005',
         },
         {
           beatmapset: 886402,
@@ -2044,7 +2049,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.59933,
-          version: 'Mathew\'s Hard',
+          version: "Mathew's Hard",
           total_length: 96,
           cs: 4.2,
           drain: 4,
@@ -2056,7 +2061,7 @@ export default {
           count_total: 392,
           last_updated: '2019-01-01T21:39:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1853006'
+          url: 'https://osu.ppy.sh/beatmaps/1853006',
         },
         {
           beatmapset: 886402,
@@ -2064,7 +2069,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.50924,
-          version: 'Minorsonek\'s Expert',
+          version: "Minorsonek's Expert",
           total_length: 96,
           cs: 4,
           drain: 5,
@@ -2076,7 +2081,7 @@ export default {
           count_total: 483,
           last_updated: '2019-01-01T21:39:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1853007'
+          url: 'https://osu.ppy.sh/beatmaps/1853007',
         },
         {
           beatmapset: 886402,
@@ -2084,7 +2089,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.23338,
-          version: 'Nelliel\'s Normal',
+          version: "Nelliel's Normal",
           total_length: 96,
           cs: 3.5,
           drain: 4,
@@ -2096,9 +2101,9 @@ export default {
           count_total: 278,
           last_updated: '2019-01-01T21:39:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1853008'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1853008',
+        },
+      ],
     },
     {
       id: 882106,
@@ -2114,7 +2119,8 @@ export default {
       bpm: 140,
       source: 'osu!',
       covers: 882106,
-      tags: 'osu themes m2usonek matsubara kanon minorsonek walaowey christmas xmas x mas christ theme song featured artist skubi',
+      tags:
+        'osu themes m2usonek matsubara kanon minorsonek walaowey christmas xmas x mas christ theme song featured artist skubi',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -2152,7 +2158,7 @@ export default {
           count_total: 592,
           last_updated: '2018-12-22T09:13:15Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1844209'
+          url: 'https://osu.ppy.sh/beatmaps/1844209',
         },
         {
           beatmapset: 882106,
@@ -2172,7 +2178,7 @@ export default {
           count_total: 269,
           last_updated: '2018-12-22T09:13:15Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1844210'
+          url: 'https://osu.ppy.sh/beatmaps/1844210',
         },
         {
           beatmapset: 882106,
@@ -2192,9 +2198,9 @@ export default {
           count_total: 531,
           last_updated: '2018-12-22T09:13:15Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1848902'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1848902',
+        },
+      ],
     },
     {
       id: 836286,
@@ -2248,7 +2254,7 @@ export default {
           count_total: 369,
           last_updated: '2018-12-07T05:00:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1751349'
+          url: 'https://osu.ppy.sh/beatmaps/1751349',
         },
         {
           beatmapset: 836286,
@@ -2268,7 +2274,7 @@ export default {
           count_total: 223,
           last_updated: '2018-12-07T05:00:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1751350'
+          url: 'https://osu.ppy.sh/beatmaps/1751350',
         },
         {
           beatmapset: 836286,
@@ -2276,7 +2282,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.58592,
-          version: 'Swell\'s Insane',
+          version: "Swell's Insane",
           total_length: 106,
           cs: 4,
           drain: 7,
@@ -2288,7 +2294,7 @@ export default {
           count_total: 384,
           last_updated: '2018-12-07T05:00:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1751351'
+          url: 'https://osu.ppy.sh/beatmaps/1751351',
         },
         {
           beatmapset: 836286,
@@ -2296,7 +2302,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.99251,
-          version: 'ylvy\'s Insane',
+          version: "ylvy's Insane",
           total_length: 103,
           cs: 4.5,
           drain: 5,
@@ -2308,7 +2314,7 @@ export default {
           count_total: 367,
           last_updated: '2018-12-07T05:00:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1751352'
+          url: 'https://osu.ppy.sh/beatmaps/1751352',
         },
         {
           beatmapset: 836286,
@@ -2328,9 +2334,9 @@ export default {
           count_total: 290,
           last_updated: '2018-12-07T05:00:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1754502'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1754502',
+        },
+      ],
     },
     {
       id: 671056,
@@ -2372,7 +2378,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.2632,
-          version: 'Fiura\'s Miyabi',
+          version: "Fiura's Miyabi",
           total_length: 134,
           cs: 4,
           drain: 7,
@@ -2384,7 +2390,7 @@ export default {
           count_total: 946,
           last_updated: '2018-11-23T10:50:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1419003'
+          url: 'https://osu.ppy.sh/beatmaps/1419003',
         },
         {
           beatmapset: 671056,
@@ -2404,7 +2410,7 @@ export default {
           count_total: 345,
           last_updated: '2018-11-23T10:50:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1588984'
+          url: 'https://osu.ppy.sh/beatmaps/1588984',
         },
         {
           beatmapset: 671056,
@@ -2412,7 +2418,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.37081,
-          version: 'Minorsonek\'s Insane',
+          version: "Minorsonek's Insane",
           total_length: 135,
           cs: 3.8,
           drain: 6,
@@ -2424,7 +2430,7 @@ export default {
           count_total: 718,
           last_updated: '2018-11-23T10:50:20Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1593699'
+          url: 'https://osu.ppy.sh/beatmaps/1593699',
         },
         {
           beatmapset: 671056,
@@ -2432,7 +2438,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.85143,
-          version: 'how2miss\' Insane',
+          version: "how2miss' Insane",
           total_length: 134,
           cs: 4.6,
           drain: 5,
@@ -2444,7 +2450,7 @@ export default {
           count_total: 779,
           last_updated: '2018-11-23T10:50:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1607327'
+          url: 'https://osu.ppy.sh/beatmaps/1607327',
         },
         {
           beatmapset: 671056,
@@ -2452,7 +2458,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.30417,
-          version: 'Ky\'s Hard',
+          version: "Ky's Hard",
           total_length: 134,
           cs: 3.5,
           drain: 6,
@@ -2464,9 +2470,9 @@ export default {
           count_total: 620,
           last_updated: '2018-11-23T10:50:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1615827'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1615827',
+        },
+      ],
     },
     {
       id: 865577,
@@ -2508,7 +2514,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.29691,
-          version: 'bor\'s Advanced',
+          version: "bor's Advanced",
           total_length: 114,
           cs: 3,
           drain: 3,
@@ -2520,7 +2526,7 @@ export default {
           count_total: 293,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809849'
+          url: 'https://osu.ppy.sh/beatmaps/1809849',
         },
         {
           beatmapset: 865577,
@@ -2540,7 +2546,7 @@ export default {
           count_total: 873,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809850'
+          url: 'https://osu.ppy.sh/beatmaps/1809850',
         },
         {
           beatmapset: 865577,
@@ -2560,7 +2566,7 @@ export default {
           count_total: 460,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809851'
+          url: 'https://osu.ppy.sh/beatmaps/1809851',
         },
         {
           beatmapset: 865577,
@@ -2580,7 +2586,7 @@ export default {
           count_total: 551,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809853'
+          url: 'https://osu.ppy.sh/beatmaps/1809853',
         },
         {
           beatmapset: 865577,
@@ -2588,7 +2594,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.74961,
-          version: 'Icekalt\'s Extra',
+          version: "Icekalt's Extra",
           total_length: 114,
           cs: 3.6,
           drain: 5.7,
@@ -2600,7 +2606,7 @@ export default {
           count_total: 758,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1823007'
+          url: 'https://osu.ppy.sh/beatmaps/1823007',
         },
         {
           beatmapset: 865577,
@@ -2608,7 +2614,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.95688,
-          version: 'bor\'s Another',
+          version: "bor's Another",
           total_length: 114,
           cs: 5,
           drain: 5,
@@ -2620,7 +2626,7 @@ export default {
           count_total: 702,
           last_updated: '2018-11-13T23:48:05Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1826401'
+          url: 'https://osu.ppy.sh/beatmaps/1826401',
         },
         {
           beatmapset: 865577,
@@ -2640,9 +2646,9 @@ export default {
           count_total: 300,
           last_updated: '2018-11-13T23:48:06Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1831220'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1831220',
+        },
+      ],
     },
     {
       id: 764683,
@@ -2696,7 +2702,7 @@ export default {
           count_total: 462,
           last_updated: '2018-11-11T11:07:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809909'
+          url: 'https://osu.ppy.sh/beatmaps/1809909',
         },
         {
           beatmapset: 764683,
@@ -2716,7 +2722,7 @@ export default {
           count_total: 333,
           last_updated: '2018-11-11T11:07:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809910'
+          url: 'https://osu.ppy.sh/beatmaps/1809910',
         },
         {
           beatmapset: 764683,
@@ -2736,7 +2742,7 @@ export default {
           count_total: 393,
           last_updated: '2018-11-11T11:07:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809911'
+          url: 'https://osu.ppy.sh/beatmaps/1809911',
         },
         {
           beatmapset: 764683,
@@ -2756,7 +2762,7 @@ export default {
           count_total: 225,
           last_updated: '2018-11-11T11:07:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809912'
+          url: 'https://osu.ppy.sh/beatmaps/1809912',
         },
         {
           beatmapset: 764683,
@@ -2776,9 +2782,9 @@ export default {
           count_total: 468,
           last_updated: '2018-11-11T11:07:02Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1809913'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1809913',
+        },
+      ],
     },
     {
       id: 836894,
@@ -2820,7 +2826,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.93774,
-          version: 'MinoridiuS\' Infinity',
+          version: "MinoridiuS' Infinity",
           total_length: 122,
           cs: 4.4,
           drain: 7,
@@ -2832,7 +2838,7 @@ export default {
           count_total: 872,
           last_updated: '2018-11-07T20:52:17Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1752431'
+          url: 'https://osu.ppy.sh/beatmaps/1752431',
         },
         {
           beatmapset: 836894,
@@ -2840,7 +2846,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.5034,
-          version: 'Mathew\'s Hard',
+          version: "Mathew's Hard",
           total_length: 122,
           cs: 4,
           drain: 6,
@@ -2852,7 +2858,7 @@ export default {
           count_total: 591,
           last_updated: '2018-11-07T20:52:17Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1752432'
+          url: 'https://osu.ppy.sh/beatmaps/1752432',
         },
         {
           beatmapset: 836894,
@@ -2872,7 +2878,7 @@ export default {
           count_total: 256,
           last_updated: '2018-11-07T20:52:17Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1752433'
+          url: 'https://osu.ppy.sh/beatmaps/1752433',
         },
         {
           beatmapset: 836894,
@@ -2880,7 +2886,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.814,
-          version: 'Ultima Fox\'s Insane',
+          version: "Ultima Fox's Insane",
           total_length: 122,
           cs: 4,
           drain: 5.8,
@@ -2892,7 +2898,7 @@ export default {
           count_total: 760,
           last_updated: '2018-11-07T20:52:17Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1824802'
+          url: 'https://osu.ppy.sh/beatmaps/1824802',
         },
         {
           beatmapset: 836894,
@@ -2900,7 +2906,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.8453,
-          version: 'Minorthew\'s Advanced',
+          version: "Minorthew's Advanced",
           total_length: 122,
           cs: 4,
           drain: 4,
@@ -2912,9 +2918,9 @@ export default {
           count_total: 474,
           last_updated: '2018-11-07T20:52:17Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1826187'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1826187',
+        },
+      ],
     },
     {
       id: 782778,
@@ -2956,7 +2962,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.93538,
-          version: 'FlobuFlobs\' Another',
+          version: "FlobuFlobs' Another",
           total_length: 97,
           cs: 4.2,
           drain: 6,
@@ -2968,7 +2974,7 @@ export default {
           count_total: 508,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1643616'
+          url: 'https://osu.ppy.sh/beatmaps/1643616',
         },
         {
           beatmapset: 782778,
@@ -2976,7 +2982,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.19148,
-          version: 'gary00737\'s Advanced',
+          version: "gary00737's Advanced",
           total_length: 102,
           cs: 3.2,
           drain: 4.5,
@@ -2988,7 +2994,7 @@ export default {
           count_total: 405,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1643617'
+          url: 'https://osu.ppy.sh/beatmaps/1643617',
         },
         {
           beatmapset: 782778,
@@ -2996,7 +3002,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.7135,
-          version: 'Boss\' Easy',
+          version: "Boss' Easy",
           total_length: 102,
           cs: 3,
           drain: 2,
@@ -3008,7 +3014,7 @@ export default {
           count_total: 198,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1644649'
+          url: 'https://osu.ppy.sh/beatmaps/1644649',
         },
         {
           beatmapset: 782778,
@@ -3028,7 +3034,7 @@ export default {
           count_total: 543,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1648966'
+          url: 'https://osu.ppy.sh/beatmaps/1648966',
         },
         {
           beatmapset: 782778,
@@ -3036,7 +3042,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.61223,
-          version: 'Mathew\'s Hard',
+          version: "Mathew's Hard",
           total_length: 103,
           cs: 4,
           drain: 5,
@@ -3048,7 +3054,7 @@ export default {
           count_total: 407,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1653528'
+          url: 'https://osu.ppy.sh/beatmaps/1653528',
         },
         {
           beatmapset: 782778,
@@ -3056,7 +3062,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.56257,
-          version: 'Namki\'s Insane',
+          version: "Namki's Insane",
           total_length: 105,
           cs: 4,
           drain: 6,
@@ -3068,7 +3074,7 @@ export default {
           count_total: 542,
           last_updated: '2018-08-19T20:13:35Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1666092'
+          url: 'https://osu.ppy.sh/beatmaps/1666092',
         },
         {
           beatmapset: 782778,
@@ -3088,9 +3094,9 @@ export default {
           count_total: 297,
           last_updated: '2018-08-19T20:13:36Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1713268'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1713268',
+        },
+      ],
     },
     {
       id: 799084,
@@ -3106,7 +3112,8 @@ export default {
       bpm: 160,
       source: '하이파이브',
       covers: 799084,
-      tags: 'high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games cococolaco fizz -_frontier_- celektus',
+      tags:
+        'high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games cococolaco fizz -_frontier_- celektus',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -3144,7 +3151,7 @@ export default {
           count_total: 736,
           last_updated: '2018-08-19T19:31:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1677854'
+          url: 'https://osu.ppy.sh/beatmaps/1677854',
         },
         {
           beatmapset: 799084,
@@ -3152,7 +3159,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.86183,
-          version: 'Frontier\'s Insane',
+          version: "Frontier's Insane",
           total_length: 117,
           cs: 4.5,
           drain: 6,
@@ -3164,7 +3171,7 @@ export default {
           count_total: 648,
           last_updated: '2018-08-19T19:31:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1681519'
+          url: 'https://osu.ppy.sh/beatmaps/1681519',
         },
         {
           beatmapset: 799084,
@@ -3172,7 +3179,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.44266,
-          version: 'Fizz\'s Insane',
+          version: "Fizz's Insane",
           total_length: 118,
           cs: 4,
           drain: 5,
@@ -3184,7 +3191,7 @@ export default {
           count_total: 634,
           last_updated: '2018-08-19T19:31:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1685252'
+          url: 'https://osu.ppy.sh/beatmaps/1685252',
         },
         {
           beatmapset: 799084,
@@ -3204,7 +3211,7 @@ export default {
           count_total: 378,
           last_updated: '2018-08-19T19:31:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1690861'
+          url: 'https://osu.ppy.sh/beatmaps/1690861',
         },
         {
           beatmapset: 799084,
@@ -3224,7 +3231,7 @@ export default {
           count_total: 252,
           last_updated: '2018-08-19T19:31:48Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1691812'
+          url: 'https://osu.ppy.sh/beatmaps/1691812',
         },
         {
           beatmapset: 799084,
@@ -3232,7 +3239,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.47691,
-          version: 'coco\'s Hard',
+          version: "coco's Hard",
           total_length: 117,
           cs: 3.7,
           drain: 5,
@@ -3244,9 +3251,9 @@ export default {
           count_total: 571,
           last_updated: '2018-08-19T19:31:48Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1692461'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1692461',
+        },
+      ],
     },
     {
       id: 596327,
@@ -3262,7 +3269,8 @@ export default {
       bpm: 160,
       source: 'Deemo',
       covers: 596327,
-      tags: 'nicode グリリ rayark inc magnolia myosotis squar square musiq square-musiq narae hans alice alternate story symphonic boss piano violin dnb drum\'n\'bass drum and bass diversity deif',
+      tags:
+        "nicode グリリ rayark inc magnolia myosotis squar square musiq square-musiq narae hans alice alternate story symphonic boss piano violin dnb drum'n'bass drum and bass diversity deif",
       video: false,
       storyboard: false,
       ranked: '1',
@@ -3300,7 +3308,7 @@ export default {
           count_total: 724,
           last_updated: '2018-07-23T21:06:52Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1260986'
+          url: 'https://osu.ppy.sh/beatmaps/1260986',
         },
         {
           beatmapset: 596327,
@@ -3320,7 +3328,7 @@ export default {
           count_total: 347,
           last_updated: '2018-07-23T21:06:52Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1262194'
+          url: 'https://osu.ppy.sh/beatmaps/1262194',
         },
         {
           beatmapset: 596327,
@@ -3340,7 +3348,7 @@ export default {
           count_total: 443,
           last_updated: '2018-07-23T21:06:52Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1262956'
+          url: 'https://osu.ppy.sh/beatmaps/1262956',
         },
         {
           beatmapset: 596327,
@@ -3348,7 +3356,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 5.2981,
-          version: 'Deif\'s Overdose',
+          version: "Deif's Overdose",
           total_length: 142,
           cs: 4.6,
           drain: 6,
@@ -3360,7 +3368,7 @@ export default {
           count_total: 809,
           last_updated: '2018-07-23T21:06:52Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1270304'
+          url: 'https://osu.ppy.sh/beatmaps/1270304',
         },
         {
           beatmapset: 596327,
@@ -3380,9 +3388,9 @@ export default {
           count_total: 601,
           last_updated: '2018-07-23T21:06:52Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1278915'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1278915',
+        },
+      ],
     },
     {
       id: 754692,
@@ -3436,7 +3444,7 @@ export default {
           count_total: 584,
           last_updated: '2018-07-22T13:59:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1588796'
+          url: 'https://osu.ppy.sh/beatmaps/1588796',
         },
         {
           beatmapset: 754692,
@@ -3444,7 +3452,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 2.20624,
-          version: 'Hi_Jeir\'s Salad',
+          version: "Hi_Jeir's Salad",
           total_length: 101,
           cs: 2.8,
           drain: 4,
@@ -3456,7 +3464,7 @@ export default {
           count_total: 365,
           last_updated: '2018-07-22T13:59:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1592525'
+          url: 'https://osu.ppy.sh/beatmaps/1592525',
         },
         {
           beatmapset: 754692,
@@ -3464,7 +3472,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 3.98703,
-          version: 'Jeirnana\'s Rain',
+          version: "Jeirnana's Rain",
           total_length: 101,
           cs: 4,
           drain: 6,
@@ -3476,7 +3484,7 @@ export default {
           count_total: 557,
           last_updated: '2018-07-22T13:59:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1592526'
+          url: 'https://osu.ppy.sh/beatmaps/1592526',
         },
         {
           beatmapset: 754692,
@@ -3484,7 +3492,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 2.86619,
-          version: 'Jelly\'s Platter',
+          version: "Jelly's Platter",
           total_length: 101,
           cs: 3.5,
           drain: 5,
@@ -3496,7 +3504,7 @@ export default {
           count_total: 515,
           last_updated: '2018-07-22T13:59:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1592527'
+          url: 'https://osu.ppy.sh/beatmaps/1592527',
         },
         {
           beatmapset: 754692,
@@ -3504,7 +3512,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 1.30934,
-          version: '-Dalettine\'s Cup',
+          version: "-Dalettine's Cup",
           total_length: 101,
           cs: 2.5,
           drain: 3,
@@ -3516,9 +3524,9 @@ export default {
           count_total: 214,
           last_updated: '2018-07-22T13:59:33Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1608166'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1608166',
+        },
+      ],
     },
     {
       id: 776979,
@@ -3572,7 +3580,7 @@ export default {
           count_total: 601,
           last_updated: '2018-07-01T18:08:57Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1632428'
+          url: 'https://osu.ppy.sh/beatmaps/1632428',
         },
         {
           beatmapset: 776979,
@@ -3592,7 +3600,7 @@ export default {
           count_total: 414,
           last_updated: '2018-07-01T18:08:57Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1632609'
+          url: 'https://osu.ppy.sh/beatmaps/1632609',
         },
         {
           beatmapset: 776979,
@@ -3612,7 +3620,7 @@ export default {
           count_total: 730,
           last_updated: '2018-07-01T18:08:57Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1632734'
+          url: 'https://osu.ppy.sh/beatmaps/1632734',
         },
         {
           beatmapset: 776979,
@@ -3632,9 +3640,9 @@ export default {
           count_total: 326,
           last_updated: '2018-07-01T18:08:57Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1634668'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1634668',
+        },
+      ],
     },
     {
       id: 791316,
@@ -3688,7 +3696,7 @@ export default {
           count_total: 1378,
           last_updated: '2018-06-29T05:09:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1660193'
+          url: 'https://osu.ppy.sh/beatmaps/1660193',
         },
         {
           beatmapset: 791316,
@@ -3708,7 +3716,7 @@ export default {
           count_total: 616,
           last_updated: '2018-06-29T05:09:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1660194'
+          url: 'https://osu.ppy.sh/beatmaps/1660194',
         },
         {
           beatmapset: 791316,
@@ -3728,9 +3736,9 @@ export default {
           count_total: 1134,
           last_updated: '2018-06-29T05:09:09Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1660195'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1660195',
+        },
+      ],
     },
     {
       id: 773043,
@@ -3784,7 +3792,7 @@ export default {
           count_total: 627,
           last_updated: '2018-06-28T00:28:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1625011'
+          url: 'https://osu.ppy.sh/beatmaps/1625011',
         },
         {
           beatmapset: 773043,
@@ -3804,7 +3812,7 @@ export default {
           count_total: 323,
           last_updated: '2018-06-28T00:28:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1625483'
+          url: 'https://osu.ppy.sh/beatmaps/1625483',
         },
         {
           beatmapset: 773043,
@@ -3824,7 +3832,7 @@ export default {
           count_total: 409,
           last_updated: '2018-06-28T00:28:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1642224'
+          url: 'https://osu.ppy.sh/beatmaps/1642224',
         },
         {
           beatmapset: 773043,
@@ -3832,7 +3840,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.58778,
-          version: 'defiance\'s Insane',
+          version: "defiance's Insane",
           total_length: 105,
           cs: 4,
           drain: 5.5,
@@ -3844,9 +3852,9 @@ export default {
           count_total: 596,
           last_updated: '2018-06-28T00:28:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1643844'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1643844',
+        },
+      ],
     },
     {
       id: 748803,
@@ -3900,7 +3908,7 @@ export default {
           count_total: 720,
           last_updated: '2018-06-06T19:32:46Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1577393'
+          url: 'https://osu.ppy.sh/beatmaps/1577393',
         },
         {
           beatmapset: 748803,
@@ -3908,7 +3916,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 2.6525,
-          version: 'Ayyri\'s Muzukashii',
+          version: "Ayyri's Muzukashii",
           total_length: 126,
           cs: 2,
           drain: 5,
@@ -3920,7 +3928,7 @@ export default {
           count_total: 476,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1580129'
+          url: 'https://osu.ppy.sh/beatmaps/1580129',
         },
         {
           beatmapset: 748803,
@@ -3928,7 +3936,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 3.86962,
-          version: 'Ayyri\'s Oni',
+          version: "Ayyri's Oni",
           total_length: 126,
           cs: 2,
           drain: 6,
@@ -3940,7 +3948,7 @@ export default {
           count_total: 696,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1580130'
+          url: 'https://osu.ppy.sh/beatmaps/1580130',
         },
         {
           beatmapset: 748803,
@@ -3960,7 +3968,7 @@ export default {
           count_total: 298,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1583157'
+          url: 'https://osu.ppy.sh/beatmaps/1583157',
         },
         {
           beatmapset: 748803,
@@ -3968,7 +3976,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.35529,
-          version: 'Finshie\'s Hard',
+          version: "Finshie's Hard",
           total_length: 126,
           cs: 3.5,
           drain: 4,
@@ -3980,7 +3988,7 @@ export default {
           count_total: 513,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1584919'
+          url: 'https://osu.ppy.sh/beatmaps/1584919',
         },
         {
           beatmapset: 748803,
@@ -3988,7 +3996,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 4.22428,
-          version: 'Jeir\'s Rain',
+          version: "Jeir's Rain",
           total_length: 126,
           cs: 4,
           drain: 6,
@@ -4000,7 +4008,7 @@ export default {
           count_total: 612,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1602530'
+          url: 'https://osu.ppy.sh/beatmaps/1602530',
         },
         {
           beatmapset: 748803,
@@ -4008,7 +4016,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 3.03097,
-          version: 'Jeir\'s Platter',
+          version: "Jeir's Platter",
           total_length: 126,
           cs: 3.7,
           drain: 5,
@@ -4020,9 +4028,9 @@ export default {
           count_total: 515,
           last_updated: '2018-06-06T19:32:47Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1610570'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1610570',
+        },
+      ],
     },
     {
       id: 760757,
@@ -4038,7 +4046,8 @@ export default {
       bpm: 160,
       source: '하이파이브',
       covers: 760757,
-      tags: 'ayyri greenshell green high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games',
+      tags:
+        'ayyri greenshell green high5 diversity. uicy-15598 drug step square musiq original soundtrack ost pnix games',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -4064,7 +4073,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 2.23867,
-          version: 'Green\'s Futsuu',
+          version: "Green's Futsuu",
           total_length: 118,
           cs: 3,
           drain: 6,
@@ -4076,7 +4085,7 @@ export default {
           count_total: 332,
           last_updated: '2018-06-06T01:17:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1599878'
+          url: 'https://osu.ppy.sh/beatmaps/1599878',
         },
         {
           beatmapset: 760757,
@@ -4096,7 +4105,7 @@ export default {
           count_total: 183,
           last_updated: '2018-06-06T01:17:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1599879'
+          url: 'https://osu.ppy.sh/beatmaps/1599879',
         },
         {
           beatmapset: 760757,
@@ -4116,7 +4125,7 @@ export default {
           count_total: 455,
           last_updated: '2018-06-06T01:17:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1599880'
+          url: 'https://osu.ppy.sh/beatmaps/1599880',
         },
         {
           beatmapset: 760757,
@@ -4136,7 +4145,7 @@ export default {
           count_total: 631,
           last_updated: '2018-06-06T01:17:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1599881'
+          url: 'https://osu.ppy.sh/beatmaps/1599881',
         },
         {
           beatmapset: 760757,
@@ -4156,9 +4165,9 @@ export default {
           count_total: 747,
           last_updated: '2018-06-06T01:17:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1658885'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1658885',
+        },
+      ],
     },
     {
       id: 732084,
@@ -4212,7 +4221,7 @@ export default {
           count_total: 371,
           last_updated: '2018-06-01T12:26:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1544755'
+          url: 'https://osu.ppy.sh/beatmaps/1544755',
         },
         {
           beatmapset: 732084,
@@ -4232,7 +4241,7 @@ export default {
           count_total: 246,
           last_updated: '2018-06-01T12:26:28Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1557641'
+          url: 'https://osu.ppy.sh/beatmaps/1557641',
         },
         {
           beatmapset: 732084,
@@ -4252,9 +4261,9 @@ export default {
           count_total: 313,
           last_updated: '2018-06-01T12:26:28Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1569912'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1569912',
+        },
+      ],
     },
     {
       id: 699509,
@@ -4308,7 +4317,7 @@ export default {
           count_total: 646,
           last_updated: '2018-05-02T10:18:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1481269'
+          url: 'https://osu.ppy.sh/beatmaps/1481269',
         },
         {
           beatmapset: 699509,
@@ -4328,7 +4337,7 @@ export default {
           count_total: 583,
           last_updated: '2018-05-02T10:18:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1482810'
+          url: 'https://osu.ppy.sh/beatmaps/1482810',
         },
         {
           beatmapset: 699509,
@@ -4336,7 +4345,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 2.86775,
-          version: 'MBomb\'s Platter',
+          version: "MBomb's Platter",
           total_length: 105,
           cs: 3.5,
           drain: 5,
@@ -4348,7 +4357,7 @@ export default {
           count_total: 419,
           last_updated: '2018-05-02T10:18:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1567520'
+          url: 'https://osu.ppy.sh/beatmaps/1567520',
         },
         {
           beatmapset: 699509,
@@ -4368,7 +4377,7 @@ export default {
           count_total: 328,
           last_updated: '2018-05-02T10:18:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1567616'
+          url: 'https://osu.ppy.sh/beatmaps/1567616',
         },
         {
           beatmapset: 699509,
@@ -4388,9 +4397,9 @@ export default {
           count_total: 289,
           last_updated: '2018-05-02T10:18:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1567631'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1567631',
+        },
+      ],
     },
     {
       id: 643513,
@@ -4432,7 +4441,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.65948,
-          version: 'diuS\' Arietta',
+          version: "diuS' Arietta",
           total_length: 129,
           cs: 4.8,
           drain: 6,
@@ -4444,7 +4453,7 @@ export default {
           count_total: 839,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1364063'
+          url: 'https://osu.ppy.sh/beatmaps/1364063',
         },
         {
           beatmapset: 643513,
@@ -4452,7 +4461,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.95683,
-          version: 'FlameL\'s Normal',
+          version: "FlameL's Normal",
           total_length: 142,
           cs: 3.5,
           drain: 3.5,
@@ -4464,7 +4473,7 @@ export default {
           count_total: 346,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1364701'
+          url: 'https://osu.ppy.sh/beatmaps/1364701',
         },
         {
           beatmapset: 643513,
@@ -4484,7 +4493,7 @@ export default {
           count_total: 551,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1377150'
+          url: 'https://osu.ppy.sh/beatmaps/1377150',
         },
         {
           beatmapset: 643513,
@@ -4504,7 +4513,7 @@ export default {
           count_total: 727,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1564440'
+          url: 'https://osu.ppy.sh/beatmaps/1564440',
         },
         {
           beatmapset: 643513,
@@ -4512,7 +4521,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 3.10253,
-          version: 'Ayyri\'s Muzukashii',
+          version: "Ayyri's Muzukashii",
           total_length: 142,
           cs: 2,
           drain: 5,
@@ -4524,7 +4533,7 @@ export default {
           count_total: 470,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1586677'
+          url: 'https://osu.ppy.sh/beatmaps/1586677',
         },
         {
           beatmapset: 643513,
@@ -4532,7 +4541,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 4.19981,
-          version: 'Ayyri\'s Oni',
+          version: "Ayyri's Oni",
           total_length: 142,
           cs: 2,
           drain: 5,
@@ -4544,9 +4553,9 @@ export default {
           count_total: 684,
           last_updated: '2018-03-25T13:34:14Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1586678'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1586678',
+        },
+      ],
     },
     {
       id: 593985,
@@ -4562,7 +4571,8 @@ export default {
       bpm: 160,
       source: '',
       covers: 593985,
-      tags: 'mmc mmc2 modhelp mapping contest yabai futurebass ascendance sahuang my angel azusa erunamojazz left thzz monstrata',
+      tags:
+        'mmc mmc2 modhelp mapping contest yabai futurebass ascendance sahuang my angel azusa erunamojazz left thzz monstrata',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -4600,7 +4610,7 @@ export default {
           count_total: 823,
           last_updated: '2018-03-03T09:19:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1256483'
+          url: 'https://osu.ppy.sh/beatmaps/1256483',
         },
         {
           beatmapset: 593985,
@@ -4608,7 +4618,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.95891,
-          version: 'Monstrata\'s Extra',
+          version: "Monstrata's Extra",
           total_length: 132,
           cs: 4,
           drain: 5,
@@ -4620,7 +4630,7 @@ export default {
           count_total: 844,
           last_updated: '2018-03-03T09:19:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1256484'
+          url: 'https://osu.ppy.sh/beatmaps/1256484',
         },
         {
           beatmapset: 593985,
@@ -4628,7 +4638,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.60833,
-          version: 'thzz\'s Extra',
+          version: "thzz's Extra",
           total_length: 132,
           cs: 5,
           drain: 5.5,
@@ -4640,7 +4650,7 @@ export default {
           count_total: 783,
           last_updated: '2018-03-03T09:19:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1256485'
+          url: 'https://osu.ppy.sh/beatmaps/1256485',
         },
         {
           beatmapset: 593985,
@@ -4648,7 +4658,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.63727,
-          version: 'sahuang\'s Easy',
+          version: "sahuang's Easy",
           total_length: 129,
           cs: 2.6,
           drain: 2,
@@ -4660,7 +4670,7 @@ export default {
           count_total: 218,
           last_updated: '2018-03-03T09:19:45Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258909'
+          url: 'https://osu.ppy.sh/beatmaps/1258909',
         },
         {
           beatmapset: 593985,
@@ -4668,7 +4678,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.18455,
-          version: 'Left\'s Insane',
+          version: "Left's Insane",
           total_length: 132,
           cs: 4,
           drain: 6,
@@ -4680,7 +4690,7 @@ export default {
           count_total: 696,
           last_updated: '2018-03-03T09:19:45Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1265816'
+          url: 'https://osu.ppy.sh/beatmaps/1265816',
         },
         {
           beatmapset: 593985,
@@ -4688,7 +4698,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.46955,
-          version: 'EruJazz\'s Normal',
+          version: "EruJazz's Normal",
           total_length: 132,
           cs: 3,
           drain: 4,
@@ -4700,7 +4710,7 @@ export default {
           count_total: 361,
           last_updated: '2018-03-03T09:19:45Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1267680'
+          url: 'https://osu.ppy.sh/beatmaps/1267680',
         },
         {
           beatmapset: 593985,
@@ -4708,7 +4718,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.57157,
-          version: 'Ascendance\'s Hard',
+          version: "Ascendance's Hard",
           total_length: 132,
           cs: 3.2,
           drain: 5.5,
@@ -4720,9 +4730,9 @@ export default {
           count_total: 618,
           last_updated: '2018-03-03T09:19:45Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1282891'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1282891',
+        },
+      ],
     },
     {
       id: 636272,
@@ -4776,7 +4786,7 @@ export default {
           count_total: 1381,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1350131'
+          url: 'https://osu.ppy.sh/beatmaps/1350131',
         },
         {
           beatmapset: 636272,
@@ -4796,7 +4806,7 @@ export default {
           count_total: 1150,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1350695'
+          url: 'https://osu.ppy.sh/beatmaps/1350695',
         },
         {
           beatmapset: 636272,
@@ -4816,7 +4826,7 @@ export default {
           count_total: 731,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1351033'
+          url: 'https://osu.ppy.sh/beatmaps/1351033',
         },
         {
           beatmapset: 636272,
@@ -4824,7 +4834,7 @@ export default {
           mode: 'mania',
           mode_int: 3,
           difficulty: 1.36709,
-          version: 'Tofu\'s 7K Easy Lv.5',
+          version: "Tofu's 7K Easy Lv.5",
           total_length: 144,
           cs: 7,
           drain: 6,
@@ -4836,7 +4846,7 @@ export default {
           count_total: 481,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1359765'
+          url: 'https://osu.ppy.sh/beatmaps/1359765',
         },
         {
           beatmapset: 636272,
@@ -4856,7 +4866,7 @@ export default {
           count_total: 1771,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1359767'
+          url: 'https://osu.ppy.sh/beatmaps/1359767',
         },
         {
           beatmapset: 636272,
@@ -4876,7 +4886,7 @@ export default {
           count_total: 782,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1359768'
+          url: 'https://osu.ppy.sh/beatmaps/1359768',
         },
         {
           beatmapset: 636272,
@@ -4884,7 +4894,7 @@ export default {
           mode: 'mania',
           mode_int: 3,
           difficulty: 2.79694,
-          version: 'Usagi\'s 7K Hard Lv.10',
+          version: "Usagi's 7K Hard Lv.10",
           total_length: 146,
           cs: 7,
           drain: 7,
@@ -4896,7 +4906,7 @@ export default {
           count_total: 1243,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1361594'
+          url: 'https://osu.ppy.sh/beatmaps/1361594',
         },
         {
           beatmapset: 636272,
@@ -4904,7 +4914,7 @@ export default {
           mode: 'mania',
           mode_int: 3,
           difficulty: 1.39126,
-          version: 'Tofu\'s 4K Easy Lv.5',
+          version: "Tofu's 4K Easy Lv.5",
           total_length: 144,
           cs: 4,
           drain: 6,
@@ -4916,9 +4926,9 @@ export default {
           count_total: 462,
           last_updated: '2018-02-20T12:36:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1529181'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1529181',
+        },
+      ],
     },
     {
       id: 595496,
@@ -4934,7 +4944,8 @@ export default {
       bpm: 160,
       source: 'Deemo',
       covers: 595496,
-      tags: 'rayark magnolia myosotis alternate story symphonic boss song piano violin dnb drum\'n\'bass drum and bass samsara collection diversity forgotten hourglass 3.0 chrononig asaiga moecho moeri sulfur',
+      tags:
+        "rayark magnolia myosotis alternate story symphonic boss song piano violin dnb drum'n'bass drum and bass samsara collection diversity forgotten hourglass 3.0 chrononig asaiga moecho moeri sulfur",
       video: false,
       storyboard: false,
       ranked: '1',
@@ -4972,7 +4983,7 @@ export default {
           count_total: 732,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1259280'
+          url: 'https://osu.ppy.sh/beatmaps/1259280',
         },
         {
           beatmapset: 595496,
@@ -4980,7 +4991,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.63545,
-          version: 'ChronoN\'s Easy',
+          version: "ChronoN's Easy",
           total_length: 142,
           cs: 2.5,
           drain: 2,
@@ -4992,7 +5003,7 @@ export default {
           count_total: 278,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1260802'
+          url: 'https://osu.ppy.sh/beatmaps/1260802',
         },
         {
           beatmapset: 595496,
@@ -5012,7 +5023,7 @@ export default {
           count_total: 395,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1260803'
+          url: 'https://osu.ppy.sh/beatmaps/1260803',
         },
         {
           beatmapset: 595496,
@@ -5020,7 +5031,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.82456,
-          version: 'Moecho\'s Fluorescent Extreme',
+          version: "Moecho's Fluorescent Extreme",
           total_length: 146,
           cs: 4,
           drain: 6,
@@ -5032,7 +5043,7 @@ export default {
           count_total: 685,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1328176'
+          url: 'https://osu.ppy.sh/beatmaps/1328176',
         },
         {
           beatmapset: 595496,
@@ -5040,7 +5051,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.40714,
-          version: 'Asaiga\'s Insane',
+          version: "Asaiga's Insane",
           total_length: 146,
           cs: 3.8,
           drain: 4.8,
@@ -5052,7 +5063,7 @@ export default {
           count_total: 642,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1382836'
+          url: 'https://osu.ppy.sh/beatmaps/1382836',
         },
         {
           beatmapset: 595496,
@@ -5060,7 +5071,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.37904,
-          version: 'Sulfur\'s Hard',
+          version: "Sulfur's Hard",
           total_length: 143,
           cs: 3.8,
           drain: 5,
@@ -5072,9 +5083,9 @@ export default {
           count_total: 473,
           last_updated: '2018-02-18T10:53:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1469138'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1469138',
+        },
+      ],
     },
     {
       id: 668888,
@@ -5090,7 +5101,8 @@ export default {
       bpm: 230,
       source: 'O2Jam U',
       covers: 668888,
-      tags: 'parkmemme m2u cheesecake [c_u_r_i] -tochi snownino_ emilia xlolicore- hikaru_rose moecho moeri derandom_otaku',
+      tags:
+        'parkmemme m2u cheesecake [c_u_r_i] -tochi snownino_ emilia xlolicore- hikaru_rose moecho moeri derandom_otaku',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -5128,7 +5140,7 @@ export default {
           count_total: 949,
           last_updated: '2018-01-10T11:59:50Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1414928'
+          url: 'https://osu.ppy.sh/beatmaps/1414928',
         },
         {
           beatmapset: 668888,
@@ -5136,7 +5148,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.96465,
-          version: 'Cheesecake\'s Normal.',
+          version: "Cheesecake's Normal.",
           total_length: 150,
           cs: 3,
           drain: 2,
@@ -5148,7 +5160,7 @@ export default {
           count_total: 340,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429741'
+          url: 'https://osu.ppy.sh/beatmaps/1429741',
         },
         {
           beatmapset: 668888,
@@ -5156,7 +5168,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.44593,
-          version: 'Curi\'s Advanced.',
+          version: "Curi's Advanced.",
           total_length: 150,
           cs: 3.5,
           drain: 3,
@@ -5168,7 +5180,7 @@ export default {
           count_total: 452,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429742'
+          url: 'https://osu.ppy.sh/beatmaps/1429742',
         },
         {
           beatmapset: 668888,
@@ -5176,7 +5188,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.98775,
-          version: 'Emilia\'s Insane.',
+          version: "Emilia's Insane.",
           total_length: 150,
           cs: 3.5,
           drain: 5.5,
@@ -5188,7 +5200,7 @@ export default {
           count_total: 957,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429743'
+          url: 'https://osu.ppy.sh/beatmaps/1429743',
         },
         {
           beatmapset: 668888,
@@ -5196,7 +5208,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 6.34638,
-          version: 'Hikaru\'s Extra.',
+          version: "Hikaru's Extra.",
           total_length: 150,
           cs: 3.8,
           drain: 6,
@@ -5208,7 +5220,7 @@ export default {
           count_total: 937,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429744'
+          url: 'https://osu.ppy.sh/beatmaps/1429744',
         },
         {
           beatmapset: 668888,
@@ -5216,7 +5228,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.71778,
-          version: 'Loli\'s Extra.',
+          version: "Loli's Extra.",
           total_length: 150,
           cs: 3.8,
           drain: 6,
@@ -5228,7 +5240,7 @@ export default {
           count_total: 1008,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429745'
+          url: 'https://osu.ppy.sh/beatmaps/1429745',
         },
         {
           beatmapset: 668888,
@@ -5236,7 +5248,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 6.72084,
-          version: 'Moecho\'s Atmospheric Extra.',
+          version: "Moecho's Atmospheric Extra.",
           total_length: 150,
           cs: 4.5,
           drain: 6.3,
@@ -5248,7 +5260,7 @@ export default {
           count_total: 927,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429746'
+          url: 'https://osu.ppy.sh/beatmaps/1429746',
         },
         {
           beatmapset: 668888,
@@ -5256,7 +5268,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.30426,
-          version: 'NiNo\'s Another.',
+          version: "NiNo's Another.",
           total_length: 150,
           cs: 4,
           drain: 5.5,
@@ -5268,7 +5280,7 @@ export default {
           count_total: 855,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429747'
+          url: 'https://osu.ppy.sh/beatmaps/1429747',
         },
         {
           beatmapset: 668888,
@@ -5276,7 +5288,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.75227,
-          version: '-Tochi\'s Hard.',
+          version: "-Tochi's Hard.",
           total_length: 150,
           cs: 4,
           drain: 5,
@@ -5288,7 +5300,7 @@ export default {
           count_total: 541,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1429748'
+          url: 'https://osu.ppy.sh/beatmaps/1429748',
         },
         {
           beatmapset: 668888,
@@ -5296,7 +5308,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.90811,
-          version: 'Ren\'s Extra.',
+          version: "Ren's Extra.",
           total_length: 150,
           cs: 4,
           drain: 5.8,
@@ -5308,9 +5320,9 @@ export default {
           count_total: 888,
           last_updated: '2018-01-10T11:59:51Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1485333'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1485333',
+        },
+      ],
     },
     {
       id: 605710,
@@ -5364,7 +5376,7 @@ export default {
           count_total: 686,
           last_updated: '2017-12-19T01:54:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1279723'
+          url: 'https://osu.ppy.sh/beatmaps/1279723',
         },
         {
           beatmapset: 605710,
@@ -5384,7 +5396,7 @@ export default {
           count_total: 721,
           last_updated: '2017-12-19T01:54:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1279904'
+          url: 'https://osu.ppy.sh/beatmaps/1279904',
         },
         {
           beatmapset: 605710,
@@ -5392,7 +5404,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 4.00868,
-          version: 'Sinnoh\'s Rain',
+          version: "Sinnoh's Rain",
           total_length: 142,
           cs: 4,
           drain: 5.5,
@@ -5404,7 +5416,7 @@ export default {
           count_total: 645,
           last_updated: '2017-12-19T01:54:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1282659'
+          url: 'https://osu.ppy.sh/beatmaps/1282659',
         },
         {
           beatmapset: 605710,
@@ -5424,7 +5436,7 @@ export default {
           count_total: 539,
           last_updated: '2017-12-19T01:54:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1286451'
+          url: 'https://osu.ppy.sh/beatmaps/1286451',
         },
         {
           beatmapset: 605710,
@@ -5432,7 +5444,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 2.21842,
-          version: 'Ascendance\'s Salad',
+          version: "Ascendance's Salad",
           total_length: 143,
           cs: 3.3,
           drain: 4,
@@ -5444,7 +5456,7 @@ export default {
           count_total: 379,
           last_updated: '2017-12-19T01:54:23Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1349503'
+          url: 'https://osu.ppy.sh/beatmaps/1349503',
         },
         {
           beatmapset: 605710,
@@ -5464,9 +5476,9 @@ export default {
           count_total: 313,
           last_updated: '2017-12-19T01:54:24Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1366079'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1366079',
+        },
+      ],
     },
     {
       id: 541101,
@@ -5520,7 +5532,7 @@ export default {
           count_total: 337,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1147347'
+          url: 'https://osu.ppy.sh/beatmaps/1147347',
         },
         {
           beatmapset: 541101,
@@ -5528,7 +5540,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 5.02482,
-          version: 'Deif\'s Overdose',
+          version: "Deif's Overdose",
           total_length: 120,
           cs: 4.2,
           drain: 7,
@@ -5540,7 +5552,7 @@ export default {
           count_total: 644,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1147348'
+          url: 'https://osu.ppy.sh/beatmaps/1147348',
         },
         {
           beatmapset: 541101,
@@ -5560,7 +5572,7 @@ export default {
           count_total: 375,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1147349'
+          url: 'https://osu.ppy.sh/beatmaps/1147349',
         },
         {
           beatmapset: 541101,
@@ -5580,7 +5592,7 @@ export default {
           count_total: 525,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1148183'
+          url: 'https://osu.ppy.sh/beatmaps/1148183',
         },
         {
           beatmapset: 541101,
@@ -5588,7 +5600,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 3.10421,
-          version: 'Hyperion\'s Platter',
+          version: "Hyperion's Platter",
           total_length: 120,
           cs: 3.5,
           drain: 5,
@@ -5600,7 +5612,7 @@ export default {
           count_total: 552,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1149080'
+          url: 'https://osu.ppy.sh/beatmaps/1149080',
         },
         {
           beatmapset: 541101,
@@ -5620,7 +5632,7 @@ export default {
           count_total: 286,
           last_updated: '2017-11-01T22:35:25Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1181222'
+          url: 'https://osu.ppy.sh/beatmaps/1181222',
         },
         {
           beatmapset: 541101,
@@ -5640,7 +5652,7 @@ export default {
           count_total: 170,
           last_updated: '2017-11-01T22:35:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1181223'
+          url: 'https://osu.ppy.sh/beatmaps/1181223',
         },
         {
           beatmapset: 541101,
@@ -5648,7 +5660,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 4.82233,
-          version: 'Chromoxx\' Inner Oni',
+          version: "Chromoxx' Inner Oni",
           total_length: 120,
           cs: 4.2,
           drain: 6,
@@ -5660,7 +5672,7 @@ export default {
           count_total: 787,
           last_updated: '2017-11-01T22:35:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1184542'
+          url: 'https://osu.ppy.sh/beatmaps/1184542',
         },
         {
           beatmapset: 541101,
@@ -5668,7 +5680,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 2.70152,
-          version: 'Chromoxx\' Muzukashii',
+          version: "Chromoxx' Muzukashii",
           total_length: 120,
           cs: 4.2,
           drain: 6,
@@ -5680,7 +5692,7 @@ export default {
           count_total: 431,
           last_updated: '2017-11-01T22:35:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1184543'
+          url: 'https://osu.ppy.sh/beatmaps/1184543',
         },
         {
           beatmapset: 541101,
@@ -5688,7 +5700,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 3.71787,
-          version: 'Chromoxx\' Oni',
+          version: "Chromoxx' Oni",
           total_length: 120,
           cs: 4.2,
           drain: 5,
@@ -5700,9 +5712,9 @@ export default {
           count_total: 624,
           last_updated: '2017-11-01T22:35:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1184544'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1184544',
+        },
+      ],
     },
     {
       id: 594884,
@@ -5718,7 +5730,8 @@ export default {
       bpm: 160,
       source: 'Deemo',
       covers: 594884,
-      tags: 'rayark magnolia myosotis alternate story symphonic boss song piano violin dnb drum\'n\'bass drum and bass samsara collection diversity forgotten hourglass 3.0 square-musiq tmdc @ sq lab nicode narae 구리리 boatkrab [_lost_] shockolatte -_frontier_- kittyadventure gokugohan12468',
+      tags:
+        "rayark magnolia myosotis alternate story symphonic boss song piano violin dnb drum'n'bass drum and bass samsara collection diversity forgotten hourglass 3.0 square-musiq tmdc @ sq lab nicode narae 구리리 boatkrab [_lost_] shockolatte -_frontier_- kittyadventure gokugohan12468",
       video: false,
       storyboard: false,
       ranked: '1',
@@ -5756,7 +5769,7 @@ export default {
           count_total: 613,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258135'
+          url: 'https://osu.ppy.sh/beatmaps/1258135',
         },
         {
           beatmapset: 594884,
@@ -5776,7 +5789,7 @@ export default {
           count_total: 468,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258136'
+          url: 'https://osu.ppy.sh/beatmaps/1258136',
         },
         {
           beatmapset: 594884,
@@ -5796,7 +5809,7 @@ export default {
           count_total: 555,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258137'
+          url: 'https://osu.ppy.sh/beatmaps/1258137',
         },
         {
           beatmapset: 594884,
@@ -5816,7 +5829,7 @@ export default {
           count_total: 574,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258138'
+          url: 'https://osu.ppy.sh/beatmaps/1258138',
         },
         {
           beatmapset: 594884,
@@ -5824,7 +5837,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.35632,
-          version: 'BoatKrab\'s Insane',
+          version: "BoatKrab's Insane",
           total_length: 142,
           cs: 4,
           drain: 7,
@@ -5836,7 +5849,7 @@ export default {
           count_total: 547,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258217'
+          url: 'https://osu.ppy.sh/beatmaps/1258217',
         },
         {
           beatmapset: 594884,
@@ -5856,7 +5869,7 @@ export default {
           count_total: 270,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1258240'
+          url: 'https://osu.ppy.sh/beatmaps/1258240',
         },
         {
           beatmapset: 594884,
@@ -5864,7 +5877,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.7325,
-          version: 'Lost\'s Light Insane',
+          version: "Lost's Light Insane",
           total_length: 142,
           cs: 4,
           drain: 6,
@@ -5876,7 +5889,7 @@ export default {
           count_total: 557,
           last_updated: '2017-10-31T14:14:03Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1260616'
+          url: 'https://osu.ppy.sh/beatmaps/1260616',
         },
         {
           beatmapset: 594884,
@@ -5884,7 +5897,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.76785,
-          version: 'KittyAdventure\'s Advanced',
+          version: "KittyAdventure's Advanced",
           total_length: 142,
           cs: 3.5,
           drain: 4,
@@ -5896,9 +5909,9 @@ export default {
           count_total: 451,
           last_updated: '2017-10-31T14:14:04Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1267717'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1267717',
+        },
+      ],
     },
     {
       id: 610967,
@@ -5952,7 +5965,7 @@ export default {
           count_total: 712,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1299913'
+          url: 'https://osu.ppy.sh/beatmaps/1299913',
         },
         {
           beatmapset: 610967,
@@ -5960,7 +5973,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.36735,
-          version: 'Finshie\'s Insane',
+          version: "Finshie's Insane",
           total_length: 141,
           cs: 4.2,
           drain: 5,
@@ -5972,7 +5985,7 @@ export default {
           count_total: 639,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1305803'
+          url: 'https://osu.ppy.sh/beatmaps/1305803',
         },
         {
           beatmapset: 610967,
@@ -5992,7 +6005,7 @@ export default {
           count_total: 322,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1306490'
+          url: 'https://osu.ppy.sh/beatmaps/1306490',
         },
         {
           beatmapset: 610967,
@@ -6012,7 +6025,7 @@ export default {
           count_total: 221,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1309254'
+          url: 'https://osu.ppy.sh/beatmaps/1309254',
         },
         {
           beatmapset: 610967,
@@ -6020,7 +6033,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.75363,
-          version: 'PandaHero\'s Advanced',
+          version: "PandaHero's Advanced",
           total_length: 141,
           cs: 3.8,
           drain: 4,
@@ -6032,7 +6045,7 @@ export default {
           count_total: 348,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1310970'
+          url: 'https://osu.ppy.sh/beatmaps/1310970',
         },
         {
           beatmapset: 610967,
@@ -6052,9 +6065,9 @@ export default {
           count_total: 467,
           last_updated: '2017-07-10T22:24:21Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1315612'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1315612',
+        },
+      ],
     },
     {
       id: 591635,
@@ -6108,7 +6121,7 @@ export default {
           count_total: 582,
           last_updated: '2017-05-15T15:53:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1251955'
+          url: 'https://osu.ppy.sh/beatmaps/1251955',
         },
         {
           beatmapset: 591635,
@@ -6116,7 +6129,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.79278,
-          version: 'Finshie\'s LV.7',
+          version: "Finshie's LV.7",
           total_length: 101,
           cs: 3.8,
           drain: 4,
@@ -6128,7 +6141,7 @@ export default {
           count_total: 419,
           last_updated: '2017-05-15T15:53:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1272066'
+          url: 'https://osu.ppy.sh/beatmaps/1272066',
         },
         {
           beatmapset: 591635,
@@ -6148,9 +6161,9 @@ export default {
           count_total: 214,
           last_updated: '2017-05-15T15:53:42Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1275371'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1275371',
+        },
+      ],
     },
     {
       id: 593883,
@@ -6204,7 +6217,7 @@ export default {
           count_total: 788,
           last_updated: '2017-04-12T16:49:43Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1256329'
+          url: 'https://osu.ppy.sh/beatmaps/1256329',
         },
         {
           beatmapset: 593883,
@@ -6212,7 +6225,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.14337,
-          version: 'Irreversible\'s Extra',
+          version: "Irreversible's Extra",
           total_length: 132,
           cs: 4,
           drain: 6.5,
@@ -6224,7 +6237,7 @@ export default {
           count_total: 749,
           last_updated: '2017-04-12T16:49:43Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1257134'
+          url: 'https://osu.ppy.sh/beatmaps/1257134',
         },
         {
           beatmapset: 593883,
@@ -6244,7 +6257,7 @@ export default {
           count_total: 535,
           last_updated: '2017-04-12T16:49:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1257167'
+          url: 'https://osu.ppy.sh/beatmaps/1257167',
         },
         {
           beatmapset: 593883,
@@ -6252,7 +6265,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.32977,
-          version: 'Irreversible\'s Normal',
+          version: "Irreversible's Normal",
           total_length: 132,
           cs: 2.7,
           drain: 4,
@@ -6264,9 +6277,9 @@ export default {
           count_total: 281,
           last_updated: '2017-04-12T16:49:44Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1260424'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1260424',
+        },
+      ],
     },
     {
       id: 460422,
@@ -6320,7 +6333,7 @@ export default {
           count_total: 683,
           last_updated: '2017-02-08T18:26:26Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/986067'
+          url: 'https://osu.ppy.sh/beatmaps/986067',
         },
         {
           beatmapset: 460422,
@@ -6340,7 +6353,7 @@ export default {
           count_total: 591,
           last_updated: '2017-02-08T18:26:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/986068'
+          url: 'https://osu.ppy.sh/beatmaps/986068',
         },
         {
           beatmapset: 460422,
@@ -6360,7 +6373,7 @@ export default {
           count_total: 275,
           last_updated: '2017-02-08T18:26:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/995140'
+          url: 'https://osu.ppy.sh/beatmaps/995140',
         },
         {
           beatmapset: 460422,
@@ -6380,7 +6393,7 @@ export default {
           count_total: 378,
           last_updated: '2017-02-08T18:26:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/995142'
+          url: 'https://osu.ppy.sh/beatmaps/995142',
         },
         {
           beatmapset: 460422,
@@ -6388,7 +6401,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 2.99618,
-          version: 'Ascendance\'s Platter',
+          version: "Ascendance's Platter",
           total_length: 129,
           cs: 3.2,
           drain: 5,
@@ -6400,9 +6413,9 @@ export default {
           count_total: 526,
           last_updated: '2017-02-08T18:26:27Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/1000293'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/1000293',
+        },
+      ],
     },
     {
       id: 383775,
@@ -6456,7 +6469,7 @@ export default {
           count_total: 1339,
           last_updated: '2016-07-22T03:33:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/838829'
+          url: 'https://osu.ppy.sh/beatmaps/838829',
         },
         {
           beatmapset: 383775,
@@ -6476,7 +6489,7 @@ export default {
           count_total: 1680,
           last_updated: '2016-07-22T03:33:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/838830'
+          url: 'https://osu.ppy.sh/beatmaps/838830',
         },
         {
           beatmapset: 383775,
@@ -6496,7 +6509,7 @@ export default {
           count_total: 743,
           last_updated: '2016-07-22T03:33:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/838831'
+          url: 'https://osu.ppy.sh/beatmaps/838831',
         },
         {
           beatmapset: 383775,
@@ -6504,7 +6517,7 @@ export default {
           mode: 'mania',
           mode_int: 3,
           difficulty: 3.99035,
-          version: '[7K] Lenfried\'s Insane',
+          version: "[7K] Lenfried's Insane",
           total_length: 151,
           cs: 7,
           drain: 8,
@@ -6516,9 +6529,9 @@ export default {
           count_total: 2465,
           last_updated: '2016-07-22T03:33:30Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/843076'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/843076',
+        },
+      ],
     },
     {
       id: 431971,
@@ -6534,7 +6547,8 @@ export default {
       bpm: 160,
       source: 'Rhythm Master',
       covers: 431971,
-      tags: '节奏大师 him3con [rasis] dream117er iamkwan regraz hakurei yoru -kevincela- [mahua] minakami yuki fanzhen0019',
+      tags:
+        '节奏大师 him3con [rasis] dream117er iamkwan regraz hakurei yoru -kevincela- [mahua] minakami yuki fanzhen0019',
       video: false,
       storyboard: false,
       ranked: '1',
@@ -6572,7 +6586,7 @@ export default {
           count_total: 910,
           last_updated: '2016-05-21T08:19:37Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/931575'
+          url: 'https://osu.ppy.sh/beatmaps/931575',
         },
         {
           beatmapset: 431971,
@@ -6580,7 +6594,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.17112,
-          version: 'rasis\' Expert',
+          version: "rasis' Expert",
           total_length: 124,
           cs: 4.2,
           drain: 6,
@@ -6592,7 +6606,7 @@ export default {
           count_total: 748,
           last_updated: '2016-05-21T08:19:37Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/935948'
+          url: 'https://osu.ppy.sh/beatmaps/935948',
         },
         {
           beatmapset: 431971,
@@ -6600,7 +6614,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.19508,
-          version: 'fanzhen\'s Expert',
+          version: "fanzhen's Expert",
           total_length: 124,
           cs: 4,
           drain: 8,
@@ -6612,7 +6626,7 @@ export default {
           count_total: 867,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/936768'
+          url: 'https://osu.ppy.sh/beatmaps/936768',
         },
         {
           beatmapset: 431971,
@@ -6620,7 +6634,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.59061,
-          version: 'Yoru\'s Insane',
+          version: "Yoru's Insane",
           total_length: 124,
           cs: 4,
           drain: 6,
@@ -6632,7 +6646,7 @@ export default {
           count_total: 756,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/936769'
+          url: 'https://osu.ppy.sh/beatmaps/936769',
         },
         {
           beatmapset: 431971,
@@ -6640,7 +6654,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 2.71709,
-          version: 'Regraz\'s Advanced',
+          version: "Regraz's Advanced",
           total_length: 122,
           cs: 3.6,
           drain: 5,
@@ -6652,7 +6666,7 @@ export default {
           count_total: 388,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/941204'
+          url: 'https://osu.ppy.sh/beatmaps/941204',
         },
         {
           beatmapset: 431971,
@@ -6660,7 +6674,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.49478,
-          version: 'Him3con\'s Hyper',
+          version: "Him3con's Hyper",
           total_length: 124,
           cs: 4,
           drain: 6,
@@ -6672,7 +6686,7 @@ export default {
           count_total: 541,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/947662'
+          url: 'https://osu.ppy.sh/beatmaps/947662',
         },
         {
           beatmapset: 431971,
@@ -6680,7 +6694,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.5363,
-          version: 'Yuki\'s Extreme',
+          version: "Yuki's Extreme",
           total_length: 124,
           cs: 4,
           drain: 6.5,
@@ -6692,7 +6706,7 @@ export default {
           count_total: 827,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/953361'
+          url: 'https://osu.ppy.sh/beatmaps/953361',
         },
         {
           beatmapset: 431971,
@@ -6700,7 +6714,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.58286,
-          version: '117\'s Easy',
+          version: "117's Easy",
           total_length: 122,
           cs: 2.5,
           drain: 2,
@@ -6712,7 +6726,7 @@ export default {
           count_total: 181,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/959090'
+          url: 'https://osu.ppy.sh/beatmaps/959090',
         },
         {
           beatmapset: 431971,
@@ -6720,7 +6734,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.36408,
-          version: '-kevincela-\'s Extra',
+          version: "-kevincela-'s Extra",
           total_length: 124,
           cs: 4,
           drain: 6.5,
@@ -6732,7 +6746,7 @@ export default {
           count_total: 779,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/959091'
+          url: 'https://osu.ppy.sh/beatmaps/959091',
         },
         {
           beatmapset: 431971,
@@ -6740,7 +6754,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.9025,
-          version: 'KwaN\'s Normal',
+          version: "KwaN's Normal",
           total_length: 123,
           cs: 3.3,
           drain: 3.5,
@@ -6752,7 +6766,7 @@ export default {
           count_total: 334,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/960126'
+          url: 'https://osu.ppy.sh/beatmaps/960126',
         },
         {
           beatmapset: 431971,
@@ -6760,7 +6774,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 5.66316,
-          version: 'Mahua\'s Extra',
+          version: "Mahua's Extra",
           total_length: 124,
           cs: 5,
           drain: 6,
@@ -6772,9 +6786,9 @@ export default {
           count_total: 855,
           last_updated: '2016-05-21T08:19:38Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/964618'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/964618',
+        },
+      ],
     },
     {
       id: 386415,
@@ -6828,7 +6842,7 @@ export default {
           count_total: 1140,
           last_updated: '2016-04-02T11:27:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/843707'
+          url: 'https://osu.ppy.sh/beatmaps/843707',
         },
         {
           beatmapset: 386415,
@@ -6848,7 +6862,7 @@ export default {
           count_total: 913,
           last_updated: '2016-04-02T11:27:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/845162'
+          url: 'https://osu.ppy.sh/beatmaps/845162',
         },
         {
           beatmapset: 386415,
@@ -6868,9 +6882,9 @@ export default {
           count_total: 621,
           last_updated: '2016-04-02T11:27:58Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/845200'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/845200',
+        },
+      ],
     },
     {
       id: 340903,
@@ -6924,7 +6938,7 @@ export default {
           count_total: 1128,
           last_updated: '2015-10-11T05:09:39Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/753968'
+          url: 'https://osu.ppy.sh/beatmaps/753968',
         },
         {
           beatmapset: 340903,
@@ -6932,7 +6946,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.26983,
-          version: 'Yoru\'s Insane',
+          version: "Yoru's Insane",
           total_length: 146,
           cs: 4,
           drain: 6,
@@ -6944,7 +6958,7 @@ export default {
           count_total: 926,
           last_updated: '2015-10-11T05:09:39Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/759888'
+          url: 'https://osu.ppy.sh/beatmaps/759888',
         },
         {
           beatmapset: 340903,
@@ -6952,7 +6966,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.9561,
-          version: '-kevincela-\'s Insane',
+          version: "-kevincela-'s Insane",
           total_length: 146,
           cs: 4,
           drain: 5,
@@ -6964,7 +6978,7 @@ export default {
           count_total: 1043,
           last_updated: '2015-10-11T05:09:39Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/766504'
+          url: 'https://osu.ppy.sh/beatmaps/766504',
         },
         {
           beatmapset: 340903,
@@ -6972,7 +6986,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 4.89291,
-          version: 'Yuki\'s Extra',
+          version: "Yuki's Extra",
           total_length: 146,
           cs: 4.2,
           drain: 6,
@@ -6984,7 +6998,7 @@ export default {
           count_total: 1000,
           last_updated: '2015-10-11T05:09:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/766528'
+          url: 'https://osu.ppy.sh/beatmaps/766528',
         },
         {
           beatmapset: 340903,
@@ -7004,7 +7018,7 @@ export default {
           count_total: 422,
           last_updated: '2015-10-11T05:09:40Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/793694'
+          url: 'https://osu.ppy.sh/beatmaps/793694',
         },
         {
           beatmapset: 340903,
@@ -7012,7 +7026,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 1.67873,
-          version: 'Flask\'s Easy',
+          version: "Flask's Easy",
           total_length: 146,
           cs: 2.5,
           drain: 2,
@@ -7024,7 +7038,7 @@ export default {
           count_total: 279,
           last_updated: '2015-10-11T05:09:41Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/794364'
+          url: 'https://osu.ppy.sh/beatmaps/794364',
         },
         {
           beatmapset: 340903,
@@ -7032,7 +7046,7 @@ export default {
           mode: 'osu',
           mode_int: 0,
           difficulty: 3.27275,
-          version: 'Regraz\'s Hard',
+          version: "Regraz's Hard",
           total_length: 145,
           cs: 4,
           drain: 6,
@@ -7044,9 +7058,9 @@ export default {
           count_total: 715,
           last_updated: '2015-10-11T05:09:41Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/794710'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/794710',
+        },
+      ],
     },
     {
       id: 124857,
@@ -7100,7 +7114,7 @@ export default {
           count_total: 626,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/318052'
+          url: 'https://osu.ppy.sh/beatmaps/318052',
         },
         {
           beatmapset: 124857,
@@ -7120,7 +7134,7 @@ export default {
           count_total: 714,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/329261'
+          url: 'https://osu.ppy.sh/beatmaps/329261',
         },
         {
           beatmapset: 124857,
@@ -7140,7 +7154,7 @@ export default {
           count_total: 920,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/356030'
+          url: 'https://osu.ppy.sh/beatmaps/356030',
         },
         {
           beatmapset: 124857,
@@ -7160,7 +7174,7 @@ export default {
           count_total: 534,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/361734'
+          url: 'https://osu.ppy.sh/beatmaps/361734',
         },
         {
           beatmapset: 124857,
@@ -7168,7 +7182,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 2.66077,
-          version: 'Ono\'s Muzukashii',
+          version: "Ono's Muzukashii",
           total_length: 141,
           cs: 4,
           drain: 5,
@@ -7180,7 +7194,7 @@ export default {
           count_total: 435,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/421741'
+          url: 'https://osu.ppy.sh/beatmaps/421741',
         },
         {
           beatmapset: 124857,
@@ -7188,7 +7202,7 @@ export default {
           mode: 'taiko',
           mode_int: 1,
           difficulty: 3.38749,
-          version: 'Ono\'s Oni',
+          version: "Ono's Oni",
           total_length: 141,
           cs: 4,
           drain: 6,
@@ -7200,7 +7214,7 @@ export default {
           count_total: 544,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/421742'
+          url: 'https://osu.ppy.sh/beatmaps/421742',
         },
         {
           beatmapset: 124857,
@@ -7220,7 +7234,7 @@ export default {
           count_total: 856,
           last_updated: '2015-07-23T13:06:18Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/554287'
+          url: 'https://osu.ppy.sh/beatmaps/554287',
         },
         {
           beatmapset: 124857,
@@ -7240,9 +7254,9 @@ export default {
           count_total: 280,
           last_updated: '2015-07-23T13:06:19Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/554288'
-        }
-      ]
+          url: 'https://osu.ppy.sh/beatmaps/554288',
+        },
+      ],
     },
     {
       id: 255039,
@@ -7296,7 +7310,7 @@ export default {
           count_total: 534,
           last_updated: '2015-06-10T00:40:00Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/584883'
+          url: 'https://osu.ppy.sh/beatmaps/584883',
         },
         {
           beatmapset: 255039,
@@ -7316,7 +7330,7 @@ export default {
           count_total: 656,
           last_updated: '2015-06-10T00:40:00Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/588651'
+          url: 'https://osu.ppy.sh/beatmaps/588651',
         },
         {
           beatmapset: 255039,
@@ -7336,7 +7350,7 @@ export default {
           count_total: 347,
           last_updated: '2015-06-10T00:40:00Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/610531'
+          url: 'https://osu.ppy.sh/beatmaps/610531',
         },
         {
           beatmapset: 255039,
@@ -7356,7 +7370,7 @@ export default {
           count_total: 742,
           last_updated: '2015-06-10T00:40:00Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/629751'
+          url: 'https://osu.ppy.sh/beatmaps/629751',
         },
         {
           beatmapset: 255039,
@@ -7364,7 +7378,7 @@ export default {
           mode: 'fruits',
           mode_int: 2,
           difficulty: 5.11303,
-          version: 'Razor\'s Overdose',
+          version: "Razor's Overdose",
           total_length: 148,
           cs: 4,
           drain: 7,
@@ -7376,10 +7390,10 @@ export default {
           count_total: 855,
           last_updated: '2015-06-10T00:40:00Z',
           status: 'ranked',
-          url: 'https://osu.ppy.sh/beatmaps/662037'
-        }
-      ]
-    }
+          url: 'https://osu.ppy.sh/beatmaps/662037',
+        },
+      ],
+    },
   ],
-  max_page: 1
-}
+  max_page: 1,
+};

@@ -4,31 +4,32 @@ import PlayersList from './PlayersList';
 import ControlsBar from './ControlsBar';
 
 const MatchDetails = ({ match, theme, close }) => {
-
   // const PlayersList = () => match.players.map(player => (
   //   <Player theme={theme} playerInfos={player} match={match} />
   // ))
 
-  console.log('update Match', match)
+  console.log('update Match', match);
 
   return (
-    <div className='MatchDetails'>
-      <div className='head'>
+    <div className="MatchDetails">
+      <div className="head">
         <ControlsBar match={match} theme={theme} close={close} />
       </div>
-      <div className='details'>
-        <div className='players'>
+      <div className="details">
+        <div className="players">
           {match.players ? <PlayersList theme={theme} players={match.players} match={match} /> : null}
         </div>
-        <div className='beatmap'>
+        <div className="beatmap">
           {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
-          {match.fullBeatmapData ?
-            <Beatmap theme={theme} beatmap={match.fullBeatmapData} width={'100%'}/>
-            : 'Asking peppy...'} 
+          {match.fullBeatmapData ? (
+            <Beatmap theme={theme} beatmap={match.fullBeatmapData} width={'100%'} />
+          ) : (
+            'Asking peppy...'
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MatchDetails;

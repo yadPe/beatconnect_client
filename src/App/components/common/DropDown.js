@@ -1,5 +1,5 @@
 import React from 'react';
-import injectSheet from 'react-jss'
+import injectSheet from 'react-jss';
 
 const styles = {
   DropDown: {
@@ -21,19 +21,23 @@ const styles = {
     '&:hover': {
       outline: 'none !important',
       border: '2px solid white',
-    }
+    },
   },
   option: {
     color: 'black',
-  }
+  },
 };
 
-const DropDown = ({classes, className, options, onSelect, onBlur, value}) => {
+const DropDown = ({ classes, className, options, onSelect, onBlur, value }) => {
   return (
     <select className={`${classes.DropDown} ${className}`} onChange={onSelect} onBlur={onBlur} value={value}>
-      {options.map(option => <option key={option} className={classes.option} value={option}>{option}</option> )}
+      {options.map(option => (
+        <option key={option} className={classes.option} value={option}>
+          {option}
+        </option>
+      ))}
     </select>
   );
-}
+};
 
 export default injectSheet(styles)(DropDown);

@@ -1,1 +1,1 @@
-window.addEventListener('click', () => console.log('dd'))
+window.addEventListener('click', () => console.log('dd'));

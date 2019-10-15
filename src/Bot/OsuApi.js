@@ -1,12 +1,14 @@
 class OsuApi {
   constructor(key) {
     this.key = key;
-    this.url = "https://osu.ppy.sh/api/";
+    this.url = 'https://osu.ppy.sh/api/';
   }
 
   request(query, params) {
-    return fetch(`${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`, {mode: 'cors'})
-      .then(res => res.json());
+    return fetch(
+      `${this.url + query}?k=${this.key}${params ? params.map(p => `&` + p.param + '=' + p.value).join('') : ''}`,
+      { mode: 'cors' },
+    ).then(res => res.json());
   }
 
   getMatch(matchId) {
@@ -14,11 +16,10 @@ class OsuApi {
   }
 
   getSetId(beatmapId) {
-    return this.request('get_beatmaps', [{ param: 'b', value: beatmapId }])
-      .then(res => {
-        console.log(res[0].beatmapset_id)
-        return res[0];
-      });
+    return this.request('get_beatmaps', [{ param: 'b', value: beatmapId }]).then(res => {
+      console.log(res[0].beatmapset_id);
+      return res[0];
+    });
   }
 }
 
