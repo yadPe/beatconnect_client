@@ -2,6 +2,7 @@ import React, { useState, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import Bot from './Bot';
 import Beatmaps from './Beatmaps';
+import Packs from './Packs';
 import Settings from './Settings';
 import Downloads from './Downloads';
 import renderIcon from '../utils/renderIcons';
@@ -38,6 +39,7 @@ const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
       theme={theme}
     >
       {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
+      {renderItem('Packs', <Packs theme={theme} />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
       {renderItem('Bot', <Bot connected={connected} bot={bot} theme={theme} />)}
       {renderItem('Settings', <Settings theme={theme} />)}
