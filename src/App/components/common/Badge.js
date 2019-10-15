@@ -1,5 +1,5 @@
 import React from 'react';
-import injectSheet from 'react-jss'
+import injectSheet from 'react-jss';
 
 const styles = {
   Badge: {
@@ -20,10 +20,10 @@ const styles = {
     transition: 'all 100ms',
     '&:hover': {
       cursor: 'default',
-    }
+    },
   },
   info: {
-    backgroundColor: '#3498db'
+    backgroundColor: '#3498db',
   },
   pending: {
     backgroundColor: 'rgba(241,196,15,0.15)',
@@ -31,7 +31,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(241,196,15,0.4)',
       borderColor: 'rgba(241,196,15,1)',
-    }
+    },
   },
   qualified: {
     backgroundColor: 'rgba(241,196,15,0.15)',
@@ -39,7 +39,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(241,196,15,0.4)',
       borderColor: 'rgba(241,196,15,1)',
-    }
+    },
   },
   graveyard: {
     backgroundColor: 'rgba(231,76,60,0.15)',
@@ -47,7 +47,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(231,76,60,0.4)',
       borderColor: 'rgba(231,76,60,1)',
-    }
+    },
   },
   WIP: {
     backgroundColor: 'rgba(231,76,60,0.15)',
@@ -55,7 +55,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(231,76,60,0.4)',
       borderColor: 'rgba(231,76,60,1)',
-    }
+    },
   },
   loved: {
     backgroundColor: 'rgba(222,90,148,0.15)',
@@ -63,7 +63,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(222,90,148,0.4)',
       borderColor: 'rgba(222,90,148,1)',
-    }
+    },
   },
   ranked: {
     backgroundColor: 'rgba(46,204,113,0.15)',
@@ -71,14 +71,14 @@ const styles = {
     '&:hover': {
       backgroundColor: 'rgba(46,204,113,0.4)',
       borderColor: 'rgba(46,204,113,1)',
-    }
-  }
-}
+    },
+  },
+};
 
 const Badge = ({ classes, status }) => {
   return (
     <span className={`${classes.Badge} ${classes[status]}`}>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
   );
-}
+};
 
 export default injectSheet(styles)(Badge);

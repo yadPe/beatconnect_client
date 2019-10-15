@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Button } from 'react-desktop/windows';
-import renderIcons from '../../../utils/renderIcons'
+import renderIcons from '../../../utils/renderIcons';
 import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 
 const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {
@@ -9,18 +9,13 @@ const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {
   const isPlaying = audioPlayer.isPlaying === beatmapSetId;
   if (setIsPLaying) setIsPLaying(isPlaying);
   const playPreview = () => {
-    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, setIsPlayable)
-  }
-  return (
-    isPlayable ?
-      <Button
-        push
-        color={theme.color}
-        onClick={playPreview}>
-        {renderIcons(`${isPlaying ? 'Pause' : 'Play'}`, theme.style)}
-      </Button>
-      : null
-  );
-}
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, setIsPlayable);
+  };
+  return isPlayable ? (
+    <Button push color={theme.color} onClick={playPreview}>
+      {renderIcons(`${isPlaying ? 'Pause' : 'Play'}`, theme.style)}
+    </Button>
+  ) : null;
+};
 
 export default PreviewBeatmapBtn;

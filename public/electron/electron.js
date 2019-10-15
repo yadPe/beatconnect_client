@@ -1,59 +1,61 @@
-const { app, webContents  } = require('electron');
+const { app, webContents } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const DownloadManager = require("electron-download-manager");
+const DownloadManager = require('electron-download-manager');
 const path = require('path');
 const url = require('url');
 const Window = require('./Window');
 require('./ipcMessages');
 
-log.transports.file.level = "debug";
+log.transports.file.level = 'debug';
 autoUpdater.logger = log;
 autoUpdater.on('checking-for-update', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'checkingUpdate' })
-})
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'checkingUpdate' });
+});
 autoUpdater.on('update-available', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateAvailable' })
-})
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateAvailable' });
+});
 autoUpdater.on('update-downloaded', ({ releaseName }) => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateDownloaded', releaseName })
-})
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateDownloaded', releaseName });
+});
 autoUpdater.on('update-not-available', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' })
-})
+  webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' });
+});
 
 DownloadManager.register({
-  downloadFolder: app.getPath("downloads") + "/beatconnect"
+  downloadFolder: app.getPath('downloads') + '/beatconnect',
 });
 
 const main = () => {
   let mainWindow = null;
-  console.log('readee')
+  console.log('readee');
 
   mainWindow = new Window({
     backgroundColor: '#121212',
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false
+      webSecurity: false,
     },
-    url: isDev ? process.env.ELECTRON_START_URL || url.format({
-      pathname: path.join(__dirname, '../../build/index.html'),
-      protocol: 'file:',
-      slashes: true
-    }) :
-      url.format({
-        pathname: path.join(__dirname, '../index.html'),
-        protocol: 'file:',
-        slashes: true
-      })
+    url: isDev
+      ? process.env.ELECTRON_START_URL ||
+        url.format({
+          pathname: path.join(__dirname, '../../build/index.html'),
+          protocol: 'file:',
+          slashes: true,
+        })
+      : url.format({
+          pathname: path.join(__dirname, '../index.html'),
+          protocol: 'file:',
+          slashes: true,
+        }),
   });
 
   mainWindow.on('show', () => {
     setTimeout(() => {
-      autoUpdater.checkForUpdatesAndNotify()
-    }, 5000)
-  })
+      autoUpdater.checkForUpdatesAndNotify();
+    }, 5000);
+  });
 
   mainWindow.on('closed', () => {
     // Dé-référence l'objet window , normalement, vous stockeriez les fenêtres
@@ -61,7 +63,7 @@ const main = () => {
     // où vous devez supprimer l'élément correspondant.
     mainWindow = null;
   });
-}
+};
 
 app.on('ready', main);
 

@@ -9,7 +9,7 @@ class MpMatch {
     this.matchName = matchName;
     this.ircRoom = ircRoom;
     this.creator = creator;
-    this.players =  [];
+    this.players = [];
     this.beatmapset_id = null;
     this.fullBeatmapData = null;
     this.previousBeatmap = null;
@@ -24,93 +24,96 @@ class MpMatch {
     this.creatorJoined = false;
     this.startTime = Date.now();
     this.mpSettingsMessage = mpSettingsMessage.bind(this);
-    if (this.creator){
+    if (this.creator) {
       this.invitePlayer(this.creator);
-      this.matchType = 'tournament'
-    }else {
+      this.matchType = 'tournament';
+    } else {
       this.welcome('existingMatch');
-      this.matchType = 'standard'
+      this.matchType = 'standard';
     }
   }
 
   updateBeatmap(beatmap) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const { beatmapset_id } = beatmap;
       this.beatmapset_id = beatmapset_id;
       this.fullBeatmapData = { ...beatmap, beatconnectDlLink: getDlLink(beatmap) };
-      if (this.previousBeatmap !== beatmapset_id && this.autoBeat) this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
+      if (this.previousBeatmap !== beatmapset_id && this.autoBeat)
+        this.sendBeatmap(beatmapset_id, this.ircRoom, beatmap);
       this.previousBeatmap = beatmapset_id;
-      resolve()
-    })
-   
+      resolve();
+    });
   }
 
   invitePlayer(player) {
-    this.ircClient.pm(this.ircRoom, `!mp invite ${player}`)
+    this.ircClient.pm(this.ircRoom, `!mp invite ${player}`);
   }
 
   makeHost(player) {
-    if (!this.players.includes(player) && !player === this.creator) return
+    if (!this.players.includes(player) && !player === this.creator) return;
     this.ircClient.pm(this.ircRoom, `!mp host ${player}`);
     this.host = player;
   }
 
-  kick(player){
-    if (!this.players.includes(player)) return 
-    this.ircClient.pm(this.ircRoom, `!mp kick ${player}`)
+  kick(player) {
+    if (!this.players.includes(player)) return;
+    this.ircClient.pm(this.ircRoom, `!mp kick ${player}`);
   }
 
-  abort(){
-    this.ircClient.pm(this.ircRoom, `!mp abort`)
+  abort() {
+    this.ircClient.pm(this.ircRoom, `!mp abort`);
   }
 
-  beatmap(beatmapId, gameMode){
-    this.ircClient.pm(this.ircRoom, `!mp map ${beatmapId} ${gameMode}`)
+  beatmap(beatmapId, gameMode) {
+    this.ircClient.pm(this.ircRoom, `!mp map ${beatmapId} ${gameMode}`);
   }
 
   playerJoin(player) {
-    if (this.timeout) { clearTimeout(this.timeout); this.timeout = null }
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
     if (!this.creatorJoined && this.creator === player) {
       this.makeHost(player);
       this.creatorJoined = true;
       this.welcome('newMatch');
-    }
-    else if (this.players.length === 0) this.makeHost(player);
+    } else if (this.players.length === 0) this.makeHost(player);
     this.players.push(player);
-    console.log(this.matchName + ' players: ' + this.players)
+    console.log(this.matchName + ' players: ' + this.players);
   }
 
   playerLeave(player) {
     this.players = this.players.filter(p => p !== player);
     if (this.players.length > 0 && this.host === player) {
       this.makeHost(this.players[0]);
-    }
-    else {
+    } else {
       if (this.matchType === 'tournament' && !this.timeout) {
         this.timeout = setTimeout(() => {
           this.ircClient.pm(this.ircRoom, '!mp close');
           this.destroy(this.id);
-        }, 60000 * 0.30)
+        }, 60000 * 0.3);
       } else {
         this.destroy(this.id);
       }
     }
-    console.log(this.matchName + ' players: ' + this.players)
+    console.log(this.matchName + ' players: ' + this.players);
   }
 
   start() {
-    this.ircClient.pm(this.ircRoom, '!mp start')
+    this.ircClient.pm(this.ircRoom, '!mp start');
   }
 
   close() {
-    this.ircClient.pm(this.ircRoom, '!mp close')
+    this.ircClient.pm(this.ircRoom, '!mp close');
   }
 
   welcome(newMatchType) {
-    if (newMatchType === 'existingMatch')
-      this.ircClient.pm(this.ircRoom, `!mp settings BEATCONEEEEEEECT`);
+    if (newMatchType === 'existingMatch') this.ircClient.pm(this.ircRoom, `!mp settings BEATCONEEEEEEECT`);
     else
-      this.ircClient.pm(this.ircRoom, `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`);
+      this.ircClient.pm(
+        this.ircRoom,
+        `Welcome! The room is currently locked by password, invite your friends or let peoples join by removing the password`,
+      );
   }
 
   getCurrentBeatmap = () => this.beatmapset_id;
@@ -118,8 +121,7 @@ class MpMatch {
   toggleAutoBeat = () => {
     this.autoBeat = !this.autoBeat;
     store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: this });
-  }
-
+  };
 }
 
-export default MpMatch
+export default MpMatch;

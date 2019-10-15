@@ -1,4 +1,4 @@
-export default (timeStamp) => {
+export default timeStamp => {
   const now = new Date(),
     secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
   if (secondsPast < 60) {
@@ -12,8 +12,11 @@ export default (timeStamp) => {
   }
   if (secondsPast > 86400) {
     const day = timeStamp.getDate();
-    const month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
-    const year = timeStamp.getFullYear() === now.getFullYear() ? "" : " " + timeStamp.getFullYear();
-    return day + " " + month + year;
+    const month = timeStamp
+      .toDateString()
+      .match(/ [a-zA-Z]*/)[0]
+      .replace(' ', '');
+    const year = timeStamp.getFullYear() === now.getFullYear() ? '' : ' ' + timeStamp.getFullYear();
+    return day + ' ' + month + year;
   }
-}
+};

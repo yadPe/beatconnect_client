@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 export const DownloadQueueContext = React.createContext();
 
-const { download } = remote.require("electron-download-manager");
+const { download } = remote.require('electron-download-manager');
 const { app } = remote;
 
 class DownloadQueueProvider extends Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       queue: [],
       currentDownload: {},
@@ -18,111 +18,105 @@ class DownloadQueueProvider extends Component {
       removeItemfromQueue: this.removeItemfromQueue,
       cancelDownload: this.cancelDownload,
       pauseDownload: this.pauseDownload,
-      resumeDownload: this.resumeDownload
-    }
+      resumeDownload: this.resumeDownload,
+    };
   }
 
   componentDidMount() {
     const { importMethod, osuSongsPath } = this.props;
-    this._setDlPath(importMethod, osuSongsPath)
+    this._setDlPath(importMethod, osuSongsPath);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { importMethod, osuSongsPath } = this.props;
     if (prevProps.importMethod !== importMethod || prevProps.osuSongsPath !== osuSongsPath) {
-      this._setDlPath(importMethod, osuSongsPath)
+      this._setDlPath(importMethod, osuSongsPath);
     }
   }
 
-  push = (item) => {
+  push = item => {
     const { queue } = this.state;
-    if (queue.some(e => e.id === item.id)) return
-    queue.push(item)
-    this.setState({ queue },
-      () => {
-        if (this.state.queue.length >= 1) {
-          this._execQueue();
-        }
+    if (queue.some(e => e.id === item.id)) return;
+    queue.push(item);
+    this.setState({ queue }, () => {
+      if (this.state.queue.length >= 1) {
+        this._execQueue();
       }
-    )
-  }
+    });
+  };
 
-  removeItemfromQueue = (id) => {
+  removeItemfromQueue = id => {
     let { queue } = this.state;
     queue = queue.filter(item => item.id !== id);
     this.setState({ queue });
-  }
+  };
 
   cancelDownload = () => {
     let { currentDownload } = this.state;
-    if (!currentDownload.item) return
-    currentDownload.item.cancel()
-    this.downloading = false
+    if (!currentDownload.item) return;
+    currentDownload.item.cancel();
+    this.downloading = false;
     currentDownload = {};
-    this.setState({ currentDownload },
-      () => {
-        if (this.state.queue.length !== 0) {
-          this._execQueue();
-        }
+    this.setState({ currentDownload }, () => {
+      if (this.state.queue.length !== 0) {
+        this._execQueue();
       }
-    );
-  }
+    });
+  };
 
   pauseDownload = () => {
     const { currentDownload } = this.state;
-    currentDownload.item.pause()
-  }
+    currentDownload.item.pause();
+  };
 
   resumeDownload = () => {
     const { currentDownload } = this.state;
-    currentDownload.item.resume()
-  }
+    currentDownload.item.resume();
+  };
 
   _execQueue = () => {
     let { queue, currentDownload } = this.state;
-    if (this.downloading) return
+    if (this.downloading) return;
     this.downloading = true;
-    const { url, id, onFinished } = currentDownload.infos = queue.shift()
-    this.setState({ currentDownload },
-      () => download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
+    const { url, id, onFinished } = (currentDownload.infos = queue.shift());
+    this.setState({ currentDownload }, () =>
+      download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
         if (err) {
-          this._onDownloadFailed(err)
+          this._onDownloadFailed(err);
         } else {
-          onFinished()
-          this._onDownloadSucceed(infos, id)
+          onFinished();
+          this._onDownloadSucceed(infos, id);
         }
         currentDownload = {};
         this.downloading = false;
         queue = this.state.queue; // Check if queue was updated since we started dling
-        this.setState({ queue, currentDownload },
-          () => {
-            if (this.state.queue.length !== 0) {
-              this._execQueue();
-            }
+        this.setState({ queue, currentDownload }, () => {
+          if (this.state.queue.length !== 0) {
+            this._execQueue();
           }
-        )
-      })
-    )
-  }
+        });
+      }),
+    );
+  };
 
   _onDownloadSucceed(infos, beatmapSetId) {
     const { importMethod } = this.props;
     const { queue } = this.state;
     if (importMethod === 'auto') {
-      shell.openItem(infos.filePath)
+      shell.openItem(infos.filePath);
     }
-    if (queue.length === 0) this._onQueueTerminated()
-    console.log('Finished dl', infos)
-    console.log('QUEUE', this.state.queue)
+    if (queue.length === 0) this._onQueueTerminated();
+    console.log('Finished dl', infos);
+    console.log('QUEUE', this.state.queue);
   }
 
-  _onQueueTerminated(){
-    remote.getCurrentWindow().setProgressBar(-1)
+  _onQueueTerminated() {
+    remote.getCurrentWindow().setProgressBar(-1);
   }
 
   _onDownloadFailed(err) {
-    remote.getCurrentWindow().setProgressBar(-1)
-    console.error(err)
+    remote.getCurrentWindow().setProgressBar(-1);
+    console.error(err);
   }
 
   _onDownloadProgress = (progress, item) => {
@@ -130,29 +124,27 @@ class DownloadQueueProvider extends Component {
     const { currentDownload, queue } = this.state;
     currentDownload.item = item;
     currentDownload.progress = progress;
-    overallProgress = (progress.progress / 100) / (queue.length + 1);
+    overallProgress = progress.progress / 100 / (queue.length + 1);
     remote.getCurrentWindow().setProgressBar(overallProgress);
     this.setState({ currentDownload, overallProgress });
-  }
+  };
 
   _setDlPath = (importMethod, osuSongsPath) => {
     if (importMethod === 'bulk') {
-      this.dlPath = osuSongsPath
+      this.dlPath = osuSongsPath;
     } else {
-      this.dlPath = app.getPath("downloads") + "\\beatconnect"
+      this.dlPath = app.getPath('downloads') + '\\beatconnect';
     }
-  }
+  };
 
   render() {
     const { children } = this.props;
-    return (
-      <DownloadQueueContext.Provider value={this.state}>{children}</DownloadQueueContext.Provider>
-    );
+    return <DownloadQueueContext.Provider value={this.state}>{children}</DownloadQueueContext.Provider>;
   }
 }
 
-const mapStateToProps = ({settings}) => {
+const mapStateToProps = ({ settings }) => {
   const { autoImport, importMethod, osuSongsPath } = settings.userPreferences;
-  return { autoImport, importMethod, osuSongsPath } 
-}
+  return { autoImport, importMethod, osuSongsPath };
+};
 export default connect(mapStateToProps)(DownloadQueueProvider);

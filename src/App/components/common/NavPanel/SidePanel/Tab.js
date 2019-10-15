@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import injectSheet from 'react-jss';
 
 const styles = {
@@ -12,12 +12,11 @@ const styles = {
       backgroundColor: 'rgba(255,255,255,0.05)',
     },
     '&:hover .indicator': {
-      height: props => props.selected ? '48px' : '24px'
+      height: props => (props.selected ? '48px' : '24px'),
     },
     '&:hover .tooltiptext': {
-      visibility: props => props.expended ? 'hidden' : 'visible',
-    }
-
+      visibility: props => (props.expended ? 'hidden' : 'visible'),
+    },
   },
   span: {
     display: 'flex',
@@ -34,18 +33,17 @@ const styles = {
     height: '44px',
     display: 'flex',
     alignItems: 'center',
-
   },
   indicator: {
     position: 'absolute',
     left: 0,
     margin: 0,
-    height: props => props.selected ? '40px' : '0px',
+    height: props => (props.selected ? '40px' : '0px'),
     width: '3px',
     backgroundColor: props => props.theme.color,
   },
   title: {
-    visibility: props => props.expended ? 'visible' : 'hidden'
+    visibility: props => (props.expended ? 'visible' : 'hidden'),
   },
   tooltiptext: {
     visibility: 'hidden',
@@ -63,32 +61,19 @@ const styles = {
 
 const Tab = ({ classes, selected, icon, title, onSelect }) => {
   return (
-    <a
-      data-radium="true"
-      className={classes.a}
-      onClick={onSelect}
-    >
+    <a data-radium="true" className={classes.a} onClick={onSelect}>
       <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>
-      <span
-        data-radium="true"
-        className={classes.span}
-      >
+      <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
-        <i
-          data-radium="true"
-          className={classes.i}
-        >
+        <i data-radium="true" className={classes.i}>
           {icon}
         </i>
-        <span
-          data-radium="true"
-          className={classes.title}
-        >
+        <span data-radium="true" className={classes.title}>
           {title}
         </span>
       </span>
     </a>
   );
-}
+};
 
 export default injectSheet(styles)(Tab);

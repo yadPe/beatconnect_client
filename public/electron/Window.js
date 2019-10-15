@@ -10,11 +10,11 @@ const defaultProps = {
   minWidth: 890,
   show: false,
   darkTheme: true,
-  frame: process.env.ELECTRON_START_URL ? true : false
+  frame: process.env.ELECTRON_START_URL ? true : false,
 };
 
 class Window extends BrowserWindow {
-  constructor ({ url, ...windowSettings }) {
+  constructor({ url, ...windowSettings }) {
     // calls new BrowserWindow with these props
     super({ ...defaultProps, ...windowSettings });
 
@@ -26,4 +26,4 @@ class Window extends BrowserWindow {
   }
 }
 
-module.exports = Window
+module.exports = Window;

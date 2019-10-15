@@ -1,9 +1,9 @@
-import React from 'react'
-import injectSheet from 'react-jss'
+import React from 'react';
+import injectSheet from 'react-jss';
 
 const styles = {
   CheckBox: {
-   margin: 'auto 0'
+    margin: 'auto 0',
   },
   input: {
     '-webkit-appearance': 'none',
@@ -15,10 +15,10 @@ const styles = {
     backgroundColor: 'transparent',
     '&:checked': {
       border: ({ theme }) => `1px solid ${theme.color}`,
-      backgroundColor: props => props.theme.color 
-    }
-  }
-}
+      backgroundColor: props => props.theme.color,
+    },
+  },
+};
 const CheckBox = ({ classes, checked, onChange, disabled }) => {
   return (
     <div className={classes.CheckBox}>
@@ -31,6 +31,6 @@ const CheckBox = ({ classes, checked, onChange, disabled }) => {
       />
     </div>
   );
-}
+};
 
 export default injectSheet(styles)(CheckBox);

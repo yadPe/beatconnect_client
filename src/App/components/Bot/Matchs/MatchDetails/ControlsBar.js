@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import injectSheet from 'react-jss';
 import { Button } from 'react-desktop/windows';
 import renderIcons from '../../../../utils/renderIcons';
@@ -21,58 +21,37 @@ const styles = {
     margin: 0,
     maxWidth: '100vmin',
     overflow: 'hidden',
-  }
+  },
 };
 
 const ControlsBar = ({ classes, theme, match, close }) => {
   return (
-    <ul className={classes.ControlsBar} role='navigation'>
+    <ul className={classes.ControlsBar} role="navigation">
       <li>
-        <Button
-          className='btn back'
-          push
-          color={theme.primary}
-          onClick={() => close()}
-        >
+        <Button className="btn back" push color={theme.primary} onClick={() => close()}>
           {renderIcons('Back', theme.style)}
-        </Button >
+        </Button>
       </li>
       <li className={classes.titleContainer}>
-        <p className={classes.title} >{match.matchName}</p>
+        <p className={classes.title}>{match.matchName}</p>
       </li>
       <li>
-        <Button
-          push
-          color={theme.color}
-          onClick={match.toggleAutoBeat}
-        >
+        <Button push color={theme.color} onClick={match.toggleAutoBeat}>
           {`AutoBeat: ${match.autoBeat ? ' on' : 'off'}`}
         </Button>
-      </li> 
-      <li>
-        <Button
-          className='btn startMatch'
-          push
-          color={theme.color}
-          onClick={() => match.start()}
-          hidden={!match}
-        >
-          Start
-        </Button >
       </li>
       <li>
-        <Button
-          className='btn endMatch'
-          push
-          color={theme.warning}
-          onClick={() => match.close()}
-          hidden={!match}
-        >
+        <Button className="btn startMatch" push color={theme.color} onClick={() => match.start()} hidden={!match}>
+          Start
+        </Button>
+      </li>
+      <li>
+        <Button className="btn endMatch" push color={theme.warning} onClick={() => match.close()} hidden={!match}>
           Close
-        </Button >
+        </Button>
       </li>
     </ul>
   );
-}
+};
 
 export default injectSheet(styles)(ControlsBar);

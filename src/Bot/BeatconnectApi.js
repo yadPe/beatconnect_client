@@ -1,47 +1,73 @@
 class BeatconnectApi {
   constructor(key) {
     this.key = key;
-    this.url = "https://beatconnect.io/api";
+    this.url = 'https://beatconnect.io/api';
     this.status = {
-      '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'
-    }
+      '4': 'Loved',
+      '3': 'Qualified',
+      '2': 'Approved',
+      '1': 'Ranked',
+      '0': 'Pending',
+      '-1': 'WIP',
+      '-2': 'Graveyard',
+    };
   }
 
   getBeatmapById(beatmapId) {
-    console.log(beatmapId)
+    console.log(beatmapId);
     return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, { mode: 'cors' })
-    .then(res => res.json())
-    .catch(err => console.error(err));
+      .then(res => res.json())
+      .catch(err => console.error(err));
   }
 
   searchBeatmap(query, page) {
-    query = query.join('%20')
-    console.log('searching ' + query)
+    query = query.join('%20');
+    console.log('searching ' + query);
     return fetch(`${this.url}/search/?token=${this.key}&q=${query}&p=${page || 0}`)
       .then(res => res.json())
       .then(results => {
         const { beatmaps, max_page } = results;
-        const totalOccurences = max_page / 1 > 0 ? beatmaps.length * max_page / 1 : beatmaps.length;
+        const totalOccurences = max_page / 1 > 0 ? (beatmaps.length * max_page) / 1 : beatmaps.length;
         const top = beatmaps.slice(0, 4);
-        return top.map(beatmap => `[${this.status[beatmap.ranked]}] ${getDlLink(beatmap, true)} by [https://osu.ppy.sh/u/${beatmap.user_id} ${beatmap.creator}]`).join('\n') + `\nFound [https://beatconnect.io/?q=${query} ${totalOccurences} ${totalOccurences > 1 ? 'occurences]' : 'occurence]'}`
+        return (
+          top
+            .map(
+              beatmap =>
+                `[${this.status[beatmap.ranked]}] ${getDlLink(beatmap, true)} by [https://osu.ppy.sh/u/${
+                  beatmap.user_id
+                } ${beatmap.creator}]`,
+            )
+            .join('\n') +
+          `\nFound [https://beatconnect.io/?q=${query} ${totalOccurences} ${
+            totalOccurences > 1 ? 'occurences]' : 'occurence]'
+          }`
+        );
       })
       .catch(err => console.error(err));
   }
 }
 
 const getDlLink = (beatmapInfos, pretty, extra) => {
-  console.log('getdlLimk', beatmapInfos)
-  if (beatmapInfos.error) throw new Error(beatmapInfos.error) // Need Test
+  console.log('getdlLimk', beatmapInfos);
+  if (beatmapInfos.error) throw new Error(beatmapInfos.error); // Need Test
   const { id, artist, title, unique_id } = beatmapInfos;
   const status = {
-    '4': 'Loved', '3': 'Qualified', '2': 'Approved', '1': 'Ranked', '0': 'Pending', '-1': 'WIP', '-2': 'Graveyard'
+    '4': 'Loved',
+    '3': 'Qualified',
+    '2': 'Approved',
+    '1': 'Ranked',
+    '0': 'Pending',
+    '-1': 'WIP',
+    '-2': 'Graveyard',
   };
   if (extra) {
     const { creator, approved, version, creator_id, bpm, max_combo, diff_approach } = extra;
-    return `[${status[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title || ''}  [${version || ''}]] by [https://osu.ppy.sh/u/${creator_id} ${creator || 'peppy'}] | BPM ${bpm || 0} | AR ${diff_approach || 0} ${max_combo ? '| Max combo: ' + max_combo : ''}`;
+    return `[${status[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title ||
+      ''}  [${version || ''}]] by [https://osu.ppy.sh/u/${creator_id} ${creator || 'peppy'}] | BPM ${bpm ||
+      0} | AR ${diff_approach || 0} ${max_combo ? '| Max combo: ' + max_combo : ''}`;
   }
   if (pretty) return `[https://beatconnect.io/b/${id}/${unique_id} ${artist} - ${title}]`;
-  return `https://beatconnect.io/b/${id}/${unique_id}`
+  return `https://beatconnect.io/b/${id}/${unique_id}`;
 };
 
 export { BeatconnectApi, getDlLink };
