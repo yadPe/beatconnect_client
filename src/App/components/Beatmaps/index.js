@@ -8,6 +8,7 @@ import Search from './Search';
 import askBeatconnect from './askBeatconnect';
 import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
+import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 
 const styles = {
   Beatmaps: {
@@ -23,7 +24,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const lastSearch = useRef(search);
   let { beatmaps, page } = searchResults;
   if (hideDownloaded) beatmaps = beatmaps.filter(({ beatmapset_id, id }) => !history.contains(id || beatmapset_id));
-  const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const lastScrollPosition = useRef(lastScroll || 0);
   if (typeof lastScroll === 'number' && !_.isEqual(search, lastSearch.current)) {
     lastScrollPosition.current = lastScroll;
@@ -34,12 +34,11 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const gridHeight = window.height - 79;
   const displayGrid = gridWidth >= 1200;
   const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length;
+  const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
+  // eslint-disable-next-line no-return-assign
   const onScroll = ({ scrollTop }) => (lastScrollPosition.current = scrollTop);
   const loadMore = () => {
-    if (store.getState().main.fetchingBeatmaps.isFetching)
-      return console.log('Trying to load more while loading more... What?');
-    console.log('loading more..');
-    askBeatconnect({ ...search, page: (page += 1) });
+    if (!store.getState().main.fetchingBeatmaps.isFetching) askBeatconnect({ ...search, page: (page += 1) });
   };
   if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
   const newItemsRendered = ({ overscanRowStopIndex, overscanColumnStopIndex }) => {
@@ -62,6 +61,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
     const beatmap =
       (displayGrid && beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + columnIndex]) || beatmaps[rowIndex];
+    if (beatmap === 0) return <BeatmapSkeleton style={style} />;
     if (!beatmap) return <div style={style} className="NoBeatmap" />;
     return (
       <div style={style}>
@@ -82,6 +82,7 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
       className={`Beatmaps ${classes.Beatmaps}`}
       onKeyDown={e => e.keyCode === 48 && setAutoDl(!autoDl)}
       tabIndex="0"
+      role="button"
       ref={gridContainer}
     >
       <FixedSizeGrid

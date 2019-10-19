@@ -10,7 +10,7 @@ const initialState = {
   window: { width: window.innerWidth, height: window.innerHeight },
   searchResults: {
     search: { query: '', mode: 'all', status: 'ranked', page: 0 },
-    beatmaps: [],
+    beatmaps: new Array(8).fill(0),
   },
   errors: [],
   downloadQueue: [],

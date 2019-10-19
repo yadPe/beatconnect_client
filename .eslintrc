@@ -6,9 +6,12 @@
     "node": true
   },
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": true
-    }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "import/extensions": [
       "error",
       "always",
@@ -23,8 +26,10 @@
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
-    "object-curly-newline":"off",
-    "no-plusplus":"off"
+    "jsx-a11y/click-events-have-key-events": "off",
+    "object-curly-newline": "off",
+    "no-plusplus": "off",
+    "react/prop-types": "off"
   },
   "settings": {
     "import/resolver": {
