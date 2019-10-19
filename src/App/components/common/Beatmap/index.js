@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect, memo, useRef } from 'react';
-import Cover from './Cover';
 import { Button, Text } from 'react-desktop/windows';
+import { shell } from 'electron';
+import Cover from './Cover';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
-import { shell } from 'electron';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
 import Badge from '../Badge';
@@ -47,18 +48,17 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
         setTimeout(() => setBrightness(0.95), 60000 / beatmap.bpm / 2.5);
       }, 60000 / beatmap.bpm);
     }
-    return () => (bpmFlash.current ? clearInterval(bpmFlash.current) : undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => bpmFlash.current && clearInterval(bpmFlash.current);
   }, [isPlaying]);
 
   useEffect(() => {
-    return () => (bpmFlash.current ? clearInterval(bpmFlash.current) : undefined);
+    return () => bpmFlash.current && clearInterval(bpmFlash.current);
   }, []);
 
   return (
-    <div className="Beatmap" style={style} onClick={() => setIsPLaying(true)}>
-      {beatmap ? (
-        <React.Fragment>
+    <div className="Beatmap" style={style}>
+      {beatmap && (
+        <>
           <Cover
             url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`}
             height={130}
@@ -66,7 +66,7 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
           />
           <Text color="#fff">{title}</Text>
           <Text color="#fff">{artist}</Text>
-          {version ? <Text color="#fff">{`[${version || ''}]`}</Text> : null}
+          {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
           <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
           <DownloadBeatmapBtn
             theme={theme}
@@ -87,23 +87,23 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
             style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}
           >
             <div className="availableModes" style={{ padding: '0 3px', display: 'inline-flex' }}>
-              {beatmap.mode_std ? (
+              {beatmap.mode_std && (
                 <img alt="std" title="Standard" className="pill std" style={modePillsStyle('std')} />
-              ) : null}
-              {beatmap.mode_mania ? (
+              )}
+              {beatmap.mode_mania && (
                 <img alt="mania" title="Mania" className="pill mania" style={modePillsStyle('mania')} />
-              ) : null}
-              {beatmap.mode_taiko ? (
+              )}
+              {beatmap.mode_taiko && (
                 <img alt="taiko" title="Taiko" className="pill taiko" style={modePillsStyle('taiko')} />
-              ) : null}
-              {beatmap.mode_ctb ? (
+              )}
+              {beatmap.mode_ctb && (
                 <img alt="ctb" title="Catch The Beat" className="pill ctb" style={modePillsStyle('ctb')} />
-              ) : null}
+              )}
             </div>
-            {beatmap.status ? <Badge status={beatmap.status} /> : null}
+            {beatmap.status && <Badge status={beatmap.status} />}
           </div>
-        </React.Fragment>
-      ) : null}
+        </>
+      )}
     </div>
   );
 };
