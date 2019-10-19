@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { app, webContents } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
@@ -29,7 +30,10 @@ DownloadManager.register({
 
 const main = () => {
   let mainWindow = null;
-  console.log('readee');
+  if (isDev) {
+    console.log('Main process ready');
+    console.log('Waiting for dev server to show up');
+  }
 
   mainWindow = new Window({
     backgroundColor: '#121212',
