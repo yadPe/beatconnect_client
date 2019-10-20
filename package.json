@@ -9,6 +9,7 @@
   "homepage": "./",
   "scripts": {
     "start": "node scripts/start.js",
+    "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "npm run lint:prettier && npm run lint:es",
@@ -19,9 +20,9 @@
     "lint:fix:es": "eslint --fix '**/*.{js,jsx,mjs,ts,tsx}'",
     "go": "electron .",
     "dist": "npm run build && npx npx electron-builder --win --linux --x64",
-    "dist-win": "npm run build && npx electron-builder build --win --x64",
-    "dist-linux": "npm run build && npx electron-builder build --linux --x64",
-    "dist-mac": "npm run build && npx electron-builder build --mac --x64",
+    "dist:win": "npm run build && npx electron-builder build --win --x64",
+    "dist:linux": "npm run build && npx electron-builder build --linux --x64",
+    "dist:mac": "npm run build && npx electron-builder build --mac --x64",
     "dist:gh-publish": "npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
   },
@@ -116,6 +117,7 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
     "react-desktop": "^0.3.9",

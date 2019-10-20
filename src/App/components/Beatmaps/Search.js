@@ -29,22 +29,23 @@ const styles = {
   },
 };
 
-const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
+const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   const [search, setSearch] = useState(lastSearch);
-  const searchOnEnter = e => {
-    if (e.keyCode === 13) {
-      execSearch();
-    }
-  };
   const execSearch = force => {
     if (!_.isEqual(lastSearch, search) || force) {
       askBeatconnect(search, undefined, true);
+    }
+  };
+  const searchOnEnter = e => {
+    if (e.keyCode === 13) {
+      execSearch();
     }
   };
 
   useEffect(() => {
     if (
       beatmapCount === 0 ||
+      skeletonBeatmaps ||
       (lastSearch.status !== search.status ||
         lastSearch.mode !== search.mode ||
         lastSearch.hideDownloaded !== search.hideDownloaded)
@@ -111,6 +112,8 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
         className={classes.hideDownloaded}
         onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
         title="Hide downloaded beatmaps"
+        role="button"
+        tabIndex={0}
       >
         {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.color : null)}
       </div>
@@ -126,6 +129,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount }) => {
 const mapStateToProps = ({ main }) => ({
   lastSearch: main.searchResults.search,
   beatmapCount: main.searchResults.beatmaps.length,
+  skeletonBeatmaps: main.searchResults.beatmaps[0] === 0,
   isBusy: main.fetchingBeatmaps.isFetching,
 });
 export default connect(mapStateToProps)(injectSheet(styles)(Search));

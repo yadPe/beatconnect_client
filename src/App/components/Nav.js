@@ -1,4 +1,4 @@
-import React, { useState, cloneElement } from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import Bot from './Bot';
 import Beatmaps from './Beatmaps';
