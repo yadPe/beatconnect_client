@@ -23,7 +23,6 @@ const Start = ({ classes, connected, theme, irc, osuApi }) => {
         disabled={notReady}
         checked={connected}
         onChange={start}
-        theme={theme}
         background={'#505050'}
         margin={'auto 10px auto 0'}
       />

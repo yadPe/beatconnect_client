@@ -22,7 +22,7 @@ import { TasksContext } from '../../../Providers/TasksProvider';
 const Settings = ({ userPreferences, theme }) => {
   const history = useContext(HistoryContext);
   const { add, tasks } = useContext(TasksContext);
-  const { irc, osuApi, prefix, autoImport, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
+  const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selected, setSelected] = useState('Bot');
   useEffect(() => {
     ConfLoader.save();
@@ -53,7 +53,6 @@ const Settings = ({ userPreferences, theme }) => {
     });
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
       if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Finished');
-      //args = JSON.parse(args)
       if (args.err) console.error(`Error while scannings song: ${args.err}`);
       else {
         history.set({ ...history.history, ...args });
@@ -161,7 +160,7 @@ const Settings = ({ userPreferences, theme }) => {
       <NavPanelItem
         title={setting}
         theme={theme}
-        background={theme.primary}
+        background={theme.palette.primary.dark}
         selected={selected === setting}
         onSelect={() => setSelected(setting)}
         padding="10px 20px"
@@ -175,12 +174,17 @@ const Settings = ({ userPreferences, theme }) => {
 
   return (
     <div className="menuContainer Settings" style={{ transition: 'background 0ms', textAlign: 'center' }}>
-      <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground="#1d1d1d" theme={theme}>
+      <NavPanel
+        paneExpandedLength={150}
+        defaultIsPanelExpanded
+        sidePanelBackground={theme.palette.secondary.dark}
+        theme={theme}
+      >
         {renderItems()}
       </NavPanel>
     </div>
   );
 };
 
-const mapStateTotProps = ({ settings, main }) => ({ ...settings, theme: main.theme });
+const mapStateTotProps = ({ settings }) => ({ ...settings });
 export default connect(mapStateTotProps)(Settings);

@@ -34,7 +34,7 @@ const DownloadBeatmapBtn = ({ theme, url, infos, autoDl }) => {
   }, [autoDl]);
 
   return (
-    <Button push color={theme.color} onClick={downloadBeatmap}>
+    <Button push color={theme.palette.primary.accent} onClick={downloadBeatmap}>
       {isDownloading ? (
         <div>
           <ProgressCircle className="ProgressCircle" color="#fff" size={28} />

@@ -16,14 +16,6 @@ module.exports = {
     osuApi: {
       key: '',
     },
-    theme: {
-      style: 'dark',
-      primary: '#121212',
-      secondary: '#2a2a2a',
-      warning: '#ed2828',
-      color: '#00965f',
-      title: 'Beatconnect',
-    },
   },
   beatconnectAPI: {
     key: 'b3z8gl9pzt7iqa89',

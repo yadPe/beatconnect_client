@@ -8,17 +8,11 @@ const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
   const error = errors.filter(id => id === reqMatchId).length === 1;
   return (
     <React.Fragment>
-      <TextInput
-        theme={theme.style}
-        color={theme.color}
-        placeholder="Match ID"
-        value={reqMatchId}
-        onChange={e => setReqMatchId(e.target.value)}
-      />
+      <TextInput placeholder="Match ID" value={reqMatchId} onChange={e => setReqMatchId(e.target.value)} />
       <Button
         className="btn"
         push
-        color={theme.color}
+        color={theme.palette.primary.accent}
         hidden={!(connected && connected !== 'connecting')}
         onClick={() => bot.joinMatch(reqMatchId)}
       >
@@ -29,7 +23,9 @@ const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
           <p style={{ fontSize: '50%' }}>
             Unable to connect.. Either the match doesn't exist or the bot hasn't been added as a match referee yet.
           </p>
-          <p style={{ fontSize: '50%', userSelect: 'text', backgroundColor: '#2a2a2a' }}>!mp addref {ircUsername}</p>
+          <p style={{ fontSize: '50%', userSelect: 'text', backgroundColor: theme.palette.primary.main }}>
+            !mp addref {ircUsername}
+          </p>
         </React.Fragment>
       ) : null}
     </React.Fragment>

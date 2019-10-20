@@ -2,6 +2,9 @@
 import React, { useState, useEffect, memo, useRef } from 'react';
 import { Button, Text } from 'react-desktop/windows';
 import { shell } from 'electron';
+import { useTheme, withTheme } from 'theming';
+import InjectSheet from 'react-jss';
+import { compose } from 'redux';
 import Cover from './Cover';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
@@ -11,8 +14,26 @@ import Badge from '../Badge';
 
 const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
 
-const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
-  // console.log('updated', beatmap)
+const styles = {
+  Beatmap: {
+    width: ({ width }) => width || '80%',
+    background: ({ theme }) => theme.palette.primary.main,
+    margin: '1.3vh auto',
+    paddingBottom: '10px',
+    filter: 'brightness(0.95)',
+    transitionProperty: 'filter !important',
+    transitionTimingFunction: 'linear !important',
+    '&:hover': {
+      filter: 'brightness(1.1)',
+    },
+    '& > div': {
+      justifyContent: 'center',
+    },
+  },
+};
+
+const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
+  const theme = useTheme();
   const getDownloadUrl = ({ id, unique_id }) => {
     return `https://beatconnect.io/b/${id}/${unique_id}`;
   };
@@ -24,13 +45,10 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
 
   const style = isPlaying
     ? {
-        width: width || '',
         filter: `brightness(${brightness})`,
         transitionDuration: `${50}ms`,
       }
-    : {
-        width: width || '',
-      };
+    : {};
 
   const modePillsStyle = mode => ({
     width: 20,
@@ -56,7 +74,7 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
   }, []);
 
   return (
-    <div className="Beatmap" style={style}>
+    <div className={classes.Beatmap} style={style}>
       {beatmap && (
         <>
           <Cover
@@ -76,7 +94,7 @@ const Beatmap = ({ theme, beatmap, width, noFade, autoDl }) => {
           />
           <Button
             push
-            color={theme.color}
+            color={theme.palette.primary.accent}
             onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmap))}
             hidden={!beatmap.title}
           >
@@ -117,4 +135,7 @@ const areEqual = (prevProps, nextProps) => {
   }
   return false;
 };
-export default memo(Beatmap, areEqual);
+export default compose(
+  withTheme,
+  InjectSheet(styles),
+)(memo(Beatmap, areEqual));

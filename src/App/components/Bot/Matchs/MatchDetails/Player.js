@@ -7,7 +7,7 @@ const styles = {
     padding: 0,
     listStyle: 'none',
     display: 'flex',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: ({ theme }) => theme.palette.primary.main,
     margin: '0 auto',
     width: '100%',
     transitionProperty: 'filter',
@@ -35,7 +35,7 @@ const Player = ({ classes, theme, playerInfos, match }) => {
         <Button
           className="btn"
           push
-          color={theme.color}
+          color={theme.palette.primary.accent}
           onClick={() => match.makeHost(playerInfos)}
           hidden={match.host === playerInfos}
         >
@@ -43,7 +43,7 @@ const Player = ({ classes, theme, playerInfos, match }) => {
         </Button>
       </li>
       <li>
-        <Button className="btn" push color={theme.color} onClick={() => match.kick(playerInfos)}>
+        <Button className="btn" push color={theme.palette.primary.accent} onClick={() => match.kick(playerInfos)}>
           <Text color="fff">Kick</Text>
         </Button>
       </li>

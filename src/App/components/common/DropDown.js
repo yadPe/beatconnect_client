@@ -1,5 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import { compose } from 'redux';
+import { withTheme } from 'theming';
 
 const styles = {
   DropDown: {
@@ -14,7 +16,7 @@ const styles = {
       outline: 'none !important',
       borderWidth: '2px',
       borderStyle: 'solid',
-      borderColor: props => props.color,
+      borderColor: ({ theme }) => theme.palette.primary.accent,
       backgroundColor: 'white',
       color: 'black',
     },
@@ -40,4 +42,7 @@ const DropDown = ({ classes, className, options, onSelect, onBlur, value }) => {
   );
 };
 
-export default injectSheet(styles)(DropDown);
+export default compose(
+  withTheme,
+  injectSheet(styles),
+)(DropDown);

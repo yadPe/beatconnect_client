@@ -25,7 +25,7 @@ const styles = {
     textAlign: 'center',
     fontSize: 'calc(10px + 2vmin)',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: ({ theme }) => theme.palette.primary.dark,
     textRendering: 'optimizelegibility',
     fontFamily: 'Open Sans, sans - serif',
     height: 'calc(100vh - 79px)',
@@ -35,10 +35,10 @@ const styles = {
       width: '8px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#2a2a2a',
+      background: ({ theme }) => theme.palette.primary.main,
     },
     '&::-webkit-scrollbar-thumb': {
-      background: '#00965f',
+      background: ({ theme }) => theme.palette.primary.accent,
     },
   },
 };

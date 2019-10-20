@@ -35,7 +35,7 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
           <PreviewBeatmapBtn theme={theme} beatmapSetId={id} />
           <Button
             push
-            color={theme.color}
+            color={theme.palette.primary.accent}
             onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}
             hidden={false}
           >
@@ -43,7 +43,12 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
           </Button>
         </div>
         <div className={classes.rightControls}>
-          <Button push color={theme.color} onClick={toggleDownload} hidden={!(status === 'downloading')}>
+          <Button
+            push
+            color={theme.palette.primary.accent}
+            onClick={toggleDownload}
+            hidden={!(status === 'downloading')}
+          >
             {renderIcons(isPaused ? 'Download' : 'Pause', theme.style)}
           </Button>
           <Button push color={theme.warning} onClick={cancel} hidden={status === 'downloaded'}>

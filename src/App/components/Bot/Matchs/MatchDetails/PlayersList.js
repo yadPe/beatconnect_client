@@ -5,22 +5,21 @@ import Player from './Player';
 const styles = {
   PlayersList: {
     height: '42vmin',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: ({ theme }) => theme.palette.primary.main,
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
       width: '8px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#2a2a2a',
+      background: ({ theme }) => theme.palette.primary.main,
     },
     '&::-webkit-scrollbar-thumb': {
-      background: '#00965f',
+      background: ({ theme }) => theme.palette.primary.accent,
     },
   },
 };
 
 const PlayersList = ({ theme, classes, players, match }) => {
-  //const playertest = new Array(16).fill('BOBOXX');
   return (
     <div className={classes.PlayersList}>
       {players.map(player => (

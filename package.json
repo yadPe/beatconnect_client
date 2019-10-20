@@ -133,6 +133,7 @@
     "string.prototype.startswith": "^0.2.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
+    "theming": "^3.2.0",
     "ts-pnp": "1.1.2",
     "uleb128": "^1.0.1",
     "underscore": "^1.9.1",
