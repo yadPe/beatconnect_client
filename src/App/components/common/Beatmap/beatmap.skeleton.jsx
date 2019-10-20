@@ -1,5 +1,7 @@
 import React from 'react';
 import InjectSheet from 'react-jss';
+import { compose } from 'redux';
+import { withTheme } from 'theming';
 import Skeleton from '../skeleton';
 
 const styles = {
@@ -7,7 +9,7 @@ const styles = {
     margin: '1.3vh auto',
     height: '222px',
     width: '90%',
-    background: '#2a2a2a',
+    background: ({ theme }) => theme.palette.primary.main,
   },
   cover: {
     height: '130px',
@@ -20,7 +22,7 @@ const styles = {
     background: '#5c5c5c',
   },
   buttons: {
-    margin: '25px auto 0 auto',
+    margin: '15px auto 0 auto',
     height: '30px',
     width: '25%',
     background: '#5c5c5c',
@@ -40,4 +42,7 @@ const BeatmapSkeleton = ({ classes, style }) => {
   );
 };
 
-export default InjectSheet(styles)(BeatmapSkeleton);
+export default compose(
+  withTheme,
+  InjectSheet(styles),
+)(BeatmapSkeleton);

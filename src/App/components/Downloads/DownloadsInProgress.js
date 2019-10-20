@@ -40,7 +40,7 @@ const DownloadsInProgress = ({ theme, classes }) => {
           </React.Fragment>
         ) : null}
 
-        <Button push color={theme.color} onClick={toggleDownload}>
+        <Button push color={theme.palette.primary.accent} onClick={toggleDownload}>
           {renderIcons(isPaused ? 'Download' : 'Pause', theme.style)}
         </Button>
         <Button push color={theme.warning} onClick={cancelDownload}>

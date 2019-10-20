@@ -28,7 +28,7 @@ const ControlsBar = ({ classes, theme, match, close }) => {
   return (
     <ul className={classes.ControlsBar} role="navigation">
       <li>
-        <Button className="btn back" push color={theme.primary} onClick={() => close()}>
+        <Button className="btn back" push color={theme.palette.primary.dark} onClick={() => close()}>
           {renderIcons('Back', theme.style)}
         </Button>
       </li>
@@ -36,12 +36,18 @@ const ControlsBar = ({ classes, theme, match, close }) => {
         <p className={classes.title}>{match.matchName}</p>
       </li>
       <li>
-        <Button push color={theme.color} onClick={match.toggleAutoBeat}>
+        <Button push color={theme.palette.primary.accent} onClick={match.toggleAutoBeat}>
           {`AutoBeat: ${match.autoBeat ? ' on' : 'off'}`}
         </Button>
       </li>
       <li>
-        <Button className="btn startMatch" push color={theme.color} onClick={() => match.start()} hidden={!match}>
+        <Button
+          className="btn startMatch"
+          push
+          color={theme.palette.primary.accent}
+          onClick={() => match.start()}
+          hidden={!match}
+        >
           Start
         </Button>
       </li>

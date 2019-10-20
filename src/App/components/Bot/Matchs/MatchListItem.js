@@ -10,7 +10,7 @@ const styles = {
     padding: 0,
     listStyle: 'none',
     display: 'flex',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: ({ theme }) => theme.palette.primary.main,
     userSelect: 'none',
     '&:hover': {
       filter: 'brightness(1.1)',
@@ -24,9 +24,8 @@ const styles = {
     fontSize: '50%',
   },
 };
-const MatchListItem = ({ classes, match, theme, setSelected }) => {
+const MatchListItem = ({ classes, match, setSelected }) => {
   return (
-    // setSelected(<MatchDetails match={match} theme={theme} close={() => setSelected(null)} />)
     <ul className={classes.MatchListItem} onClick={() => setSelected(match.id)}>
       <li>
         <Cover url={`https://b.ppy.sh/thumb/${match.beatmapset_id}.jpg`} height="60px" width="10vmin" />

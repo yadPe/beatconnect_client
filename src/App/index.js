@@ -1,12 +1,13 @@
 import React from 'react';
-import Nav from './components/Nav';
-import { connect } from 'react-redux';
 import { TitleBar } from 'react-desktop/windows';
 import { remote } from 'electron';
+import { useTheme } from 'theming';
+import Nav from './components/Nav';
 import './App.css';
 
-const App = ({ theme }) => {
+const App = () => {
   const window = remote.getCurrentWindow();
+  const theme = useTheme();
 
   return (
     <div className="App">
@@ -27,5 +28,4 @@ const App = ({ theme }) => {
   );
 };
 
-const mapStateToProps = ({ main }) => ({ theme: main.theme });
-export default connect(mapStateToProps)(App);
+export default App;

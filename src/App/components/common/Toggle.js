@@ -1,5 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import { compose } from 'redux';
+import { withTheme } from 'theming';
 
 const styles = {
   Toggle: {
@@ -10,7 +12,8 @@ const styles = {
     borderRadius: '25px',
     margin: props => props.margin,
     // backgroundColor: '#989898',
-    backgroundColor: props => (props.checked ? props.theme.color : props.background || '#2a2a2a'),
+    backgroundColor: props =>
+      props.checked ? props.theme.palette.primary.accent : props.background || props.theme.palette.primary.main,
     opacity: props => (props.disabled ? 0.5 : 1),
   },
   input: {
@@ -30,11 +33,21 @@ const styles = {
 
 const Toggle = ({ classes, onChange, checked, disabled }) => {
   return (
-    <label className={classes.Toggle}>
-      <input className={classes.input} type="checkbox" onChange={onChange} checked={checked} disabled={disabled} />
+    <label className={classes.Toggle} htmlFor="checkBox">
+      <input
+        className={classes.input}
+        id="checkBox"
+        type="checkbox"
+        onChange={onChange}
+        checked={checked}
+        disabled={disabled}
+      />
       <div className={classes.div} />
     </label>
   );
 };
 
-export default injectSheet(styles)(Toggle);
+export default compose(
+  withTheme,
+  injectSheet(styles),
+)(Toggle);

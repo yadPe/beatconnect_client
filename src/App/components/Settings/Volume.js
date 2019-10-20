@@ -16,7 +16,7 @@ const Volume = ({ value, onChange }) => {
   };
   return (
     <React.Fragment>
-      <RangeSlider min="0" max="100" value={value} onChange={handleChange} theme={{ color: 'rgb(0, 150, 95)' }} />
+      <RangeSlider min="0" max="100" value={value} onChange={handleChange} />
     </React.Fragment>
   );
 };

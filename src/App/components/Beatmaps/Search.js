@@ -55,7 +55,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
 
   return (
     <div className={classes.Search}>
-      <Button className="btn" push color={theme.color} onClick={execSearch}>
+      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch}>
         {isBusy ? (
           <ProgressCircle className="ProgressCircle" color="#fff" size={25} />
         ) : (
@@ -79,8 +79,6 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         }}
       />
       <TextInput
-        theme={theme.style}
-        color={theme.color}
         placeholder="Search"
         value={search.query}
         onChange={e => setSearch({ ...search, query: e.target.value })}
@@ -96,7 +94,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
             style={{ margin: 'auto 15px' }}
             onClick={() => setIsShown(!isShown)}
           >
-            {renderIcons('Filter', theme.style, isShown ? theme.color : null)}
+            {renderIcons('Filter', theme.style, isShown ? theme.palette.primary.accent : null)}
           </div>
         )}
         content={hide => (
@@ -115,10 +113,9 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         role="button"
         tabIndex={0}
       >
-        {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.color : null)}
+        {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.palette.primary.accent : null)}
       </div>
       {/* <Toggle
-        theme={theme}
         checked={search.hideDownloaded}
         onChange={e => setSearch({ ...search, hideDownloaded: e.target.checked })}
       /> */}

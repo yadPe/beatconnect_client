@@ -23,7 +23,7 @@ const styles = {
     display: 'flex',
     flex: 3,
     flexWrap: 'wrap',
-    border: '1px solid #2a2a2a',
+    border: ({ theme }) => `1px solid ${theme.palette.primary.main}`,
     borderRadius: '5px',
     margin: '15px 0',
     '&:hover': {
@@ -72,8 +72,6 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     <div key={item.name} className={classes[item.name.replace(/ /g, '')]}>
                       <p>{item.name}</p>
                       <TextInput
-                        theme={theme.style}
-                        color={theme.color}
                         placeholder={item.name}
                         value={item.value}
                         type={item.pass ? 'password' : null}
@@ -90,13 +88,13 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           {item.description}
                         </p>
                       </div>
-                      <Toggle theme={theme} checked={item.value} onChange={e => item.action(e.target.checked)} />
+                      <Toggle checked={item.value} onChange={e => item.action(e.target.checked)} />
                     </div>
                   );
                 case 'Button':
                   return (
                     <div style={{ textAlign: 'start' }}>
-                      <Button className="btn" push color={theme.color} onClick={item.action}>
+                      <Button className="btn" push color={theme.palette.primary.accent} onClick={item.action}>
                         {item.name}
                       </Button>
                       <div style={{ fontSize: '0.8rem', margin: '0px 8px' }}>{item.description}</div>
@@ -144,7 +142,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           {item.description}
                         </p>
                       </div>
-                      <CheckBox onChange={item.action} checked={item.value} theme={theme} disabled={item.disabled} />
+                      <CheckBox onChange={item.action} checked={item.value} disabled={item.disabled} />
                     </div>
                   );
                 default:

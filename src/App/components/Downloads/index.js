@@ -21,7 +21,7 @@ const Downloads = ({ theme, setHeaderContent }) => {
     <NavPanelItem
       title={title}
       theme={theme}
-      background={theme.primary}
+      background={theme.palette.primary.dark}
       selected={selected === title}
       onSelect={() => setSelected(title)}
       padding="10px 20px"
@@ -31,14 +31,17 @@ const Downloads = ({ theme, setHeaderContent }) => {
   );
 
   return (
-    <React.Fragment>
-      <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
-        <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground="#1d1d1d" theme={theme}>
-          {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue} />)}
-          {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
-        </NavPanel>
-      </div>
-    </React.Fragment>
+    <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
+      <NavPanel
+        paneExpandedLength={150}
+        defaultIsPanelExpanded
+        sidePanelBackground={theme.palette.secondary.dark}
+        theme={theme}
+      >
+        {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue} />)}
+        {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
+      </NavPanel>
+    </div>
   );
 };
 
