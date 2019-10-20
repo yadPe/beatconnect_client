@@ -17,9 +17,15 @@ const styles = {
 
 const Packs = ({ classes, theme }) => {
   return (
-    <div className={classes.Packs} style={{ gridArea: 'year' }}>
-      <Group name="Pack of the month" packs={[testPack]} theme={theme} />
-    </div>
+    <>
+      <div>
+        <h2>Welcome to the packs section</h2>
+        <h4>Here you will find collections of all ranked beatmaps grouped mode for the last weeks, months and years</h4>
+      </div>
+      <div className={classes.Packs} style={{ gridArea: 'year' }}>
+        <Group name="Pack of the month" packs={[testPack]} theme={theme} />
+      </div>
+    </>
   );
 };
 
