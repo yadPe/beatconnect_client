@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import { Provider } from 'react-redux';
+import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
@@ -10,19 +10,22 @@ import DownloadQueueProvider from './Providers/DownloadQueueProvider';
 import AudioPlayerProvider from './Providers/AudioPlayerProvider';
 import ErrorBoundary from './ErrorBoundary';
 import TasksProvider from './Providers/TasksProvider';
+import ThemeProvider from './Providers/ThemeProvider';
 
 ReactDOM.render(
   <ErrorBoundary>
     <HistoryProvider>
-      <Provider store={store}>
-        <DownloadQueueProvider>
-          <AudioPlayerProvider>
-            <TasksProvider>
-              <App />
-            </TasksProvider>
-          </AudioPlayerProvider>
-        </DownloadQueueProvider>
-      </Provider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <DownloadQueueProvider>
+            <AudioPlayerProvider>
+              <TasksProvider>
+                <App />
+              </TasksProvider>
+            </AudioPlayerProvider>
+          </DownloadQueueProvider>
+        </Provider>
+      </ThemeProvider>
     </HistoryProvider>
   </ErrorBoundary>,
   document.getElementById('root'),
