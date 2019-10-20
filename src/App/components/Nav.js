@@ -1,5 +1,6 @@
 import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
+import { useTheme } from 'theming';
 import Bot from './Bot';
 import Beatmaps from './Beatmaps';
 import Settings from './Settings';
@@ -9,15 +10,15 @@ import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
 import store from '../../store';
 
-const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
-  // const [selected, setSelected] = useState(activeSection);
+const Nav = ({ connected, bot, sidePanelExpended, activeSection }) => {
+  const theme = useTheme();
 
   const renderItem = (title, content) => (
     <NavPanelItem
       title={title}
       icon={renderIcon(title, theme.style)}
       theme={theme}
-      background={theme.primary}
+      background={theme.palette.primary.dark}
       selected={activeSection === title}
       onSelect={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: title })}
       padding="10px 20px"
@@ -37,7 +38,7 @@ const Nav = ({ theme, connected, bot, sidePanelExpended, activeSection }) => {
       expendable
       theme={theme}
     >
-      {renderItem('Beatmaps', <Beatmaps theme={theme} />)}
+      {renderItem('Beatmaps', <Beatmaps />)}
       {renderItem('Downloads', <Downloads theme={theme} />)}
       {renderItem('Bot', <Bot connected={connected} bot={bot} theme={theme} />)}
       {renderItem('Settings', <Settings theme={theme} />)}

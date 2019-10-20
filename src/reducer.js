@@ -15,15 +15,6 @@ const initialState = {
   errors: [],
   downloadQueue: [],
   fetchingBeatmaps: {},
-  theme: {
-    style: 'dark',
-    dark: true,
-    primary: '#121212',
-    secondary: '#2a2a2a',
-    warning: '#ed2828',
-    color: '#00965f',
-    title: 'Beatconnect',
-  },
 };
 
 export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {

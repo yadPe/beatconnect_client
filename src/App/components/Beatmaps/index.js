@@ -9,6 +9,7 @@ import askBeatconnect from './askBeatconnect';
 import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
+import { useTheme } from 'theming';
 
 const styles = {
   Beatmaps: {
@@ -16,7 +17,8 @@ const styles = {
   },
 };
 
-const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, panelExpended }) => {
+const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpended }) => {
+  const theme = useTheme();
   const gridContainer = useRef(null);
   const [autoDl, setAutoDl] = useState(false);
   const history = useContext(HistoryContext);
@@ -69,7 +71,6 @@ const Beatmaps = ({ theme, searchResults, classes, setHeaderContent, window, pan
           noFade
           width="90%"
           autoDl={autoDl && hideDownloaded}
-          theme={theme}
           beatmap={beatmap}
           key={`beatmap${beatmap.beatmapset_id || beatmap.id}`}
         />

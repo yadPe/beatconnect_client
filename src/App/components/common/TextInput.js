@@ -1,5 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import { compose } from 'redux';
+import { withTheme } from 'theming';
 
 const styles = {
   TextInput: {
@@ -7,14 +9,14 @@ const styles = {
     lineHeight: '22px',
     border: '2px solid rgba(255, 255, 255, 0.41)',
     backgroundColor: 'transparent',
-    color: 'white',
+    color: ({ theme }) => (theme.dark ? 'white' : 'black'),
     transition: '240ms border, 100ms backgroundColor, 100ms color',
     '&:focus': {
       outline: 'none !important',
       borderWidth: '2px',
       borderStyle: 'solid',
-      borderColor: props => props.color,
-      backgroundColor: 'white',
+      borderColor: props => props.theme.palette.primary.accent,
+      backgroundColor: ({ theme }) => (theme.dark ? 'white' : 'black'),
       color: 'black',
     },
     '&:hover': {
@@ -36,4 +38,7 @@ const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onB
   />
 );
 
-export default injectSheet(styles)(TextInput);
+export default compose(
+  withTheme,
+  injectSheet(styles),
+)(TextInput);

@@ -74,7 +74,7 @@ const styles = {
     margin: 0,
     height: props => (props.selected ? '40px' : '0px'),
     width: '3px',
-    backgroundColor: props => props.theme.color,
+    backgroundColor: ({ theme }) => theme.palette.primary.accent,
   },
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
@@ -82,7 +82,7 @@ const styles = {
   },
   tooltiptext: {
     width: '120px',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: ({ theme }) => theme.palette.primary.main,
     color: '#fff',
     borderRadius: '6px',
     position: 'absolute',

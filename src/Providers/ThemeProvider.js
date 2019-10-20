@@ -10,12 +10,18 @@ class AppThemeProvider extends Component {
       theme: {
         style: 'dark',
         dark: true,
-        primary: '#000',
-        secondary: '#2a2a2a',
         warning: '#ed2828',
-        color: '#00965f',
         title: 'Beatconnect',
-        colors: {},
+        palette: {
+          primary: {
+            dark: '#000',
+            main: '#1d1d1d',
+            accent: '#00965f',
+          },
+          secondary: {
+            dark: '#121212',
+          },
+        },
       },
       setTheme: this.setTheme.bind(this),
     };
