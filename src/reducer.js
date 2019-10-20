@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 const initialState = {
   connected: false,
-  activeSection: 'Beatmaps',
+  activeSection: 'Packs',
   mpMatchs: [],
   bot: {},
   BeatconnectApi: {},
