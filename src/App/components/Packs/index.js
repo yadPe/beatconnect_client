@@ -1,7 +1,9 @@
 import React from 'react';
 import injectSheet from 'react-jss';
 import Group from './Group';
-import testPack from './testPack';
+import weekly from './weekly.json';
+import monthly from './monthly.json';
+import yearly from './yearly.json';
 
 const styles = {
   Packs: {
@@ -29,13 +31,13 @@ const Packs = ({ classes, theme }) => {
       </div>
       <div className={classes.Packs}>
         <div style={{ gridArea: 'weeks' }}>
-          <Group name="Last week" packs={testPack} theme={theme} />
+          <Group name="Last week" packs={weekly} theme={theme} />
         </div>
         <div style={{ gridArea: 'months' }}>
-          <Group name="Past months" packs={testPack} theme={theme} />
+          <Group name="Past months" packs={monthly} theme={theme} />
         </div>
         <div style={{ gridArea: 'years' }}>
-          <Group name="Past years" packs={testPack} theme={theme} />
+          <Group name="Past years" packs={yearly} theme={theme} />
         </div>
       </div>
     </>

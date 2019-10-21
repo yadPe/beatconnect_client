@@ -6,8 +6,11 @@ const styles = {
   Group: {},
   wrapper: {
     // width: 'min(calc(100% / 180) * 180)',
-    overflowY: 'scroll',
+    overflowX: 'scroll',
     scrollSnapType: 'madatory',
+    '&::-webkit-scrollbar': {
+      width: '0px',
+    },
   },
   packsContainer: {
     minWidth: 'max-content',

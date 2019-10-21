@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import InjectSheet from 'react-jss';
+import { HistoryContext } from '../../../../Providers/HistoryProvider';
 
 const styles = {
   pack: {
@@ -16,13 +17,25 @@ const styles = {
       backgroundColor: '#000',
     },
   },
+  percentOwned: {
+    margin: 0,
+    position: 'absolute',
+    bottom: 0,
+    right: 3,
+  },
 };
 
-const BeatmapsPack = ({ classes, pack }) => {
-  console.log(pack);
+const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type } }) => {
+  const packNumber = name.match(/#\S+/g) || name.match(/20\S+/g);
+  const history = useContext(HistoryContext);
+  const ownedBeatmapsPercentage = Math.round(
+    beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
+  );
+  // console.log(pack);
   return (
     <div className={classes.pack}>
-      <p>{pack.name}</p>
+      <p>{packNumber}</p>
+      <p className={classes.percentOwned}>{`${ownedBeatmapsPercentage}`}%</p>
     </div>
   );
 };
