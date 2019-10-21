@@ -4,6 +4,7 @@ import InjectSheet from 'react-jss';
 const styles = {
   pack: {
     marginRight: '1rem',
+    display: 'inline-block',
     color: 'black',
     position: 'relative',
     backgroundColor: '#fffaf3',

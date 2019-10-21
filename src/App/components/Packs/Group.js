@@ -4,16 +4,22 @@ import BeatmapsPack from './BeatmapsPack';
 
 const styles = {
   Group: {},
+  wrapper: {
+    // width: 'min(calc(100% / 180) * 180)',
+    overflowY: 'scroll',
+    scrollSnapType: 'madatory',
+  },
   packsContainer: {
-    minWidth: '100%',
+    minWidth: 'max-content',
     minHeight: '200px',
-    display: 'flex',
+    // display: 'flex',
+
     // minWidth: 'min-content',
   },
   packs: {
-    display: 'flex',
+    // display: 'flex',
     flex: 1,
-    overflow: 'auto',
+    // overflow: 'auto',
   },
 };
 
@@ -22,11 +28,13 @@ const Group = ({ classes, classeName, name, packs, theme }) => {
   return (
     <div className={`${classes.Group} ${classeName}`}>
       <h3>{name}</h3>
-      <div className={classes.packsContainer}>
-        <div className={classes.packs}>
+      <div className={classes.wrapper}>
+        <div className={classes.packsContainer}>
+          {/* <div className={classes.packs}> */}
           {packs.map(pack => (
             <BeatmapsPack pack={pack} theme={theme} />
           ))}
+          {/* </div> */}
         </div>
       </div>
     </div>
