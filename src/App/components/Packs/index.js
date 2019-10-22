@@ -31,7 +31,7 @@ const Packs = ({ classes, theme }) => {
       </div>
       <div className={classes.Packs}>
         <div style={{ gridArea: 'weeks' }}>
-          <Group name="Last week" packs={weekly} theme={theme} />
+          <Group name="Last weeks" packs={weekly} theme={theme} />
         </div>
         <div style={{ gridArea: 'months' }}>
           <Group name="Past months" packs={monthly} theme={theme} />
