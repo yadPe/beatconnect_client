@@ -1,5 +1,5 @@
-import store from '../../../store';
 import _ from 'underscore';
+import store from '../../../store';
 
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
@@ -14,7 +14,7 @@ const askBeatconnect = (search, __, resetPage) => {
     fetchingBeatmaps.abort();
     store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
   }
-  const formatQuery = query.split(' ').join('%20');
+  const formatQuery = encodeURIComponent(query);
   fetch(
     `https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status ||
       'ranked'}&m=${mode || 'all'}`,
