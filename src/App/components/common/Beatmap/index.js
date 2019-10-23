@@ -11,8 +11,7 @@ import PreviewBeatmapBtn from './PreviewBeatmapBtn';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
 import Badge from '../Badge';
-
-const reqImgAssets = require.context('../../../../assets/img', true, /\.png$/);
+import reqImgAssets from '../../../utils/reqImgAssets';
 
 const styles = {
   Beatmap: {

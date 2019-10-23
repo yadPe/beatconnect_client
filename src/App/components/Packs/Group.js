@@ -34,8 +34,8 @@ const Group = ({ classes, classeName, name, packs, theme }) => {
       <div className={classes.wrapper}>
         <div className={classes.packsContainer}>
           {/* <div className={classes.packs}> */}
-          {packs.map(pack => (
-            <BeatmapsPack pack={pack} theme={theme} />
+          {packs.map((pack, i) => (
+            <BeatmapsPack pack={pack} theme={theme} index={i} />
           ))}
           {/* </div> */}
         </div>
