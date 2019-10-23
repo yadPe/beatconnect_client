@@ -99,7 +99,7 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
-    "electron-download-manager": "^2.1.2",
+    "electron-download-manager": "git+https://github.com/yadPe/electron-download-manager.git",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.7",
     "electron-updater": "^4.1.2",
