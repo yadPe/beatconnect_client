@@ -6,7 +6,7 @@
     "type": "weekly",
     "date_from": "2019-10-21T00:00:00",
     "date_to": "2019-10-27T00:00:00",
-    "mode": "std",
+    "mode": "taiko",
     "beatmapsets": [
       { "id": 958005, "artist": "Enter Shikari", "title": "Rat Race", "unique_id": "eByQ7oMr" },
       { "id": 544412, "artist": "SID", "title": "Uso (TV Size)", "unique_id": "uUb7oX09" },
@@ -116,7 +116,7 @@
     "type": "weekly",
     "date_from": "2019-10-07T00:00:00",
     "date_to": "2019-10-13T00:00:00",
-    "mode": "std",
+    "mode": "ctb",
     "beatmapsets": [
       {
         "id": 1024028,
@@ -221,7 +221,7 @@
     "type": "weekly",
     "date_from": "2019-09-30T00:00:00",
     "date_to": "2019-10-06T00:00:00",
-    "mode": "std",
+    "mode": "mania",
     "beatmapsets": [
       { "id": 995539, "artist": "Camellia", "title": "Clouds in the Blue", "unique_id": "hiZKm08k" },
       { "id": 994994, "artist": "gmtn. (witch's slave)", "title": "trappola bewitching", "unique_id": "8Q9N5s5K" },

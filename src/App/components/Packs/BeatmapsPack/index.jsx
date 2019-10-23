@@ -40,19 +40,17 @@ const styles = {
     display: 'inline-block',
     color: 'white',
     position: 'relative',
-    // backgroundColor: palette[Math.floor(Math.random() * palette.length)],
     backgroundColor: '#fffaf3',
     height: '180px',
     width: '180px',
     borderRadius: '4px',
-    // backgroundImage: ({ pack }) => `url(${reqImgAssets(`./mode_${pack.mode}.png`)})`,
-    // backgroundPosition: 'bottom 40% right 30%',
-    // backgroundSize: '78px',
-    // backgroundRepeat: 'no-repeat',
-    '&:hover': {},
-    '&::after': {
-      backgroundColor: '#000',
+    opacity: 0.1,
+    '&:hover': {
+      opacity: 1,
     },
+    // '&::after': {
+    //   backgroundColor: '#000',
+    // },
     '& > *': {
       textTransform: 'uppercase',
       display: 'inline-block',
@@ -105,7 +103,15 @@ const styles = {
     },
   },
   monthly: {
-    '& > .periodTitle': {},
+    '& > .periodTitle': {
+      '-webkit-text-fill-color': 'transparent',
+      '-webkit-text-stroke-width': '1px',
+      '-webkit-text-stroke-color': 'white',
+      top: '22%',
+      left: '13%',
+      fontSize: '35px',
+      fontWeight: 700,
+    },
   },
   yearly: {
     '& > .periodTitle': {
@@ -121,14 +127,13 @@ const styles = {
 };
 
 const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index }) => {
-  console.log(type);
   const packNumber = (name.match(/#\S+/g) || name.match(/20\S+/g)).toString();
-  // console.log(packNumber.substr(1).replace(/^0+(?!$)/, ''));
   const periodTitle = type === 'monthly' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
   const history = useContext(HistoryContext);
-  const ownedBeatmapsPercentage = Math.round(
-    beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
-  );
+  const ownedBeatmapsPercentage = 100;
+  // const ownedBeatmapsPercentage = Math.floor(
+  //   beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
+  // );
   // console.log(pack);
   const style =
     index === 0
@@ -136,13 +141,19 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index }) => 
       : {
           backgroundColor: colors[type].other,
         };
+
+  if (ownedBeatmapsPercentage === 100) {
+    // style.opacity = 0.3;
+  }
   return (
     <div className={`${classes.pack} ${classes[type]}`} style={style}>
       {type === 'weekly' && <p className="type">Week</p>}
-      <p className="periodTitle">{periodTitle}</p>
+      <p className="periodTitle" style={{ fontSize: `${periodTitle.length > 5 && 27}px` }}>
+        {periodTitle}
+      </p>
       <p className="status">Ranked</p>
       <p className="beatmapsCount">{`${beatmapsets.length} beatmaps`}</p>
-      <p className={classes.percentOwned}>{`${ownedBeatmapsPercentage}`}%</p>
+      <p className={classes.percentOwned}>{`${ownedBeatmapsPercentage}%`}</p>
       <div className="modeIco" />
     </div>
   );
