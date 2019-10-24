@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import InjectSheet from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import year from './yearly.json';
+import reqImgAssets from '../../utils/reqImgAssets.js';
+import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider.js';
 
 const styles = {
   wrapper: {
-    padding: '1.5rem 4rem',
+    // padding: '1.5rem 4rem',
   },
   listItem: {
     flex: '1',
     display: 'flex',
     overflow: 'hidden',
     borderBottom: '1px solid rgba(255, 255, 255, .08)',
+    '&:hover .playIco': {
+      opacity: 0.9,
+    },
   },
   thumbnail: {
     backgroundSize: 'cover',
     width: '50px',
     height: '40px',
-    marginRight: '13px',
-    marginBottom: '5px',
+    margin: '5px 15px 5px 35px',
+    position: 'relative',
+    '& .playIco': {
+      position: 'absolute',
+      content: '',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      opacity: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundImage: `url(${reqImgAssets('./play-button.png')})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: '20px',
+      cursor: 'pointer',
+    },
   },
   title: {
     display: 'flex',
@@ -28,6 +48,7 @@ const styles = {
     justifyContent: 'space-between',
     overflow: 'hidden',
     fontSize: '15pt',
+    alignItems: 'center',
   },
   artist: {
     flex: '9 1 0',
@@ -46,17 +67,34 @@ const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] }) => {
   const listWidth = windowSize.width - (panelExpended ? 150 : 48);
   const listHeight = windowSize.height - 79;
+
+  const audioPlayer = useContext(AudioPlayerContext);
+
+  const playPreview = beatmapSetId => {
+    audioPlayer.setAudio(beatmapSetId);
+  };
+
   const { beatmapsets } = pack;
-  const renderRow = ({ index, style }) => (
-    <div style={style}>
-      <div className={classes.listItem}>
-        {/* <div>{`.${index + 1}`}</div> */}
-        <div className={classes.thumbnail} style={{ backgroundImage: `url(${getThumbUrl(beatmapsets[index].id)})` }} />
-        <div className={classes.title}>{beatmapsets[index].title}</div>
-        <div className={classes.artist}>{beatmapsets[index].artist}</div>
+  // optimization needed (useCallback or memo ?)
+  const renderRow = ({ index, style }) => {
+    const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
+    return (
+      <div style={style}>
+        <div className={classes.listItem}>
+          {/* <div>{`.${index + 1}`}</div> */}
+          <div
+            className={`${classes.thumbnail} thumbnail`}
+            style={{ backgroundImage: `url(${getThumbUrl(beatmapsets[index].id)})` }}
+          >
+            <div className="playIco" onClick={() => playPreview(beatmapsets[index].id)} />
+          </div>
+          <div className={classes.title}>{beatmapsets[index].title}</div>
+          <div className={classes.artist}>{beatmapsets[index].artist}</div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
   return (
     <div className={classes.wrapper}>
       <List height={listHeight} itemCount={beatmapsets.length} itemSize={50} width={listWidth}>
