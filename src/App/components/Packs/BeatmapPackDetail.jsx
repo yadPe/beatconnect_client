@@ -15,7 +15,8 @@ const styles = {
     flex: '1',
     display: 'flex',
     overflow: 'hidden',
-    borderBottom: '1px solid rgba(255, 255, 255, .08)',
+    // borderBottom: '1px solid rgba(255, 255, 255, .08)',
+    boxShadow: '0px 24px 1px -24px rgba(255, 255, 255, .2)',
     '&:hover .playIco': {
       opacity: 0.9,
     },
@@ -35,7 +36,6 @@ const styles = {
       height: '100%',
       opacity: 0,
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      backgroundImage: `url(${reqImgAssets('./play-button.png')})`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundSize: '20px',
@@ -70,23 +70,33 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] 
 
   const audioPlayer = useContext(AudioPlayerContext);
 
-  const playPreview = beatmapSetId => {
-    audioPlayer.setAudio(beatmapSetId);
-  };
+  const playPreview = (beatmapSetId, isPlaying) =>
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId);
 
   const { beatmapsets } = pack;
   // optimization needed (useCallback or memo ?)
   const renderRow = ({ index, style }) => {
     const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
+    const wrapperStyle = {
+      backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
+    };
+    const playIcoStyle = {
+      opacity: isPlaying && 0.9,
+      backgroundImage: `url(${reqImgAssets(isPlaying ? './pause-button.png' : './play-button.png')})`,
+    };
     return (
       <div style={style}>
-        <div className={classes.listItem}>
+        <div className={classes.listItem} style={wrapperStyle}>
           {/* <div>{`.${index + 1}`}</div> */}
           <div
             className={`${classes.thumbnail} thumbnail`}
             style={{ backgroundImage: `url(${getThumbUrl(beatmapsets[index].id)})` }}
           >
-            <div className="playIco" onClick={() => playPreview(beatmapsets[index].id)} />
+            <div
+              className="playIco"
+              style={playIcoStyle}
+              onClick={() => playPreview(beatmapsets[index].id, isPlaying)}
+            />
           </div>
           <div className={classes.title}>{beatmapsets[index].title}</div>
           <div className={classes.artist}>{beatmapsets[index].artist}</div>
