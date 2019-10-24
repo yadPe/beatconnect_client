@@ -3,10 +3,12 @@ import renderIcons from '../../../utils/renderIcons';
 import { ProgressCircle, Button } from 'react-desktop/windows';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
+import { useTheme } from 'theming';
 
-const DownloadBeatmapBtn = ({ theme, url, infos, autoDl }) => {
+const DownloadBeatmapBtn = ({ url, infos, autoDl, noStyle, ...otherProps }) => {
+  const theme = useTheme();
   const { title, artist, creator, id } = infos;
-  const fullTitle = `${title} - ${artist} | ${creator}`;
+  const fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
   const history = useContext(HistoryContext);
   const { currentDownload, push, queue } = useContext(DownloadQueueContext);
   const downloaded = history.contains(id);
@@ -32,6 +34,22 @@ const DownloadBeatmapBtn = ({ theme, url, infos, autoDl }) => {
   useEffect(() => {
     if (autoDl) downloadBeatmap();
   }, [autoDl]);
+
+  if (noStyle) {
+    return (
+      <div onClick={downloadBeatmap} {...otherProps}>
+        {isDownloading ? (
+          <div>
+            <ProgressCircle className="ProgressCircle" color="#fff" size={28} />
+          </div>
+        ) : downloaded ? (
+          renderIcons('Checked', theme.style)
+        ) : (
+          renderIcons('Download', theme.style)
+        )}
+      </div>
+    );
+  }
 
   return (
     <Button push color={theme.palette.primary.accent} onClick={downloadBeatmap}>

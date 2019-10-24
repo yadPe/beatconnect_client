@@ -45,6 +45,7 @@ const styles = {
     width: '180px',
     borderRadius: '4px',
     opacity: 0.1,
+    cursor: 'pointer',
     '&:hover': {
       opacity: 1,
     },

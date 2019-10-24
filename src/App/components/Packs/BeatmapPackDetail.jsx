@@ -1,11 +1,19 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useContext } from 'react';
+import { shell } from 'electron';
 import InjectSheet from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { useTheme } from 'theming';
 import year from './yearly.json';
-import reqImgAssets from '../../utils/reqImgAssets.js';
-import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider.js';
+import reqImgAssets from '../../utils/reqImgAssets';
+import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
+import DownloadBeatmapBtn from '../common/Beatmap/DownloadBeatmapBtn';
+import { getDownloadUrl } from '../common/Beatmap';
+import renderIcons from '../../utils/renderIcons';
+import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl';
 
 const styles = {
   wrapper: {
@@ -16,9 +24,12 @@ const styles = {
     display: 'flex',
     overflow: 'hidden',
     // borderBottom: '1px solid rgba(255, 255, 255, .08)',
-    boxShadow: '0px 24px 1px -24px rgba(255, 255, 255, .2)',
+    boxShadow: '0px 24px 1px -24px rgba(255, 255, 255, .3)',
     '&:hover .playIco': {
       opacity: 0.9,
+    },
+    '& .clickable': {
+      cursor: 'pointer',
     },
   },
   thumbnail: {
@@ -39,7 +50,6 @@ const styles = {
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundSize: '20px',
-      cursor: 'pointer',
     },
   },
   title: {
@@ -60,6 +70,10 @@ const styles = {
     whiteSpace: 'nowrap',
     fontSize: '13pt',
   },
+  downloadButton: {
+    marginRight: '35px',
+    marginLeft: '15px',
+  },
 };
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
@@ -76,6 +90,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] 
   const { beatmapsets } = pack;
   // optimization needed (useCallback or memo ?)
   const renderRow = ({ index, style }) => {
+    const theme = useTheme();
     const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
     const wrapperStyle = {
       backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
@@ -87,19 +102,34 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] 
     return (
       <div style={style}>
         <div className={classes.listItem} style={wrapperStyle}>
-          {/* <div>{`.${index + 1}`}</div> */}
           <div
             className={`${classes.thumbnail} thumbnail`}
             style={{ backgroundImage: `url(${getThumbUrl(beatmapsets[index].id)})` }}
           >
             <div
-              className="playIco"
+              className="playIco clickable"
               style={playIcoStyle}
+              role="button"
               onClick={() => playPreview(beatmapsets[index].id, isPlaying)}
             />
           </div>
           <div className={classes.title}>{beatmapsets[index].title}</div>
           <div className={classes.artist}>{beatmapsets[index].artist}</div>
+          <div
+            onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmapsets[index]))}
+            role="button"
+            title="See beatmap page"
+            className="clickable"
+          >
+            {renderIcons('Search', theme.style)}
+          </div>
+          <DownloadBeatmapBtn
+            url={getDownloadUrl(beatmapsets[index])}
+            infos={beatmapsets[index]}
+            title="Download"
+            noStyle
+            className={`${classes.downloadButton} clickable`}
+          />
         </div>
       </div>
     );

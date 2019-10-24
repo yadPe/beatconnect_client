@@ -31,11 +31,10 @@ const styles = {
   },
 };
 
+export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/${id}/${unique_id}`;
+
 const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
   const theme = useTheme();
-  const getDownloadUrl = ({ id, unique_id }) => {
-    return `https://beatconnect.io/b/${id}/${unique_id}`;
-  };
   const [brightness, setBrightness] = useState(0.95);
   const [isPlaying, setIsPLaying] = useState(false);
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
@@ -86,7 +85,6 @@ const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
           {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
           <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
           <DownloadBeatmapBtn
-            theme={theme}
             autoDl={autoDl}
             url={beatconnectDlLink || getDownloadUrl(beatmap)}
             infos={{ title, artist, creator, id: beatmapset_id || id }}
