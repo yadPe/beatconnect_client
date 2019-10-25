@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import InjectSheet from 'react-jss';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 import reqImgAssets from '../../../utils/reqImgAssets';
+import BeatmapPackDetail, { Header } from '../BeatmapPackDetail';
 
 const months = [
   'January',
@@ -127,7 +128,7 @@ const styles = {
   },
 };
 
-const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index }) => {
+const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, select }) => {
   const packNumber = (name.match(/#\S+/g) || name.match(/20\S+/g)).toString();
   const periodTitle = type === 'monthly' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
   const history = useContext(HistoryContext);
@@ -146,8 +147,13 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index }) => 
   if (ownedBeatmapsPercentage === 100) {
     // style.opacity = 0.3;
   }
+
+  const handleClick = () =>
+    select({
+      pack: { beatmapsets, name, type },
+    });
   return (
-    <div className={`${classes.pack} ${classes[type]}`} style={style}>
+    <div className={`${classes.pack} ${classes[type]}`} style={style} role="button" onClick={handleClick}>
       {type === 'weekly' && <p className="type">Week</p>}
       <p className="periodTitle" style={{ fontSize: `${periodTitle.length > 5 && 27}px` }}>
         {periodTitle}

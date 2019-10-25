@@ -26,8 +26,9 @@ const styles = {
   },
 };
 
-const Group = ({ classes, classeName, name, packs, theme }) => {
+const Group = ({ classes, classeName, name, packs, theme, select }) => {
   console.log(packs);
+  console.log(select);
   return (
     <div className={`${classes.Group} ${classeName}`}>
       <h3>{name}</h3>
@@ -35,7 +36,7 @@ const Group = ({ classes, classeName, name, packs, theme }) => {
         <div className={classes.packsContainer}>
           {/* <div className={classes.packs}> */}
           {packs.map((pack, i) => (
-            <BeatmapsPack pack={pack} theme={theme} index={i} />
+            <BeatmapsPack pack={pack} theme={theme} index={i} select={select} />
           ))}
           {/* </div> */}
         </div>

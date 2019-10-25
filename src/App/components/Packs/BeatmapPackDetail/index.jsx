@@ -1,19 +1,22 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { shell } from 'electron';
 import InjectSheet from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { useTheme } from 'theming';
-import year from './yearly.json';
-import reqImgAssets from '../../utils/reqImgAssets';
-import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
-import DownloadBeatmapBtn from '../common/Beatmap/DownloadBeatmapBtn';
-import { getDownloadUrl } from '../common/Beatmap';
-import renderIcons from '../../utils/renderIcons';
-import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl';
+import year from '../yearly.json';
+import reqImgAssets from '../../../utils/reqImgAssets';
+import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
+import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
+import { getDownloadUrl } from '../../common/Beatmap';
+import renderIcons from '../../../utils/renderIcons';
+import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
+import Header from './header';
+
+export { Header };
 
 const styles = {
   wrapper: {
@@ -78,7 +81,10 @@ const styles = {
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
-const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] }) => {
+const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] }, select) => {
+  useEffect(() => {
+    select();
+  }, []);
   const listWidth = windowSize.width - (panelExpended ? 150 : 48);
   const listHeight = windowSize.height - 79;
 
@@ -88,7 +94,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] 
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId);
 
   const { beatmapsets } = pack;
-  // optimization needed (useCallback or memo ?)
+  // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
     const theme = useTheme();
     const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
