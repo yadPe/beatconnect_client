@@ -19,6 +19,7 @@ class DownloadQueueProvider extends Component {
       cancelDownload: this.cancelDownload,
       pauseDownload: this.pauseDownload,
       resumeDownload: this.resumeDownload,
+      pushMany: this.pushMany,
     };
   }
 
@@ -43,6 +44,10 @@ class DownloadQueueProvider extends Component {
         this._execQueue();
       }
     });
+  };
+
+  pushMany = itemArray => {
+    itemArray.forEach(item => this.push(item));
   };
 
   removeItemfromQueue = id => {

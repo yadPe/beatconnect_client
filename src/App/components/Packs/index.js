@@ -22,12 +22,13 @@ const styles = {
 };
 
 const Packs = ({ classes, theme, setHeaderContent }) => {
-  const [selectedPack, setSelected] = useState(null);
+  const [selectedPack, setSelected] = useState({});
 
   const setSelectedPack = selection => setSelected({ ...selectedPack, ...selection });
+  console.log(selectedPack);
 
   useEffect(() => {
-    if (selectedPack) {
+    if (selectedPack.pack) {
       selectedPack.header && setHeaderContent(selectedPack.header);
     } else {
       setHeaderContent(<p>yaa</p>);
@@ -35,7 +36,7 @@ const Packs = ({ classes, theme, setHeaderContent }) => {
     return () => selectedPack || setHeaderContent(null);
   }, [selectedPack]);
 
-  if (selectedPack) {
+  if (selectedPack.pack) {
     return <BeatmapPackDetail pack={selectedPack.pack} select={setSelectedPack} />;
   }
 

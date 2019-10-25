@@ -27,8 +27,6 @@ const styles = {
 };
 
 const Group = ({ classes, classeName, name, packs, theme, select }) => {
-  console.log(packs);
-  console.log(select);
   return (
     <div className={`${classes.Group} ${classeName}`}>
       <h3>{name}</h3>

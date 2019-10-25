@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTheme } from 'theming';
 
-export default function(name, style, customColor) {
+export default function(name, _, customColor) {
+  const { style } = useTheme();
   let fill = style === 'dark' ? '#ffffff' : '#000000';
   if (customColor) fill = customColor;
   switch (name) {
@@ -80,7 +82,7 @@ export default function(name, style, customColor) {
       );
     case 'Download':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 433.5 433.5">
+        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 433.5 433.5">
           <path
             fill={fill}
             d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"

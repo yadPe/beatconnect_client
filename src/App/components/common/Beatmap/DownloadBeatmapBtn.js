@@ -1,34 +1,59 @@
 import React, { useContext, useEffect } from 'react';
-import renderIcons from '../../../utils/renderIcons';
 import { ProgressCircle, Button } from 'react-desktop/windows';
+import { useTheme } from 'theming';
+import InjectSheet from 'react-jss';
+import renderIcons from '../../../utils/renderIcons';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
-import { useTheme } from 'theming';
 
-const DownloadBeatmapBtn = ({ url, infos, autoDl, noStyle, ...otherProps }) => {
+const styles = {
+  wrapper: {
+    '& > svg': {
+      display: 'block',
+      margin: 'auto',
+    },
+  },
+};
+
+const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
-  const { title, artist, creator, id } = infos;
-  const fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
   const history = useContext(HistoryContext);
-  const { currentDownload, push, queue } = useContext(DownloadQueueContext);
-  const downloaded = history.contains(id);
+  const { currentDownload, push, queue, pushMany } = useContext(DownloadQueueContext);
+
+  const downloaded = pack
+    ? pack.filter(map => history.contains(map.id)).length === pack.length
+    : history.contains(infos.id);
   let isDownloading = false;
-  isDownloading =
-    queue.filter(item => item.id === id).length > 0
-      ? true
-      : false || currentDownload.infos
-      ? currentDownload.infos.id === id
-      : false;
+  let fullTitle = '';
+  if (pack) {
+    isDownloading = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
+  } else {
+    const { title, artist, creator, id } = infos;
+    fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
+    isDownloading =
+      queue.filter(item => item.id === id).length || (currentDownload.infos && currentDownload.infos.id === id);
+  }
 
   const downloadBeatmap = () => {
-    push({
-      url,
-      id,
-      fullTitle,
-      onFinished: () => {
-        history.save({ id, name: fullTitle });
-      },
-    });
+    if (pack) {
+      pushMany(
+        pack.map(({ unique_id, id, title, artist }) => ({
+          url: `https://beatconnect.io/b/${id}/${unique_id}`,
+          id,
+          fullTitle: `${title} - ${artist}`,
+          onFinished: () => history.save({ id, name: `${title} - ${artist}` }),
+        })),
+      );
+    } else {
+      push({
+        url,
+        id: infos.id,
+        fullTitle,
+        onFinished: () => {
+          history.save({ id: infos.id, name: fullTitle });
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -37,7 +62,7 @@ const DownloadBeatmapBtn = ({ url, infos, autoDl, noStyle, ...otherProps }) => {
 
   if (noStyle) {
     return (
-      <div onClick={downloadBeatmap} {...otherProps}>
+      <div onClick={downloadBeatmap} {...otherProps} className={`${classes.wrapper} ${className}`}>
         {isDownloading ? (
           <div>
             <ProgressCircle className="ProgressCircle" color="#fff" size={28} />
@@ -66,4 +91,4 @@ const DownloadBeatmapBtn = ({ url, infos, autoDl, noStyle, ...otherProps }) => {
   );
 };
 
-export default DownloadBeatmapBtn;
+export default InjectSheet(styles)(DownloadBeatmapBtn);

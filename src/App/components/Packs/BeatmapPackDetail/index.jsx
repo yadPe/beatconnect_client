@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { shell } from 'electron';
 import InjectSheet from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
@@ -14,7 +14,7 @@ import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { getDownloadUrl } from '../../common/Beatmap';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
-import Header from './header';
+import Header from './Header';
 
 export { Header };
 
@@ -81,19 +81,25 @@ const styles = {
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
-const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = year[1] }, select) => {
+const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.parse(year[1]), select }) => {
+  const [filter, setFilter] = useState('');
+  // select({ header: <Header pack={pack} quit={() => select({ content: null })} filter={{ filter, setFilter }} /> });
   useEffect(() => {
-    select();
+    select({ header: <Header pack={pack} quit={() => select({ pack: null })} filter={{ filter, setFilter }} /> });
   }, []);
   const listWidth = windowSize.width - (panelExpended ? 150 : 48);
   const listHeight = windowSize.height - 79;
 
   const audioPlayer = useContext(AudioPlayerContext);
-
   const playPreview = (beatmapSetId, isPlaying) =>
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId);
-
-  const { beatmapsets } = pack;
+  const beatmapsets =
+    filter !== ''
+      ? pack.beatmapsets.filter(
+          ({ title, artist }) =>
+            title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
+        )
+      : pack.beatmapsets;
   // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
     const theme = useTheme();

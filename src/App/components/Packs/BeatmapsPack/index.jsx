@@ -45,7 +45,7 @@ const styles = {
     height: '180px',
     width: '180px',
     borderRadius: '4px',
-    opacity: 0.1,
+    opacity: 1,
     cursor: 'pointer',
     '&:hover': {
       opacity: 1,
@@ -132,10 +132,10 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
   const packNumber = (name.match(/#\S+/g) || name.match(/20\S+/g)).toString();
   const periodTitle = type === 'monthly' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
   const history = useContext(HistoryContext);
-  const ownedBeatmapsPercentage = 100;
-  // const ownedBeatmapsPercentage = Math.floor(
-  //   beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
-  // );
+  // const ownedBeatmapsPercentage = 100;
+  const ownedBeatmapsPercentage = Math.floor(
+    beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
+  );
   // console.log(pack);
   const style =
     index === 0
@@ -145,7 +145,7 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
         };
 
   if (ownedBeatmapsPercentage === 100) {
-    // style.opacity = 0.3;
+    style.opacity = 0.3;
   }
 
   const handleClick = () =>
