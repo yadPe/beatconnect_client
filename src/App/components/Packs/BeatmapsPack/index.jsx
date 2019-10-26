@@ -45,7 +45,6 @@ const styles = {
     height: '180px',
     width: '180px',
     borderRadius: '4px',
-    opacity: 1,
     cursor: 'pointer',
     '&:hover': {
       opacity: 1,
@@ -81,6 +80,9 @@ const styles = {
       backgroundImage: ({ pack }) => `url(${reqImgAssets(`./mode_${pack.mode}.png`)})`,
       backgroundSize: 'cover',
     },
+  },
+  completed: {
+    opacity: 0.3,
   },
   percentOwned: {
     fontSize: '15pt',
@@ -134,8 +136,9 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
   const history = useContext(HistoryContext);
   // const ownedBeatmapsPercentage = 100;
   const ownedBeatmapsPercentage = Math.floor(
-    beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length,
+    (beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length) * 100,
   );
+  const completedStyle = ownedBeatmapsPercentage === 100 ? classes.completed : '';
   // console.log(pack);
   const style =
     index === 0
@@ -144,23 +147,24 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
           backgroundColor: colors[type].other,
         };
 
-  if (ownedBeatmapsPercentage === 100) {
-    style.opacity = 0.3;
-  }
-
   const handleClick = () =>
     select({
       pack: { beatmapsets, name, type },
     });
   return (
-    <div className={`${classes.pack} ${classes[type]}`} style={style} role="button" onClick={handleClick}>
+    <div
+      className={`${classes.pack} ${classes[type]} ${completedStyle}`}
+      style={style}
+      role="button"
+      onClick={handleClick}
+    >
       {type === 'weekly' && <p className="type">Week</p>}
       <p className="periodTitle" style={{ fontSize: `${periodTitle.length > 5 && 27}px` }}>
         {periodTitle}
       </p>
       <p className="status">Ranked</p>
       <p className="beatmapsCount">{`${beatmapsets.length} beatmaps`}</p>
-      <p className={classes.percentOwned}>{`${ownedBeatmapsPercentage}%`}</p>
+      <p className={classes.percentOwned} title="Beatmap already owned">{`${ownedBeatmapsPercentage}%`}</p>
       <div className="modeIco" />
     </div>
   );

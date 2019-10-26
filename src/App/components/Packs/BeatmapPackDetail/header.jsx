@@ -35,6 +35,8 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
   const history = useContext(HistoryContext);
   const handleInputChange = e => setFilter(e.target.value);
   const beatmapsToDownload = beatmapsets.filter(beatmap => !history.contains(beatmap.id));
+  const packCompleted = beatmapsToDownload.length === 0;
+  const downloadTitle = packCompleted ? "You're all set !" : `Download ${beatmapsToDownload.length} beatmaps`;
   return (
     <div className={classes.wrapper}>
       <div title="Back" role="button" onClick={quit} className={classes.backButton}>
@@ -42,10 +44,10 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
       </div>
       <p className={classes.name}>{name}</p>
       {/* <p>{beatmapsets.length}</p> */}
-      <p title={`${beatmapsToDownload.length} beatmaps to download`}>{beatmapsToDownload.length}</p>
+      {!packCompleted && <p title={downloadTitle}>{beatmapsToDownload.length}</p>}
       <DownloadBeatmapBtn
         pack={beatmapsToDownload}
-        title={`${beatmapsToDownload.length} beatmaps to download`}
+        title={downloadTitle}
         noStyle
         className={`${classes.downloadButton} clickable`}
       />

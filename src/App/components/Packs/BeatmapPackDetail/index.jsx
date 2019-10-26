@@ -21,6 +21,10 @@ export { Header };
 const styles = {
   wrapper: {
     // padding: '1.5rem 4rem',
+    '& svg': {
+      display: 'block',
+      margin: 'auto',
+    },
   },
   listItem: {
     flex: '1',
@@ -62,6 +66,9 @@ const styles = {
     overflow: 'hidden',
     fontSize: '15pt',
     alignItems: 'center',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    paddingRight: '10px',
   },
   artist: {
     flex: '9 1 0',
@@ -74,8 +81,12 @@ const styles = {
     fontSize: '13pt',
   },
   downloadButton: {
+    display: 'flex',
+  },
+  beatmapPageButton: {
     marginRight: '35px',
     marginLeft: '15px',
+    display: 'flex',
   },
 };
 
@@ -112,7 +123,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.par
       backgroundImage: `url(${reqImgAssets(isPlaying ? './pause-button.png' : './play-button.png')})`,
     };
     return (
-      <div style={style}>
+      <div style={style} key={beatmapsets[index].id}>
         <div className={classes.listItem} style={wrapperStyle}>
           <div
             className={`${classes.thumbnail} thumbnail`}
@@ -127,14 +138,6 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.par
           </div>
           <div className={classes.title}>{beatmapsets[index].title}</div>
           <div className={classes.artist}>{beatmapsets[index].artist}</div>
-          <div
-            onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmapsets[index]))}
-            role="button"
-            title="See beatmap page"
-            className="clickable"
-          >
-            {renderIcons('Search', theme.style)}
-          </div>
           <DownloadBeatmapBtn
             url={getDownloadUrl(beatmapsets[index])}
             infos={beatmapsets[index]}
@@ -142,6 +145,14 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.par
             noStyle
             className={`${classes.downloadButton} clickable`}
           />
+          <div
+            onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmapsets[index]))}
+            role="button"
+            title="See beatmap page"
+            className={`${classes.beatmapPageButton}  clickable`}
+          >
+            {renderIcons('Search', theme.style)}
+          </div>
         </div>
       </div>
     );
