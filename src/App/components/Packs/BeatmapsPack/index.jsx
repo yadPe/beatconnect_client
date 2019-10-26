@@ -46,6 +46,7 @@ const styles = {
     width: '180px',
     borderRadius: '4px',
     cursor: 'pointer',
+    scrollSnapAlign: 'start',
     '&:hover, &:hover .hoverFilter, &:hover .downloadButton': {
       opacity: 1,
     },

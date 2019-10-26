@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import injectSheet from 'react-jss';
+import _ from 'underscore';
 import BeatmapsPack from './BeatmapsPack';
 import renderIcons from '../../utils/renderIcons';
 
@@ -8,6 +9,7 @@ const styles = {
   wrapper: {
     overflowX: 'scroll',
     scrollSnapType: 'x mandatory',
+    scrollBehavior: 'smooth',
     '&::-webkit-scrollbar': {
       width: '0px',
     },
@@ -40,20 +42,58 @@ const styles = {
   },
 };
 
+let scrollLeft = 0;
+let scrollEnd = false;
+
 const Group = ({ classes, classeName, name, packs, theme, select }) => {
   const packsContainer = useRef(null);
-  // const [state, set] = useState({
-  //   overflows: false,
-  // });
-  // const setState = newState => set({ ...state, ...newState });
-  let overflows = false;
+  const listenerAttached = useRef(null);
+  const [state, set] = useState({
+    scrollLeft: 0,
+  });
+  const setState = newState => set({ ...state, ...newState });
+  useEffect(() => {
+    if (packsContainer.current && !listenerAttached.current) {
+      packsContainer.current.parentNode.addEventListener(
+        'scroll',
+        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 300),
+      );
+      listenerAttached.current = true;
+    }
+    return () =>
+      listenerAttached.current &&
+      packsContainer.current.parentNode.removeEventListener(
+        'scroll',
+        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 300),
+      );
+  }, [packsContainer]);
+
   if (packsContainer.current) {
-    overflows = packsContainer.current.scrollWidth > packsContainer.current.parentNode.offsetWidth;
-    console.log(overflows);
+    const { scrollWidth, parentNode } = packsContainer.current;
+    scrollLeft = parentNode.scrollLeft;
+    scrollEnd = scrollWidth - parentNode.offsetWidth === parentNode.scrollLeft;
   }
 
-  const navButtonsStyle = {
-    opacity: !overflows && 0.3,
+  const prevButtonStyle = {
+    opacity: scrollLeft ? 1 : 0.3,
+  };
+
+  const nextButtonStyle = {
+    opacity: scrollEnd ? 0.3 : 1,
+  };
+
+  const handlePrevButtonClick = () => {
+    if (packsContainer.current) {
+      const { parentNode } = packsContainer.current;
+      parentNode.scrollLeft -= 100;
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (packsContainer.current) {
+      const { parentNode } = packsContainer.current;
+      parentNode.scrollLeft += 100;
+    }
   };
 
   return (
@@ -61,10 +101,10 @@ const Group = ({ classes, classeName, name, packs, theme, select }) => {
       <div className={classes.actionBar}>
         <h3 className={classes.title}>{name}</h3>
         <div className={classes.arrows}>
-          <div className="prev" style={navButtonsStyle}>
+          <div className="prev" style={prevButtonStyle} onClick={handlePrevButtonClick} role="button">
             {renderIcons('Back')}
           </div>
-          <div className="next" style={navButtonsStyle}>
+          <div className="next" style={nextButtonStyle} onClick={handleNextButtonClick} role="button">
             {renderIcons('Back')}
           </div>
         </div>
