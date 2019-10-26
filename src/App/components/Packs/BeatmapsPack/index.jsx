@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import InjectSheet from 'react-jss';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 import reqImgAssets from '../../../utils/reqImgAssets';
-import BeatmapPackDetail, { Header } from '../BeatmapPackDetail';
+import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 
 const months = [
   'January',
@@ -46,12 +46,9 @@ const styles = {
     width: '180px',
     borderRadius: '4px',
     cursor: 'pointer',
-    '&:hover': {
+    '&:hover, &:hover .hoverFilter, &:hover .downloadButton': {
       opacity: 1,
     },
-    // '&::after': {
-    //   backgroundColor: '#000',
-    // },
     '& > *': {
       textTransform: 'uppercase',
       display: 'inline-block',
@@ -80,9 +77,6 @@ const styles = {
       backgroundImage: ({ pack }) => `url(${reqImgAssets(`./mode_${pack.mode}.png`)})`,
       backgroundSize: 'cover',
     },
-  },
-  completed: {
-    opacity: 0.3,
   },
   percentOwned: {
     fontSize: '15pt',
@@ -128,6 +122,43 @@ const styles = {
       fontWeight: 700,
     },
   },
+  completedFilter: {
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#000',
+    zIndex: 1,
+    mixBlendMode: 'color',
+  },
+  completed: {
+    opacity: 0.5,
+  },
+  hoverFilter: {
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: `linear-gradient(170deg, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.1) 38%, rgba(0,0,0,0) 100%)`,
+    opacity: 0,
+    mixBlendMode: 'normal',
+    pointerEvents: 'none',
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+  downloadButton: {
+    opacity: 0,
+    bottom: 25,
+    right: 25,
+    backgroundColor: 'rgba(0, 0, 0, .35)',
+    padding: '10px',
+    borderRadius: '50%',
+    mixBlendMode: 'normal',
+    '&:hover': {
+      padding: '11px',
+    },
+  },
 };
 
 const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, select }) => {
@@ -138,7 +169,9 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
   const ownedBeatmapsPercentage = Math.floor(
     (beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length) * 100,
   );
-  const completedStyle = ownedBeatmapsPercentage === 100 ? classes.completed : '';
+  const completed = ownedBeatmapsPercentage === 100;
+  const completedFilterStyle = completed ? classes.completedFilter : '';
+  const completedWrapperStyle = completed ? classes.completed : '';
   // console.log(pack);
   const style =
     index === 0
@@ -153,7 +186,7 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
     });
   return (
     <div
-      className={`${classes.pack} ${classes[type]} ${completedStyle}`}
+      className={`${classes.pack} ${classes[type]} ${completedWrapperStyle}`}
       style={style}
       role="button"
       onClick={handleClick}
@@ -166,6 +199,9 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
       <p className="beatmapsCount">{`${beatmapsets.length} beatmaps`}</p>
       <p className={classes.percentOwned} title="Beatmap already owned">{`${ownedBeatmapsPercentage}%`}</p>
       <div className="modeIco" />
+      <DownloadBeatmapBtn pack={beatmapsets} noStyle className={`${classes.downloadButton} downloadButton`} />
+      <div className={completedFilterStyle} />
+      <div className={`${classes.hoverFilter} hoverFilter`} />
     </div>
   );
 };

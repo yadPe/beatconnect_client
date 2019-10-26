@@ -34,10 +34,12 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
       queue.filter(item => item.id === id).length || (currentDownload.infos && currentDownload.infos.id === id);
   }
 
-  const downloadBeatmap = () => {
+  const downloadBeatmap = e => {
+    e.stopPropagation();
     if (pack) {
+      const beatmapsToDownload = pack.filter(beatmap => !history.contains(beatmap.id));
       pushMany(
-        pack.map(({ unique_id, id, title, artist }) => ({
+        beatmapsToDownload.map(({ unique_id, id, title, artist }) => ({
           url: `https://beatconnect.io/b/${id}/${unique_id}`,
           id,
           fullTitle: `${title} - ${artist}`,
@@ -62,7 +64,7 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
 
   if (noStyle) {
     return (
-      <div onClick={downloadBeatmap} {...otherProps} className={`${classes.wrapper} ${className}`}>
+      <div onClick={downloadBeatmap} role="button" {...otherProps} className={`${classes.wrapper} ${className}`}>
         {isDownloading ? (
           <div>
             <ProgressCircle className="ProgressCircle" color="#fff" size={28} />

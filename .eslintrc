@@ -27,6 +27,7 @@
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/interactive-supports-focus": "off",
     "object-curly-newline": "off",
     "no-plusplus": "off",
     "react/prop-types": "off"

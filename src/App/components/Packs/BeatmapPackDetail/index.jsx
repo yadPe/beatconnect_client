@@ -6,8 +6,7 @@ import InjectSheet from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { useTheme } from 'theming';
-import year from '../yearly.json';
+import { withTheme } from 'theming';
 import reqImgAssets from '../../../utils/reqImgAssets';
 import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
@@ -24,6 +23,17 @@ const styles = {
     '& svg': {
       display: 'block',
       margin: 'auto',
+    },
+  },
+  list: {
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: ({ theme }) => theme.palette.primary.main,
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: ({ theme }) => theme.palette.primary.accent,
     },
   },
   listItem: {
@@ -92,7 +102,7 @@ const styles = {
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
-const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.parse(year[1]), select }) => {
+const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, theme }) => {
   const [filter, setFilter] = useState('');
   // select({ header: <Header pack={pack} quit={() => select({ content: null })} filter={{ filter, setFilter }} /> });
   useEffect(() => {
@@ -113,7 +123,6 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.par
       : pack.beatmapsets;
   // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
-    const theme = useTheme();
     const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
     const wrapperStyle = {
       backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
@@ -160,7 +169,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack = JSON.par
 
   return (
     <div className={classes.wrapper}>
-      <List height={listHeight} itemCount={beatmapsets.length} itemSize={50} width={listWidth}>
+      <List height={listHeight} itemCount={beatmapsets.length} itemSize={50} width={listWidth} className={classes.list}>
         {renderRow}
       </List>
     </div>
@@ -173,5 +182,6 @@ const mapStateToProps = ({ main, settings }) => ({
 });
 export default compose(
   connect(mapStateToProps),
+  withTheme,
   InjectSheet(styles),
 )(BeatmapPackDetail);

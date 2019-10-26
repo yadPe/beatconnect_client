@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { remote, shell } from 'electron';
 import { connect } from 'react-redux';
@@ -20,6 +23,7 @@ class DownloadQueueProvider extends Component {
       pauseDownload: this.pauseDownload,
       resumeDownload: this.resumeDownload,
       pushMany: this.pushMany,
+      _execQueue: this._execQueue,
     };
   }
 
@@ -28,7 +32,7 @@ class DownloadQueueProvider extends Component {
     this._setDlPath(importMethod, osuSongsPath);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { importMethod, osuSongsPath } = this.props;
     if (prevProps.importMethod !== importMethod || prevProps.osuSongsPath !== osuSongsPath) {
       this._setDlPath(importMethod, osuSongsPath);
@@ -104,25 +108,13 @@ class DownloadQueueProvider extends Component {
     );
   };
 
-  _onDownloadSucceed(infos, beatmapSetId) {
-    const { importMethod } = this.props;
-    const { queue } = this.state;
-    if (importMethod === 'auto') {
-      shell.openItem(infos.filePath);
+  _setDlPath = (importMethod, osuSongsPath) => {
+    if (importMethod === 'bulk') {
+      this.dlPath = osuSongsPath;
+    } else {
+      this.dlPath = app.getPath('downloads') + '\\beatconnect';
     }
-    if (queue.length === 0) this._onQueueTerminated();
-    console.log('Finished dl', infos);
-    console.log('QUEUE', this.state.queue);
-  }
-
-  _onQueueTerminated() {
-    remote.getCurrentWindow().setProgressBar(-1);
-  }
-
-  _onDownloadFailed(err) {
-    remote.getCurrentWindow().setProgressBar(-1);
-    console.error(err);
-  }
+  };
 
   _onDownloadProgress = (progress, item) => {
     let { overallProgress } = this.state;
@@ -134,13 +126,25 @@ class DownloadQueueProvider extends Component {
     this.setState({ currentDownload, overallProgress });
   };
 
-  _setDlPath = (importMethod, osuSongsPath) => {
-    if (importMethod === 'bulk') {
-      this.dlPath = osuSongsPath;
-    } else {
-      this.dlPath = app.getPath('downloads') + '\\beatconnect';
-    }
+  _onDownloadFailed = err => {
+    remote.getCurrentWindow().setProgressBar(-1);
+    console.error(err);
   };
+
+  _onQueueTerminated = () => {
+    remote.getCurrentWindow().setProgressBar(-1);
+  };
+
+  _onDownloadSucceed(infos, beatmapSetId) {
+    const { importMethod } = this.props;
+    const { queue } = this.state;
+    if (importMethod === 'auto') {
+      shell.openItem(infos.filePath);
+    }
+    if (queue.length === 0) this._onQueueTerminated();
+    console.log('Finished dl', infos);
+    console.log('QUEUE', this.state.queue);
+  }
 
   render() {
     const { children } = this.props;
