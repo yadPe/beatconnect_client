@@ -25,7 +25,6 @@ const Packs = ({ classes, theme, setHeaderContent }) => {
   const [selectedPack, setSelected] = useState({});
 
   const setSelectedPack = selection => setSelected({ ...selectedPack, ...selection });
-  console.log(selectedPack);
 
   useEffect(() => {
     if (selectedPack.pack) {
