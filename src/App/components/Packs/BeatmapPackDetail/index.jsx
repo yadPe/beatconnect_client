@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useContext, useEffect, useState } from 'react';
 import { shell } from 'electron';
@@ -14,8 +13,6 @@ import { getDownloadUrl } from '../../common/Beatmap';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
 import Header from './Header';
-
-export { Header };
 
 const styles = {
   wrapper: {
@@ -104,26 +101,28 @@ const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
 const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, theme }) => {
   const [filter, setFilter] = useState('');
-  // select({ header: <Header pack={pack} quit={() => select({ content: null })} filter={{ filter, setFilter }} /> });
   useEffect(() => {
     select({ header: <Header pack={pack} quit={() => select({ pack: null })} filter={{ filter, setFilter }} /> });
   }, []);
-  const listWidth = windowSize.width - (panelExpended ? 150 : 48);
-  const listHeight = windowSize.height - 79;
 
   const audioPlayer = useContext(AudioPlayerContext);
   const playPreview = (beatmapSetId, isPlaying) =>
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId);
-  const beatmapsets =
+
+  const filteredBeatmapsets =
     filter !== ''
       ? pack.beatmapsets.filter(
           ({ title, artist }) =>
             title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
         )
       : pack.beatmapsets;
+
+  const listWidth = windowSize.width - (panelExpended ? 150 : 48);
+  const listHeight = windowSize.height - 79;
+
   // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
-    const isPlaying = audioPlayer.isPlaying === beatmapsets[index].id;
+    const isPlaying = audioPlayer.isPlaying === filteredBeatmapsets[index].id;
     const wrapperStyle = {
       backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
     };
@@ -132,30 +131,30 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, t
       backgroundImage: `url(${reqImgAssets(isPlaying ? './pause-button.png' : './play-button.png')})`,
     };
     return (
-      <div style={style} key={beatmapsets[index].id}>
+      <div style={style} key={filteredBeatmapsets[index].id}>
         <div className={classes.listItem} style={wrapperStyle}>
           <div
             className={`${classes.thumbnail} thumbnail`}
-            style={{ backgroundImage: `url(${getThumbUrl(beatmapsets[index].id)})` }}
+            style={{ backgroundImage: `url(${getThumbUrl(filteredBeatmapsets[index].id)})` }}
           >
             <div
               className="playIco clickable"
               style={playIcoStyle}
               role="button"
-              onClick={() => playPreview(beatmapsets[index].id, isPlaying)}
+              onClick={() => playPreview(filteredBeatmapsets[index].id, isPlaying)}
             />
           </div>
-          <div className={classes.title}>{beatmapsets[index].title}</div>
-          <div className={classes.artist}>{beatmapsets[index].artist}</div>
+          <div className={classes.title}>{filteredBeatmapsets[index].title}</div>
+          <div className={classes.artist}>{filteredBeatmapsets[index].artist}</div>
           <DownloadBeatmapBtn
-            url={getDownloadUrl(beatmapsets[index])}
-            infos={beatmapsets[index]}
+            url={getDownloadUrl(filteredBeatmapsets[index])}
+            infos={filteredBeatmapsets[index]}
             title="Download"
             noStyle
             className={`${classes.downloadButton} clickable`}
           />
           <div
-            onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmapsets[index]))}
+            onClick={() => shell.openExternal(getBeatmapInfosUrl(filteredBeatmapsets[index]))}
             role="button"
             title="See beatmap page"
             className={`${classes.beatmapPageButton}  clickable`}
@@ -169,7 +168,13 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, t
 
   return (
     <div className={classes.wrapper}>
-      <List height={listHeight} itemCount={beatmapsets.length} itemSize={50} width={listWidth} className={classes.list}>
+      <List
+        height={listHeight}
+        itemCount={filteredBeatmapsets.length}
+        itemSize={50}
+        width={listWidth}
+        className={classes.list}
+      >
         {renderRow}
       </List>
     </div>

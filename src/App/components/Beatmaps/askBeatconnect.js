@@ -1,5 +1,6 @@
 import store from '../../../store';
 import _ from 'underscore';
+import config from '../../../config';
 
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
@@ -15,11 +16,9 @@ const askBeatconnect = (search, __, resetPage) => {
     store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
   }
   const formatQuery = query.split(' ').join('%20');
-  fetch(
-    `https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89&p=${page || 0}&q=${formatQuery}&s=${status ||
-      'ranked'}&m=${mode || 'all'}`,
-    { signal: controller.signal },
-  )
+  fetch(`${config.api.beatmapsBaseUrl}&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, {
+    signal: controller.signal,
+  })
     .then(res => res.ok && res.json())
     .then(({ beatmaps, max_page, error, error_message }) => {
       if (error) throw new Error(error_message + ' For query ' + search);

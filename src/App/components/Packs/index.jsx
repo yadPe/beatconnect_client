@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import injectSheet from 'react-jss';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Group from './Group';
 import weekly from './weekly.json';
 import monthly from './monthly.json';
 import yearly from './yearly.json';
 import BeatmapPackDetail from './BeatmapPackDetail';
+import Header from './Header';
+import config from '../../../config';
 
 const styles = {
   Packs: {
@@ -15,14 +19,16 @@ const styles = {
     gridTemplateRows: 'auto',
     gridGap: '30px',
     gridTemplateAreas: `
+    'overview overview'
     'weeks weeks'
     'months months'
     'years years'`,
   },
 };
 
-const Packs = ({ classes, theme, setHeaderContent }) => {
+const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
   const [selectedPack, setSelected] = useState({});
+  const [selectedMode, setSelectedMode] = useState(config.packs.availableModes[0]);
 
   const setSelectedPack = selection => setSelected({ ...selectedPack, ...selection });
 
@@ -30,7 +36,7 @@ const Packs = ({ classes, theme, setHeaderContent }) => {
     if (selectedPack.pack) {
       selectedPack.header && setHeaderContent(selectedPack.header);
     } else {
-      setHeaderContent(<p>yaa</p>);
+      setHeaderContent(<Header setSelectedMode={setSelectedMode} />);
     }
     return () => selectedPack || setHeaderContent(null);
   }, [selectedPack]);
@@ -39,6 +45,7 @@ const Packs = ({ classes, theme, setHeaderContent }) => {
     return <BeatmapPackDetail pack={selectedPack.pack} select={setSelectedPack} />;
   }
 
+  const lastWeekOverview = []; // packsDashboardData.lastWeekOverview && packsDashboardData.lastWeekOverview;
   return (
     <>
       <div>
@@ -48,18 +55,40 @@ const Packs = ({ classes, theme, setHeaderContent }) => {
         </h5>
       </div>
       <div className={classes.Packs}>
+        <div style={{ gridArea: 'overview' }}>
+          <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
+        </div>
         <div style={{ gridArea: 'weeks' }}>
-          <Group name="Last weeks" packs={weekly} theme={theme} select={setSelectedPack} />
+          <Group
+            name="Last weeks"
+            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].weekly}
+            theme={theme}
+            select={setSelectedPack}
+          />
         </div>
         <div style={{ gridArea: 'months' }}>
-          <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />
+          <Group
+            name="Past months"
+            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].monthly}
+            theme={theme}
+            select={setSelectedPack}
+          />
         </div>
         <div style={{ gridArea: 'years' }}>
-          <Group name="Past years" packs={yearly} theme={theme} select={setSelectedPack} />
+          <Group
+            name="Past years"
+            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].yearly}
+            theme={theme}
+            select={setSelectedPack}
+          />
         </div>
       </div>
     </>
   );
 };
 
-export default injectSheet(styles)(Packs);
+const mapStateToProps = ({ main }) => ({ packsDashboardData: main.packsDashboardData });
+export default compose(
+  connect(mapStateToProps),
+  injectSheet(styles),
+)(Packs);

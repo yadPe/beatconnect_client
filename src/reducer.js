@@ -15,6 +15,7 @@ const initialState = {
   errors: [],
   downloadQueue: [],
   fetchingBeatmaps: {},
+  packsDashboardData: {},
 };
 
 export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {
@@ -33,6 +34,9 @@ export default (state = initialState, { type, newMatchs, status, bot, searchResu
       return { ...state, connected: false };
     case 'SEARCH_RESULTS':
       return { ...state, searchResults };
+    case 'PACKS_DASHBOARD_QUERY_DATA':
+      console.log({ ...state.packsDashboardData, ...payload });
+      return { ...state, packsDashboardData: { ...state.packsDashboardData, ...payload } };
     case 'RESIZE':
       return { ...state, window: payload };
     case 'UPDATEACTIVESECTION':

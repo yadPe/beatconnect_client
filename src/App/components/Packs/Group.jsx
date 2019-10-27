@@ -5,7 +5,6 @@ import BeatmapsPack from './BeatmapsPack';
 import renderIcons from '../../utils/renderIcons';
 
 const styles = {
-  Group: {},
   wrapper: {
     overflowX: 'scroll',
     scrollSnapType: 'x mandatory',
@@ -45,7 +44,8 @@ const styles = {
 let scrollLeft = 0;
 let scrollEnd = false;
 
-const Group = ({ classes, classeName, name, packs, theme, select }) => {
+const Group = ({ classes, classeName, name, packs = [], theme, select }) => {
+  console.log(packs);
   const packsContainer = useRef(null);
   const listenerAttached = useRef(null);
   const [state, set] = useState({
@@ -56,7 +56,7 @@ const Group = ({ classes, classeName, name, packs, theme, select }) => {
     if (packsContainer.current && !listenerAttached.current) {
       packsContainer.current.parentNode.addEventListener(
         'scroll',
-        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 300),
+        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 200),
       );
       listenerAttached.current = true;
     }
@@ -64,7 +64,7 @@ const Group = ({ classes, classeName, name, packs, theme, select }) => {
       listenerAttached.current &&
       packsContainer.current.parentNode.removeEventListener(
         'scroll',
-        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 300),
+        _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 200),
       );
   }, [packsContainer]);
 
@@ -97,7 +97,7 @@ const Group = ({ classes, classeName, name, packs, theme, select }) => {
   };
 
   return (
-    <div className={`${classes.Group} ${classeName}`}>
+    <div className={classeName}>
       <div className={classes.actionBar}>
         <h3 className={classes.title}>{name}</h3>
         <div className={classes.arrows}>

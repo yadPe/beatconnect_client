@@ -7,11 +7,8 @@ import TextInput from '../common/TextInput';
 import askBeatconnect from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
-// import Toggle from '../common/Toggle';
-// import Modal, { ToggleContent } from '../common/Modal';
+import config from '../../../config';
 
-const availableStatus = ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'];
-const availableModes = ['all', 'std', 'mania', 'taiko', 'ctb'];
 const styles = {
   Search: {
     width: '100%',
@@ -63,7 +60,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         )}
       </Button>
       <DropDown
-        options={availableModes}
+        options={config.beatmaps.availableModes}
         value={search.mode}
         onSelect={e => {
           setSearch({ ...search, mode: e.target.value });
@@ -71,7 +68,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         }}
       />
       <DropDown
-        options={availableStatus}
+        options={config.beatmaps.availableStatus}
         value={search.status}
         onSelect={e => {
           setSearch({ ...search, status: e.target.value });
