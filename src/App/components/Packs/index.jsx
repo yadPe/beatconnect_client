@@ -3,9 +3,6 @@ import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Group from './Group';
-import weekly from './weekly.json';
-import monthly from './monthly.json';
-import yearly from './yearly.json';
 import BeatmapPackDetail from './BeatmapPackDetail';
 import Header from './Header';
 import config from '../../../config';
@@ -45,7 +42,8 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
     return <BeatmapPackDetail pack={selectedPack.pack} select={setSelectedPack} />;
   }
 
-  const lastWeekOverview = []; // packsDashboardData.lastWeekOverview && packsDashboardData.lastWeekOverview;
+  const { lastWeekOverview } = packsDashboardData;
+  const { weekly, monthly, yearly } = packsDashboardData[selectedMode] || {};
   return (
     <>
       <div>
@@ -59,28 +57,13 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
           <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
         </div>
         <div style={{ gridArea: 'weeks' }}>
-          <Group
-            name="Last weeks"
-            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].weekly}
-            theme={theme}
-            select={setSelectedPack}
-          />
+          <Group name="Last weeks" packs={weekly} theme={theme} select={setSelectedPack} />
         </div>
         <div style={{ gridArea: 'months' }}>
-          <Group
-            name="Past months"
-            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].monthly}
-            theme={theme}
-            select={setSelectedPack}
-          />
+          <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />
         </div>
         <div style={{ gridArea: 'years' }}>
-          <Group
-            name="Past years"
-            packs={packsDashboardData[selectedMode] && packsDashboardData[selectedMode].yearly}
-            theme={theme}
-            select={setSelectedPack}
-          />
+          <Group name="Past years" packs={yearly} theme={theme} select={setSelectedPack} />
         </div>
       </div>
     </>

@@ -22,10 +22,8 @@ const processBeatconnectPacksData = datas => {
 
   datas.forEach(data => {
     if (data.map) {
-      data.forEach(pack => {
-        if (!output.lastWeekOverview) output.lastWeekOverview = {};
-        output.lastWeekOverview[pack.mode] = pack;
-      });
+      if (!output.lastWeekOverview) output.lastWeekOverview = [];
+      output.lastWeekOverview.push(...data.slice(0, 4));
     } else {
       Object.values(data).forEach(value => {
         if (!output[value[0].mode]) output[value[0].mode] = {};
@@ -37,7 +35,6 @@ const processBeatconnectPacksData = datas => {
   return { type: 'PACKS_DASHBOARD_QUERY_DATA', payload: output };
 };
 
-// const mapStateToProps = ({ main }) => ({});
 export default connect(
   null,
   { processBeatconnectPacksData },
