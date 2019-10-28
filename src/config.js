@@ -6,6 +6,10 @@ export default {
   },
   display: {
     defaultLanguage: 'en',
+    topBarHeight: 48,
+    sidePanelCompactedLength: 48,
+    sidePanelExpandedLength: 150,
+    titleBarHeight: 31,
   },
   beatmaps: {
     availableStatus: ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'],

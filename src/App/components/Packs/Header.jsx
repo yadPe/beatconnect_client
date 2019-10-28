@@ -5,9 +5,9 @@ import DropDown from '../common/DropDown';
 import config from '../../../config';
 
 const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
-  // useEffect(() => {
-  //   getPacksDashboardData(config.packs.availableModes[0], processBeatconnectPacksData);
-  // }, [])
+  useEffect(() => {
+    getPacksDashboardData(config.packs.availableModes[0], processBeatconnectPacksData);
+  }, []);
 
   const handleSelect = e => {
     const { value } = e.target;
@@ -27,7 +27,7 @@ const processBeatconnectPacksData = datas => {
     } else {
       Object.values(data).forEach(value => {
         if (!output[value[0].mode]) output[value[0].mode] = {};
-        output[value[0].mode][value[0].type] = value;
+        output[value[0].mode][value[0].type] = value[0].type === 'weekly' ? value.slice(1) : value;
       });
     }
   });

@@ -13,6 +13,7 @@ import { getDownloadUrl } from '../../common/Beatmap';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
 import Header from './Header';
+import config from '../../../../config';
 
 const styles = {
   wrapper: {
@@ -117,8 +118,10 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, t
         )
       : pack.beatmapsets;
 
-  const listWidth = windowSize.width - (panelExpended ? 150 : 48);
-  const listHeight = windowSize.height - 79;
+  const listWidth =
+    windowSize.width -
+    (panelExpended ? config.display.sidePanelExpandedLength : config.display.sidePanelCompactedLength);
+  const listHeight = windowSize.height - (config.display.titleBarHeight + config.display.topBarHeight);
 
   // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {

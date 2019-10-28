@@ -31,7 +31,7 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
 
   useEffect(() => {
     if (selectedPack.pack) {
-      selectedPack.header && setHeaderContent(selectedPack.header);
+      if (selectedPack.header) setHeaderContent(selectedPack.header);
     } else {
       setHeaderContent(<Header setSelectedMode={setSelectedMode} />);
     }
@@ -57,7 +57,7 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
           <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
         </div>
         <div style={{ gridArea: 'weeks' }}>
-          <Group name="Last weeks" packs={weekly} theme={theme} select={setSelectedPack} />
+          <Group name="This month" packs={weekly} theme={theme} select={setSelectedPack} />
         </div>
         <div style={{ gridArea: 'months' }}>
           <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />

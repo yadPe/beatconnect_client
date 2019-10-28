@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import SidePanel from './SidePanel';
+import config from '../../../../config';
 
 const styles = {
   NavPanel: {
@@ -52,8 +53,8 @@ const NavPanel = ({
 };
 
 NavPanel.defaultProps = {
-  panelExpandedLength: 150,
-  panelCompactedLength: 48,
+  panelExpandedLength: config.display.sidePanelExpandedLength,
+  panelCompactedLength: config.display.sidePanelCompactedLength,
   defaultIsPanelExpanded: false,
 };
 

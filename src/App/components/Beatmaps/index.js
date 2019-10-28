@@ -3,13 +3,14 @@ import _ from 'underscore';
 import { connect } from 'react-redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet from 'react-jss';
+import { useTheme } from 'theming';
 import Beatmap from '../common/Beatmap';
 import Search from './Search';
 import askBeatconnect from './askBeatconnect';
 import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
-import { useTheme } from 'theming';
+import config from '../../../config';
 
 const styles = {
   Beatmaps: {
@@ -32,8 +33,9 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
     lastSearch.current = search;
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current;
   }
-  const gridWidth = window.width - (panelExpended ? 150 : 48);
-  const gridHeight = window.height - 79;
+  const gridWidth =
+    window.width - (panelExpended ? config.display.sidePanelExpandedLength : config.display.sidePanelCompactedLength);
+  const gridHeight = window.height - (config.display.titleBarHeight + config.display.topBarHeight);
   const displayGrid = gridWidth >= 1200;
   const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length;
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;

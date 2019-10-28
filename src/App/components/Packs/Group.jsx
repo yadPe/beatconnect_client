@@ -44,9 +44,9 @@ const styles = {
 
 let scrollLeft = 0;
 let scrollEnd = false;
+let overflows = false;
 
 const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme, select }) => {
-  console.log(packs);
   const packsContainer = useRef(null);
   const listenerAttached = useRef(null);
   const [state, set] = useState({
@@ -71,6 +71,7 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme,
 
   if (packsContainer.current) {
     const { scrollWidth, parentNode } = packsContainer.current;
+    overflows = scrollWidth !== parentNode.offsetWidth;
     scrollLeft = parentNode.scrollLeft;
     scrollEnd = scrollWidth - parentNode.offsetWidth === parentNode.scrollLeft;
   }
@@ -80,7 +81,7 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme,
   };
 
   const nextButtonStyle = {
-    opacity: scrollEnd ? 0.3 : 1,
+    opacity: scrollEnd && overflows ? 0.3 : 1,
   };
 
   const handlePrevButtonClick = () => {
@@ -113,7 +114,7 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme,
       <div className={classes.wrapper}>
         <div className={classes.packsContainer} ref={packsContainer}>
           {packs[0] === 0
-            ? packs.map(fakePack => <SkeletonPack />)
+            ? packs.map(() => <SkeletonPack />)
             : packs.map((pack, i) => (
                 <BeatmapsPack pack={pack} theme={theme} index={i} select={select} key={pack.id} />
               ))}
