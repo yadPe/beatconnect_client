@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import _ from 'underscore';
 import BeatmapsPack from './BeatmapsPack';
 import renderIcons from '../../utils/renderIcons';
+import SkeletonPack from './BeatmapsPack/Skeleton';
 
 const styles = {
   wrapper: {
@@ -44,7 +45,7 @@ const styles = {
 let scrollLeft = 0;
 let scrollEnd = false;
 
-const Group = ({ classes, classeName, name, packs = [], theme, select }) => {
+const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme, select }) => {
   console.log(packs);
   const packsContainer = useRef(null);
   const listenerAttached = useRef(null);
@@ -111,9 +112,11 @@ const Group = ({ classes, classeName, name, packs = [], theme, select }) => {
       </div>
       <div className={classes.wrapper}>
         <div className={classes.packsContainer} ref={packsContainer}>
-          {packs.map((pack, i) => (
-            <BeatmapsPack pack={pack} theme={theme} index={i} select={select} key={pack.id} />
-          ))}
+          {packs[0] === 0
+            ? packs.map(fakePack => <SkeletonPack />)
+            : packs.map((pack, i) => (
+                <BeatmapsPack pack={pack} theme={theme} index={i} select={select} key={pack.id} />
+              ))}
         </div>
       </div>
     </div>

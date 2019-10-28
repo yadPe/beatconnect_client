@@ -14,7 +14,7 @@ const styles = {
     },
   },
   skeleton: {
-    backgroundColor: '#D8D8D8',
+    background: '#5c5c5c',
     borderColor: '#D8D8D8',
     // display: 'inline-block',
     position: 'relative',
@@ -39,8 +39,8 @@ const styles = {
   },
 };
 
-const Skeleton = ({ style, className, classes }) => (
-  <div className={`${classes.skeleton} ${className}`} style={style} />
+const Skeleton = ({ style, className, classes, ...otherProps }) => (
+  <div className={`${classes.skeleton} ${className}`} style={style} {...otherProps} />
 );
 
 export default injectSheet(styles)(Skeleton);
