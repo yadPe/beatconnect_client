@@ -1,9 +1,10 @@
 import './App/resize';
 import _ from 'underscore';
+import config from './config';
 
 const initialState = {
   connected: false,
-  activeSection: 'Packs',
+  activeSection: config.display.defaultSection,
   mpMatchs: [],
   bot: {},
   BeatconnectApi: {},

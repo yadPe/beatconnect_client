@@ -6,6 +6,7 @@ export default {
   },
   display: {
     defaultLanguage: 'en',
+    defaultSection: 'Beatmaps',
     topBarHeight: 48,
     sidePanelCompactedLength: 48,
     sidePanelExpandedLength: 150,
