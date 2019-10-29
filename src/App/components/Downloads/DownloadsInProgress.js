@@ -18,12 +18,12 @@ const styles = {
 };
 
 const DownloadsInProgress = ({ theme, classes }) => {
-  const { cancelDownload, currentDownload } = useContext(DownloadQueueContext);
+  const { cancelDownload, currentDownload, _execQueue } = useContext(DownloadQueueContext);
   const [isPaused, setIsPaused] = useState(false);
   const { infos, progress, item } = currentDownload;
   const toggleDownload = () => {
     if (!item) {
-      return alert("If your download is stuck or won't start try restating the app. Sorry for the inconvenience");
+      return _execQueue();
     }
     item.isPaused() ? item.resume() : item.pause();
     setIsPaused(item.isPaused());
@@ -34,10 +34,10 @@ const DownloadsInProgress = ({ theme, classes }) => {
       <div className={classes.DownloadsInProgress}>
         <p>{infos.fullTitle}</p>
         {progress ? (
-          <React.Fragment>
+          <>
             <p>{`${Math.round(progress.progress)}% @`}</p>
             <p>{progress.speed}</p>
-          </React.Fragment>
+          </>
         ) : null}
 
         <Button push color={theme.palette.primary.accent} onClick={toggleDownload}>
@@ -49,7 +49,7 @@ const DownloadsInProgress = ({ theme, classes }) => {
       </div>
     );
   };
-  return <React.Fragment>{renderDownloads()}</React.Fragment>;
+  return <>{renderDownloads()}</>;
 };
 
 export default injectSheet(styles)(DownloadsInProgress);

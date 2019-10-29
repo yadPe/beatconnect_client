@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTheme } from 'theming';
 
-export default function(name, style, customColor) {
+export default function(name, _, customColor) {
+  const { style } = useTheme();
   let fill = style === 'dark' ? '#ffffff' : '#000000';
   if (customColor) fill = customColor;
   switch (name) {
@@ -80,7 +82,7 @@ export default function(name, style, customColor) {
       );
     case 'Download':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 433.5 433.5">
+        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 433.5 433.5">
           <path
             fill={fill}
             d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"
@@ -393,6 +395,28 @@ export default function(name, style, customColor) {
             <circle fill={fill} cx="125" cy="384" r="20" />
             <circle fill={fill} cx="212" cy="384" r="20" />
             <circle fill={fill} cx="212" cy="210" r="20" />
+          </g>
+        </svg>
+      );
+    case 'Packs':
+      return (
+        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 469.333 469.333">
+          <g>
+            <polygon fill={fill} points="170.667,211.41 277.333,193.632 277.333,172.583 170.667,190.375" />
+            <path
+              fill={fill}
+              d="M384,42.667H42.667C19.135,42.667,0,61.802,0,85.333v341.333c0,23.531,19.135,42.667,42.667,42.667H384
+              c23.531,0,42.667-19.135,42.667-42.667V85.333C426.667,61.802,407.531,42.667,384,42.667z M298.667,320
+              c0,12.354-13.458,21.333-32,21.333s-32-8.979-32-21.333c0-12.354,13.458-21.333,32-21.333c3.819,0,7.352,0.465,10.667,1.178
+              v-84.589l-106.667,17.779v108.298c0,12.354-13.458,21.333-32,21.333s-32-8.979-32-21.333s13.458-21.333,32-21.333
+              c3.819,0,7.352,0.465,10.667,1.178V181.333c0-5.208,3.771-9.667,8.917-10.521l128-21.333c3.104-0.542,6.26,0.354,8.646,2.375
+              c2.396,2.042,3.771,5,3.771,8.146V320z"
+            />
+            <path
+              fill={fill}
+              d="M426.667,0H85.333C69.608,0,56,8.642,48.6,21.333h356.733C428.865,21.333,448,40.469,448,64v356.733
+              c12.691-7.4,21.333-21.008,21.333-36.733V42.667C469.333,19.135,450.198,0,426.667,0z"
+            />
           </g>
         </svg>
       );

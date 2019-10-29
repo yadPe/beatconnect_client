@@ -26,7 +26,7 @@ const styles = {
   },
 };
 
-const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onBlur }) => (
+const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onBlur, ...otherProps }) => (
   <input
     className={classes.TextInput}
     type={type || 'text'}
@@ -35,6 +35,7 @@ const TextInput = ({ type, placeholder, value, onChange, classes, onKeyDown, onB
     onChange={onChange}
     onKeyDown={onKeyDown}
     onBlur={onBlur}
+    {...otherProps}
   />
 );
 

@@ -29,7 +29,7 @@ const styles = {
     textRendering: 'optimizelegibility',
     fontFamily: 'Open Sans, sans - serif',
     height: 'calc(100vh - 79px)',
-    overflowY: 'auto',
+    overflow: 'auto',
 
     '&::-webkit-scrollbar': {
       width: '8px',

@@ -31,15 +31,9 @@ body {
 
 .players,
 .beatmap {
-  /* flex: 1 1 auto; */
   padding: 1rem;
   width: 50vh;
   flex-grow: 5;
-  /* width: 45ch;
-    flex-grow: 5;
-    -webkit-flex-grow: 5;
-    text-align: left;
-    padding: 0.3em 0.4em 0.3em 0.4em; */
 }
 
 .beatmap div {
@@ -59,12 +53,6 @@ body {
   padding-top: 30px;
   position: fixed;
   width: 100%;
-}
-
-.Nav div,
-a,
-svg {
-  transition: all 200ms;
 }
 
 .separator {

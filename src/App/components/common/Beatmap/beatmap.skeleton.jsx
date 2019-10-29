@@ -2,7 +2,7 @@ import React from 'react';
 import InjectSheet from 'react-jss';
 import { compose } from 'redux';
 import { withTheme } from 'theming';
-import Skeleton from '../skeleton';
+import Skeleton from '../Skeleton';
 
 const styles = {
   beatmap: {
@@ -14,18 +14,15 @@ const styles = {
   cover: {
     height: '130px',
     width: '100%',
-    background: '#5c5c5c',
   },
   text: {
     margin: '10px auto',
     height: '10px',
-    background: '#5c5c5c',
   },
   buttons: {
     margin: '15px auto 0 auto',
     height: '30px',
     width: '25%',
-    background: '#5c5c5c',
   },
 };
 

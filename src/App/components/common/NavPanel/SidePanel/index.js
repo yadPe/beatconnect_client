@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
 import TasksControl from './TasksControl';
+import config from '../../../../../config';
 
 const styles = {
   SidePanel: {
@@ -16,9 +17,10 @@ const styles = {
     overflow: 'visible',
     width: props => (props.expended ? props.panelExpandedLength : props.panelCompactedLength),
     backgroundColor: props => props.background,
+    transition: `width 130ms`,
   },
   head: {
-    height: 48,
+    height: config.display.topBarHeight,
   },
   svg: {
     position: 'absolute',
@@ -50,11 +52,11 @@ const SidePanel = ({
     items.map((item, i) => {
       if (items.length - i === 1)
         return (
-          <React.Fragment>
+          <>
             {tasks ? <TasksControl theme={theme} expended={expended} tasks={tasks} /> : null}
             {volume ? <VolumeControl theme={theme} expended={expended} /> : null}
             <Tab {...item.props} expended={expended} />
-          </React.Fragment>
+          </>
         );
       return <Tab {...item.props} expended={expended} />;
     });
@@ -62,7 +64,7 @@ const SidePanel = ({
   return (
     <div className={classes.SidePanel}>
       {expendable ? (
-        <React.Fragment>
+        <>
           <div className={classes.head} />
           <svg
             x="0px"
@@ -77,9 +79,9 @@ const SidePanel = ({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M0,12.5h20V11H0V12.5z M0,7h20V5.5H0V7z M0,0v1.5h20V0H0z"
-            ></path>
+            />
           </svg>
-        </React.Fragment>
+        </>
       ) : null}
       {itemTab()}
     </div>

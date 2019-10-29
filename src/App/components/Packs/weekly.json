@@ -1,0 +1,332 @@
+[
+  {
+    "id": 96,
+    "name": "Weekly Pack 2019 #43 (Std)",
+    "description": "Weekly beatmap packs for the week 43 of the year 2019",
+    "type": "weekly",
+    "date_from": "2019-10-21T00:00:00",
+    "date_to": "2019-10-27T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 958005, "artist": "Enter Shikari", "title": "Rat Race", "unique_id": "eByQ7oMr" },
+      { "id": 544412, "artist": "SID", "title": "Uso (TV Size)", "unique_id": "uUb7oX09" },
+      { "id": 1029992, "artist": "nao", "title": "Irogeshou", "unique_id": "RLO4dRIQ" }
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Weekly Pack 2019 #42 (Std)",
+    "description": "Weekly beatmap packs for the week 42 of the year 2019",
+    "type": "weekly",
+    "date_from": "2019-10-14T00:00:00",
+    "date_to": "2019-10-20T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      { "id": 987593, "artist": "Kitamura Eri", "title": "Birth", "unique_id": "JGke6MPQ" },
+      { "id": 982205, "artist": "Fractal Dreamers", "title": "Module_410", "unique_id": "oveyw5xa" },
+      {
+        "id": 982006,
+        "artist": "Yuuhei Satellite feat. senya",
+        "title": "Torinokosareta Bijutsu (Arranged: HiZuMi)",
+        "unique_id": "59WP69vx"
+      },
+      { "id": 971957, "artist": "Yusuke", "title": "V (TV Size)", "unique_id": "DME57Zdo" },
+      { "id": 968678, "artist": "Rche", "title": "Todestrieb", "unique_id": "gf1nRigR" },
+      { "id": 968574, "artist": "Tsukikage", "title": "Spatto! Spy & Spyce (TV Size)", "unique_id": "DKjQk1vw" },
+      {
+        "id": 961926,
+        "artist": "Itsuka Kotori (CV: Taketatsu Ayana)",
+        "title": "Koi no EveryDay*HappyDay (Full Size)",
+        "unique_id": "96FauA4Z"
+      },
+      {
+        "id": 959705,
+        "artist": "Rin",
+        "title": "Kishinjou set 03 ~ Humans and Youkai Traversing the Canal",
+        "unique_id": "8NWEpqiF"
+      },
+      { "id": 952626, "artist": "Hatsuki Yura", "title": "TRICK or TREAT", "unique_id": "gNQFuf8g" },
+      { "id": 950550, "artist": "VALLEYSTONE feat. Kanata.N", "title": "Natsuirozaka", "unique_id": "BsIK2BXe" },
+      { "id": 806360, "artist": "Toby Fox", "title": "Oppa Toby Style", "unique_id": "HuiGQW5j" },
+      { "id": 797590, "artist": "Seven Lions", "title": "Summer Of The Occult", "unique_id": "KNL66Xil" },
+      { "id": 475946, "artist": "Bullet For My Valentine", "title": "Deliver Us From Evil", "unique_id": "JwlmRgCx" },
+      { "id": 247161, "artist": "An", "title": "TearVid -Long mix-", "unique_id": "8QkQCZle" },
+      { "id": 208242, "artist": "JIN", "title": "Shounen Brave", "unique_id": "5X2nxiJu" },
+      { "id": 1032778, "artist": "Camellia", "title": "Break The Silence", "unique_id": "OQsNFp31" },
+      { "id": 1032553, "artist": "Aiobahn", "title": "Sugiyuku Hi to Kimi e (feat. nayuta)", "unique_id": "dycilHAF" },
+      { "id": 1032027, "artist": "BUTAOTOME", "title": "Kurukuru Tsukai", "unique_id": "WrKOhuaC" },
+      { "id": 1031668, "artist": "LukHash", "title": "WINTER ERROR", "unique_id": "2HLpnjSH" },
+      { "id": 1022394, "artist": "eufonius", "title": "Kimi ni Aeta kara", "unique_id": "OeOTcR5Q" },
+      { "id": 1014751, "artist": "Ohashi Ayaka", "title": "Daisuki. (TV Size)", "unique_id": "5ngxEqc9" },
+      { "id": 1014707, "artist": "IAHN", "title": "Transform (Original Mix)", "unique_id": "dQyhErNg" },
+      { "id": 1014611, "artist": "Shimotsuki Haruka", "title": "un secret", "unique_id": "gRxWvA54" },
+      {
+        "id": 1011671,
+        "artist": "Hirasawa Ui (CV: Yonezawa Madoka)",
+        "title": "Oui! Ai Kotoba",
+        "unique_id": "lbAZ5lbd"
+      },
+      {
+        "id": 1008355,
+        "artist": "nano feat. MY FIRST STORY",
+        "title": "SAVIOR OF SONG -An Remix-",
+        "unique_id": "VXaXDPI2"
+      },
+      { "id": 1006502, "artist": "Maeda Jun", "title": "Natsukage", "unique_id": "OzKLQ1sZ" },
+      { "id": 1000722, "artist": "Ohara Yuiko", "title": "Zero Centimeters (TV Size)", "unique_id": "5R8BasO0" },
+      {
+        "id": 1035777,
+        "artist": "Mahora Gakuen Chuutoubu 2-A Kanakanagumi",
+        "title": "Kagayaku Kimi e (TV Size)",
+        "unique_id": "JrnqUXDT"
+      },
+      { "id": 1035145, "artist": "Diao Ye Zong feat. nayuta", "title": "Tori yo", "unique_id": "h5LUHTNX" },
+      { "id": 1034502, "artist": "Freezer feat. Kiichigo", "title": "Berry Go!!", "unique_id": "5amueTRG" },
+      { "id": 1034088, "artist": "Rings of Saturn", "title": "The Husk", "unique_id": "M7FMDT01" },
+      { "id": 1037726, "artist": "toby fox", "title": "MEGALOVANIA (Camellia Remix)", "unique_id": "kJFXVAMs" },
+      { "id": 1041991, "artist": "Takeya Yuki (CV: Minase Inori)", "title": "Friend Shitai", "unique_id": "uQWdT01J" },
+      { "id": 1044175, "artist": "John Legend", "title": "All of Me", "unique_id": "ExSY7mTc" },
+      { "id": 1045131, "artist": "LukHash", "title": "8BIT FAIRY TALE", "unique_id": "kDZmNfgw" },
+      { "id": 1038101, "artist": "ASCA", "title": "Selfrontier", "unique_id": "SKmMqafP" },
+      { "id": 1042140, "artist": "Asami Yuuko", "title": "Yume, Hitohira (TV Size)", "unique_id": "z8nsx5E7" },
+      { "id": 1050560, "artist": "BLUE ENCOUNT", "title": "Polaris (TV Size)", "unique_id": "B9r7SO8U" },
+      { "id": 1049356, "artist": "Study", "title": "Can now, Can now (TV Size)", "unique_id": "pdifu60w" },
+      { "id": 1043685, "artist": "TROISANGES", "title": "Cresc.Heart", "unique_id": "Sti6EP0m" },
+      { "id": 1044511, "artist": "A.SAKA", "title": "Yosakura Fubuki", "unique_id": "1ExwbAmk" },
+      { "id": 1039296, "artist": "Murata Ayumi", "title": "Drawing Again", "unique_id": "xghH2Goq" },
+      { "id": 1051122, "artist": "Camellia vs. lapix", "title": "Hypnotize", "unique_id": "UNVnDsxL" },
+      {
+        "id": 1045107,
+        "artist": "Momo Belia Deviluke (CV: Toyosaki Aki)",
+        "title": "MORE&MORE",
+        "unique_id": "qqy5chHN"
+      },
+      { "id": 1041518, "artist": "Hatsuki Yura", "title": "Halloween of the Dead", "unique_id": "ZmdIIHvg" },
+      { "id": 1037591, "artist": "May'n", "title": "graphite/diamond (TV Size)", "unique_id": "RVYQm25x" },
+      { "id": 1050419, "artist": "Tomatsu Haruka", "title": "Resolution (TV Size)", "unique_id": "o70eTOpH" },
+      { "id": 1046084, "artist": "Tomita Miyu", "title": "Present Moment (TV Size)", "unique_id": "5Gs7mLum" },
+      { "id": 1040433, "artist": "amazarashi", "title": "Maegaki", "unique_id": "T7gLp9iC" },
+      { "id": 1038191, "artist": "Hino Honoka", "title": "Intersect World", "unique_id": "BtO8KAQs" }
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Weekly Pack 2019 #41 (Std)",
+    "description": "Weekly beatmap packs for the week 41 of the year 2019",
+    "type": "weekly",
+    "date_from": "2019-10-07T00:00:00",
+    "date_to": "2019-10-13T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      {
+        "id": 1024028,
+        "artist": "ShinRa-Bansho",
+        "title": "Marisa wa Taihen na Mono o Nusunde Ikimashita ShinRa-Bansho Ver",
+        "unique_id": "iYP960Or"
+      },
+      {
+        "id": 999735,
+        "artist": "Emilia (CV: Takahashi Rie), Rem (CV: Minase Inori), Ram (CV: Murakawa Rie)",
+        "title": "Re:lation",
+        "unique_id": "cWvhpypC"
+      },
+      { "id": 998335, "artist": "Hana", "title": "Kuukirikigaku Shoujo to Shounen no Uta", "unique_id": "ZavcfhZe" },
+      { "id": 995694, "artist": "Aimer", "title": "i-mage <in/AR>", "unique_id": "6QBYVItH" },
+      {
+        "id": 994389,
+        "artist": "SawanoHiroyuki[nZk]:Tielle & Gemie",
+        "title": "sh0ut (TV Size)",
+        "unique_id": "mAoM9Z6x"
+      },
+      { "id": 991440, "artist": "Syaro (CV: Uchida Maaya)", "title": "Caffeine Fighter", "unique_id": "kjiP093z" },
+      { "id": 989467, "artist": "Hanatan", "title": "Orange", "unique_id": "kVvYA6fM" },
+      { "id": 987566, "artist": "Hatsunetsumiko's", "title": "Libertus", "unique_id": "vdjRknZe" },
+      {
+        "id": 982344,
+        "artist": "Kousaka Honoka (CV: Nitta Emi)",
+        "title": "Snow halation (HONOKA Mix)",
+        "unique_id": "MZvOdyMP"
+      },
+      { "id": 981859, "artist": "Pyxis", "title": "Koise yo Minna, Hai! (TV Size)", "unique_id": "dHquMgsT" },
+      { "id": 981762, "artist": "siromaru + cranky", "title": "conflict", "unique_id": "QuA6oPoS" },
+      { "id": 981203, "artist": "Sasaki Sayaka", "title": "One Kiss One Love", "unique_id": "bBHWgmQ4" },
+      { "id": 974058, "artist": "Karetus", "title": "Full Flavor", "unique_id": "FnxelQO0" },
+      { "id": 972339, "artist": "Inoue Sonoko", "title": "Kotonoha no Omoi (TV Size)", "unique_id": "1NgVTa35" },
+      { "id": 952756, "artist": "Poppin'Party", "title": "Hikaru nara", "unique_id": "S9GWI7IY" },
+      {
+        "id": 929040,
+        "artist": "Iguchi Yuka, Asumi Kana, Hikasa Yoko, Ogura Yui",
+        "title": "Natsuiro Present (TV Size)",
+        "unique_id": "F4vAKI3R"
+      },
+      { "id": 919644, "artist": "Billie Eilish", "title": "bury a friend", "unique_id": "rs6Sd4o4" },
+      { "id": 904629, "artist": "MADKID", "title": "RISE (TV Size)", "unique_id": "U3thDMKk" },
+      { "id": 902690, "artist": "Perfume", "title": "Laser Beam", "unique_id": "OlIpZtzH" },
+      { "id": 881997, "artist": "Chimame-tai", "title": "Teku Teku Marching March", "unique_id": "zlrHqWKR" },
+      {
+        "id": 875080,
+        "artist": "K/DA",
+        "title": "POP/STARS (feat. Madison Beer, (G)I-DLE, Jaira Burns)",
+        "unique_id": "BhARmvAM"
+      },
+      {
+        "id": 843145,
+        "artist": "Sanshuu Chuugaku Yuusha-bu",
+        "title": "Hanakotoba (TV Size)",
+        "unique_id": "mn9SIqRw"
+      },
+      { "id": 819202, "artist": "Nishiki Yasunori", "title": "Grandport, Center of Commerce", "unique_id": "pEsWkSTZ" },
+      {
+        "id": 818013,
+        "artist": "Suzuki Keiichi, Tanaka Hirokazu",
+        "title": "A Flash of Memory",
+        "unique_id": "cQVMbXo7"
+      },
+      { "id": 817429, "artist": "Sia", "title": "Chandelier", "unique_id": "UUbIoe6S" },
+      { "id": 761891, "artist": "Suzuki Minori", "title": "Rewind (TV Size)", "unique_id": "jhm3AYvE" },
+      { "id": 602444, "artist": "YUI", "title": "again (TV Size)", "unique_id": "Em7X0Msf" },
+      { "id": 1032239, "artist": "Roselia", "title": "Charles", "unique_id": "2MubeZbH" },
+      { "id": 1028120, "artist": "Oomori Seiko", "title": "JUSTadICE (TV Size)", "unique_id": "E8IE6Ywi" },
+      { "id": 1023679, "artist": "Camellia", "title": "LET'S JUMP", "unique_id": "KQqIELhD" },
+      { "id": 1023425, "artist": "Frums", "title": "Pictured as Perfect and Plus", "unique_id": "Hz3q0ybG" },
+      { "id": 1017760, "artist": "Kinjishi", "title": "Nageki no Ki", "unique_id": "CPVSXJZu" },
+      { "id": 1017701, "artist": "IAHN", "title": "Feel It", "unique_id": "NNnW6nMb" },
+      { "id": 1015950, "artist": "GIRLFRIEND", "title": "sky & blue (TV Size)", "unique_id": "Q3IwYnIr" },
+      { "id": 1015765, "artist": "Ariabl'eyeS", "title": "Symmetric Rose", "unique_id": "HHYRgmzw" },
+      { "id": 1015345, "artist": "Camellia", "title": "Light it up", "unique_id": "MdJsS4Ik" },
+      { "id": 1013140, "artist": "Chitose Sara", "title": "Merry Merry Go Round", "unique_id": "ASSyTfku" },
+      { "id": 1006690, "artist": "TWICE", "title": "HAPPY HAPPY", "unique_id": "pmLJJJhc" },
+      {
+        "id": 1004682,
+        "artist": "Morishita Chisaki, Tanaka Minami, Kitou Akari, Kurose Yuuko",
+        "title": "Hitoribocchi no Monologue (TV Size)",
+        "unique_id": "QHerIma4"
+      },
+      { "id": 1001507, "artist": "ZUTOMAYO", "title": "Kan Saete Kuyashiiwa", "unique_id": "WOTI2MEF" },
+      { "id": 1000897, "artist": "Fujikawa Chiai", "title": "Kimi no namae", "unique_id": "Pg7Zq67P" },
+      { "id": 1036751, "artist": "Camellia feat. Nanahira", "title": "Tsukitourou", "unique_id": "IhShVO1u" },
+      { "id": 1035447, "artist": "Iguchi Yuka", "title": "HELLO to DREAM (TV Size)", "unique_id": "BrULZ7Oa" },
+      { "id": 1033999, "artist": "schoolboy", "title": "testo", "unique_id": "3o7jlEcM" },
+      { "id": 1037306, "artist": "ASCA", "title": "Selfrontier", "unique_id": "bejOwcr7" },
+      { "id": 1039791, "artist": "Egypt Central", "title": "White Rabbit", "unique_id": "S3vw14rS" },
+      { "id": 1046368, "artist": "May'n", "title": "graphite/diamond (TV Size)", "unique_id": "mELSY9Bi" },
+      { "id": 1047385, "artist": "Afilia Saga", "title": "Neptune*Sagashite (TV Size)", "unique_id": "p0yVxNgc" },
+      { "id": 1048325, "artist": "MAN WITH A MISSION", "title": "Dark Crow (TV Size)", "unique_id": "xzuk0v3T" }
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Weekly Pack 2019 #40 (Std)",
+    "description": "Weekly beatmap packs for the week 40 of the year 2019",
+    "type": "weekly",
+    "date_from": "2019-09-30T00:00:00",
+    "date_to": "2019-10-06T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      { "id": 995539, "artist": "Camellia", "title": "Clouds in the Blue", "unique_id": "hiZKm08k" },
+      { "id": 994994, "artist": "gmtn. (witch's slave)", "title": "trappola bewitching", "unique_id": "8Q9N5s5K" },
+      { "id": 994378, "artist": "Kawada Mami", "title": "Hishoku no Sora", "unique_id": "2CVpnrz7" },
+      { "id": 991058, "artist": "ClariS", "title": "Ai Wo Utae", "unique_id": "8pZbOkr2" },
+      { "id": 989460, "artist": "Rivers of Nihil", "title": "Hollow", "unique_id": "E3TRvDKY" },
+      { "id": 988533, "artist": "Taishi", "title": "Songs Compilation", "unique_id": "XviFTeWn" },
+      { "id": 983911, "artist": "S3RL", "title": "Bass Slut (Original Mix)", "unique_id": "TYNpxarU" },
+      {
+        "id": 979087,
+        "artist": "KISIDA KYODAN & THE AKEBOSI ROCKETS",
+        "title": "Blood on the EDGE (TV Size)",
+        "unique_id": "RUImRQWM"
+      },
+      { "id": 975881, "artist": "ShinRa-Bansho", "title": "Mugen Shitto Gekijou \"666\"", "unique_id": "glknMx1S" },
+      { "id": 940377, "artist": "onumi", "title": "ARROGANCE", "unique_id": "vgH4Ck4V" },
+      { "id": 939484, "artist": "mafumafu", "title": "Manjushage", "unique_id": "jnYFCf9k" },
+      { "id": 935839, "artist": "Nekomata Master", "title": "Instrumental Compilation", "unique_id": "9bBtCRKB" },
+      {
+        "id": 931423,
+        "artist": "Yoshimura Haruka, Uchida Maaya, Aoki Shiki, Takamori Natsumi, Aihara Kotomi",
+        "title": "EVERMORE (M@STER VERSION)",
+        "unique_id": "ruiLOy0h"
+      },
+      { "id": 924550, "artist": "Sangatsu no Phantasia", "title": "Ao ni Minasoko", "unique_id": "ehyLs5M1" },
+      { "id": 913720, "artist": "DECO*27", "title": "Otome Dissection feat. Hatsune Miku", "unique_id": "6f3oFhss" },
+      {
+        "id": 878352,
+        "artist": "Futaba Rio (CV: Tanezaki Atsumi)",
+        "title": "Fukashigi no Karte (TV Size)",
+        "unique_id": "xYy0pNR2"
+      },
+      {
+        "id": 845135,
+        "artist": "Cranky vs. MASAKI",
+        "title": "ouroboros -twin stroke of the end-",
+        "unique_id": "daU6dMJx"
+      },
+      { "id": 841730, "artist": "Fukunaga Yoru", "title": "Hitohira no, Daisuki o,", "unique_id": "Al6TepbG" },
+      { "id": 826596, "artist": "Roselia", "title": "-HEROIC ADVENT-", "unique_id": "7wzgBVPN" },
+      { "id": 810099, "artist": "Pastel*Palettes", "title": "Pasupa Revolutions*", "unique_id": "zz2goUJy" },
+      { "id": 801531, "artist": "The Weeknd", "title": "Starboy feat. Daft Punk", "unique_id": "uPYzbnKY" },
+      { "id": 725806, "artist": "Thaehan", "title": "Ohayou !", "unique_id": "GwEl1tFP" },
+      { "id": 682615, "artist": "Tennyson", "title": "XYZ", "unique_id": "3ezm3PXp" },
+      { "id": 1032959, "artist": "CHiCO with HoneyWorks", "title": "identity", "unique_id": "LYpeliH2" },
+      { "id": 1032859, "artist": "Carpool Tunnel", "title": "Getaway", "unique_id": "SZnoDCBh" },
+      {
+        "id": 1031844,
+        "artist": "Haruna Luna",
+        "title": "Sora wa Takaku Kaze wa Utau (TV Size)",
+        "unique_id": "c7viBJ5G"
+      },
+      { "id": 1031162, "artist": "Parry Gripp", "title": "Guinea Pig Olympics", "unique_id": "NeoTMeUH" },
+      {
+        "id": 1030289,
+        "artist": "Ishiwatari Junji & Sunahara Yoshinori + Yakushimaru Etsuko",
+        "title": "Kamisama no Iu Toori (TV Size)",
+        "unique_id": "0L85GEyx"
+      },
+      {
+        "id": 1030278,
+        "artist": "Suwa Nanaka, Komiya Arisa, Suzuki Aina",
+        "title": "Yosoku Fukano Driving!",
+        "unique_id": "PatJFgGc"
+      },
+      { "id": 1029309, "artist": "Chata", "title": "len", "unique_id": "oHfRKTOY" },
+      {
+        "id": 1028804,
+        "artist": "Jeff Williams",
+        "title": "This Will Be the Day (feat. Casey Lee Williams) (TV Size)",
+        "unique_id": "ethqK2km"
+      },
+      { "id": 1028148, "artist": "Hibiki Misora", "title": "Heart Wave (TV Size)", "unique_id": "GODjm1pC" },
+      { "id": 1023848, "artist": "Au5", "title": "Shock Diamond feat. Cristina Soto", "unique_id": "bsbPEcVE" },
+      { "id": 1022426, "artist": "THE ORAL CIGARETTES", "title": "Miss Tail", "unique_id": "S6KbqD7Z" },
+      {
+        "id": 1022375,
+        "artist": "Meguro Shoji feat. Kawamura Yumi",
+        "title": "Kimi no Kioku (ATLUS Meguro Remix)",
+        "unique_id": "3xRnpZvE"
+      },
+      { "id": 1020878, "artist": "nobodyknows+", "title": "Kokoro Odoru", "unique_id": "z0Yhl83w" },
+      { "id": 1020276, "artist": "Nekomata Master+", "title": "POINT ZERO", "unique_id": "GWPL5G5L" },
+      { "id": 1017053, "artist": "tomppabeats", "title": "the girl next door", "unique_id": "6DtHVNhQ" },
+      { "id": 1016769, "artist": "SOOOO", "title": "Happppy song", "unique_id": "HeFKl2Qp" },
+      { "id": 1015831, "artist": "izu", "title": "Traveler", "unique_id": "WUHINP9i" },
+      { "id": 1015391, "artist": "KOTOKO", "title": "agony", "unique_id": "2Hzkftyo" },
+      { "id": 1015203, "artist": "Imy", "title": "Last words", "unique_id": "RbBou3Ml" },
+      { "id": 1011341, "artist": "Puffy AmiYumi", "title": "TEEN TITANS THEME (TV Size)", "unique_id": "5a3UfaXs" },
+      { "id": 1010865, "artist": "SHK", "title": "Violet Perfume", "unique_id": "2igZBLaE" },
+      {
+        "id": 1009337,
+        "artist": "Maya (CV: Tokui Sora), Megu (CV: Murakawa Rie)",
+        "title": "Little * Treasure * Hunt",
+        "unique_id": "6HNJm4R8"
+      },
+      { "id": 1008772, "artist": "Shimotsuki Haruka", "title": "Nijiiro no Kisetsu e", "unique_id": "kEZCcPhE" },
+      {
+        "id": 1035369,
+        "artist": "Nightmargin (Casey Gu) and Michael Shirt",
+        "title": "Niko's theme",
+        "unique_id": "KFVwAQGR"
+      },
+      { "id": 1043493, "artist": "Hanatan", "title": "Kokoronashi", "unique_id": "I1wBR8Nl" },
+      { "id": 1039984, "artist": "PSYQUI", "title": "Be There", "unique_id": "xtTxIViA" }
+    ]
+  }
+]
