@@ -27,9 +27,9 @@ const getColors = () => {
   const palette = palettes[Math.floor(Math.random() * palettes.length)];
 
   return {
-    weekly: { firstItem: palette[0], other: palette[3] },
+    weekly: { firstItem: palette[3], other: palette[0] },
     monthly: { firstItem: palette[1], other: palette[2] },
-    yearly: { firstItem: palette[2], other: palette[4] },
+    yearly: { firstItem: palette[3], other: palette[4] },
   };
 };
 
@@ -164,7 +164,8 @@ const styles = {
 
 const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, select }) => {
   const packNumber = (name.match(/#\S+/g) || name.match(/20\S+/g)).toString();
-  const periodTitle = type === 'monthly' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
+  const periodTitle =
+    type === 'monthly' || type === 'latest' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
   const history = useContext(HistoryContext);
   // const ownedBeatmapsPercentage = 100;
   const ownedBeatmapsPercentage = Math.floor(
