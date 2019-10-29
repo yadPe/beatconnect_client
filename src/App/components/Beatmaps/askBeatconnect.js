@@ -1,6 +1,6 @@
-import store from '../../../store';
 import _ from 'underscore';
 import config from '../../../config';
+import store from '../../../store';
 
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
@@ -15,7 +15,7 @@ const askBeatconnect = (search, __, resetPage) => {
     fetchingBeatmaps.abort();
     store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
   }
-  const formatQuery = query.split(' ').join('%20');
+  const formatQuery = encodeURIComponent(query);
   fetch(`${config.api.beatmapsBaseUrl}&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, {
     signal: controller.signal,
   })
