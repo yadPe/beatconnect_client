@@ -17,6 +17,7 @@ const styles = {
     overflow: 'visible',
     width: props => (props.expended ? props.panelExpandedLength : props.panelCompactedLength),
     backgroundColor: props => props.background,
+    transition: `width 130ms`,
   },
   head: {
     height: config.display.topBarHeight,

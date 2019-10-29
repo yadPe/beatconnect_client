@@ -41,6 +41,7 @@ const styles = {
     height: props => (props.selected ? '40px' : '0px'),
     width: '3px',
     backgroundColor: ({ theme }) => theme.palette.primary.accent,
+    transition: `all 100ms`,
   },
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
