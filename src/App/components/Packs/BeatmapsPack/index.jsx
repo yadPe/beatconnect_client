@@ -168,7 +168,7 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
     type === 'monthly' || type === 'latest' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
   const history = useContext(HistoryContext);
   const ownedBeatmapsPercentage = Math.floor(
-    (beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / beatmapsets.length || 1) * 100,
+    (beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / (beatmapsets.length || 1)) * 100,
   );
   const completed = ownedBeatmapsPercentage === 100;
   const completedFilterStyle = completed ? classes.completedFilter : '';

@@ -23,7 +23,7 @@
     "dist:win": "npm run build && npx electron-builder build --win --x64",
     "dist:linux": "npm run build && npx electron-builder build --linux --x64",
     "dist:mac": "npm run build && npx electron-builder build --mac --x64",
-    "dist:gh-publish": "npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always",
+    "dist:gh-publish": "cross-env NODE_ENV=production npm prune && npm run build && npx electron-builder build --win --linux --mac --ia32 --x64 -p always && npm i",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
   },
   "repository": {
