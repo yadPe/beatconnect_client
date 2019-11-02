@@ -43,6 +43,9 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
     case 'LASTSCAN':
       userPreferences = { ...userPreferences, lastScan: payload };
       return { ...settings, userPreferences: { ...userPreferences } };
+    case 'SET_THEME_ACCENT_COLOR':
+      userPreferences = { ...userPreferences, theme: { accentColor: payload } };
+      return { ...settings, userPreferences: { ...userPreferences } };
     default:
       return settings;
   }

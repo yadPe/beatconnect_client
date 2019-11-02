@@ -7,15 +7,6 @@ const styles = {
     height: '42vmin',
     backgroundColor: ({ theme }) => theme.palette.primary.main,
     overflowY: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '8px',
-    },
-    '&::-webkit-scrollbar-track': {
-      background: ({ theme }) => theme.palette.primary.main,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: ({ theme }) => theme.palette.primary.accent,
-    },
   },
 };
 

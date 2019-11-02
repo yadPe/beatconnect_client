@@ -29,7 +29,7 @@ const ControlsBar = ({ classes, theme, match, close }) => {
     <ul className={classes.ControlsBar} role="navigation">
       <li>
         <Button className="btn back" push color={theme.palette.primary.dark} onClick={() => close()}>
-          {renderIcons('Back', theme.style)}
+          {renderIcons('Back', theme.accentContrast)}
         </Button>
       </li>
       <li className={classes.titleContainer}>

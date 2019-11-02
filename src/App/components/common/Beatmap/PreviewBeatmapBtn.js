@@ -13,7 +13,7 @@ const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {
   };
   return isPlayable ? (
     <Button push color={theme.palette.primary.accent} onClick={playPreview}>
-      {renderIcons(`${isPlaying ? 'Pause' : 'Play'}`, theme.style)}
+      {renderIcons(`${isPlaying ? 'Pause' : 'Play'}`, theme.accentContrast)}
     </Button>
   ) : null;
 };

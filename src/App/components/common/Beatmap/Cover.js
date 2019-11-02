@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
+import config from '../../../../config';
 
 const Cover = ({ url, width, height, paddingBottom, noFade }) => {
   const [loaded, isLoaded] = useState(false);
@@ -14,7 +15,7 @@ const Cover = ({ url, width, height, paddingBottom, noFade }) => {
   const style = {
     opacity: noFade ? 1 : loaded ? 1 : 0,
     filter: noFade ? '' : `blur(${loaded ? 0 + 'px' : 10 + 'px'})`,
-    transition: '200ms all',
+    transition: `all ${config.display.defaultTransitionDuration}`,
     width: width || '100%',
     height: height || null,
     paddingBottom: paddingBottom ? '15%' : 0,

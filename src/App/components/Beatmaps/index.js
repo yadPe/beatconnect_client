@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, memo, useState, useRef } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet from 'react-jss';
 import { useTheme } from 'theming';
@@ -39,8 +40,9 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   const displayGrid = gridWidth >= 1200;
   const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length;
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
-  // eslint-disable-next-line no-return-assign
-  const onScroll = ({ scrollTop }) => (lastScrollPosition.current = scrollTop);
+  const onScroll = ({ scrollTop }) => {
+    lastScrollPosition.current = scrollTop;
+  };
   const loadMore = () => {
     if (!store.getState().main.fetchingBeatmaps.isFetching) askBeatconnect({ ...search, page: (page += 1) });
   };
@@ -99,7 +101,6 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
         onItemsRendered={newItemsRendered}
         onScroll={onScroll}
         initialScrollTop={lastScrollPosition.current}
-        className="customScroll"
       >
         {renderBeatmaps}
       </FixedSizeGrid>
@@ -112,4 +113,7 @@ const mapStateToProps = ({ main, settings }) => ({
   window: main.window,
   panelExpended: settings.userPreferences.sidePanelExpended,
 });
-export default connect(mapStateToProps)(injectSheet(styles)(Beatmaps));
+export default compose(
+  connect(mapStateToProps),
+  injectSheet(styles),
+)(Beatmaps);

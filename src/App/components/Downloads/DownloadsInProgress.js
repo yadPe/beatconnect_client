@@ -41,10 +41,10 @@ const DownloadsInProgress = ({ theme, classes }) => {
         ) : null}
 
         <Button push color={theme.palette.primary.accent} onClick={toggleDownload}>
-          {renderIcons(isPaused ? 'Download' : 'Pause', theme.style)}
+          {renderIcons(isPaused ? 'Download' : 'Pause', theme.accentContrast)}
         </Button>
         <Button push color={theme.warning} onClick={cancelDownload}>
-          {renderIcons('Cancel', theme.style)}
+          {renderIcons('Cancel', theme.accentContrast)}
         </Button>
       </div>
     );

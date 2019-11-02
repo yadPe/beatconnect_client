@@ -14,7 +14,7 @@ const styles = {
     flex: '1 1 0%',
     flexDirection: 'column',
   },
-  content: {
+  contentWrapper: {
     display: 'flex',
     flex: '1 1 0%',
     flexDirection: 'column',
@@ -30,47 +30,22 @@ const styles = {
     fontFamily: 'Open Sans, sans - serif',
     height: 'calc(100vh - 79px)',
     overflow: 'auto',
-
-    '&::-webkit-scrollbar': {
-      width: '8px',
-    },
-    '&::-webkit-scrollbar-track': {
-      background: ({ theme }) => theme.palette.primary.main,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: ({ theme }) => theme.palette.primary.accent,
+    '&, & *': {
+      '&::-webkit-scrollbar': {
+        width: '8px',
+      },
+      '&::-webkit-scrollbar-track': {
+        background: ({ theme }) => theme.palette.primary.main,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: ({ theme }) => theme.palette.primary.accent,
+      },
     },
   },
 };
 
-const Item = ({
-  classes,
-  color,
-  icon,
-  selected,
-  title,
-  dark,
-  padding,
-  children,
-  background,
-  onSelect,
-  header,
-  theme,
-}) => {
-  //console.log(children)
+const Item = ({ classes, title, children, header, theme }) => {
   const [headerContent, setHeaderContent] = useState(null);
-  // const lastSection = useRef(title);
-  // useLayoutEffect(() => {
-  //   console.log('==============')
-  //   console.log('useLayoutEffect', title, lastSection, headerContent, (lastSection.current !== title))
-  //   if (headerContent && lastSection.current !== title) {
-  //     console.log('RAN')
-  //     setHeaderContent(null);
-  //     lastSection.current = null;
-  //   }
-  //   console.log('==============')
-  //   return () => lastSection.current = title;
-  // }, [title, headerContent]);
 
   return (
     <div className={classes.contentContainer}>
@@ -82,7 +57,7 @@ const Item = ({
             </Header>
           ) : null}
         </div>
-        <div className={classes.content}>
+        <div className={classes.contentWrapper}>
           <div id="modal-root" />
           {children(setHeaderContent)}
         </div>

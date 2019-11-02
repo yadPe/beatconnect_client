@@ -21,8 +21,6 @@ const NavPanel = ({
   volume,
   tasks,
   sidePanelBackground,
-  dark,
-  color,
   children,
   theme,
   onExpended,

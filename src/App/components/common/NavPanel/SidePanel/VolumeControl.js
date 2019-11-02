@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import Volume from '../../../Settings/Volume';
+import config from '../../../../../config';
 
 const styles = {
   a: {
@@ -53,6 +54,7 @@ const styles = {
     height: props => (props.selected ? '40px' : '0px'),
     width: '3px',
     backgroundColor: ({ theme }) => theme.palette.primary.accent,
+    transition: `height ${config.display.defaultTransitionDuration}`,
   },
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
@@ -63,7 +65,7 @@ const styles = {
     backgroundColor: ({ theme }) => theme.palette.primary.main,
     color: '#fff',
     textAlign: 'center',
-    padding: '5px 0',
+    padding: '5px 5px',
     borderRadius: '6px',
     position: 'absolute',
     left: '100%',

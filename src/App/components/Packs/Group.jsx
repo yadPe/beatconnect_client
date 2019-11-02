@@ -11,7 +11,7 @@ const styles = {
     scrollSnapType: 'x mandatory',
     scrollBehavior: 'smooth',
     '&::-webkit-scrollbar': {
-      width: '0px',
+      height: '0px',
     },
   },
   actionBar: {

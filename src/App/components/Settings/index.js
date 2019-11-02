@@ -11,6 +11,7 @@ import {
   setOsuPath,
   setLastScan,
   setImportMethod,
+  saveThemeAccentColor,
 } from './actions';
 import ConfLoader from './ConfLoader';
 import NavPanelItem from '../common/NavPanel/Item';
@@ -18,12 +19,15 @@ import NavPanel from '../common/NavPanel';
 import Setting from './Setting';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import { TasksContext } from '../../../Providers/TasksProvider';
+import ColorPicker from '../common/ColorPicker';
+import { useSetTheme } from '../../../Providers/ThemeProvider';
 
 const Settings = ({ userPreferences, theme }) => {
   const history = useContext(HistoryContext);
   const { add, tasks } = useContext(TasksContext);
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
-  const [selected, setSelected] = useState('Bot');
+  const [selected, setSelected] = useState('General');
+  const { setAccentColor } = useSetTheme();
   useEffect(() => {
     ConfLoader.save();
     return ConfLoader.save;
@@ -65,7 +69,25 @@ const Settings = ({ userPreferences, theme }) => {
     });
   };
 
+  const handleAccentColorSelect = e => {
+    const { value } = e.target;
+    saveThemeAccentColor(value);
+    setAccentColor(value);
+  };
+
   const settings = {
+    General: {
+      theme: [
+        {
+          name: 'Accent color',
+          component: ColorPicker,
+          props: {
+            value: theme.palette.primary.accent,
+            onChange: handleAccentColorSelect,
+          },
+        },
+      ],
+    },
     Bot: {
       IRC: [
         {

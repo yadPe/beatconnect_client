@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Text } from 'react-desktop/windows';
 import injectSheet from 'react-jss';
+import config from '../../../../../config';
 
 const styles = {
   Player: {
@@ -11,7 +12,7 @@ const styles = {
     margin: '0 auto',
     width: '100%',
     transitionProperty: 'filter',
-    transitionDuration: '200ms',
+    transitionDuration: `${config.display.defaultTransitionDuration}`,
     '&:hover': {
       filter: 'brightness(1.2)',
     },

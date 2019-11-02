@@ -61,17 +61,3 @@ body {
   height: 1px;
   background-color: #fff;
 }
-
-/* webkit scroll */
-
-.customScroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.customScroll::-webkit-scrollbar-track {
-  background: #1d1d1d;
-}
-
-.customScroll::-webkit-scrollbar-thumb {
-  background: #00965f;
-}
