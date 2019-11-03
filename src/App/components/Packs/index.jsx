@@ -56,9 +56,11 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
         <div style={{ gridArea: 'overview' }}>
           <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
         </div>
-        <div style={{ gridArea: 'weeks' }}>
-          <Group name="This month" packs={weekly} theme={theme} select={setSelectedPack} />
-        </div>
+        {weekly && !(weekly.length === 0) && (
+          <div style={{ gridArea: 'weeks' }}>
+            <Group name="This month" packs={weekly} theme={theme} select={setSelectedPack} />
+          </div>
+        )}
         <div style={{ gridArea: 'months' }}>
           <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />
         </div>
