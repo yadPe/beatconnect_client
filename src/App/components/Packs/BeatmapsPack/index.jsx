@@ -165,7 +165,7 @@ const styles = {
 const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, select }) => {
   const packNumber = (name.match(/#\S+/g) || name.match(/20\S+/g)).toString();
   const periodTitle =
-    type === 'monthly' || type === 'latest' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '')] : packNumber;
+    type === 'monthly' || type === 'latest' ? months[packNumber.substr(1).replace(/^0+(?!$)/, '') - 1] : packNumber;
   const history = useContext(HistoryContext);
   const ownedBeatmapsPercentage = Math.floor(
     (beatmapsets.filter(beatmap => history.contains(beatmap.id)).length / (beatmapsets.length || 1)) * 100,

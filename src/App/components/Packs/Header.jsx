@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import getPacksDashboardData from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import config from '../../../config';
+import { puts } from 'util';
 
 const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
   useEffect(() => {
@@ -18,20 +19,43 @@ const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
 };
 
 const processBeatconnectPacksData = datas => {
-  const output = {};
+  const output = {
+    lastWeekOverview: [],
+    std: {
+      weekly: [],
+      monthly: [],
+      yearly: [],
+    },
+    ctb: {
+      weekly: [],
+      monthly: [],
+      yearly: [],
+    },
+    mania: {
+      weekly: [],
+      monthly: [],
+      yearly: [],
+    },
+    taiko: {
+      weekly: [],
+      monthly: [],
+      yearly: [],
+    },
+  };
 
   datas.forEach(data => {
     if (data.map) {
-      if (!output.lastWeekOverview) output.lastWeekOverview = [];
       output.lastWeekOverview.push(...data.slice(0, 4));
     } else {
       Object.values(data).forEach(value => {
-        if (!output[value[0].mode]) output[value[0].mode] = {};
-        output[value[0].mode][value[0].type] = value[0].type === 'weekly' ? value.slice(1) : value;
+        if (value.length) output[value[0].mode][value[0].type] = value[0].type === 'weekly' ? value.slice(1) : value;
+        if (value.length && value[0].type === 'monthly' && !output.lastWeekOverview.length) {
+          output.lastWeekOverview.push(value[0]);
+        }
       });
     }
   });
-
+  console.log(output);
   return { type: 'PACKS_DASHBOARD_QUERY_DATA', payload: output };
 };
 
