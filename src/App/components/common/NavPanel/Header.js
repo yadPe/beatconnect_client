@@ -7,7 +7,6 @@ const style = {
     height: '48px',
     display: 'flex',
     alignItems: 'center',
-    // font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif,
     fontSize: '15px',
     textTransform: 'uppercase',
     padding: '0px 24px',

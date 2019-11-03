@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTheme } from 'theming';
 
-export default function(name, _, customColor) {
-  const { style } = useTheme();
-  let fill = style === 'dark' ? '#ffffff' : '#000000';
+export default function(name, style, customColor) {
+  const { style: globalStyle } = useTheme();
+  let fill = (style || globalStyle) === 'dark' ? '#ffffff' : '#000000';
   if (customColor) fill = customColor;
   switch (name) {
     case 'Start':

@@ -1,4 +1,6 @@
-module.exports = {
+import config from '../../../config';
+
+export default {
   userPreferences: {
     volume: 50,
     targetServer: 'osuMain',
@@ -6,6 +8,9 @@ module.exports = {
     autoBeat: true,
     autoImport: true,
     importMethod: 'auto',
+    theme: {
+      accentColor: config.display.defaultAccentColor,
+    },
     irc: {
       server: 'irc.ppy.sh',
       port: 6667,

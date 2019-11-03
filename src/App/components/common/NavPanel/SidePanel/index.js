@@ -17,7 +17,7 @@ const styles = {
     overflow: 'visible',
     width: props => (props.expended ? props.panelExpandedLength : props.panelCompactedLength),
     backgroundColor: props => props.background,
-    transition: `width 130ms`,
+    transition: `width ${config.display.defaultTransitionDuration}`,
   },
   head: {
     height: config.display.topBarHeight,
@@ -33,21 +33,7 @@ const styles = {
   },
 };
 
-const SidePanel = ({
-  classes,
-  color,
-  dark,
-  items,
-  panelExpandedLength,
-  panelCompactedLength,
-  expended,
-  expendable,
-  volume,
-  tasks,
-  setExpended,
-  theme,
-  background,
-}) => {
+const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExpended, theme }) => {
   const itemTab = () =>
     items.map((item, i) => {
       if (items.length - i === 1)

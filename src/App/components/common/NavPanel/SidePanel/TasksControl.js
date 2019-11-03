@@ -111,6 +111,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
           {tasksKeys.map(task => (
             <div
               className="task"
+              role="button"
               onClick={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: tasks[task].section })}
             >
               <div className={classes.divider} />
@@ -122,16 +123,6 @@ const TasksControl = ({ classes, onSelect, theme }) => {
               <div className={classes.divider} />
             </div>
           ))}
-          {/* {lastTask.name ? 
-      <div className='lastTask'>
-        <div style={{ fontSize: '1.2rem' }}>{lastTask.name}</div>
-        <div style={{ fontSize: '1rem' }}>
-            <div>Terminated</div>
-            <div>{lastTask.description}</div>
-          </div>
-      </div> : null
-      
-    } */}
         </>
       );
   };
@@ -140,6 +131,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
       data-radium="true"
       className={classes.a}
       onClick={onSelect}
+      role="button"
       style={{ visibility: active ? 'visible' : 'hidden' }}
     >
       <span className={`${classes.tooltiptext} tooltiptext`}>{renderContent()}</span>

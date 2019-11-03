@@ -85,9 +85,9 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
           <ProgressCircle className="ProgressCircle" color="#fff" size={28} />
         </div>
       ) : downloaded ? (
-        renderIcons('Checked', theme.style)
+        renderIcons('Checked', theme.accentContrast)
       ) : (
-        renderIcons('Download', theme.style)
+        renderIcons('Download', theme.accentContrast)
       )}
     </Button>
   );

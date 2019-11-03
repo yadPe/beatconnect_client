@@ -39,7 +39,7 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
             onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}
             hidden={false}
           >
-            {renderIcons('Search', theme.style)}
+            {renderIcons('Search', theme.accentContrast)}
           </Button>
         </div>
         <div className={classes.rightControls}>
@@ -49,10 +49,10 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
             onClick={toggleDownload}
             hidden={!(status === 'downloading')}
           >
-            {renderIcons(isPaused ? 'Download' : 'Pause', theme.style)}
+            {renderIcons(isPaused ? 'Download' : 'Pause', theme.accentContrast)}
           </Button>
           <Button push color={theme.warning} onClick={cancel} hidden={status === 'downloaded'}>
-            {renderIcons('Cancel', theme.style)}
+            {renderIcons('Cancel', theme.accentContrast)}
           </Button>
         </div>
       </div>

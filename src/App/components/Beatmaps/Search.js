@@ -56,7 +56,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         {isBusy ? (
           <ProgressCircle className="ProgressCircle" color="#fff" size={25} />
         ) : (
-          renderIcons('Search', theme.style)
+          renderIcons('Search', theme.accentContrast)
         )}
       </Button>
       <DropDown

@@ -14,11 +14,7 @@ const Volume = ({ value, onChange }) => {
     setVolume(value);
     updateVolume(value);
   };
-  return (
-    <React.Fragment>
-      <RangeSlider min="0" max="100" value={value} onChange={handleChange} />
-    </React.Fragment>
-  );
+  return <RangeSlider min="0" max="100" value={value} onChange={handleChange} />;
 };
 
 const mapStateTotProps = ({ settings }) => ({ value: settings.userPreferences.volume });

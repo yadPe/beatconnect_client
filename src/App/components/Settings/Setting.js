@@ -1,13 +1,13 @@
 import React from 'react';
-import TextInput from '../common/TextInput';
 import injectSheet from 'react-jss';
-import Toggle from '../common/Toggle';
 import { Button } from 'react-desktop/windows';
+import TextInput from '../common/TextInput';
+import Toggle from '../common/Toggle';
 import DropDown from '../common/DropDown';
 import CheckBox from '../common/CheckBox';
 
 const styles = {
-  Setting: {
+  settingWrapper: {
     margin: '0 4vmin',
     paddingTop: '20px',
     justifyContent: 'space-evenly',
@@ -47,11 +47,20 @@ const styles = {
     backgroundColor: 'rgba(255,255,255,0.02)',
     padding: '5px',
     borderRadius: '5px',
-    // cursor: 'pointer',
     marginRight: '0px !important',
     '& label': {
       margin: 'auto 10px',
     },
+  },
+  entryWrapper: {
+    display: 'inline-flex',
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    padding: '5px',
+    borderRadius: '5px',
+  },
+  clearRight: {
+    flexGrow: 1,
   },
   clickable: {
     cursor: 'pointer',
@@ -62,7 +71,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
   const renderFields = () => {
     return Object.keys(settingCategory).map(subCategory => {
       return (
-        <React.Fragment>
+        <>
           <p style={{ fontWeight: '600' }}>{subCategory.toUpperCase()}</p>
           <div className={classes.subCategory}>
             {settingCategory[subCategory].map(item => {
@@ -106,6 +115,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                       key={item.name}
                       className={classes.Toggle}
                       onClick={item.action}
+                      role="button"
                       style={{ cursor: item.action ? 'pointer' : 'auto' }}
                     >
                       <div style={{ margin: 'auto auto auto 0' }}>
@@ -146,16 +156,21 @@ const Setting = ({ classes, theme, settingCategory }) => {
                     </div>
                   );
                 default:
-                  return <div>{item.name}</div>;
+                  return (
+                    <div className={classes.entryWrapper}>
+                      <p className={classes.clearRight}>{item.name}</p>
+                      {item.component && <item.component {...item.props} />}
+                    </div>
+                  );
               }
             })}
           </div>
-        </React.Fragment>
+        </>
       );
     });
   };
 
-  return <div className={classes.Setting}>{renderFields()}</div>;
+  return <div className={classes.settingWrapper}>{renderFields()}</div>;
 };
 
 export default injectSheet(styles)(Setting);

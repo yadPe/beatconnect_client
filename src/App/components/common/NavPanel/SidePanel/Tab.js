@@ -1,5 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import config from '../../../../../config';
 
 const styles = {
   a: {
@@ -41,7 +42,7 @@ const styles = {
     height: props => (props.selected ? '40px' : '0px'),
     width: '3px',
     backgroundColor: ({ theme }) => theme.palette.primary.accent,
-    transition: `all 100ms`,
+    transition: `height ${config.display.defaultTransitionDuration}`,
   },
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
@@ -60,7 +61,7 @@ const styles = {
   },
 };
 
-const Tab = ({ classes, selected, icon, title, onSelect }) => {
+const Tab = ({ classes, icon, title, onSelect }) => {
   return (
     <a data-radium="true" className={classes.a} onClick={onSelect}>
       <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>

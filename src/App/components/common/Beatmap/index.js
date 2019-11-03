@@ -95,7 +95,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
             onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmap))}
             hidden={!beatmap.title}
           >
-            {renderIcons('Search', theme.style)}
+            {renderIcons('Search', theme.accentContrast)}
           </Button>
           <div
             className="rightContainer"

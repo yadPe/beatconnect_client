@@ -23,17 +23,6 @@ const styles = {
       margin: 'auto',
     },
   },
-  list: {
-    '&::-webkit-scrollbar': {
-      width: '8px',
-    },
-    '&::-webkit-scrollbar-track': {
-      background: ({ theme }) => theme.palette.primary.main,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: ({ theme }) => theme.palette.primary.accent,
-    },
-  },
   listItem: {
     flex: '1',
     display: 'flex',
@@ -171,13 +160,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, t
 
   return (
     <div className={classes.wrapper}>
-      <List
-        height={listHeight}
-        itemCount={filteredBeatmapsets.length}
-        itemSize={50}
-        width={listWidth}
-        className={classes.list}
-      >
+      <List height={listHeight} itemCount={filteredBeatmapsets.length} itemSize={50} width={listWidth}>
         {renderRow}
       </List>
     </div>

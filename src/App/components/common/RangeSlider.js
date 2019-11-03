@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import { compose } from 'redux';
 import { withTheme } from 'theming';
 import convertRange from '../../utils/convertRange';
+import config from '../../../config';
 
 const styles = {
   slider: {
@@ -10,7 +11,6 @@ const styles = {
     width: props => props.width || '100%',
     height: '10px',
     borderRadius: '5px',
-    // background: '#d7dcdf',
     outline: 'none',
     padding: 0,
     margin: 0,
@@ -29,7 +29,7 @@ const styles = {
       borderRadius: '50%',
       background: ({ theme }) => theme.palette.primary.main,
       cursor: 'pointer',
-      transition: 'background .15s ease-in-out',
+      transition: `background ${config.display.defaultTransitionDuration} ease-in-out`,
 
       '&:hover': {
         background: ({ theme }) => theme.palette.primary.accent,
