@@ -6,6 +6,7 @@ import Button from '../Button';
 import renderIcons from '../../../utils/renderIcons';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
+import ProgressRing from '../ProgressRing';
 
 const styles = {
   wrapper: {
@@ -24,15 +25,16 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
   const downloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
     : history.contains(infos.id);
-  let isDownloading = false;
+  let isInQueue = false;
   let fullTitle = '';
+  let isDownloading = false;
   if (pack) {
-    isDownloading = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
+    isInQueue = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
   } else {
     const { title, artist, creator, id } = infos;
     fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
-    isDownloading =
-      queue.filter(item => item.id === id).length || (currentDownload.infos && currentDownload.infos.id === id);
+    isInQueue = queue.filter(item => item.id === id).length;
+    isDownloading = currentDownload.infos && currentDownload.infos.id === id;
   }
 
   const downloadBeatmap = e => {
@@ -63,33 +65,24 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
     if (autoDl) downloadBeatmap();
   }, [autoDl]);
 
+  const renderContent = () => {
+    if (isDownloading && currentDownload.progress)
+      return <ProgressRing radius={20} stroke={2} progress={currentDownload.progress.progress} />;
+    if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={28} />;
+    return downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style);
+  };
+
   if (noStyle) {
     return (
       <div onClick={downloadBeatmap} role="button" {...otherProps} className={`${classes.wrapper} ${className}`}>
-        {isDownloading ? (
-          <div>
-            <ProgressCircle className="ProgressCircle" color="#fff" size={28} />
-          </div>
-        ) : downloaded ? (
-          renderIcons('Checked', theme.style)
-        ) : (
-          renderIcons('Download', theme.style)
-        )}
+        {renderContent()}
       </div>
     );
   }
 
   return (
     <Button push color={theme.palette.primary.accent} onClick={downloadBeatmap}>
-      {isDownloading ? (
-        <div>
-          <ProgressCircle className="ProgressCircle" color="#fff" size={28} />
-        </div>
-      ) : downloaded ? (
-        renderIcons('Checked', theme.accentContrast)
-      ) : (
-        renderIcons('Download', theme.accentContrast)
-      )}
+      {renderContent()}
     </Button>
   );
 };

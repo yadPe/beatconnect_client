@@ -5,77 +5,77 @@ const styles = {
   preloader: {
     display: 'inline-block',
     position: 'relative',
-    width: '64px',
-    height: '64px',
+    width: ({ size }) => size,
+    height: ({ size }) => size,
     '& div': {
-      animation: 'lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite',
-      transformOrigin: '32px 32px',
+      animation: 'lds-roller 1.2s cubic-bezier(.5, .05, .5, 1) infinite',
+      transformOrigin: ({ size }) => `${size / 2}px ${size / 2}px`,
     },
     '& div:after': {
-      content: ' ',
+      content: "''",
       display: 'block',
       position: 'absolute',
-      width: '6px',
-      height: '6px',
+      width: ({ size }) => size * 0.09375,
+      height: ({ size }) => size * 0.09375,
       borderRadius: '50%',
-      background: '#fff',
-      margin: '-3px 0 0 -3px',
+      background: ({ color }) => color,
+      margin: ({ size }) => `-${size * 0.046875}px 0 0 -${size * 0.046875}px`,
     },
     '& div:nth-child(1)': {
       animationDelay: '-0.036s',
     },
     '& div:nth-child(1):after': {
-      top: '50px',
-      left: '50px',
+      top: ({ size }) => size * 0.78125,
+      left: ({ size }) => size * 0.78125,
     },
     '& div:nth-child(2)': {
       animationDelay: '-0.072s',
     },
     '& div:nth-child(2):after': {
-      top: '54px',
-      left: '45px',
+      top: ({ size }) => size * 0.84375,
+      left: ({ size }) => size * 0.703125,
     },
     '& div:nth-child(3)': {
       animationDelay: '-0.108s',
     },
     '& div:nth-child(3):after': {
-      top: '57px',
-      left: '39px',
+      top: ({ size }) => size * 0.890625,
+      left: ({ size }) => size * 0.609375,
     },
     '& div:nth-child(4)': {
       animationDelay: '-0.144s',
     },
     '& div:nth-child(4):after': {
-      top: '58px',
-      left: '32px',
+      top: ({ size }) => size * 0.90625,
+      left: ({ size }) => size * 0.5,
     },
     '& div:nth-child(5)': {
       animationDelay: '-0.18s',
     },
     '& div:nth-child(5):after': {
-      top: '57px',
-      left: '25px',
+      top: ({ size }) => size * 0.890625,
+      left: ({ size }) => size * 0.390625,
     },
     '& div:nth-child(6)': {
       animationDelay: '-0.216s',
     },
     '& div:nth-child(6):after': {
-      top: '54px',
-      left: '19px',
+      top: ({ size }) => size * 0.84375,
+      left: ({ size }) => size * 0.296875,
     },
     '& div:nth-child(7)': {
       animationDelay: '-0.252s',
     },
     '& div:nth-child(7):after': {
-      top: '50px',
-      left: '14px',
+      top: ({ size }) => size * 0.78125,
+      left: ({ size }) => size * 0.21875,
     },
     '& div:nth-child(8)': {
       animationDelay: '-0.288s',
     },
     '& div:nth-child(8):after': {
-      top: '45px',
-      left: '10px',
+      top: ({ size }) => size * 0.703125,
+      left: ({ size }) => size * 0.15625,
     },
   },
 
@@ -105,7 +105,7 @@ const LoadingSpinner = ({ classes }) => {
 };
 
 LoadingSpinner.defaultProps = {
-  size: 100,
+  size: 25,
   time: 3,
   color: '#fff',
 };
