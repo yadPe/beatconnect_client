@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { ProgressCircle, Button } from 'react-desktop/windows';
+import { ProgressCircle } from 'react-desktop/windows';
 import { useTheme } from 'theming';
 import InjectSheet from 'react-jss';
+import Button from '../Button';
 import renderIcons from '../../../utils/renderIcons';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';

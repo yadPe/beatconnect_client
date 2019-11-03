@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Text } from 'react-desktop/windows';
+import { Text } from 'react-desktop/windows';
 import TextInput from '../../common/TextInput';
 import { connect } from 'react-redux';
+import Button from '../../common/Button';
 
 const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
   const [reqMatchId, setReqMatchId] = useState('');
   const error = errors.filter(id => id === reqMatchId).length === 1;
   return (
-    <React.Fragment>
+    <>
       <TextInput placeholder="Match ID" value={reqMatchId} onChange={e => setReqMatchId(e.target.value)} />
       <Button
         className="btn"
@@ -19,16 +20,16 @@ const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
         <Text color="fff">Join</Text>
       </Button>
       {error ? (
-        <React.Fragment>
+        <>
           <p style={{ fontSize: '50%' }}>
             Unable to connect.. Either the match doesn't exist or the bot hasn't been added as a match referee yet.
           </p>
           <p style={{ fontSize: '50%', userSelect: 'text', backgroundColor: theme.palette.primary.main }}>
             !mp addref {ircUsername}
           </p>
-        </React.Fragment>
+        </>
       ) : null}
-    </React.Fragment>
+    </>
   );
 };
 

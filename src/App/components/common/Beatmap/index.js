@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect, memo, useRef } from 'react';
-import { Button, Text } from 'react-desktop/windows';
+import { Text } from 'react-desktop/windows';
 import { shell } from 'electron';
 import { useTheme, withTheme } from 'theming';
 import InjectSheet from 'react-jss';
@@ -12,6 +12,7 @@ import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
 import Badge from '../Badge';
 import reqImgAssets from '../../../utils/reqImgAssets';
+import Button from '../Button';
 
 const styles = {
   Beatmap: {

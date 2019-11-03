@@ -1,10 +1,10 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { Button } from 'react-desktop/windows';
 import TextInput from '../common/TextInput';
 import Toggle from '../common/Toggle';
 import DropDown from '../common/DropDown';
 import CheckBox from '../common/CheckBox';
+import Button from '../common/Button';
 
 const styles = {
   settingWrapper: {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Text } from 'react-desktop/windows';
+import { Text } from 'react-desktop/windows';
 import injectSheet from 'react-jss';
 import config from '../../../../../config';
+import Button from '../../../common/Button';
 
 const styles = {
   Player: {

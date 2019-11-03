@@ -23,21 +23,15 @@ body {
 .MatchDetails .details div {
   box-sizing: border-box;
   flex: 1 1 calc(50% - 20px);
-  /* margin: 10px;
-    flex: 1 1 calc(45% - 20px); */
-  /* flex-grow, flex-shrink, 
-                                      flex-basis: (width - margin) */
 }
 
-.players,
-.beatmap {
+.players, .beatmap {
   padding: 1rem;
   width: 50vh;
   flex-grow: 5;
 }
 
 .beatmap div {
-  /* margin-bottom: auto */
   text-align: center;
   justify-content: center;
   margin: 0 auto;
