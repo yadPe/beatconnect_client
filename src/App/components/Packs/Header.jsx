@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import getPacksDashboardData from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import config from '../../../config';
-import { puts } from 'util';
 
 const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
   useEffect(() => {
@@ -55,7 +54,6 @@ const processBeatconnectPacksData = datas => {
       });
     }
   });
-  console.log(output);
   return { type: 'PACKS_DASHBOARD_QUERY_DATA', payload: output };
 };
 
