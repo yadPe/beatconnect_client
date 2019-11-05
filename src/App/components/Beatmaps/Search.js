@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, ProgressCircle } from 'react-desktop/windows';
+import { ProgressCircle } from 'react-desktop/windows';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
@@ -8,6 +8,8 @@ import askBeatconnect from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
 import config from '../../../config';
+import Button from '../common/Button';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const styles = {
   Search: {
@@ -52,9 +54,9 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
 
   return (
     <div className={classes.Search}>
-      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch}>
+      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
         {isBusy ? (
-          <ProgressCircle className="ProgressCircle" color="#fff" size={25} />
+          <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
         ) : (
           renderIcons('Search', theme.accentContrast)
         )}

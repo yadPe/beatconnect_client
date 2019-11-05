@@ -17,6 +17,10 @@ const isDark = hexColor => {
   );
 };
 
+const accentColor =
+  (ConfLoader.conf.userPreferences.theme && ConfLoader.conf.userPreferences.theme.accentColor) ||
+  config.display.defaultAccentColor;
+
 class AppThemeProvider extends Component {
   constructor(props) {
     super(props);
@@ -26,14 +30,12 @@ class AppThemeProvider extends Component {
         dark: true,
         warning: '#ed2828',
         title: 'Beatconnect',
-        accentContrast: 'dark',
+        accentContrast: isDark(accentColor) ? 'dark' : 'light',
         palette: {
           primary: {
             dark: '#000',
             main: '#1d1d1d',
-            accent:
-              (ConfLoader.conf.userPreferences.theme && ConfLoader.conf.userPreferences.theme.accentColor) ||
-              config.display.defaultAccentColor,
+            accent: accentColor,
           },
           secondary: {
             dark: '#121212',

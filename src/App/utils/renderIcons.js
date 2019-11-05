@@ -71,7 +71,7 @@ export default function(name, style, customColor) {
       );
     case 'Play':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 41.999 41.999">
+        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 41.999 41.999">
           <path
             fill={fill}
             d="M36.068,20.176l-29-20C6.761-0.035,6.363-0.057,6.035,0.114C5.706,0.287,5.5,0.627,5.5,0.999v40
@@ -100,7 +100,7 @@ export default function(name, style, customColor) {
       );
     case 'Search':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 56.966 56.966">
+        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 56.966 56.966">
           <path
             fill={fill}
             d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23

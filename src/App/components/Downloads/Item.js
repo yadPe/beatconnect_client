@@ -2,12 +2,13 @@ import React, { useState, memo } from 'react';
 import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl';
 import Cover from '../common/Beatmap/Cover';
 import PreviewBeatmapBtn from '../common/Beatmap/PreviewBeatmapBtn';
-import { Text, Button } from 'react-desktop';
+import { Text } from 'react-desktop';
 import { shell } from 'electron';
 import renderIcons from '../../utils/renderIcons';
 import timeSince from '../../utils/timeSince';
 import injectSheet from 'react-jss';
 import styles from './ItemStyles';
+import Button from '../common/Button';
 
 const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, classes, cancel }) => {
   const [isPaused, setIsPaused] = useState(false);

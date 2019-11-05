@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import injectSheet from 'react-jss';
-import { Button } from 'react-desktop';
 import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider';
 import renderIcons from '../../utils/renderIcons';
+import Button from '../common/Button';
 
 const styles = {
   DownloadsInProgress: {

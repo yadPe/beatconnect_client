@@ -6,8 +6,9 @@ const getPacksDashboardData = async (mode, callBack) => {
   const { packsDashboardData } = store.getState().main;
 
   const queries = [];
-  if (!packsDashboardData.lastWeekOverview) queries.push(weeklyPackBaseUrl);
-  if (!packsDashboardData[mode]) queries.push(`${packsBaseUrl}&m=${mode}`);
+  if (!packsDashboardData.lastWeekOverview || !packsDashboardData.lastWeekOverview.length)
+    queries.push(weeklyPackBaseUrl);
+  if (!packsDashboardData[mode] || !packsDashboardData[mode].yearly) queries.push(`${packsBaseUrl}&m=${mode}`);
 
   if (queries.length) {
     const promises = queries.map(queryUrl => fetch(queryUrl));

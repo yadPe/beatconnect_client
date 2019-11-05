@@ -150,6 +150,8 @@ const styles = {
   },
   downloadButton: {
     opacity: 0,
+    height: 27,
+    width: 27,
     bottom: 25,
     right: 25,
     backgroundColor: 'rgba(0, 0, 0, .35)',
@@ -173,7 +175,6 @@ const BeatmapsPack = ({ classes, pack: { beatmapsets, name, type }, index, selec
   const completed = ownedBeatmapsPercentage === 100;
   const completedFilterStyle = completed ? classes.completedFilter : '';
   const completedWrapperStyle = completed ? classes.completed : '';
-  // console.log(pack);
   const style =
     index === 0
       ? { backgroundColor: colors[type].firstItem }
