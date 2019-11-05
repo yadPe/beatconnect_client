@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import getPacksDashboardData from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import config from '../../../config';
+import store from '../../../store';
 
 const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
   useEffect(() => {
@@ -18,29 +19,7 @@ const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
 };
 
 const processBeatconnectPacksData = datas => {
-  const output = {
-    lastWeekOverview: [],
-    std: {
-      weekly: [],
-      monthly: [],
-      yearly: [],
-    },
-    ctb: {
-      weekly: [],
-      monthly: [],
-      yearly: [],
-    },
-    mania: {
-      weekly: [],
-      monthly: [],
-      yearly: [],
-    },
-    taiko: {
-      weekly: [],
-      monthly: [],
-      yearly: [],
-    },
-  };
+  const output = store.getState().main.packsDashboardData;
 
   datas.forEach(data => {
     if (data.map) {

@@ -8,7 +8,7 @@ const getPacksDashboardData = async (mode, callBack) => {
   const queries = [];
   if (!packsDashboardData.lastWeekOverview || !packsDashboardData.lastWeekOverview.length)
     queries.push(weeklyPackBaseUrl);
-  if (!packsDashboardData[mode] || !packsDashboardData[mode].yearly.length) queries.push(`${packsBaseUrl}&m=${mode}`);
+  if (!packsDashboardData[mode] || !packsDashboardData[mode].yearly) queries.push(`${packsBaseUrl}&m=${mode}`);
 
   if (queries.length) {
     const promises = queries.map(queryUrl => fetch(queryUrl));

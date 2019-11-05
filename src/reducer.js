@@ -16,7 +16,13 @@ const initialState = {
   errors: [],
   downloadQueue: [],
   fetchingBeatmaps: {},
-  packsDashboardData: {},
+  packsDashboardData: {
+    lastWeekOverview: [],
+    std: {},
+    ctb: {},
+    mania: {},
+    taiko: {},
+  },
 };
 
 export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {
