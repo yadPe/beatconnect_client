@@ -13,7 +13,7 @@ const styles = {
     borderStyle: 'solid',
     borderColor: ({ theme, color }) => color || theme.palette.primary.accent,
     padding: '0 25px',
-    lineHeight: '28px',
+    lineHeight: ({ icon }) => !icon && '28px',
     fontSize: '15px',
     color: ({ theme }) => (theme.accentContrast === 'dark' ? '#fff' : '#000'),
     '&:hover': {

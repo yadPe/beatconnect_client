@@ -54,9 +54,9 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
 
   return (
     <div className={classes.Search}>
-      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch}>
+      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
         {isBusy ? (
-          <ProgressCircle className="ProgressCircle" color="#fff" size={25} />
+          <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
         ) : (
           renderIcons('Search', theme.accentContrast)
         )}

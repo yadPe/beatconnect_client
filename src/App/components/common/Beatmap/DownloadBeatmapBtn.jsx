@@ -12,7 +12,7 @@ const styles = {
   wrapper: {
     '& > svg': {
       display: 'block',
-      margin: 'auto',
+      margin: '5px auto',
     },
   },
 };
@@ -67,8 +67,15 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
 
   const renderContent = () => {
     if (isDownloading && currentDownload.progress)
-      return <ProgressRing radius={20} stroke={2} progress={currentDownload.progress.progress} />;
-    if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={28} />;
+      return (
+        <ProgressRing
+          radius={13.5}
+          stroke={2}
+          progress={currentDownload.progress.progress}
+          style={{ margin: !noStyle && 0 }}
+        />
+      );
+    if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
     return downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style);
   };
 
