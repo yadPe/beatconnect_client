@@ -24,6 +24,7 @@ class DownloadQueueProvider extends Component {
       resumeDownload: this.resumeDownload,
       pushMany: this.pushMany,
       _execQueue: this._execQueue,
+      clear: this.clear,
     };
   }
 
@@ -108,11 +109,17 @@ class DownloadQueueProvider extends Component {
     );
   };
 
+  clear = () => {
+    const { queue } = this.state;
+    queue.length = 0;
+    this.setState({ queue });
+  };
+
   _setDlPath = (importMethod, osuSongsPath) => {
     if (importMethod === 'bulk') {
       this.dlPath = osuSongsPath;
     } else {
-      this.dlPath = app.getPath('downloads') + '\\beatconnect';
+      this.dlPath = app.getPath('downloads') + '/beatconnect';
     }
   };
 

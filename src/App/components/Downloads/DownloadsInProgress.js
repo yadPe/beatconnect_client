@@ -18,7 +18,7 @@ const styles = {
 };
 
 const DownloadsInProgress = ({ theme, classes }) => {
-  const { cancelDownload, currentDownload, _execQueue } = useContext(DownloadQueueContext);
+  const { cancelDownload, currentDownload, _execQueue, clear, queue } = useContext(DownloadQueueContext);
   const [isPaused, setIsPaused] = useState(false);
   const { infos, progress, item } = currentDownload;
   const toggleDownload = () => {
@@ -46,6 +46,11 @@ const DownloadsInProgress = ({ theme, classes }) => {
         <Button push color={theme.warning} onClick={cancelDownload}>
           {renderIcons('Cancel', theme.accentContrast)}
         </Button>
+        {queue.length > 1 && (
+          <Button push color={theme.warning} onClick={clear}>
+            {renderIcons('CancelAll', theme.accentContrast)}
+          </Button>
+        )}
       </div>
     );
   };
