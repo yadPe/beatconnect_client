@@ -33,9 +33,9 @@ const styles = {
 const DropDown = ({ classes, className, options, onSelect, onBlur, value }) => {
   return (
     <select className={`${classes.DropDown} ${className}`} onChange={onSelect} onBlur={onBlur} value={value}>
-      {options.map(option => (
-        <option key={option} className={classes.option} value={option}>
-          {option}
+      {options.map(([title, key]) => (
+        <option key={key} className={classes.option} value={key}>
+          {title}
         </option>
       ))}
     </select>
