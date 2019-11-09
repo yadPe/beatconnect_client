@@ -15,10 +15,13 @@ export default {
     defaultAccentColor: '#F75F1C',
   },
   beatmaps: {
+    availableStatusLabels: ['Ranked', 'Approved', 'Qualified', 'Loved', 'Unranked', 'All'],
     availableStatus: ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'],
+    availableModesLabels: ['Any', 'Osu!', 'Mania', 'Taiko', 'CTB'],
     availableModes: ['all', 'std', 'mania', 'taiko', 'ctb'],
   },
   packs: {
+    availableModesLabels: ['Osu!', 'Mania', 'Taiko', 'CTB'],
     availableModes: ['std', 'mania', 'taiko', 'ctb'],
   },
 };

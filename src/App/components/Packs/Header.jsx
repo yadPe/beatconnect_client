@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import _ from 'underscore';
 import getPacksDashboardData from './askBeatconnect';
 import DropDown from '../common/DropDown';
 import config from '../../../config';
@@ -15,7 +16,9 @@ const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
     setSelectedMode(value);
     getPacksDashboardData(value, processBeatconnectPacksData);
   };
-  return <DropDown onSelect={handleSelect} options={config.packs.availableModes} />;
+  return (
+    <DropDown onSelect={handleSelect} options={_.zip(config.packs.availableModesLabels, config.packs.availableModes)} />
+  );
 };
 
 const processBeatconnectPacksData = datas => {

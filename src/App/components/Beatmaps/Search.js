@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ProgressCircle } from 'react-desktop/windows';
-import _ from 'underscore';
+import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import TextInput from '../common/TextInput';
@@ -9,7 +9,6 @@ import DropDown from '../common/DropDown';
 import renderIcons from '../../utils/renderIcons';
 import config from '../../../config';
 import Button from '../common/Button';
-import LoadingSpinner from '../common/LoadingSpinner';
 
 const styles = {
   Search: {
@@ -31,7 +30,7 @@ const styles = {
 const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   const [search, setSearch] = useState(lastSearch);
   const execSearch = force => {
-    if (!_.isEqual(lastSearch, search) || force) {
+    if (!isEqual(lastSearch, search) || force) {
       askBeatconnect(search, undefined, true);
     }
   };
@@ -62,7 +61,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         )}
       </Button>
       <DropDown
-        options={config.beatmaps.availableModes}
+        options={zip(config.beatmaps.availableModesLabels, config.beatmaps.availableModes)}
         value={search.mode}
         onSelect={e => {
           setSearch({ ...search, mode: e.target.value });
@@ -70,7 +69,7 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         }}
       />
       <DropDown
-        options={config.beatmaps.availableStatus}
+        options={zip(config.beatmaps.availableStatusLabels, config.beatmaps.availableStatus)}
         value={search.status}
         onSelect={e => {
           setSearch({ ...search, status: e.target.value });

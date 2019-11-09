@@ -5,7 +5,10 @@ const styles = {
   Badge: {
     userSelect: 'none',
     boxSizing: 'border-box',
-    display: 'inline-block',
+    // display: 'inline-block',
+    display: 'inline-flex',
+    alignItems: 'center',
+    height: '100%',
     backgroundColor: '#2c3e50',
     color: '#fff',
     borderStyle: 'solid',
