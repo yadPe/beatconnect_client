@@ -6,7 +6,7 @@ const { autoUpdater } = require('electron-updater');
 const DownloadManager = require('electron-download-manager');
 const path = require('path');
 const url = require('url');
-const MainWindow = require('./Window');
+const MainWindow = require('./MainWindow');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
