@@ -21,9 +21,9 @@ const osuSongsScan = songsDirectoryPath =>
         if (isDirExists) {
           const date = dirStats.mtimeMs;
           const assets = fs.readdirSync(beatmapPath);
-          for (let i = 0; i < assets.length; i++) {
-            if (assets[i].split('.').pop() === 'osu') {
-              const data = fs.readFileSync(path.join(beatmapPath, assets[i]), 'utf8');
+          for (let j = 0; j < assets.length; j++) {
+            if (assets[j].split('.').pop() === 'osu') {
+              const data = fs.readFileSync(path.join(beatmapPath, assets[j]), 'utf8');
               const { Metadata } = parser(data);
               if (!(typeof Metadata === 'undefined')) {
                 const { BeatmapSetID, Title, Artist } = Metadata;
