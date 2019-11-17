@@ -152,7 +152,7 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           {item.description}
                         </p>
                       </div>
-                      <CheckBox onChange={item.action} checked={item.value} disabled={item.disabled} />
+                      <CheckBox checked={item.value} disabled={item.disabled} />
                     </div>
                   );
                 default:

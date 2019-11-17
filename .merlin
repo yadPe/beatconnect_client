@@ -1,0 +1,15 @@
+####{BSB GENERATED: NO EDIT
+B lib/bs
+FLG -open Beatconnectclient
+FLG -ppx '/mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/bs-platform/lib/bsppx.exe -bs-jsx 3'
+S /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/bs-platform/lib/ocaml
+B /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/bs-platform/lib/ocaml
+FLG -nostdlib
+FLG -w -30-40+6+7+27+32..39+44+45+101
+S /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/reason-react/lib/ocaml
+B /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/reason-react/lib/ocaml
+S /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/bs-css/lib/ocaml
+B /mnt/d/Users/link/Documents/Visual_Code/Projects/beatconnect_irc_bot/node_modules/bs-css/lib/ocaml
+S src/App/components/common
+B lib/bs/src/App/components/common
+####BSB GENERATED: NO EDIT}

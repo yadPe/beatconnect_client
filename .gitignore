@@ -30,3 +30,5 @@ src/Bot/conf.js
 log.txt
 \.idea/
 secrets
+
+lib
