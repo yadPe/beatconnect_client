@@ -6,7 +6,6 @@ import Group from './Group';
 import BeatmapPackDetail from './BeatmapPackDetail';
 import Header from './Header';
 import config from '../../../config';
-import { make as HelloReason } from '../common/HelloReason.bs';
 
 const styles = {
   Packs: {
@@ -49,7 +48,6 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
     <>
       <div>
         <h2>Welcome to the packs section</h2>
-        <HelloReason message="Salut les potes" />
         <h5>
           Here you will find collections of all ranked beatmaps grouped by mode for the last weeks, months and years
         </h5>

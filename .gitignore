@@ -24,11 +24,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+lib
+.merlin
+
 todo
 conf.json
 src/Bot/conf.js
 log.txt
 \.idea/
 secrets
-
-lib

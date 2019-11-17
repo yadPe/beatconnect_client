@@ -2,54 +2,62 @@
 
 import * as Css from "bs-css/src/Css.js";
 import * as React from "react";
-import * as ReasonReact from "reason-react/src/ReasonReact.js";
 
-var component = ReasonReact.statelessComponent("CheckBox");
-
-var checkBox = Css.style(/* :: */[
-      Css.borderRadius(Css.px(2)),
-      /* :: */[
-        Css.color(Css.black),
-        /* :: */[
-          Css.width(Css.px(20)),
-          /* :: */[
-            Css.height(Css.px(20)),
-            /* [] */0
-          ]
-        ]
-      ]
-    ]);
-
-function make(checked, disabled, _children) {
-  return /* record */[
-          /* debugName */component[/* debugName */0],
-          /* reactClassInternal */component[/* reactClassInternal */1],
-          /* handedOffState */component[/* handedOffState */2],
-          /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */component[/* didMount */4],
-          /* didUpdate */component[/* didUpdate */5],
-          /* willUnmount */component[/* willUnmount */6],
-          /* willUpdate */component[/* willUpdate */7],
-          /* shouldUpdate */component[/* shouldUpdate */8],
-          /* render */(function (_self) {
-              return React.createElement("input", {
-                          className: checkBox,
-                          checked: checked,
-                          disabled: disabled,
-                          type: "checkbox"
-                        });
-            }),
-          /* initialState */component[/* initialState */10],
-          /* retainedProps */component[/* retainedProps */11],
-          /* reducer */component[/* reducer */12],
-          /* jsElementWrapped */component[/* jsElementWrapped */13]
-        ];
+function checkBoxStyle(color, activeColor) {
+  return Css.style(/* :: */[
+              Css.unsafe("-webkit-appearance", "none"),
+              /* :: */[
+                Css.margin2(Css.auto, Css.rem(1)),
+                /* :: */[
+                  Css.width(Css.px(20)),
+                  /* :: */[
+                    Css.height(Css.px(20)),
+                    /* :: */[
+                      Css.border(Css.px(1), Css.solid, Css.hex(color)),
+                      /* :: */[
+                        Css.borderRadius(Css.px(2)),
+                        /* :: */[
+                          Css.verticalAlign(Css.middle),
+                          /* :: */[
+                            Css.backgroundColor(Css.transparent),
+                            /* :: */[
+                              Css.selector("&:checked", /* :: */[
+                                    Css.borderColor(Css.hex(activeColor)),
+                                    /* :: */[
+                                      Css.backgroundColor(Css.hex(activeColor)),
+                                      /* [] */0
+                                    ]
+                                  ]),
+                              /* [] */0
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]);
 }
 
+function Checkbox(Props, _children) {
+  var checked = Props.checked;
+  var disabled = Props.disabled;
+  var color = Props.color;
+  var activeColor = Props.activeColor;
+  return React.createElement("input", {
+              className: checkBoxStyle(color, activeColor),
+              checked: checked,
+              disabled: disabled,
+              type: "checkbox"
+            });
+}
+
+var make = Checkbox;
+
 export {
-  component ,
-  checkBox ,
+  checkBoxStyle ,
   make ,
   
 }
-/* component Not a pure module */
+/* Css Not a pure module */
