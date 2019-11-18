@@ -4,10 +4,8 @@ import { compose } from 'redux';
 import { withTheme } from 'theming';
 
 const styles = {
-  CheckBox: {
-    margin: 'auto 0',
-  },
   input: {
+    margin: 'auto 1rem',
     '-webkit-appearance': 'none',
     border: ({ theme }) => `1px solid ${theme.palette.primary.main}`,
     verticalAlign: 'middle',
@@ -21,19 +19,9 @@ const styles = {
     },
   },
 };
-const CheckBox = ({ classes, checked, onChange, disabled }) => {
-  return (
-    <div className={classes.CheckBox}>
-      <input
-        className={classes.input}
-        type="checkbox"
-        checked={checked}
-        // onChange={onChange}
-        disabled={disabled}
-      />
-    </div>
-  );
-};
+const CheckBox = ({ classes, checked, disabled }) => (
+  <input className={classes.input} type="checkbox" checked={checked} disabled={disabled} />
+);
 
 export default compose(
   withTheme,

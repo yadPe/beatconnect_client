@@ -3,8 +3,9 @@ import injectSheet from 'react-jss';
 import TextInput from '../common/TextInput';
 import Toggle from '../common/Toggle';
 import DropDown from '../common/DropDown';
-import CheckBox from '../common/CheckBox';
+// import CheckBox from '../common/CheckBox';
 import Button from '../common/Button';
+import { make as CheckBox } from '../common/Checkbox.bs';
 
 const styles = {
   settingWrapper: {
@@ -152,7 +153,12 @@ const Setting = ({ classes, theme, settingCategory }) => {
                           {item.description}
                         </p>
                       </div>
-                      <CheckBox onChange={item.action} checked={item.value} disabled={item.disabled} />
+                      <CheckBox
+                        checked={item.value}
+                        disabled={item.disabled}
+                        color={theme.palette.primary.main.substr(1)}
+                        activeColor={theme.palette.primary.accent.substr(1)}
+                      />
                     </div>
                   );
                 default:
