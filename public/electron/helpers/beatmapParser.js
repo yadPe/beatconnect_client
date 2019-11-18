@@ -1,12 +1,17 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-console */
 module.exports = src => {
-  src = src.trim();
-  const lines = src.substr(src.indexOf('\n')).split('\n');
+  const lines = src
+    .trim()
+    .substr(src.indexOf('\n'))
+    .split('\n');
   let category = null;
   const data = {};
 
   for (let i = 0; i < lines.length; ++i) {
     try {
       lines[i] = lines[i].trim();
+      // eslint-disable-next-line no-continue
       if (lines[i] === '' || lines[i].indexOf('//') === 0) continue;
 
       const categoryMatch = lines[i].match(/^\[(.*)\]$/);
@@ -17,7 +22,7 @@ module.exports = src => {
         else data[category] = {};
       } else if (category === 'Events' || category === 'TimingPoints' || category === 'HitObjects') {
         if (category === 'Events' && (lines[i][0] === '_' || lines[i][0] === ' '))
-          data[category][data.data[category].length - 1] += ',' + lines[i].substr(1);
+          data[category][data.data[category].length - 1] += `,${lines[i].substr(1)}`;
         else data[category].push(lines[i].split(','));
       } else {
         const lineMatch = lines[i].match(/^(\S*?)\s*:\s*(.*)$/);

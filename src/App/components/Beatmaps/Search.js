@@ -84,26 +84,6 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
         onBlur={() => execSearch()}
       />
       <div className={classes.right} />
-      {/* Advanced search panel WIP}
-      {/* <ToggleContent
-        toggle={(isShown, setIsShown) => (
-          <div
-            title='Advanced filters'
-            style={{ margin: 'auto 15px' }}
-            onClick={() => setIsShown(!isShown)}
-          >
-            {renderIcons('Filter', theme.style, isShown ? theme.palette.primary.accent : null)}
-          </div>
-        )}
-        content={hide => (
-          <Modal
-            close={hide}
-          >
-            There is no spoon...
-          <button onClick={hide}>Close</button>
-          </Modal>
-        )}
-      /> */}
       <div
         className={classes.hideDownloaded}
         onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
@@ -113,10 +93,6 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
       >
         {renderIcons('Verified', theme.style, search.hideDownloaded ? theme.palette.primary.accent : null)}
       </div>
-      {/* <Toggle
-        checked={search.hideDownloaded}
-        onChange={e => setSearch({ ...search, hideDownloaded: e.target.checked })}
-      /> */}
     </div>
   );
 };

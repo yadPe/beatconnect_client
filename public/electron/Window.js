@@ -10,6 +10,7 @@ const defaultProps = {
   minWidth: 890,
   show: false,
   darkTheme: true,
+  // eslint-disable-next-line no-unneeded-ternary
   frame: process.env.ELECTRON_START_URL ? true : false,
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import start from '../../../Bot';
 import { connect } from 'react-redux';
-import Toggle from '../common/Toggle';
 import injectSheet from 'react-jss';
+import start from '../../../Bot';
+import Toggle from '../common/Toggle';
 
 const styles = {
   Start: {
@@ -14,18 +14,12 @@ const styles = {
   },
 };
 
-const Start = ({ classes, connected, theme, irc, osuApi }) => {
+const Start = ({ classes, connected, irc, osuApi }) => {
   const notReady = !osuApi || !irc.username || !irc.password;
 
   return (
     <div className={classes.Start}>
-      <Toggle
-        disabled={notReady}
-        checked={connected}
-        onChange={start}
-        background={'#505050'}
-        margin={'auto 10px auto 0'}
-      />
+      <Toggle disabled={notReady} checked={connected} onChange={start} background="#505050" margin="auto 10px auto 0" />
 
       <p>{connected ? (connected === 'connecting' ? 'Connecting to Bancho via IRC..' : 'Online') : 'Offline'}</p>
       {notReady ? (

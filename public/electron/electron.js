@@ -25,7 +25,7 @@ autoUpdater.on('update-not-available', () => {
 });
 
 DownloadManager.register({
-  downloadFolder: app.getPath('downloads') + '/beatconnect',
+  downloadFolder: `${app.getPath('downloads')}/beatconnect`,
 });
 
 const main = () => {

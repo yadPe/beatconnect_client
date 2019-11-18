@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useContext, memo, useState, useRef } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
