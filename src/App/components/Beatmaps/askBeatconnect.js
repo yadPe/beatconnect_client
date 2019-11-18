@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
 import _ from 'underscore';
 import config from '../../../config';
 import store from '../../../store';
@@ -5,8 +7,8 @@ import store from '../../../store';
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
   let lastPage;
-  const { query, status, mode, hideDownloaded } = search;
-  let { page, lastScroll } = search;
+  const { page, query, status, mode, hideDownloaded } = search;
+  let { lastScroll } = search;
   if (resetPage && !page) lastScroll = 0;
   else lastScroll = undefined;
   const { searchResults, fetchingBeatmaps } = store.getState().main;
@@ -21,7 +23,7 @@ const askBeatconnect = (search, __, resetPage) => {
   })
     .then(res => res.ok && res.json())
     .then(({ beatmaps, max_page, error, error_message }) => {
-      if (error) throw new Error(error_message + ' For query ' + search);
+      if (error) throw new Error(`${error_message} For query ${search}`);
       if (beatmaps.length === 0) lastPage = true;
       if (page > 0) beatmaps = _.union(prevBeatmaps, beatmaps);
       store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });

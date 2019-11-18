@@ -128,9 +128,9 @@ function readOsuDB(path) {
           for (let j = 0; j < 4; j++) {
             const unknownNumCount = buf.readInt32LE((offset += 4) - 4);
             for (let k = 0; k < unknownNumCount; k++) {
-              if (buf[offset++] != 0x08) return reject(new Error('Invalid beatmap!'));
+              if (buf[offset++] !== 0x08) return reject(new Error('Invalid beatmap!'));
               buf.readInt32LE((offset += 4) - 4);
-              if (buf[offset++] != 0x0d) return reject(new Error('Invalid beatmap!'));
+              if (buf[offset++] !== 0x0d) return reject(new Error('Invalid beatmap!'));
               buf.readDoubleLE((offset += 8) - 8);
             }
           }
