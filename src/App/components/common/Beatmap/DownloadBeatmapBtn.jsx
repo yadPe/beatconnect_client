@@ -42,6 +42,7 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
     if (pack) {
       const beatmapsToDownload = pack.filter(beatmap => !history.contains(beatmap.id));
       pushMany(
+        // eslint-disable-next-line camelcase
         beatmapsToDownload.map(({ unique_id, id, title, artist }) => ({
           url: `https://beatconnect.io/b/${id}/${unique_id}`,
           id,

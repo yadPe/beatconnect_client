@@ -63,7 +63,7 @@ const styles = {
 
 const Tab = ({ classes, icon, title, onSelect }) => {
   return (
-    <a data-radium="true" className={classes.a} onClick={onSelect}>
+    <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
       <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />

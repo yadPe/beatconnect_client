@@ -131,7 +131,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
       data-radium="true"
       className={classes.a}
       onClick={onSelect}
-      role="button"
+      role="tab"
       style={{ visibility: active ? 'visible' : 'hidden' }}
     >
       <span className={`${classes.tooltiptext} tooltiptext`}>{renderContent()}</span>

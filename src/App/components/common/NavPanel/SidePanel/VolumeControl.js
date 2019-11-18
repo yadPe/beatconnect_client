@@ -82,7 +82,7 @@ const VolumeControl = ({ classes, onSelect, theme }) => {
     return renderIcons('VolumeHigh', theme.style);
   };
   return (
-    <a data-radium="true" className={classes.a} onClick={onSelect}>
+    <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
       <span className={`${classes.tooltiptext} tooltiptext`}>
         <Volume onChange={setVolumeValue} />
       </span>
