@@ -6,7 +6,7 @@ const { autoUpdater } = require('electron-updater');
 const DownloadManager = require('electron-download-manager');
 const path = require('path');
 const url = require('url');
-const Window = require('./Window');
+const MainWindow = require('./MainWindow');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -35,12 +35,7 @@ const main = () => {
     console.log('Waiting for dev server to show up');
   }
 
-  mainWindow = new Window({
-    backgroundColor: '#121212',
-    webPreferences: {
-      nodeIntegration: true,
-      webSecurity: false,
-    },
+  mainWindow = new MainWindow({
     url: isDev
       ? process.env.ELECTRON_START_URL ||
         url.format({
@@ -53,12 +48,6 @@ const main = () => {
           protocol: 'file:',
           slashes: true,
         }),
-  });
-
-  mainWindow.on('show', () => {
-    setTimeout(() => {
-      autoUpdater.checkForUpdatesAndNotify();
-    }, 5000);
   });
 
   mainWindow.on('closed', () => {
