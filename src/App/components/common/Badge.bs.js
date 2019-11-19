@@ -6,16 +6,19 @@ import * as $$String from "bs-platform/lib/es6/string.js";
 
 function makeBaseStyle(param) {
   return Css.style(/* :: */[
-              Css.backgroundColor(Css.hex("2c3e50")),
+              Css.border(Css.px(2), Css.solid, Css.hex("2c3e50")),
               /* :: */[
-                Css.border(Css.px(2), Css.solid, Css.hex("2c3e50")),
+                Css.borderRadius(Css.rem(0.25)),
                 /* :: */[
-                  Css.borderRadius(Css.rem(0.25)),
+                  Css.fontSize(Css.rem(0.8)),
                   /* :: */[
-                    Css.fontSize(Css.rem(0.8)),
+                    Css.padding3(Css.rem(0.1), Css.rem(0.45), Css.rem(0.2)),
                     /* :: */[
-                      Css.padding3(Css.rem(0.1), Css.rem(0.45), Css.rem(0.2)),
-                      /* [] */0
+                      Css.display(Css.inlineFlex),
+                      /* :: */[
+                        Css.alignItems(Css.center),
+                        /* [] */0
+                      ]
                     ]
                   ]
                 ]
@@ -25,21 +28,17 @@ function makeBaseStyle(param) {
 
 function makeStatusStyle(status) {
   switch (status) {
-    case "info" :
+    case "WIP" :
+    case "graveyard" :
         return Css.style(/* :: */[
-                    Css.backgroundColor(Css.hex("3498db")),
-                    /* [] */0
-                  ]);
-    case "pending" :
-        return Css.style(/* :: */[
-                    Css.backgroundColor(Css.rgba(241, 196, 15, 0.15)),
+                    Css.backgroundColor(Css.rgba(231, 76, 60, 0.15)),
                     /* :: */[
-                      Css.borderColor(Css.rgba(241, 196, 15, 0.8)),
+                      Css.borderColor(Css.rgba(231, 76, 60, 0.8)),
                       /* :: */[
                         Css.selector("&:hover", /* :: */[
-                              Css.backgroundColor(Css.rgba(241, 196, 15, 0.15)),
+                              Css.backgroundColor(Css.rgba(231, 76, 60, 0.4)),
                               /* :: */[
-                                Css.borderColor(Css.rgba(241, 196, 15, 0.8)),
+                                Css.borderColor(Css.rgb(231, 76, 60)),
                                 /* [] */0
                               ]
                             ]),
@@ -47,21 +46,85 @@ function makeStatusStyle(status) {
                       ]
                     ]
                   ]);
-    case "WIP" :
-    case "graveyard" :
+    case "info" :
+        return Css.style(/* :: */[
+                    Css.backgroundColor(Css.hex("3498db")),
+                    /* [] */0
+                  ]);
     case "loved" :
+        return Css.style(/* :: */[
+                    Css.backgroundColor(Css.rgba(222, 90, 148, 0.15)),
+                    /* :: */[
+                      Css.borderColor(Css.rgba(222, 90, 148, 0.8)),
+                      /* :: */[
+                        Css.selector("&:hover", /* :: */[
+                              Css.backgroundColor(Css.rgba(222, 90, 148, 0.4)),
+                              /* :: */[
+                                Css.borderColor(Css.rgb(222, 90, 148)),
+                                /* [] */0
+                              ]
+                            ]),
+                        /* [] */0
+                      ]
+                    ]
+                  ]);
+    case "pending" :
     case "qualified" :
+        return Css.style(/* :: */[
+                    Css.backgroundColor(Css.rgba(241, 196, 15, 0.15)),
+                    /* :: */[
+                      Css.borderColor(Css.rgba(241, 196, 15, 0.8)),
+                      /* :: */[
+                        Css.selector("&:hover", /* :: */[
+                              Css.backgroundColor(Css.rgba(241, 196, 15, 0.4)),
+                              /* :: */[
+                                Css.borderColor(Css.rgb(241, 196, 15)),
+                                /* [] */0
+                              ]
+                            ]),
+                        /* [] */0
+                      ]
+                    ]
+                  ]);
     case "ranked" :
-        return "hello to you too!";
+        return Css.style(/* :: */[
+                    Css.backgroundColor(Css.rgba(46, 204, 113, 0.15)),
+                    /* :: */[
+                      Css.borderColor(Css.rgba(46, 204, 113, 0.8)),
+                      /* :: */[
+                        Css.selector("&:hover", /* :: */[
+                              Css.backgroundColor(Css.rgba(46, 204, 113, 0.4)),
+                              /* :: */[
+                                Css.borderColor(Css.rgb(46, 204, 113)),
+                                /* [] */0
+                              ]
+                            ]),
+                        /* [] */0
+                      ]
+                    ]
+                  ]);
     default:
-      return "Nice to meet you!";
+      return Css.style(/* :: */[
+                  Css.backgroundColor(Css.hex("2c3e50")),
+                  /* [] */0
+                ]);
   }
+}
+
+function makeStyle(status) {
+  return Css.merge(/* :: */[
+              makeBaseStyle(/* () */0),
+              /* :: */[
+                makeStatusStyle(status),
+                /* [] */0
+              ]
+            ]);
 }
 
 function Badge(Props, _children) {
   var status = Props.status;
   return React.createElement("span", {
-              className: status
+              className: makeStyle(status)
             }, $$String.capitalize(status));
 }
 
@@ -70,6 +133,7 @@ var make = Badge;
 export {
   makeBaseStyle ,
   makeStatusStyle ,
+  makeStyle ,
   make ,
   
 }
