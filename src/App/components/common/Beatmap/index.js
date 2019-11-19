@@ -10,7 +10,7 @@ import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
 import renderIcons from '../../../utils/renderIcons';
 import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
-import Badge from '../Badge';
+import { make as Badge } from '../Badge.bs';
 import reqImgAssets from '../../../utils/reqImgAssets';
 import Button from '../Button';
 
