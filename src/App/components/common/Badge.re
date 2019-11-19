@@ -6,6 +6,8 @@ let makeBaseStyle = () =>
     borderRadius(rem(0.25)),
     fontSize(rem(0.8)),
     padding3(rem(0.1), rem(0.45), rem(0.2)),
+    display(inlineFlex),
+    alignItems(center),
   ]);
 
 let makeStatusStyle = status =>
@@ -86,14 +88,12 @@ let makeStatusStyle = status =>
   | _ => style([backgroundColor(hex("2c3e50"))])
   };
 
-let makeStyle = status => 
-  merge([
-    makeBaseStyle(),
-    makeStatusStyle(status),
-  ])
+let makeStyle = status => [makeBaseStyle(), makeStatusStyle(status)]->merge;
 
 [@react.component]
 [@genType]
 let make = (~status, _children) => {
-  <span className=status> {React.string(String.capitalize(status))} </span>;
+  <span className={makeStyle(status)}>
+    {status->String.capitalize->React.string}
+  </span>;
 };
