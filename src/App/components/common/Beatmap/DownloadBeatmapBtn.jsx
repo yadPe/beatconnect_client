@@ -6,7 +6,7 @@ import Button from '../Button';
 import renderIcons from '../../../utils/renderIcons';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
-import ProgressRing from '../ProgressRing';
+import { make as ProgressRing } from '../ProgressRing.bs';
 
 const styles = {
   wrapper: {
@@ -68,14 +68,7 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
 
   const renderContent = () => {
     if (isDownloading && currentDownload.progress)
-      return (
-        <ProgressRing
-          radius={13.5}
-          stroke={2}
-          progress={currentDownload.progress.progress}
-          style={{ margin: !noStyle && 0 }}
-        />
-      );
+      return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progress.progress} />;
     if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
     return downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style);
   };
