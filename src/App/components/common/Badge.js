@@ -3,27 +3,14 @@ import injectSheet from 'react-jss';
 
 const styles = {
   Badge: {
-    userSelect: 'none',
-    boxSizing: 'border-box',
-    // display: 'inline-block',
-    display: 'inline-flex',
-    alignItems: 'center',
-    height: '100%',
     backgroundColor: '#2c3e50',
-    color: '#fff',
     borderStyle: 'solid',
     borderRadius: '0.25rem',
     borderWidth: '2px',
     borderColor: '#2c3e50',
-    textAlign: 'center',
     fontSize: '0.8rem',
     padding: '0.1rem 0.45rem 0.2rem',
     fontWeight: 400,
-    lineHeight: 'inherit',
-    transition: 'all 100ms',
-    '&:hover': {
-      cursor: 'default',
-    },
   },
   info: {
     backgroundColor: '#3498db',
