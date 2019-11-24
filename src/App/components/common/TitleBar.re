@@ -1,6 +1,3 @@
-[@bs.module "electron"]
-external jsRenderIcons: unit => React.element = "remote";
-
 open Css;
 let makeWrapperStyle = (~height as h) =>
   style([
@@ -39,16 +36,24 @@ let makeControlStyle = (~bgColor: option(Css.Types.Color.t)=?, ()) =>
 
 [@react.component]
 [@genType]
-let make = (~title, ~height: int, _children) => {
+let make =
+    (
+      ~title,
+      ~height: int,
+      ~onMinimizeClick,
+      ~onMaximizeClick,
+      ~onCloseClick,
+      _children,
+    ) => {
   <div className={makeWrapperStyle(~height)}>
     <div className={makeTitleStyle()}> title->React.string </div>
-    <div className={makeControlStyle()}>
+    <div className={makeControlStyle()} onClick=onMinimizeClick>
       {Icon.make(~name="Dash", ~width=12, ~height=12, ())}
     </div>
-    <div className={makeControlStyle()}>
+    <div className={makeControlStyle()} onClick=onMaximizeClick>
       {Icon.make(~name="Square", ~width=12, ~height=12, ())}
     </div>
-    <div className={makeControlStyle(~bgColor=red, ())}>
+    <div className={makeControlStyle(~bgColor=red, ())} onClick=onCloseClick>
       {Icon.make(~name="Cancel", ~width=12, ~height=12, ())}
     </div>
   </div>;

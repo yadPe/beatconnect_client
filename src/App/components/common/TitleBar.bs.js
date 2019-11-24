@@ -61,16 +61,22 @@ function makeControlStyle(bgColor, param) {
 function TitleBar(Props, _children) {
   var title = Props.title;
   var height = Props.height;
+  var onMinimizeClick = Props.onMinimizeClick;
+  var onMaximizeClick = Props.onMaximizeClick;
+  var onCloseClick = Props.onCloseClick;
   return React.createElement("div", {
               className: makeWrapperStyle(height)
             }, React.createElement("div", {
                   className: makeTitleStyle(/* () */0)
                 }, title), React.createElement("div", {
-                  className: makeControlStyle(undefined, /* () */0)
+                  className: makeControlStyle(undefined, /* () */0),
+                  onClick: onMinimizeClick
                 }, Icon$Beatconnectclient.make("Dash", undefined, 12, 12, /* () */0)), React.createElement("div", {
-                  className: makeControlStyle(undefined, /* () */0)
+                  className: makeControlStyle(undefined, /* () */0),
+                  onClick: onMaximizeClick
                 }, Icon$Beatconnectclient.make("Square", undefined, 12, 12, /* () */0)), React.createElement("div", {
-                  className: makeControlStyle(Css.red, /* () */0)
+                  className: makeControlStyle(Css.red, /* () */0),
+                  onClick: onCloseClick
                 }, Icon$Beatconnectclient.make("Cancel", undefined, 12, 12, /* () */0)));
 }
 

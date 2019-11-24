@@ -11,9 +11,8 @@ const App = () => {
   const theme = useTheme();
 
   const onMaximizeClick = () => (window.isMaximized() ? window.unmaximize() : window.maximize());
-
-  const onCloseClick = window.close;
-  const onMinimizeClick = window.minimize;
+  const onCloseClick = () => window.close();
+  const onMinimizeClick = () => window.minimize();
 
   return (
     <>
@@ -22,9 +21,9 @@ const App = () => {
         theme={theme.style}
         height={config.display.titleBarHeight}
         controls
-        onCloseClick={window.close}
+        onCloseClick={onCloseClick}
         onMaximizeClick={onMaximizeClick}
-        onMinimizeClick={window.minimize}
+        onMinimizeClick={onMinimizeClick}
       />
       <Nav />
     </>
