@@ -14,7 +14,7 @@ process.on('unhandledRejection', err => {
 // Ensure environment variables are read.
 require('../config/env');
 
-
+const { exec } = require('child_process')
 const fs = require('fs');
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
@@ -27,7 +27,6 @@ const {
   prepareProxy,
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
-const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
 const createDevServerConfig = require('../config/webpackDevServer.config');
@@ -65,6 +64,17 @@ if (process.env.HOST) {
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
+  .then(() => new Promise((resolve, reject) => {
+    const bsb = exec('npm run bsb',
+      (err) => {
+        if (err) {
+          console.log("Couldn't build reason using bsb");
+          reject(err)
+        }
+      });
+    bsb.stdout.pipe(process.stdout)
+    bsb.on('exit', resolve)
+  }))
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to
     // run on a different port. `choosePort()` Promise resolves to the next free port.
@@ -110,10 +120,7 @@ checkBrowsers(paths.appPath, isInteractive)
       if (err) {
         return console.log(err);
       }
-      if (isInteractive) {
-        clearConsole();
-      }
-
+      
       // We used to support resolving modules according to `NODE_PATH`.
       // This now has been deprecated in favor of jsconfig/tsconfig.json
       // This lets you use absolute paths in imports inside large monorepos:
@@ -127,11 +134,15 @@ checkBrowsers(paths.appPath, isInteractive)
       }
 
       console.log(chalk.cyan('Starting the development server...\n'));
-      //openBrowser(urls.localUrlForBrowser);
+      exec('npm run electron-dev',
+        (err, stdout) => {
+          if (err) console.log("Couldn't launch electron, try starting it manually");
+          else console.log(stdout);
+        });
     });
 
-    ['SIGINT', 'SIGTERM'].forEach(function(sig) {
-      process.on(sig, function() {
+    ['SIGINT', 'SIGTERM'].forEach(function (sig) {
+      process.on(sig, function () {
         devServer.close();
         process.exit();
       });
