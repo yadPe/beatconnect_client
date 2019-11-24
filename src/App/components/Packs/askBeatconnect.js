@@ -6,7 +6,7 @@ const getPacksDashboardData = async (mode, callBack) => {
   const { packsDashboardData } = store.getState().main;
 
   const queries = [];
-  if (!packsDashboardData.lastWeekOverview || !packsDashboardData.lastWeekOverview.length)
+  if (!packsDashboardData.lastWeekOverview || packsDashboardData.lastWeekOverview[0] === 0)
     queries.push(weeklyPackBaseUrl);
   if (!packsDashboardData[mode] || !packsDashboardData[mode].yearly) queries.push(`${packsBaseUrl}&m=${mode}`);
 

@@ -44,7 +44,7 @@ const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExp
             <Tab {...item.props} expended={expended} />
           </>
         );
-      return <Tab {...item.props} expended={expended} />;
+      return <Tab {...item.props} expended={expended} key={i} />;
     });
 
   return (

@@ -1,7 +1,7 @@
 open Css;
 let makeWrapperStyle = (~height as h) =>
   style([
-    unsafe("-webkit-app-region", "drag"),
+    unsafe("WebkitAppRegion", "drag"),
     backgroundColor(hex("171717")),
     height(px(h)),
     width(pct(100.)),
@@ -19,7 +19,7 @@ let makeTitleStyle = () =>
 
 let makeControlStyle = (~bgColor: option(Css.Types.Color.t)=?, ()) =>
   style([
-    unsafe("-webkit-app-region", "no-drag"),
+    unsafe("WebkitAppRegion", "no-drag"),
     padding2(~v=zero, ~h=px(7)),
     selector(
       "&:hover",
