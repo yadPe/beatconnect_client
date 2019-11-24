@@ -62,11 +62,10 @@ $ cd beatconnect_irc_bot
 # Install dependencies
 $ npm i
 
-# Build the react App
-$ npm run build
+# Start the server and launch the app
+$ npm start
 
-# Run electron
-$ electron .
+# (if you're running WSL you will have to start electron from within Windows with "npm run electron-dev")
 ```
 
 ## Download 
