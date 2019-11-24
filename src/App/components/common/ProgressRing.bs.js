@@ -19,6 +19,10 @@ function makeStyle(strokeDashoffset) {
             ]);
 }
 
+function floatToString(prim) {
+  return prim.toString();
+}
+
 function ProgressRing(Props, _children) {
   var radius = Props.radius;
   var stroke = Props.stroke;
@@ -50,6 +54,7 @@ var make = ProgressRing;
 
 export {
   makeStyle ,
+  floatToString ,
   make ,
   
 }

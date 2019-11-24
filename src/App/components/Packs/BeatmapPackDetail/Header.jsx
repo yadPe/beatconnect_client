@@ -40,7 +40,7 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
   return (
     <div className={classes.wrapper}>
       <div title="Back" role="button" onClick={quit} className={classes.backButton}>
-        {renderIcons('Back')}
+        {renderIcons({ name: 'Back' })}
       </div>
       <p className={classes.name}>{name}</p>
       {/* <p>{beatmapsets.length}</p> */}

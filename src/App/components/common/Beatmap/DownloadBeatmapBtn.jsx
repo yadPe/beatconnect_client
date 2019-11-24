@@ -70,7 +70,7 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
     if (isDownloading && currentDownload.progress)
       return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progress.progress} />;
     if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
-    return downloaded ? renderIcons('Checked', theme.style) : renderIcons('Download', theme.style);
+    return downloaded ? renderIcons({name: 'Checked'}) : renderIcons({name: 'Download'});
   };
 
   if (noStyle) {

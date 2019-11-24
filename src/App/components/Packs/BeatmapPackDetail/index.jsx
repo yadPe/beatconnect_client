@@ -151,7 +151,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, t
             title="See beatmap page"
             className={`${classes.beatmapPageButton}  clickable`}
           >
-            {renderIcons('Search', theme.style)}
+            {renderIcons({ name: 'Search', color: theme.style })}
           </div>
         </div>
       </div>

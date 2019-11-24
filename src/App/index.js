@@ -1,30 +1,33 @@
 import React from 'react';
-import { TitleBar } from 'react-desktop/windows';
 import { remote } from 'electron';
 import { useTheme } from 'theming';
 import Nav from './components/Nav';
+import TitleBar from './components/common/TitleBar.bs';
+import config from '../config';
 import './App.css';
 
 const App = () => {
   const window = remote.getCurrentWindow();
   const theme = useTheme();
 
+  const onMaximizeClick = () => (window.isMaximized() ? window.unmaximize() : window.maximize());
+
+  const onCloseClick = window.close;
+  const onMinimizeClick = window.minimize;
+
   return (
-    <div className="App">
-      <div className="TitleBar">
-        <TitleBar
-          title={theme.title}
-          theme={theme.style}
-          controls
-          onCloseClick={() => window.close()}
-          onMaximizeClick={() => (window.isMaximized() ? window.unmaximize() : window.maximize())}
-          onMinimizeClick={() => window.minimize()}
-        />
-      </div>
-      <div className="Nav">
-        <Nav />
-      </div>
-    </div>
+    <>
+      <TitleBar
+        title={theme.title}
+        theme={theme.style}
+        height={config.display.titleBarHeight}
+        controls
+        onCloseClick={window.close}
+        onMaximizeClick={onMaximizeClick}
+        onMinimizeClick={window.minimize}
+      />
+      <Nav />
+    </>
   );
 };
 

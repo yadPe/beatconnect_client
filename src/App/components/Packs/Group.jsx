@@ -104,10 +104,10 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme,
         <h3 className={classes.title}>{name}</h3>
         <div className={classes.arrows}>
           <div className="prev" style={prevButtonStyle} onClick={handlePrevButtonClick} role="button">
-            {renderIcons('Back')}
+            {renderIcons({ name: 'Back' })}
           </div>
           <div className="next" style={nextButtonStyle} onClick={handleNextButtonClick} role="button">
-            {renderIcons('Back')}
+            {renderIcons({ name: 'Back' })}
           </div>
         </div>
       </div>

@@ -41,14 +41,14 @@ const DownloadsInProgress = ({ theme, classes }) => {
         ) : null}
 
         <Button push color={theme.palette.primary.accent} onClick={toggleDownload}>
-          {renderIcons(isPaused ? 'Download' : 'Pause', theme.accentContrast)}
+          {renderIcons({ name: isPaused ? 'Download' : 'Pause', style: theme.accentContrast })}
         </Button>
         <Button push color={theme.warning} onClick={cancelDownload}>
-          {renderIcons('Cancel', theme.accentContrast)}
+          {renderIcons({ name: 'Cancel', style: theme.accentContrast })}
         </Button>
         {queue.length > 1 && (
           <Button push color={theme.warning} onClick={clear}>
-            {renderIcons('CancelAll', theme.accentContrast)}
+            {renderIcons({ name: 'CancelAll', style: theme.accentContrast })}
           </Button>
         )}
       </div>

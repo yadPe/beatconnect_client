@@ -138,7 +138,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
         <i data-radium="true" className={classes.i}>
-          {renderIcons('Loading', theme.style)}
+          {renderIcons({name: 'Loading'})}
         </i>
         <span data-radium="true" className={classes.title}>
           {renderContent()}
