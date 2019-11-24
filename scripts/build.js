@@ -14,7 +14,7 @@ process.on('unhandledRejection', err => {
 // Ensure environment variables are read.
 require('../config/env');
 
-
+const { exec } = require('child_process')
 const path = require('path');
 const chalk = require('react-dev-utils/chalk');
 const fs = require('fs-extra');
@@ -50,6 +50,17 @@ const config = configFactory('production');
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
+  .then(() => new Promise((resolve, reject) => {
+    const bsb = exec('npm run bsb',
+      (err) => {
+        if (err) {
+          console.log("Couldn't build reason using bsb");
+          reject(err)
+        }
+      });
+    bsb.stdout.pipe(process.stdout)
+    bsb.on('exit', resolve)
+  }))
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.
@@ -71,13 +82,13 @@ checkBrowsers(paths.appPath, isInteractive)
         console.log(warnings.join('\n\n'));
         console.log(
           '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
+          chalk.underline(chalk.yellow('keywords')) +
+          ' to learn more about each warning.'
         );
         console.log(
           'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
+          chalk.cyan('// eslint-disable-next-line') +
+          ' to the line before.\n'
         );
       } else {
         console.log(chalk.green('Compiled successfully.\n'));
@@ -168,7 +179,7 @@ function build(previousFileSizes) {
         console.log(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
-              'Most CI servers set it automatically.\n'
+            'Most CI servers set it automatically.\n'
           )
         );
         return reject(new Error(messages.warnings.join('\n\n')));
