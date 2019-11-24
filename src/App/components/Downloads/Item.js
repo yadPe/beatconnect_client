@@ -1,12 +1,12 @@
 import React, { useState, memo } from 'react';
-import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl';
-import Cover from '../common/Beatmap/Cover';
-import PreviewBeatmapBtn from '../common/Beatmap/PreviewBeatmapBtn';
+import injectSheet from 'react-jss';
 import { Text } from 'react-desktop';
 import { shell } from 'electron';
 import renderIcons from '../../utils/renderIcons';
 import timeSince from '../../utils/timeSince';
-import injectSheet from 'react-jss';
+import getBeatmapInfosUrl from '../../utils/getBeatmapInfosUrl';
+import Cover from '../common/Beatmap/Cover';
+import PreviewBeatmapBtn from '../common/Beatmap/PreviewBeatmapBtn';
 import styles from './ItemStyles';
 import Button from '../common/Button';
 
@@ -40,7 +40,7 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
             onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}
             hidden={false}
           >
-            {renderIcons('Search', theme.accentContrast)}
+            {renderIcons({ name: 'Search', style: theme.accentContrast })}
           </Button>
         </div>
         <div className={classes.rightControls}>
@@ -50,10 +50,10 @@ const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, c
             onClick={toggleDownload}
             hidden={!(status === 'downloading')}
           >
-            {renderIcons(isPaused ? 'Download' : 'Pause', theme.accentContrast)}
+            {renderIcons({ name: isPaused ? 'Download' : 'Pause', style: theme.accentContrast })}
           </Button>
           <Button push color={theme.warning} onClick={cancel} hidden={status === 'downloaded'}>
-            {renderIcons('Cancel', theme.accentContrast)}
+            {renderIcons({ name: 'Cancel', style: theme.accentContrast })}
           </Button>
         </div>
       </div>

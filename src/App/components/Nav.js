@@ -17,7 +17,7 @@ const Nav = ({ connected, bot, sidePanelExpended, activeSection }) => {
   const renderItem = (title, content) => (
     <NavPanelItem
       title={title}
-      icon={renderIcon(title, theme.style)}
+      icon={renderIcon({ name: title })}
       theme={theme}
       background={theme.palette.primary.dark}
       selected={activeSection === title}

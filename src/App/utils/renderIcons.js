@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTheme } from 'theming';
 
-export default function(name, style, customColor) {
-  const { style: globalStyle } = useTheme();
-  let fill = (style || globalStyle) === 'dark' ? '#ffffff' : '#000000';
-  if (customColor) fill = customColor;
+export default function({ name, color, width, height, style }) {
+  const { style: defaultStyle } = useTheme();
+  const defaultColor = style || defaultStyle === 'dark' ? '#fff' : '#000';
+  const fill = color || defaultColor;
   switch (name) {
     case 'Start':
       return (
-        <svg x="0px" y="0px" width="16px" height="14.9px" viewBox="0 0 306.773 306.773">
+        <svg x="0px" y="0px" width={width || '16px'} height={height || '15px'} viewBox="0 0 306.773 306.773">
           <path
             fill={fill}
             d="M302.93,149.794c5.561-6.116,5.024-15.49-1.199-20.932L164.63,8.898
@@ -21,7 +21,7 @@ export default function(name, style, customColor) {
       );
     case 'Settings':
       return (
-        <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 480.3 480.3">
+        <svg x="0px" y="0px" width={width || '18px'} height={height || '18px'} viewBox="0 0 480.3 480.3">
           <g>
             <g>
               <path
@@ -48,7 +48,7 @@ export default function(name, style, customColor) {
       );
     case 'Matchs':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 512 512">
+        <svg x="0px" y="0px" width={width || '16px'} height={height || '15.6px'} viewBox="0 0 512 512">
           <path
             fill={fill}
             d="M256,0C114.617,0,0,114.615,0,256s114.617,256,256,256s256-114.615,256-256S397.383,0,256,0z M344.48,269.57l-128,80
@@ -60,7 +60,7 @@ export default function(name, style, customColor) {
       );
     case 'Back':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 129 129">
+        <svg x="0px" y="0px" width={width || '16px'} height={height || '15.6px'} viewBox="0 0 129 129">
           <g>
             <path
               fill={fill}
@@ -71,7 +71,7 @@ export default function(name, style, customColor) {
       );
     case 'Play':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 41.999 41.999">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 41.999 41.999">
           <path
             fill={fill}
             d="M36.068,20.176l-29-20C6.761-0.035,6.363-0.057,6.035,0.114C5.706,0.287,5.5,0.627,5.5,0.999v40
@@ -82,7 +82,7 @@ export default function(name, style, customColor) {
       );
     case 'Download':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 433.5 433.5">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 433.5 433.5">
           <path
             fill={fill}
             d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"
@@ -91,7 +91,7 @@ export default function(name, style, customColor) {
       );
     case 'Downloads':
       return (
-        <svg x="0px" y="0px" width="16px" height="15.6px" viewBox="0 0 433.5 433.5">
+        <svg x="0px" y="0px" width={width || '16px'} height={height || '15.6px'} viewBox="0 0 433.5 433.5">
           <path
             fill={fill}
             d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"
@@ -100,7 +100,7 @@ export default function(name, style, customColor) {
       );
     case 'Search':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 56.966 56.966">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 56.966 56.966">
           <path
             fill={fill}
             d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23
@@ -112,7 +112,7 @@ export default function(name, style, customColor) {
       );
     case 'Music':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 512 512">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 512 512">
           <g>
             <g>
               <path
@@ -148,7 +148,7 @@ export default function(name, style, customColor) {
       );
     case 'Pause':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 357 357">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 357 357">
           <g>
             <path fill={fill} d="M25.5,357h102V0h-102V357z M229.5,0v357h102V0H229.5z" />
           </g>
@@ -156,7 +156,7 @@ export default function(name, style, customColor) {
       );
     case 'Checked':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 26 26">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 26 26">
           <path
             fill={fill}
             d="m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z"
@@ -165,7 +165,7 @@ export default function(name, style, customColor) {
       );
     case 'Cancel':
       return (
-        <svg x="0px" y="0px" width="17px" height="17px" viewBox="0 0 47.971 47.971">
+        <svg x="0px" y="0px" width={width || '17px'} height={height || '17px'} viewBox="0 0 47.971 47.971">
           <path
             fill={fill}
             d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88
@@ -177,9 +177,9 @@ export default function(name, style, customColor) {
       );
     case 'Beatmaps':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 60 60">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 60 60">
           <g>
-            <rect y="4" width="10" height="52" fill={fill} />
+            <rect y="4" width={width || '10px'} height={height || '52px'} fill={fill} />
             <path
               fill={fill}
               d="M12,4v52h48V4H12z M51,15v5v15c0,3.309-2.916,6-6.5,6S38,38.309,38,35s2.916-6,6.5-6c1.746,0,3.331,0.642,4.5,1.68v-9.51
@@ -192,7 +192,7 @@ export default function(name, style, customColor) {
       );
     case 'Bot':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 612 612">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 612 612">
           <path
             fill={fill}
             d="M612,342.869l-72.243,150.559c-9.036,17.516-27.098,28.521-46.808,28.521H66.974c-7.85,0-12.942-8.277-9.402-15.285
@@ -211,7 +211,7 @@ export default function(name, style, customColor) {
       );
     case 'VolumeMute':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 54 54">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 54 54">
           <g>
             <path
               fill={fill}
@@ -232,7 +232,7 @@ export default function(name, style, customColor) {
       );
     case 'VolumeLow':
       return (
-        <svg x="0px" y="1px" width="19px" height="19px" viewBox="0 0 54 47">
+        <svg x="0px" y="1px" width={width || '19px'} height={height || '19px'} viewBox="0 0 54 47">
           <g>
             <path
               fill={fill}
@@ -253,7 +253,7 @@ export default function(name, style, customColor) {
       );
     case 'VolumeMid':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 54 54">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 54 54">
           <g>
             <path
               fill={fill}
@@ -282,7 +282,7 @@ export default function(name, style, customColor) {
       );
     case 'VolumeHigh':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 54 60">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 54 60">
           <g>
             <path
               fill={fill}
@@ -317,7 +317,7 @@ export default function(name, style, customColor) {
       );
     case 'Loading':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 16 16">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 16 16">
           <g>
             <path
               fill={fill}
@@ -334,7 +334,7 @@ export default function(name, style, customColor) {
       );
     case 'Verified':
       return (
-        <svg x="0px" y="0px" width="23px" height="23px" viewBox="0 0 512 512">
+        <svg x="0px" y="0px" width={width || '23px'} height={height || '23px'} viewBox="0 0 512 512">
           <g>
             <g>
               <path
@@ -360,13 +360,13 @@ export default function(name, style, customColor) {
       );
     case 'Filter':
       return (
-        <svg x="0px" y="0px" width="23px" height="23px" viewBox="0 0 459 459">
+        <svg x="0px" y="0px" width={width || '23px'} height={height || '23px'} viewBox="0 0 459 459">
           <path fill={fill} d="M178.5,382.5h102v-51h-102V382.5z M0,76.5v51h459v-51H0z M76.5,255h306v-51h-306V255z" />
         </svg>
       );
     case 'Calendar':
       return (
-        <svg x="0px" y="0px" width="23px" height="23px" viewBox="0 0 512 512">
+        <svg x="0px" y="0px" width={width || '23px'} height={height || '23px'} viewBox="0 0 512 512">
           <g>
             <circle fill={fill} cx="386" cy="210" r="20" />
             <path
@@ -400,7 +400,7 @@ export default function(name, style, customColor) {
       );
     case 'Packs':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 469.333 469.333">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 469.333 469.333">
           <g>
             <polygon fill={fill} points="170.667,211.41 277.333,193.632 277.333,172.583 170.667,190.375" />
             <path
@@ -422,7 +422,7 @@ export default function(name, style, customColor) {
       );
     case 'CancelAll':
       return (
-        <svg x="0px" y="0px" width="19px" height="19px" viewBox="0 0 51 51">
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 51 51">
           <g>
             <polygon fill={fill} points="45,0.5 0,0.5 0,43.5 5,43.5 5,6.5 45,6.5 	" />
             <path
@@ -433,6 +433,21 @@ export default function(name, style, customColor) {
               c0.391,0.391,0.391,1.023,0,1.414L30.414,29.5L37.485,36.571z"
             />
           </g>
+        </svg>
+      );
+    case 'Square':
+      return (
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 58.152 58.152">
+          <path fill={fill} d="M58.152,58.152H0V0h58.152V58.152z M3,55.152h52.152V3H3V55.152z" />
+        </svg>
+      );
+    case 'Dash':
+      return (
+        <svg x="0px" y="0px" width={width || '19px'} height={height || '19px'} viewBox="0 0 492 492">
+          <path
+            fill={fill}
+            d="M465.064,207.562H26.908C12.076,207.562,0,219.698,0,234.53v22.804c0,14.832,12.072,27.104,26.908,27.104h438.156c14.84,0,26.936-12.272,26.936-27.104V234.53C492,219.698,479.904,207.562,465.064,207.562z"
+          />
         </svg>
       );
     default:

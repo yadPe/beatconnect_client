@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import Header from './Header';
+import config from '../../../../config';
 
 const styles = {
   contentContainer: {
@@ -28,7 +29,7 @@ const styles = {
     backgroundColor: ({ theme }) => theme.palette.primary.dark,
     textRendering: 'optimizelegibility',
     fontFamily: 'Open Sans, sans - serif',
-    height: 'calc(100vh - 79px)',
+    height: `calc(100vh - ${config.display.titleBarHeight + config.display.topBarHeight}px)`,
     overflow: 'auto',
     '&, & *': {
       '&::-webkit-scrollbar': {

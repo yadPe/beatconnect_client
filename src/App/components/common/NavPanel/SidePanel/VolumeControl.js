@@ -76,10 +76,10 @@ const styles = {
 const VolumeControl = ({ classes, onSelect, theme }) => {
   const [volumeValue, setVolumeValue] = useState();
   const updateIcon = () => {
-    if (volumeValue < 1) return renderIcons('VolumeMute', theme.style);
-    if (volumeValue < 35) return renderIcons('VolumeLow', theme.style);
-    if (volumeValue < 75) return renderIcons('VolumeMid', theme.style);
-    return renderIcons('VolumeHigh', theme.style);
+    if (volumeValue < 1) return renderIcons({name: 'VolumeMute'});
+    if (volumeValue < 35) return renderIcons({name: 'VolumeLow'});
+    if (volumeValue < 75) return renderIcons({name: 'VolumeMid'});
+    return renderIcons({name: 'VolumeHigh'});
   };
   return (
     <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">

@@ -10,9 +10,9 @@ export default {
     topBarHeight: 48,
     sidePanelCompactedLength: 48,
     sidePanelExpandedLength: 150,
-    titleBarHeight: 31,
+    titleBarHeight: 23,
     defaultTransitionDuration: '200ms',
-    defaultAccentColor: '#F75F1C',
+    defaultAccentColor: '#17b04c',
   },
   beatmaps: {
     availableStatusLabels: ['Ranked', 'Approved', 'Qualified', 'Loved', 'Unranked', 'All'],
