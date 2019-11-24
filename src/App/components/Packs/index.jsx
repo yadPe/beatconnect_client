@@ -45,30 +45,22 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
   const { lastWeekOverview } = packsDashboardData;
   const { weekly, monthly, yearly } = packsDashboardData[selectedMode] || {};
   return (
-    <>
-      <div>
-        <h2>Welcome to the packs section</h2>
-        <h5>
-          Here you will find collections of all ranked beatmaps grouped by mode for the last weeks, months and years
-        </h5>
+    <div className={classes.Packs}>
+      <div style={{ gridArea: 'overview' }}>
+        <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
       </div>
-      <div className={classes.Packs}>
-        <div style={{ gridArea: 'overview' }}>
-          <Group name="Latest collections" packs={lastWeekOverview} theme={theme} select={setSelectedPack} />
+      {weekly && !(weekly.length === 0) && (
+        <div style={{ gridArea: 'weeks' }}>
+          <Group name="This month" packs={weekly} theme={theme} select={setSelectedPack} />
         </div>
-        {weekly && !(weekly.length === 0) && (
-          <div style={{ gridArea: 'weeks' }}>
-            <Group name="This month" packs={weekly} theme={theme} select={setSelectedPack} />
-          </div>
-        )}
-        <div style={{ gridArea: 'months' }}>
-          <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />
-        </div>
-        <div style={{ gridArea: 'years' }}>
-          <Group name="Past years" packs={yearly} theme={theme} select={setSelectedPack} />
-        </div>
+      )}
+      <div style={{ gridArea: 'months' }}>
+        <Group name="Past months" packs={monthly} theme={theme} select={setSelectedPack} />
       </div>
-    </>
+      <div style={{ gridArea: 'years' }}>
+        <Group name="Past years" packs={yearly} theme={theme} select={setSelectedPack} />
+      </div>
+    </div>
   );
 };
 

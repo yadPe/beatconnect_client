@@ -23,7 +23,7 @@ const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
 
 const processBeatconnectPacksData = datas => {
   const output = store.getState().main.packsDashboardData;
-
+  output.lastWeekOverview = [];
   datas.forEach(data => {
     if (data.map) {
       output.lastWeekOverview.push(...data.slice(0, 4));

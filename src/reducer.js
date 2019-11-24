@@ -17,7 +17,7 @@ const initialState = {
   downloadQueue: [],
   fetchingBeatmaps: {},
   packsDashboardData: {
-    lastWeekOverview: [],
+    lastWeekOverview: [0, 0, 0, 0],
     std: {},
     ctb: {},
     mania: {},
