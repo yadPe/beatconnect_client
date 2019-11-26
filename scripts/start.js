@@ -15,6 +15,7 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 
 const { exec } = require('child_process')
+const isWsl = require('is-wsl');
 const fs = require('fs');
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
@@ -136,7 +137,15 @@ checkBrowsers(paths.appPath, isInteractive)
       console.log(chalk.cyan('Starting the development server...\n'));
       exec('npm run electron-dev',
         (err, stdout) => {
-          if (err) console.log("Couldn't launch electron, try starting it manually");
+          if (err) {
+            if (isWsl){
+              console.log(chalk.green("WSL does not support graphical program natively,"));
+              console.log(chalk.green("Electron couldn't be launched,"));
+              console.log(chalk.green("Run 'npm run electron-dev' from either powershell or cmd."));
+            } else {
+              console.log(chalk.yellow("Couldn't launch electron, try starting it manually"));
+            }
+          }
           else console.log(stdout);
         });
     });
