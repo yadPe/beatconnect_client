@@ -35,7 +35,7 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
     } else {
       setHeaderContent(<Header setSelectedMode={setSelectedMode} />);
     }
-    return () => selectedPack || setHeaderContent(null);
+    return () => setHeaderContent(null);
   }, [selectedPack]);
 
   if (selectedPack.pack) {
