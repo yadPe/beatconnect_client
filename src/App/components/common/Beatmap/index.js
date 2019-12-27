@@ -15,7 +15,22 @@ import reqImgAssets from '../../../utils/reqImgAssets';
 import Button from '../Button';
 
 const styles = {
+  '@keyframes glow-grow': {
+    '0%': {
+      opacity: 0.1,
+      transform: 'scale(.995)',
+    },
+    '60%': {
+      transform: 'scale(1.003)',
+      opacity: 0.65,
+    },
+    '100%': {
+      transform: 'scale(1.017)',
+      opacity: 0,
+    },
+  },
   Beatmap: {
+    position: 'relative',
     width: ({ width }) => width || '80%',
     background: ({ theme }) => theme.palette.primary.main,
     margin: '1.3vh auto',
@@ -28,6 +43,19 @@ const styles = {
     },
     '& > div': {
       justifyContent: 'center',
+    },
+    '&:before, &:after': {
+      zIndex: -1,
+      position: 'absolute',
+      content: "''",
+      height: '100%',
+      width: '100%',
+      borderRadius: '5px',
+      top: '0%',
+      left: '0%',
+      boxShadow: '0 0 15px #287ec6',
+      // animation: 'glow-grow .7s linear infinite',
+      filter: 'blur(1px)',
     },
   },
 };
@@ -44,8 +72,19 @@ const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
 
   const style = isPlaying
     ? {
-        filter: `brightness(${brightness})`,
-        transitionDuration: `${50}ms`,
+        '&:before, &:after': {
+          zIndex: -1,
+          position: 'absolute',
+          content: "''",
+          height: '100%',
+          width: '100%',
+          borderRadius: '5px',
+          top: '0%',
+          left: '0%',
+          boxShadow: '0 0 15px #287ec6',
+          animation: 'glow-grow .7s linear infinite',
+          filter: 'blur(1px)',
+        },
       }
     : {};
 
