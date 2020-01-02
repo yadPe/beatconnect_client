@@ -1,8 +1,8 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import Cover from '../../common/Beatmap/Cover';
 
-const styles = {
+const useStyles = createUseStyles({
   MatchListItem: {
     height: '60px',
     width: '80%',
@@ -23,8 +23,11 @@ const styles = {
     margin: 'auto 1vmin auto 1vmin',
     fontSize: '50%',
   },
-};
-const MatchListItem = ({ classes, match, setSelected }) => {
+});
+
+const MatchListItem = ({ match, setSelected }) => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   return (
     <ul className={classes.MatchListItem} onClick={() => setSelected(match.id)}>
       <li>
@@ -36,4 +39,4 @@ const MatchListItem = ({ classes, match, setSelected }) => {
   );
 };
 
-export default injectSheet(styles)(MatchListItem);
+export default MatchListItem;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, cloneElement, useContext } from 'react';
+import { useTheme } from 'react-jss';
 import { remote, ipcRenderer, shell } from 'electron';
 import { connect } from 'react-redux';
 import {
@@ -22,7 +23,8 @@ import { TasksContext } from '../../../Providers/TasksProvider';
 import ColorPicker from '../common/ColorPicker';
 import { useSetTheme } from '../../../Providers/ThemeProvider';
 
-const Settings = ({ userPreferences, theme }) => {
+const Settings = ({ userPreferences }) => {
+  const theme = useTheme();
   const history = useContext(HistoryContext);
   const { add, tasks } = useContext(TasksContext);
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
@@ -181,27 +183,19 @@ const Settings = ({ userPreferences, theme }) => {
     return Object.keys(settings).map(setting => (
       <NavPanelItem
         title={setting}
-        theme={theme}
         background={theme.palette.primary.dark}
         selected={selected === setting}
         onSelect={() => setSelected(setting)}
         padding="10px 20px"
       >
-        {setHeader =>
-          cloneElement(<Setting theme={theme} settingCategory={settings[setting]} />, { setHeaderContent: setHeader })
-        }
+        {setHeader => cloneElement(<Setting settingCategory={settings[setting]} />, { setHeaderContent: setHeader })}
       </NavPanelItem>
     ));
   };
 
   return (
     <div className="menuContainer Settings" style={{ transition: 'background 0ms', textAlign: 'center' }}>
-      <NavPanel
-        paneExpandedLength={150}
-        defaultIsPanelExpanded
-        sidePanelBackground={theme.palette.secondary.dark}
-        theme={theme}
-      >
+      <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground={theme.palette.secondary.dark}>
         {renderItems()}
       </NavPanel>
     </div>

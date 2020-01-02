@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from 'theming';
+import { useTheme } from 'react-jss';
 
 export default function({ name, color, width, height, style }) {
   const { style: defaultStyle } = useTheme();

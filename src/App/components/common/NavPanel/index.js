@@ -22,7 +22,6 @@ const NavPanel = ({
   tasks,
   sidePanelBackground,
   children,
-  theme,
   onExpended,
 }) => {
   const [isExpended, setIsExpended] = useState(defaultIsPanelExpanded);
@@ -30,7 +29,6 @@ const NavPanel = ({
     <div className={classes.NavPanel}>
       <SidePanel
         items={children}
-        theme={theme}
         expended={isExpended}
         setExpended={expended => {
           setIsExpended(expended);

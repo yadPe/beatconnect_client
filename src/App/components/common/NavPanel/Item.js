@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 import Header from './Header';
 import config from '../../../../config';
 
-const styles = {
+const useStyle = createUseStyles({
   contentContainer: {
     position: 'relative',
     flexGrow: 1,
@@ -20,9 +20,7 @@ const styles = {
     flex: '1 1 0%',
     flexDirection: 'column',
     padding: '0px',
-    background: props => props.background,
-    transition: 'background 0ms !important',
-
+    background: ({ theme }) => theme.palette.primary.dark,
     textAlign: 'center',
     fontSize: 'calc(10px + 2vmin)',
     color: 'white',
@@ -43,21 +41,17 @@ const styles = {
       },
     },
   },
-};
+});
 
-const Item = ({ classes, title, children, header, theme }) => {
+const Item = ({ title, children, header }) => {
   const [headerContent, setHeaderContent] = useState(null);
+  const theme = useTheme();
+  const classes = useStyle({ theme });
 
   return (
     <div className={classes.contentContainer}>
       <div className={classes.contentSubContainer}>
-        <div>
-          {header ? (
-            <Header title={title} theme={theme}>
-              {headerContent}
-            </Header>
-          ) : null}
-        </div>
+        {header ? <Header title={title}>{headerContent}</Header> : null}
         <div className={classes.contentWrapper}>
           <div id="modal-root" />
           {children(setHeaderContent)}
@@ -73,4 +67,4 @@ Item.defaultProps = {
   padding: 0,
 };
 
-export default injectSheet(styles)(Item);
+export default Item;

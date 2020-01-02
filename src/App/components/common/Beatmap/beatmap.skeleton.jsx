@@ -1,10 +1,8 @@
 import React from 'react';
-import InjectSheet from 'react-jss';
-import { compose } from 'redux';
-import { withTheme } from 'theming';
+import { useTheme, createUseStyles } from 'react-jss';
 import Skeleton from '../Skeleton';
 
-const styles = {
+const useStyle = createUseStyles({
   beatmap: {
     margin: '1.3vh auto',
     height: '222px',
@@ -24,9 +22,11 @@ const styles = {
     height: '30px',
     width: '25%',
   },
-};
+});
 
-const BeatmapSkeleton = ({ classes, style }) => {
+const BeatmapSkeleton = ({ style }) => {
+  const theme = useTheme();
+  const classes = useStyle({ theme });
   return (
     <div style={style}>
       <div className={`${classes.beatmap} Beatmap`}>
@@ -39,7 +39,4 @@ const BeatmapSkeleton = ({ classes, style }) => {
   );
 };
 
-export default compose(
-  withTheme,
-  InjectSheet(styles),
-)(BeatmapSkeleton);
+export default BeatmapSkeleton;

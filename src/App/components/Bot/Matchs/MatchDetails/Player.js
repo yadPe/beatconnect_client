@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text } from 'react-desktop/windows';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 import config from '../../../../../config';
 import Button from '../../../common/Button';
 
-const styles = {
+const useStyles = createUseStyles({
   Player: {
     padding: 0,
     listStyle: 'none',
@@ -25,9 +25,11 @@ const styles = {
     fontSize: '62%',
     margin: '1vmin',
   },
-};
+});
 
-const Player = ({ classes, theme, playerInfos, match }) => {
+const Player = ({ playerInfos, match }) => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   return (
     <ul className={classes.Player}>
       <li className={classes.playerNameContainer}>
@@ -53,4 +55,4 @@ const Player = ({ classes, theme, playerInfos, match }) => {
   );
 };
 
-export default injectSheet(styles)(Player);
+export default Player;

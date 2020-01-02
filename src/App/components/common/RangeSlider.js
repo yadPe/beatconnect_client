@@ -1,11 +1,9 @@
 import React from 'react';
-import injectSheet from 'react-jss';
-import { compose } from 'redux';
-import { withTheme } from 'theming';
+import { createUseStyles, useTheme } from 'react-jss';
 import convertRange from '../../utils/convertRange';
 import config from '../../../config';
 
-const styles = {
+const useStyle = createUseStyles({
   slider: {
     '-webkit-appearance': 'none',
     width: props => props.width || '100%',
@@ -39,13 +37,13 @@ const styles = {
       background: ({ theme }) => theme.palette.primary.accent,
     },
   },
-};
+});
 
-const RangeSlider = ({ classes, value, min, max, onChange }) => {
+const RangeSlider = props => {
+  const { value, min, max, onChange } = props;
+  const theme = useTheme();
+  const classes = useStyle({ ...props, theme });
   return <input className={classes.slider} type="range" value={value} min={min} max={max} onChange={onChange} />;
 };
 
-export default compose(
-  withTheme,
-  injectSheet(styles),
-)(RangeSlider);
+export default RangeSlider;

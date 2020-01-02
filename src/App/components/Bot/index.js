@@ -4,13 +4,13 @@ import Matchs from './Matchs';
 
 const Bot = ({ connected, bot, theme, setHeaderContent }) => {
   useEffect(() => {
-    setHeaderContent(<Start connected={connected} theme={theme} />);
+    setHeaderContent(<Start connected={connected} />);
     return () => setHeaderContent(null);
   }, [setHeaderContent, connected, theme]);
 
   return (
     <div className="menuContainer">
-      <Matchs theme={theme} bot={bot} connected={connected} />
+      <Matchs bot={bot} connected={connected} />
     </div>
   );
 };

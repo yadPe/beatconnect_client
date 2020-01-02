@@ -33,17 +33,18 @@ const styles = {
   },
 };
 
-const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExpended, theme }) => {
+const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExpended }) => {
   const itemTab = () =>
     items.map((item, i) => {
-      if (items.length - i === 1)
+      if (items.length - i === 1) {
         return (
           <>
-            {tasks ? <TasksControl theme={theme} expended={expended} tasks={tasks} /> : null}
-            {volume ? <VolumeControl theme={theme} expended={expended} /> : null}
+            {tasks ? <TasksControl expended={expended} tasks={tasks} /> : null}
+            {volume ? <VolumeControl expended={expended} /> : null}
             <Tab {...item.props} expended={expended} />
           </>
         );
+      }
       return <Tab {...item.props} expended={expended} key={i} />;
     });
 

@@ -1,23 +1,25 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 import Player from './Player';
 
-const styles = {
+const useStyles = createUseStyles({
   PlayersList: {
     height: '42vmin',
     backgroundColor: ({ theme }) => theme.palette.primary.main,
     overflowY: 'auto',
   },
-};
+});
 
-const PlayersList = ({ theme, classes, players, match }) => {
+const PlayersList = ({ players, match }) => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   return (
     <div className={classes.PlayersList}>
       {players.map(player => (
-        <Player theme={theme} playerInfos={player} match={match} />
+        <Player playerInfos={player} match={match} />
       ))}
     </div>
   );
 };
 
-export default injectSheet(styles)(PlayersList);
+export default PlayersList;

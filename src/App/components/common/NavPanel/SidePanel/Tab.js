@@ -1,8 +1,8 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import config from '../../../../../config';
 
-const styles = {
+const useStyle = createUseStyles({
   a: {
     display: 'flex',
     alignItems: 'center',
@@ -59,9 +59,11 @@ const styles = {
     left: '105%',
     zIndex: 1,
   },
-};
+});
 
-const Tab = ({ classes, icon, title, onSelect }) => {
+const Tab = ({ icon, title, onSelect, ...otherProps }) => {
+  const theme = useTheme();
+  const classes = useStyle({ ...otherProps, theme });
   return (
     <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
       <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>
@@ -78,4 +80,4 @@ const Tab = ({ classes, icon, title, onSelect }) => {
   );
 };
 
-export default injectSheet(styles)(Tab);
+export default Tab;

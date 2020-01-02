@@ -11,7 +11,7 @@ const DownloadsInQueue = ({ theme, DownloadQueue }) => {
         {queue.map(item => {
           const { id, fullTitle } = item;
           const unQueue = () => removeItemfromQueue(id);
-          return <DownloadsItem id={id} name={fullTitle} theme={theme} cancel={unQueue} status="queued" key={id} />;
+          return <DownloadsItem id={id} name={fullTitle} cancel={unQueue} status="queued" key={id} />;
         })}
       </div>
     );

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useTheme } from 'react-jss';
+import { connect } from 'react-redux';
 import { Text } from 'react-desktop/windows';
 import TextInput from '../../common/TextInput';
-import { connect } from 'react-redux';
 import Button from '../../common/Button';
 
-const AddMatch = ({ bot, theme, errors, ircUsername, connected }) => {
+const AddMatch = ({ bot, errors, ircUsername, connected }) => {
   const [reqMatchId, setReqMatchId] = useState('');
+  const theme = useTheme();
   const error = errors.filter(id => id === reqMatchId).length === 1;
   return (
     <>

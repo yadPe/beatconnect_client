@@ -3,6 +3,8 @@ let makeWrapperStyle = (~height as h) =>
   style([
     unsafe("WebkitAppRegion", "drag"),
     backgroundColor(hex("171717")),
+    zIndex(100),
+    position(fixed),
     height(px(h)),
     width(pct(100.)),
     display(`flex),

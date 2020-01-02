@@ -1,9 +1,7 @@
 import React from 'react';
-import injectSheet from 'react-jss';
-import { compose } from 'redux';
-import { withTheme } from 'theming';
+import { useTheme, createUseStyles } from 'react-jss';
 
-const styles = {
+const useStyle = createUseStyles({
   DropDown: {
     height: '30px',
     backgroundColor: 'transparent',
@@ -28,9 +26,11 @@ const styles = {
   option: {
     color: 'black',
   },
-};
+});
 
-const DropDown = ({ classes, className, options, onSelect, onBlur, value }) => {
+const DropDown = ({ className, options, onSelect, onBlur, value }) => {
+  const theme = useTheme();
+  const classes = useStyle({ theme });
   return (
     <select className={`${classes.DropDown} ${className}`} onChange={onSelect} onBlur={onBlur} value={value}>
       {options.map(([title, key]) => (
@@ -42,7 +42,4 @@ const DropDown = ({ classes, className, options, onSelect, onBlur, value }) => {
   );
 };
 
-export default compose(
-  withTheme,
-  injectSheet(styles),
-)(DropDown);
+export default DropDown;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, cloneElement, useContext } from 'react';
+import { useTheme } from 'react-jss';
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
@@ -6,8 +7,9 @@ import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
 import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider';
 
-const Downloads = ({ theme, setHeaderContent }) => {
+const Downloads = ({ setHeaderContent }) => {
   const DownloadQueue = useContext(DownloadQueueContext);
+  const theme = useTheme();
   const { queue } = DownloadQueue;
   const queueActive = queue.length !== 0;
   const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
@@ -20,7 +22,6 @@ const Downloads = ({ theme, setHeaderContent }) => {
   const renderItem = (title, content) => (
     <NavPanelItem
       title={title}
-      theme={theme}
       background={theme.palette.primary.dark}
       selected={selected === title}
       onSelect={() => setSelected(title)}
@@ -32,12 +33,7 @@ const Downloads = ({ theme, setHeaderContent }) => {
 
   return (
     <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
-      <NavPanel
-        paneExpandedLength={150}
-        defaultIsPanelExpanded
-        sidePanelBackground={theme.palette.secondary.dark}
-        theme={theme}
-      >
+      <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground={theme.palette.secondary.dark}>
         {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue} />)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ProgressCircle } from 'react-desktop/windows';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import TextInput from '../common/TextInput';
 import askBeatconnect from './askBeatconnect';
 import DropDown from '../common/DropDown';
@@ -10,7 +10,7 @@ import renderIcons from '../../utils/renderIcons';
 import config from '../../../config';
 import Button from '../common/Button';
 
-const styles = {
+const useStyle = createUseStyles({
   Search: {
     width: '100%',
     display: 'inline-flex',
@@ -25,10 +25,15 @@ const styles = {
   hideDownloaded: {
     cursor: 'pointer',
   },
-};
+  searchButtonWrapper: {
+    margin: 8,
+  },
+});
 
-const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
+const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   const [search, setSearch] = useState(lastSearch);
+  const theme = useTheme();
+  const classes = useStyle();
   const execSearch = force => {
     if (!isEqual(lastSearch, search) || force) {
       askBeatconnect(search, undefined, true);
@@ -53,13 +58,15 @@ const Search = ({ classes, theme, lastSearch, isBusy, beatmapCount, skeletonBeat
 
   return (
     <div className={classes.Search}>
-      <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
-        {isBusy ? (
-          <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
-        ) : (
-          renderIcons({ name: 'Search', style: theme.accentContrast })
-        )}
-      </Button>
+      <div className={classes.searchButtonWrapper}>
+        <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
+          {isBusy ? (
+            <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
+          ) : (
+            renderIcons({ name: 'Search', style: theme.accentContrast })
+          )}
+        </Button>
+      </div>
       <DropDown
         options={zip(config.beatmaps.availableModesLabels, config.beatmaps.availableModes)}
         value={search.mode}
@@ -103,4 +110,4 @@ const mapStateToProps = ({ main }) => ({
   skeletonBeatmaps: main.searchResults.beatmaps[0] === 0,
   isBusy: main.fetchingBeatmaps.isFetching,
 });
-export default connect(mapStateToProps)(injectSheet(styles)(Search));
+export default connect(mapStateToProps)(Search);

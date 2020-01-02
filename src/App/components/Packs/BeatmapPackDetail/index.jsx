@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useContext, useEffect, useState } from 'react';
 import { shell } from 'electron';
-import InjectSheet from 'react-jss';
+import InjectSheet, { withTheme } from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withTheme } from 'theming';
 import reqImgAssets from '../../../utils/reqImgAssets';
 import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
@@ -89,7 +88,7 @@ const styles = {
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
-const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select, theme }) => {
+const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select }) => {
   const [filter, setFilter] = useState('');
   useEffect(() => {
     select({ header: <Header pack={pack} quit={() => select({ pack: null })} filter={{ filter, setFilter }} /> });

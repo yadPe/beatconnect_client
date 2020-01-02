@@ -1,5 +1,5 @@
 import React, { Component, createContext, useContext } from 'react';
-import { ThemeProvider } from 'theming';
+import { ThemeProvider } from 'react-jss';
 import ConfLoader from '../App/components/Settings/ConfLoader';
 import config from '../config';
 
