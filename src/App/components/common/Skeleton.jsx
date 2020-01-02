@@ -18,7 +18,7 @@ const styles = {
     borderColor: '#D8D8D8',
     position: 'relative',
     overflow: 'hidden',
-    animationName: 'color',
+    animationName: '$color',
     animationDuration: '2s',
     animationIterationCount: 'infinite',
   },

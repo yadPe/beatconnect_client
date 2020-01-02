@@ -1,7 +1,7 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 
-const style = {
+const useStyle = createUseStyles({
   header: {
     position: 'relative',
     height: '48px',
@@ -13,7 +13,7 @@ const style = {
     overflow: 'hidden',
     cursor: 'default',
     userSelect: 'none',
-    color: props => (props.theme.dark ? '#fff' : '#000'),
+    color: ({ theme }) => (theme.dark ? '#fff' : '#000'),
   },
   divider: {
     margin: '0 10px',
@@ -23,8 +23,10 @@ const style = {
     boxSizing: 'border-box',
     backgroundColor: 'hsla(0,0%,100%,.1)',
   },
-};
-const Header = ({ title, classes, children }) => {
+});
+const Header = ({ title, children }) => {
+  const theme = useTheme();
+  const classes = useStyle({ theme });
   return (
     <div className={classes.header}>
       <span data-radium="true">{title}</span>
@@ -34,4 +36,4 @@ const Header = ({ title, classes, children }) => {
   );
 };
 
-export default injectSheet(style)(Header);
+export default Header;

@@ -1,7 +1,6 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import injectSheet, { withTheme } from 'react-jss';
 import { compose } from 'redux';
-import { withTheme } from 'theming';
 
 const styles = {
   input: {

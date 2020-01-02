@@ -1,34 +1,37 @@
 import React from 'react';
+import { createUseStyles } from 'react-jss';
 import Beatmap from '../../../common/Beatmap';
 import PlayersList from './PlayersList';
 import ControlsBar from './ControlsBar';
 
-const MatchDetails = ({ match, theme, close }) => {
-  // const PlayersList = () => match.players.map(player => (
-  //   <Player theme={theme} playerInfos={player} match={match} />
-  // ))
+const useStyles = createUseStyles({
+  MatchDetails: {
+    padding: 12,
+    display: 'grid',
+    gridTemplateColumns: '41% 58%',
+    gridTemplateRows: 'auto',
+    gridGap: '12px',
+    gridTemplateAreas: `
+    'playerList beatmap'`,
+  },
+});
 
-  console.log('update Match', match);
-
+const MatchDetails = ({ match, close }) => {
+  const classes = useStyles();
   return (
-    <div className="MatchDetails">
-      <div className="head">
-        <ControlsBar match={match} theme={theme} close={close} />
-      </div>
-      <div className="details">
-        <div className="players">
-          {match.players ? <PlayersList theme={theme} players={match.players} match={match} /> : null}
-        </div>
+    <>
+      <ControlsBar match={match} close={close} />
+      <div className={classes.MatchDetails}>
+        <div className="playerList">{match.players ? <PlayersList players={match.players} match={match} /> : null}</div>
         <div className="beatmap">
-          {/* <Beatmap theme={theme} beatmap={TestMap}/> */}
           {match.fullBeatmapData ? (
-            <Beatmap theme={theme} beatmap={match.fullBeatmapData} width={'100%'} />
+            <Beatmap beatmap={match.fullBeatmapData} width="100%" margin="0" />
           ) : (
             'Asking peppy...'
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

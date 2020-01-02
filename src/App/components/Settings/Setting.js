@@ -1,13 +1,12 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import TextInput from '../common/TextInput';
 import Toggle from '../common/Toggle';
 import DropDown from '../common/DropDown';
-// import CheckBox from '../common/CheckBox';
 import Button from '../common/Button';
 import { make as CheckBox } from '../common/Checkbox.bs';
 
-const styles = {
+const useStyles = createUseStyles({
   settingWrapper: {
     margin: '0 4vmin',
     paddingTop: '20px',
@@ -66,9 +65,11 @@ const styles = {
   clickable: {
     cursor: 'pointer',
   },
-};
+});
 
-const Setting = ({ classes, theme, settingCategory }) => {
+const Setting = ({ settingCategory }) => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   const renderFields = () => {
     return Object.keys(settingCategory).map(subCategory => {
       return (
@@ -179,4 +180,4 @@ const Setting = ({ classes, theme, settingCategory }) => {
   return <div className={classes.settingWrapper}>{renderFields()}</div>;
 };
 
-export default injectSheet(styles)(Setting);
+export default Setting;

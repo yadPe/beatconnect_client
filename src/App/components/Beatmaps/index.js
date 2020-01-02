@@ -4,8 +4,7 @@ import _ from 'underscore';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { FixedSizeGrid } from 'react-window';
-import injectSheet from 'react-jss';
-import { useTheme } from 'theming';
+import injectSheet, { useTheme } from 'react-jss';
 import Beatmap from '../common/Beatmap';
 import Search from './Search';
 import askBeatconnect from './askBeatconnect';
@@ -57,7 +56,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   };
 
   useEffect(() => {
-    setHeaderContent(<Search theme={theme} />);
+    setHeaderContent(<Search />);
     return () => setHeaderContent(null);
   }, [setHeaderContent, theme]);
 

@@ -8,7 +8,7 @@ const styles = {
     width: ({ size }) => size,
     height: ({ size }) => size,
     '& div': {
-      animation: 'lds-roller 1.2s cubic-bezier(.5, .05, .5, 1) infinite',
+      animation: '$lds-roller 1.2s cubic-bezier(.5, .05, .5, 1) infinite',
       transformOrigin: ({ size }) => `${size / 2}px ${size / 2}px`,
     },
     '& div:after': {

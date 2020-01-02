@@ -10,7 +10,7 @@ const DownloadedItems = ({ theme, window }) => {
   const items = [];
   Object.values(history).forEach(item => {
     const { id, date, name } = item;
-    items.push(<DownloadsItem id={id} date={date} name={name} theme={theme} status="downloaded" key={id} />);
+    items.push(<DownloadsItem id={id} date={date} name={name} status="downloaded" key={id} />);
   });
   items.sort((a, b) => b.props.date - a.props.date);
 

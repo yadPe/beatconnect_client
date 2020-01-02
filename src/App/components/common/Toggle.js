@@ -1,9 +1,7 @@
 import React from 'react';
-import injectSheet from 'react-jss';
-import { compose } from 'redux';
-import { withTheme } from 'theming';
+import { createUseStyles, useTheme } from 'react-jss';
 
-const styles = {
+const useStyles = createUseStyles({
   Toggle: {
     position: 'relative',
     display: 'inline-block',
@@ -12,8 +10,8 @@ const styles = {
     borderRadius: '25px',
     margin: props => props.margin,
     // backgroundColor: '#989898',
-    backgroundColor: props =>
-      props.checked ? props.theme.palette.primary.accent : props.background || props.theme.palette.primary.main,
+    backgroundColor: ({ checked, theme, background }) =>
+      checked ? theme.palette.primary.accent : background || theme.palette.primary.main,
     opacity: props => (props.disabled ? 0.5 : 1),
   },
   input: {
@@ -29,9 +27,12 @@ const styles = {
     top: '1px',
     left: props => (props.checked ? '50%' : '1px'),
   },
-};
+});
 
-const Toggle = ({ classes, onChange, checked, disabled }) => {
+const Toggle = props => {
+  const { onChange, checked, disabled } = props;
+  const theme = useTheme();
+  const classes = useStyles({ ...props, theme });
   return (
     <label className={classes.Toggle} htmlFor="checkBox">
       <input
@@ -47,7 +48,4 @@ const Toggle = ({ classes, onChange, checked, disabled }) => {
   );
 };
 
-export default compose(
-  withTheme,
-  injectSheet(styles),
-)(Toggle);
+export default Toggle;

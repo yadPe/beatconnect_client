@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import injectSheet from 'react-jss';
+import injectSheet, { useTheme } from 'react-jss';
 import { Text } from 'react-desktop';
 import { shell } from 'electron';
 import renderIcons from '../../utils/renderIcons';
@@ -10,8 +10,9 @@ import PreviewBeatmapBtn from '../common/Beatmap/PreviewBeatmapBtn';
 import styles from './ItemStyles';
 import Button from '../common/Button';
 
-const DownloadsItem = ({ id, name, item, date, theme, status, progress, speed, classes, cancel }) => {
+const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes, cancel }) => {
   const [isPaused, setIsPaused] = useState(false);
+  const theme = useTheme();
 
   const toggleDownload = () => {
     item.isPaused() ? item.resume() : item.pause();

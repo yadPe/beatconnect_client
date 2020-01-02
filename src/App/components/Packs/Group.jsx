@@ -46,7 +46,7 @@ let scrollLeft = 0;
 let scrollEnd = false;
 let overflows = false;
 
-const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme, select }) => {
+const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), select }) => {
   const packsContainer = useRef(null);
   const listenerAttached = useRef(null);
   const [state, set] = useState({
@@ -115,9 +115,7 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), theme,
         <div className={classes.packsContainer} ref={packsContainer}>
           {packs[0] === 0
             ? packs.map(() => <SkeletonPack />)
-            : packs.map((pack, i) => (
-                <BeatmapsPack pack={pack} theme={theme} index={i} select={select} key={pack.id} />
-              ))}
+            : packs.map((pack, i) => <BeatmapsPack pack={pack} index={i} select={select} key={pack.id} />)}
         </div>
       </div>
     </div>

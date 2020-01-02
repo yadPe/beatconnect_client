@@ -1,9 +1,7 @@
 import React from 'react';
-import InjectSheet from 'react-jss';
-import { compose } from 'redux';
-import { withTheme } from 'theming';
+import { createUseStyles, useTheme } from 'react-jss';
 
-const styles = {
+const useStyles = createUseStyles({
   button: {
     userSelect: 'none',
     cursor: 'default',
@@ -30,13 +28,12 @@ const styles = {
       margin: '5px auto',
     },
   },
-};
+});
 
-const Button = ({ classes, className, theme, ...props }) => {
+const Button = ({ className, ...props }) => {
+  const theme = useTheme();
+  const classes = useStyles({ ...props, theme });
   return <button className={`${classes.button} ${className}`} type="button" {...props} />;
 };
 
-export default compose(
-  withTheme,
-  InjectSheet(styles),
-)(Button);
+export default Button;

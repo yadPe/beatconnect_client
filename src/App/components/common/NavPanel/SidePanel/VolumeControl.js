@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import Volume from '../../../Settings/Volume';
 import config from '../../../../../config';
 
-const styles = {
+const useStyle = createUseStyles({
   a: {
     margin: '0 0 0 0',
     display: 'flex',
@@ -71,15 +71,17 @@ const styles = {
     left: '100%',
     zIndex: 1,
   },
-};
+});
 
-const VolumeControl = ({ classes, onSelect, theme }) => {
+const VolumeControl = ({ onSelect, ...otherProps }) => {
   const [volumeValue, setVolumeValue] = useState();
+  const theme = useTheme();
+  const classes = useStyle({ ...otherProps, theme });
   const updateIcon = () => {
-    if (volumeValue < 1) return renderIcons({name: 'VolumeMute'});
-    if (volumeValue < 35) return renderIcons({name: 'VolumeLow'});
-    if (volumeValue < 75) return renderIcons({name: 'VolumeMid'});
-    return renderIcons({name: 'VolumeHigh'});
+    if (volumeValue < 1) return renderIcons({ name: 'VolumeMute' });
+    if (volumeValue < 35) return renderIcons({ name: 'VolumeLow' });
+    if (volumeValue < 75) return renderIcons({ name: 'VolumeMid' });
+    return renderIcons({ name: 'VolumeHigh' });
   };
   return (
     <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
@@ -99,4 +101,4 @@ const VolumeControl = ({ classes, onSelect, theme }) => {
   );
 };
 
-export default injectSheet(styles)(VolumeControl);
+export default VolumeControl;

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import injectSheet from 'react-jss';
+import { useTheme, createUseStyles } from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import { TasksContext } from '../../../../../Providers/TasksProvider';
 import store from '../../../../../store';
 
-const styles = {
+const useStyle = createUseStyles({
   '@keyframes spin': {
     from: {
       transform: 'rotate(0deg)',
@@ -64,7 +64,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     '& svg': {
-      animation: 'spin 3000ms infinite linear',
+      animation: '$spin 3000ms infinite linear',
     },
   },
   indicator: {
@@ -98,10 +98,12 @@ const styles = {
     height: '1px',
     backgroundColor: 'rgba(255,255,255, 0.05)',
   },
-};
+});
 
-const TasksControl = ({ classes, onSelect, theme }) => {
+const TasksControl = ({ onSelect, ...otherProps }) => {
   const { tasks } = useContext(TasksContext);
+  const theme = useTheme();
+  const classes = useStyle({ ...otherProps, theme });
   const tasksKeys = Object.keys(tasks);
   const active = tasksKeys.length > 0;
   const renderContent = () => {
@@ -138,7 +140,7 @@ const TasksControl = ({ classes, onSelect, theme }) => {
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
         <i data-radium="true" className={classes.i}>
-          {renderIcons({name: 'Loading'})}
+          {renderIcons({ name: 'Loading' })}
         </i>
         <span data-radium="true" className={classes.title}>
           {renderContent()}
@@ -152,4 +154,4 @@ TasksControl.defaultProps = {
   pop: false,
 };
 
-export default injectSheet(styles)(TasksControl);
+export default TasksControl;

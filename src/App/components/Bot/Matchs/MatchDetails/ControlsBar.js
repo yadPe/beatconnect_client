@@ -1,14 +1,14 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 import renderIcons from '../../../../utils/renderIcons';
 import Button from '../../../common/Button';
 
-const styles = {
+const useStyles = createUseStyles({
   ControlsBar: {
     padding: 0,
     listStyle: 'none',
     display: 'flex',
-    backgroundColor: 'transparent',
+    backgroundColor: ({ theme }) => theme.palette.primary.main,
     margin: 0,
     userSelect: 'none',
   },
@@ -22,14 +22,16 @@ const styles = {
     maxWidth: '100vmin',
     overflow: 'hidden',
   },
-};
+});
 
-const ControlsBar = ({ classes, theme, match, close }) => {
+const ControlsBar = ({ match, close }) => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   return (
     <ul className={classes.ControlsBar} role="navigation">
       <li>
-        <Button className="btn back" push color={theme.palette.primary.dark} onClick={() => close()}>
-          {renderIcons({name: 'Back', style: theme.accentContrast})}
+        <Button className="btn back" push color={theme.palette.primary.main} onClick={() => close()}>
+          {renderIcons({ name: 'Back', style: theme.accentContrast })}
         </Button>
       </li>
       <li className={classes.titleContainer}>
@@ -60,4 +62,4 @@ const ControlsBar = ({ classes, theme, match, close }) => {
   );
 };
 
-export default injectSheet(styles)(ControlsBar);
+export default ControlsBar;

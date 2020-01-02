@@ -1,10 +1,8 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect, memo, useRef } from 'react';
+import React, { useState, memo } from 'react';
 import { Text } from 'react-desktop/windows';
 import { shell } from 'electron';
-import { useTheme, withTheme } from 'theming';
-import InjectSheet from 'react-jss';
-import { compose } from 'redux';
+import { createUseStyles, useTheme } from 'react-jss';
 import Cover from './Cover';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
@@ -14,79 +12,67 @@ import { make as Badge } from '../Badge.bs';
 import reqImgAssets from '../../../utils/reqImgAssets';
 import Button from '../Button';
 
-const styles = {
-  '@keyframes glow-grow': {
-    '0%': {
-      opacity: 0.1,
-      transform: 'scale(.995)',
-    },
-    '60%': {
-      transform: 'scale(1.003)',
-      opacity: 0.65,
-    },
-    '100%': {
-      transform: 'scale(1.017)',
-      opacity: 0,
-    },
-  },
+const bpmToBps = bpm => 60 / bpm;
+
+const useStyles = createUseStyles({
   Beatmap: {
+    zIndex: 1,
     position: 'relative',
     width: ({ width }) => width || '80%',
     background: ({ theme }) => theme.palette.primary.main,
-    margin: '1.3vh auto',
+    margin: ({ margin }) => margin || '1.3vh auto',
     paddingBottom: '10px',
-    filter: 'brightness(0.95)',
-    transitionProperty: 'filter !important',
-    transitionTimingFunction: 'linear !important',
+    transition: ({ bpm }) => `opacity ${bpmToBps(bpm)}s`,
     '&:hover': {
-      filter: 'brightness(1.1)',
+      opacity: 1.1,
+      '&::after': {
+        opacity: 0.7,
+      },
     },
     '& > div': {
       justifyContent: 'center',
     },
-    '&:before, &:after': {
+    '&::before, &::after': {
       zIndex: -1,
       position: 'absolute',
       content: "''",
       height: '100%',
       width: '100%',
-      borderRadius: '5px',
+      borderRadius: '8px',
       top: '0%',
       left: '0%',
       boxShadow: '0 0 15px #287ec6',
-      // animation: 'glow-grow .7s linear infinite',
       filter: 'blur(1px)',
+      animation: ({ bpm, isPlaying }) => (isPlaying ? `$pulse ${bpmToBps(bpm)}s linear infinite` : ``),
+      opacity: ({ isPlaying }) => (isPlaying ? 1 : 0),
+      transitionDuration: '.5s',
+      transitionDelay: '.2s',
+      transitionProperty: 'transform, opacity',
+      transitionTimingFunction: 'ease-out',
     },
   },
-};
+  '@keyframes pulse': {
+    '0%': {
+      opacity: 0.1,
+      transform: 'scale(.995)',
+    },
+    '60%': {
+      transform: 'scale(1.000)',
+      opacity: 0.65,
+    },
+    '100%': {
+      transform: 'scale(1.015)',
+      opacity: 0,
+    },
+  },
+});
 
 export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/${id}/${unique_id}`;
 
-const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
+const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
   const theme = useTheme();
-  const [brightness, setBrightness] = useState(0.95);
   const [isPlaying, setIsPLaying] = useState(false);
   const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
-
-  const bpmFlash = useRef(null);
-
-  const style = isPlaying
-    ? {
-        '&:before, &:after': {
-          zIndex: -1,
-          position: 'absolute',
-          content: "''",
-          height: '100%',
-          width: '100%',
-          borderRadius: '5px',
-          top: '0%',
-          left: '0%',
-          boxShadow: '0 0 15px #287ec6',
-          animation: 'glow-grow .7s linear infinite',
-          filter: 'blur(1px)',
-        },
-      }
-    : {};
 
   const modePillsStyle = mode => ({
     width: 20,
@@ -97,22 +83,9 @@ const Beatmap = ({ beatmap, noFade, autoDl, classes }) => {
     content: `url(${reqImgAssets(`./${mode}.png`)})`,
   });
 
-  useEffect(() => {
-    if (isPlaying) {
-      bpmFlash.current = setInterval(() => {
-        setBrightness(1.08);
-        setTimeout(() => setBrightness(0.95), 60000 / beatmap.bpm / 2.5);
-      }, 60000 / beatmap.bpm);
-    }
-    return () => bpmFlash.current && clearInterval(bpmFlash.current);
-  }, [isPlaying]);
-
-  useEffect(() => {
-    return () => bpmFlash.current && clearInterval(bpmFlash.current);
-  }, []);
-
+  const classes = useStyles({ width, theme, isPlaying, bpm: beatmap.bpm, ...otherProps });
   return (
-    <div className={classes.Beatmap} style={style}>
+    <div className={classes.Beatmap}>
       {beatmap && (
         <>
           <Cover
@@ -172,7 +145,4 @@ const areEqual = (prevProps, nextProps) => {
   }
   return false;
 };
-export default compose(
-  withTheme,
-  InjectSheet(styles),
-)(memo(Beatmap, areEqual));
+export default memo(Beatmap, areEqual);
