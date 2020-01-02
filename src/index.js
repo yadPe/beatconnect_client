@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
@@ -12,6 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 import TasksProvider from './Providers/TasksProvider';
 import ThemeProvider from './Providers/ThemeProvider';
 
+document.body.style.margin = 0;
 ReactDOM.render(
   <ErrorBoundary>
     <HistoryProvider>
