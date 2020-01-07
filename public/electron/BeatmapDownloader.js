@@ -1,6 +1,7 @@
-/* eslint-disable no-underscore-dangle */
 const { lstatSync, existsSync } = require('fs');
 const { ipcMain } = require('electron');
+
+const makeDownloadUrl = ({ beatmapSetId, uniqId }) => `https://beatconnect.io/b/${beatmapSetId}/${uniqId}/?nocf=1`;
 
 class BeatmapDownloader {
   constructor() {
@@ -9,25 +10,26 @@ class BeatmapDownloader {
     this.queue = new Set();
   }
 
-  register(win) {
+  register = win => {
     this.winRef = win;
-    this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
-    ipcMain.on('download-beatmap', this.download);
-  }
+    this.winRef.webContents.session.on('will-download', this.onWillDownload);
+    ipcMain.on('download-beatmap', (_event, args) => this.download(args));
+    ipcMain.on('set-beatmap-save-folder', (_event, path) => this.setSavePath(path));
+  };
 
-  setSavePath(path) {
+  setSavePath = path => {
     if (existsSync(path) && lstatSync(path).isDirectory()) this.savePath = path;
     else throw new Error('InvalidPath');
-  }
+  };
 
-  download(event, { beatmapSetId, uniqId }) {
+  download = ({ beatmapSetId, uniqId }) => {
     if (!this.savePath) throw new Error('noSavePath');
-    const url = this._makeDownloadUrl({ beatmapSetId, uniqId });
+    const url = makeDownloadUrl({ beatmapSetId, uniqId });
     this.winRef.webContents.downloadURL(url);
-  }
+  };
 
-  onWillDownload(event, item, webContents) {
-    item.setSavePath(this.savePath);
+  onWillDownload = (event, item, webContents) => {
+    item.setSavePath(`${this.savePath}/${item.getFilename()}`);
 
     item.on('updated', (event, state) => {
       if (state === 'interrupted') {
@@ -47,7 +49,7 @@ class BeatmapDownloader {
         console.log(`Téléchargement échoué : ${state}`);
       }
     });
-  }
+  };
 
   onStarted(item) {}
 
@@ -56,8 +58,6 @@ class BeatmapDownloader {
   onCancel(item) {}
 
   onDone() {}
-
-  _makeDownloadUrl = ({ beatmapSetId, uniqId }) => `https://beatconnect.io/b/${beatmapSetId}/${uniqId}/?nocf=1`;
 }
 
 module.exports = new BeatmapDownloader();

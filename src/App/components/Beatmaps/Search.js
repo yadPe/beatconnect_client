@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ipcRenderer } from 'electron';
 import { ProgressCircle } from 'react-desktop/windows';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
@@ -56,10 +57,14 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
       execSearch(true);
   }, [search]);
 
+  const test = () => {
+    ipcRenderer.send('download-beatmap', { beatmapSetId: '1080224', uniqId: 'VZik6KIO' }); // https://beatconnect.io/b/1080224/VZik6KIO/
+  };
+
   return (
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
-        <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
+        <Button className="btn" push color={theme.palette.primary.accent} onClick={test} icon>
           {isBusy ? (
             <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
           ) : (
