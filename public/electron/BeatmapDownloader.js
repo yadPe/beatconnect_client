@@ -1,15 +1,15 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
 const { ipcMain } = require('electron');
+const { performance } = require('perf_hooks');
+const { makeDownloadUrl, readableBits } = require('./helpers');
 
 // BeatmapDownloader register to the app window
-// and handles all beatmaps downloads and provide a queue system for them,
+// It handles all beatmaps downloads and provide a queue system for them,
 // it is interfaced with the renderer thread via ipc channels
 // and listen to the will-download session event to know when we want to download a something.
 
 /* eslint-disable class-methods-use-this */
-
-const makeDownloadUrl = ({ beatmapSetId, uniqId }) => `https://beatconnect.io/b/${beatmapSetId}/${uniqId}/?nocf=1`;
 
 class BeatmapDownloader {
   constructor() {
@@ -17,6 +17,7 @@ class BeatmapDownloader {
     this.savePath = null;
     this.queue = new Set();
     this.setSavePath('C:/Users/AssAs/Downloads');
+    console.log('downloadSpeed', readableBits(1024000));
   }
 
   register = win => {
@@ -58,7 +59,7 @@ class BeatmapDownloader {
           this.onInterrupted(item, beatmapsetId);
           break;
         case 'progressing':
-          this.onProgress(item, beatmapsetId);
+          this.onProgress(item, beatmapsetId, webContents);
           break;
         default:
           break;
@@ -79,11 +80,23 @@ class BeatmapDownloader {
     });
   }
 
-  onProgress(item, beatmapsetId) {
+  onProgress(item, beatmapsetId, webContents) {
     if (item.isPaused()) {
       console.log('Le téléchargement est en pause');
+      webContents.send('download-paused', { beatmapsetId });
     } else {
-      console.log(`${beatmapsetId}: Received bytes: ${item.getReceivedBytes()} / ${item.getTotalBytes()}`);
+      const receivedBytes = item.getReceivedBytes();
+      const speed =
+        ((performance.now() - (this.lastProgress || 0)) * 1000) / (receivedBytes - (this.lastReceivedBytes || 0));
+
+      this.lastProgress = performance.now();
+      this.lastReceivedBytes = receivedBytes;
+      const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
+      const downloadSpeed = readableBits(speed);
+      webContents.send('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
+      console.log('speed', speed);
+      console.log('downloadSpeed', downloadSpeed);
+      console.log('progressPercent', progressPercent);
     }
   }
 
