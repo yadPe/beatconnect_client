@@ -15,20 +15,21 @@ class BeatmapDownloader {
   constructor() {
     this.winRef = null;
     this.savePath = null;
-    this.currentDownload = { item: null, beatmapSetInfos: null };
+    this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    this.setSavePath('/Users/yannis/Downloads/');
+    // this.setSavePath('/Users/yannis/Downloads/');
+    this.setSavePath('C:/Users/AssAs/Downloads');
     console.log('downloadSpeed', readableBits(1024000));
   }
 
   register = win => {
     if (this.winRef) return;
+
     this.winRef = win;
     this.sendToWin = args => win.webContents.send(args);
-    console.log('sendToWin', this.sendToWin.toString());
-
     this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
-    ipcMain.on('download-beatmap', (_event, args) => this.download(args));
+
+    ipcMain.on('download-beatmap', (_event, args) => this.pushToQueue(args));
     ipcMain.on('cancel-current-download', this.cancelCurrent);
     ipcMain.on('pause-resume-current-download', this.pauseResumeCurrent);
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
@@ -43,20 +44,24 @@ class BeatmapDownloader {
   }
 
   addToQueue(item) {
+    let alreadyExist;
+    this.queue.forEach(queueItem => {
+      if (queueItem.beatmapSetId === item.beatmapSetId) alreadyExist = true;
+    });
+    if (alreadyExist) return;
     this.queue.add(item);
     this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
   }
 
   deleteFromQueue(item) {
-    this.queue.delete(item);
+    const deleted = this.queue.delete(item);
     this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
+    return deleted;
   }
 
   clearQueue = () => {
     this.queue.clear();
     this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
-
-    // clear the queue
   };
 
   setCurrentDownloadBeatmapInfos(beatmapSetInfos) {
@@ -84,8 +89,9 @@ class BeatmapDownloader {
     if (downloadState === 'progressing' || downloadState === 'interrupted') {
       throw new Error('downloadNotStopped');
     }
-    this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
-    this.currentDownload = { item: null, beatmapSetInfos: null };
+    const deleted = this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
+    if (!deleted) throw new Error('couldntRemoveItemFromQueue');
+    this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
   }
 
   pushToQueue({ beatmapSetId, uniqId, beatmapSetInfos }) {
@@ -115,14 +121,17 @@ class BeatmapDownloader {
     this.deleteFromQueue(item);
   };
 
-  download({ beatmapSetId, uniqId, beatmapSetInfos }) {
-    const url = makeDownloadUrl({ beatmapSetId, uniqId });
+  download(item) {
+    const url = makeDownloadUrl({ beatmapSetId: item.beatmapSetId, uniqId: item.uniqId });
     this.winRef.webContents.downloadURL(url);
-    this.setCurrentDownloadBeatmapInfos({ beatmapSetId, uniqId, beatmapSetInfos });
+    this.setCurrentDownloadBeatmapInfos(item);
   }
 
   executeQueue() {
-    if (this.currentDownload.item || this.currentDownload.beatmapSetInfos) return;
+    console.log('exec', this.queue.size);
+
+    if (this.currentDownload.item || this.currentDownload.beatmapSetInfos.beatmapSetId) return;
+    if (this.queue.size === 0) return;
     const [item] = this.queue;
     this.download(item);
   }
