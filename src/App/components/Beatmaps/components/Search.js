@@ -58,7 +58,11 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   }, [search]);
 
   const test = () => {
-    ipcRenderer.send('download-beatmap', { beatmapSetId: '1080224', uniqId: 'VZik6KIO' }); // https://beatconnect.io/b/1080224/VZik6KIO/
+    ipcRenderer.send('download-beatmap', {
+      beatmapSetId: '1080224',
+      uniqId: 'VZik6KIO',
+      beatmapSetInfos: { fullTitle: 'title - artist' },
+    }); // https://beatconnect.io/b/1080224/VZik6KIO/
   };
 
   return (

@@ -3,7 +3,7 @@
 import _ from 'underscore';
 import config from '../../../../config';
 import store from '../../../../store';
-import { setIsFetchingBeatmaps, onBeatmapSearchResult } from './actions';
+import { setIsFetchingBeatmaps, onBeatmapSearchResult } from '../reducer/actions';
 
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();

@@ -44,11 +44,11 @@ class MainWindow extends BrowserWindow {
 
     this.once('ready-to-show', () => {
       this.show();
+      beatmapDownloader.register(this);
     });
 
     this.on('show', () => {
       mainWindowState.manage(this);
-      beatmapDownloader.register(this);
       setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
       }, 5000);

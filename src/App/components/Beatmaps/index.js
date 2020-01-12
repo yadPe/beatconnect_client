@@ -6,13 +6,13 @@ import { compose } from 'redux';
 import { FixedSizeGrid } from 'react-window';
 import injectSheet, { useTheme } from 'react-jss';
 import Beatmap from '../common/Beatmap';
-import Search from './Search';
-import askBeatconnect from './askBeatconnect';
+import Search from './components/Search';
+import askBeatconnect from './helpers/askBeatconnect';
 import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../config';
-import { saveLastScrollPosition } from './actions';
+import { saveLastScrollPosition } from './reducer/actions';
 
 const styles = {
   Beatmaps: {
@@ -45,7 +45,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
     lastScrollPosition.current = scrollTop;
   };
   const loadMore = () => {
-    if (!store.getState().main.fetchingBeatmaps.isFetching) askBeatconnect({ ...search, page: (page += 1) });
+    if (!store.getState().beatmaps.fetchingBeatmaps.isFetching) askBeatconnect({ ...search, page: (page += 1) });
   };
   if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
   const newItemsRendered = ({ overscanRowStopIndex, overscanColumnStopIndex }) => {

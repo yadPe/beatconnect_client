@@ -5,10 +5,11 @@ import React, { Component } from 'react';
 import { remote, shell } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
+import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
 
 export const DownloadQueueContext = React.createContext();
 
-const { download } = remote.require('electron-download-manager');
+// const { download } = remote.require('electron-download-manager');
 const { app } = remote;
 
 class DownloadQueueProvider extends Component {
@@ -18,28 +19,32 @@ class DownloadQueueProvider extends Component {
       queue: [],
       currentDownload: {},
       overallProgress: 0,
+
+      pauseDownload: pause,
+      pauseResumeDownload: pauseResume,
+      cancelDownload: cancelCurrent,
+      removeItemfromQueue: cancel,
+      clear: clearQueue,
+
+      setPath: this.setPath,
       push: this.push,
-      removeItemfromQueue: this.removeItemfromQueue,
-      cancelDownload: this.cancelDownload,
-      pauseDownload: this.pauseDownload,
-      resumeDownload: this.resumeDownload,
       pushMany: this.pushMany,
       _execQueue: this._execQueue,
-      clear: this.clear,
     };
   }
 
   componentDidMount() {
     const { importMethod, osuSongsPath } = this.props;
-    this._setDlPath(importMethod, osuSongsPath);
+    this.setPath(importMethod, osuSongsPath);
   }
 
-  componentDidUpdate(prevProps) {
-    const { importMethod, osuSongsPath } = this.props;
-    if (prevProps.importMethod !== importMethod || prevProps.osuSongsPath !== osuSongsPath) {
-      this._setDlPath(importMethod, osuSongsPath);
+  setPath = (importMethod, osuSongsPath) => {
+    if (importMethod === 'bulk') {
+      setSavePath(osuSongsPath);
+    } else {
+      setSavePath(join(app.getPath('downloads'), 'beatconnect'));
     }
-  }
+  };
 
   push = item => {
     const { queue } = this.state;
@@ -114,14 +119,6 @@ class DownloadQueueProvider extends Component {
     const { queue } = this.state;
     queue.length = 0;
     this.setState({ queue });
-  };
-
-  _setDlPath = (importMethod, osuSongsPath) => {
-    if (importMethod === 'bulk') {
-      this.dlPath = osuSongsPath;
-    } else {
-      this.dlPath = join(app.getPath('downloads'), 'beatconnect');
-    }
   };
 
   _onDownloadProgress = (progress, item) => {
