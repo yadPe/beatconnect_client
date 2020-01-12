@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 import _ from 'underscore';
-import config from '../../../config';
-import store from '../../../store';
+import config from '../../../../config';
+import store from '../../../../store';
+import { setIsFetchingBeatmaps, onBeatmapSearchResult } from './actions';
 
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
@@ -11,11 +12,11 @@ const askBeatconnect = (search, __, resetPage) => {
   let { lastScroll } = search;
   if (resetPage && !page) lastScroll = 0;
   else lastScroll = undefined;
-  const { searchResults, fetchingBeatmaps } = store.getState().main;
+  const { searchResults, fetchingBeatmaps } = store.getState().beatmaps;
   const prevBeatmaps = searchResults.beatmaps;
   if (fetchingBeatmaps && fetchingBeatmaps.isFetching) {
     fetchingBeatmaps.abort();
-    store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
+    setIsFetchingBeatmaps(false);
   }
   const formatQuery = encodeURIComponent(query);
   fetch(`${config.api.beatmapsBaseUrl}&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, {
@@ -26,23 +27,20 @@ const askBeatconnect = (search, __, resetPage) => {
       if (error) throw new Error(`${error_message} For query ${search}`);
       if (beatmaps.length === 0) lastPage = true;
       if (page > 0) beatmaps = _.union(prevBeatmaps, beatmaps);
-      store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
-      store.dispatch({
-        type: 'SEARCH_RESULTS',
-        searchResults: {
-          search,
-          beatmaps: beatmaps || [],
-          max_page,
-          page: page || 0,
-          hideDownloaded,
-          lastPage,
-          lastScroll,
-        },
+      setIsFetchingBeatmaps(false);
+      onBeatmapSearchResult({
+        search,
+        beatmaps: beatmaps || [],
+        max_page,
+        page: page || 0,
+        hideDownloaded,
+        lastPage,
+        lastScroll,
       });
     })
     .catch(err => {
       console.error(err);
-      err.name !== 'AbortError' && store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: false } });
+      err.name !== 'AbortError' && setIsFetchingBeatmaps(false);
     });
   store.dispatch({ type: 'FETCHINGBEATMAPS', payload: { isFetching: true, abort: controller.abort.bind(controller) } });
 };

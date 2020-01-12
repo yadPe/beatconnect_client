@@ -86,15 +86,15 @@ class BeatmapDownloader {
       webContents.send('download-paused', { beatmapsetId });
     } else {
       const receivedBytes = item.getReceivedBytes();
-      const speed =
-        ((performance.now() - (this.lastProgress || 0)) * 1000) / (receivedBytes - (this.lastReceivedBytes || 0));
+      const bytesPerSecond =
+        (receivedBytes - (this.lastReceivedBytes || 0)) / ((performance.now() - (this.lastProgress || 0)) * 1000);
 
       this.lastProgress = performance.now();
       this.lastReceivedBytes = receivedBytes;
       const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
-      const downloadSpeed = readableBits(speed);
+      const downloadSpeed = readableBits(bytesPerSecond);
       webContents.send('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
-      console.log('speed', speed);
+      console.log('speed', bytesPerSecond);
       console.log('downloadSpeed', downloadSpeed);
       console.log('progressPercent', progressPercent);
     }

@@ -10,7 +10,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'SEARCH_RESULTS':
-      return { ...state, searchResults };
+      return { ...state, searchResults: payload };
     case 'SAVEBEATMAPSSCROLLPOS':
       console.log({ ...state.searchResults, lastScroll: payload });
       return { ...state, searchResults: { ...state.searchResults, lastScroll: payload } };

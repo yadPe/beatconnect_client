@@ -4,12 +4,12 @@ import { ProgressCircle } from 'react-desktop/windows';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
 import { useTheme, createUseStyles } from 'react-jss';
-import TextInput from '../common/TextInput';
-import askBeatconnect from './askBeatconnect';
-import DropDown from '../common/DropDown';
-import renderIcons from '../../utils/renderIcons';
-import config from '../../../config';
-import Button from '../common/Button';
+import TextInput from '../../common/TextInput';
+import askBeatconnect from '../helpers/askBeatconnect';
+import DropDown from '../../common/DropDown';
+import renderIcons from '../../../utils/renderIcons';
+import config from '../../../../config';
+import Button from '../../common/Button';
 
 const useStyle = createUseStyles({
   Search: {
@@ -109,10 +109,10 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   );
 };
 
-const mapStateToProps = ({ main }) => ({
-  lastSearch: main.searchResults.search,
-  beatmapCount: main.searchResults.beatmaps.length,
-  skeletonBeatmaps: main.searchResults.beatmaps[0] === 0,
-  isBusy: main.fetchingBeatmaps.isFetching,
+const mapStateToProps = ({ beatmaps }) => ({
+  lastSearch: beatmaps.searchResults.search,
+  beatmapCount: beatmaps.searchResults.beatmaps.length,
+  skeletonBeatmaps: beatmaps.searchResults.beatmaps[0] === 0,
+  isBusy: beatmaps.fetchingBeatmaps.isFetching,
 });
 export default connect(mapStateToProps)(Search);

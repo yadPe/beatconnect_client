@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useContext, memo, useState, useRef } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -12,6 +12,7 @@ import store from '../../../store';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../config';
+import { saveLastScrollPosition } from './actions';
 
 const styles = {
   Beatmaps: {
@@ -61,7 +62,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   }, [setHeaderContent, theme]);
 
   useEffect(() => {
-    return () => store.dispatch({ type: 'SAVEBEATMAPSSCROLLPOS', payload: lastScrollPosition.current });
+    return () => saveLastScrollPosition(lastScrollPosition.current);
   }, []);
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
@@ -108,8 +109,8 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   );
 };
 
-const mapStateToProps = ({ main, settings }) => ({
-  searchResults: main.searchResults,
+const mapStateToProps = ({ main, settings, beatmaps }) => ({
+  searchResults: beatmaps.searchResults,
   window: main.window,
   panelExpended: settings.userPreferences.sidePanelExpended,
 });

@@ -1,5 +1,5 @@
 import './App/resize';
-import _ from 'underscore';
+import { clone } from 'underscore';
 import config from './config';
 
 const initialState = {
@@ -9,13 +9,8 @@ const initialState = {
   bot: {},
   BeatconnectApi: {},
   window: { width: window.innerWidth, height: window.innerHeight },
-  searchResults: {
-    search: { query: '', mode: 'all', status: 'ranked', page: 0 },
-    beatmaps: new Array(8).fill(0),
-  },
   errors: [],
   downloadQueue: [],
-  fetchingBeatmaps: {},
   packsDashboardData: {
     lastWeekOverview: [0, 0, 0, 0],
     std: {},
@@ -25,31 +20,24 @@ const initialState = {
   },
 };
 
-export default (state = initialState, { type, newMatchs, status, bot, searchResults, newMatch, payload }) => {
+export default (state = initialState, { type, newMatchs, status, bot, newMatch, payload }) => {
   switch (type) {
     case 'UPDATE_MATCHS_LIST':
       return { ...state, mpMatchs: [...newMatchs] };
     case 'UPDATE_SINGLE_MATCH':
       let { mpMatchs } = state;
       mpMatchs = mpMatchs.map(match => (match.id === newMatch.id ? newMatch : match));
-      return { ...state, mpMatchs: _.clone(mpMatchs) };
+      return { ...state, mpMatchs: clone(mpMatchs) };
     case 'CONNECT':
       return { ...state, connected: status || true, bot: bot || state.bot };
     case 'DISCONNECT':
       return { ...state, connected: false };
-    case 'SEARCH_RESULTS':
-      return { ...state, searchResults };
     case 'PACKS_DASHBOARD_QUERY_DATA':
       return { ...state, packsDashboardData: { ...state.packsDashboardData, ...payload } };
     case 'RESIZE':
       return { ...state, window: payload };
     case 'UPDATEACTIVESECTION':
       return { ...state, activeSection: payload };
-    case 'SAVEBEATMAPSSCROLLPOS':
-      console.log({ ...state.searchResults, lastScroll: payload });
-      return { ...state, searchResults: { ...state.searchResults, lastScroll: payload } };
-    case 'FETCHINGBEATMAPS':
-      return { ...state, fetchingBeatmaps: payload };
     case 'ERROR':
       const { errors } = state;
       errors.push(payload);
