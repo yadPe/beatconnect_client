@@ -3,10 +3,10 @@ import channels from './channels';
 
 const registerListener = (channel, callBack) => ipcRenderer.on(channel, (_event, args) => callBack(args));
 
-const onDownloadProgress = cb => registerListener(channels.downloadProgress, cb);
-const onDownloadPaused = cb => registerListener(channels.downloadPaused, cb);
-const onDownloadInterupt = cb => registerListener(channels.downloadInterrupt, cb);
-const onDownloadCanceled = cb => registerListener(channels.downloadCanceled, cb);
-const onDownloadSucceed = cb => registerListener(channels.downloadSucceed, cb);
-const onDownloadFail = cb => registerListener(channels.downloadFail, cb);
-const onQueueUpdate = cb => registerListener(channels.queueUpdated, cb);
+export const onDownloadProgress = cb => registerListener(channels.downloadProgress, cb);
+export const onDownloadPaused = cb => registerListener(channels.downloadPaused, cb);
+export const onDownloadInterupt = cb => registerListener(channels.downloadInterrupt, cb);
+export const onDownloadCanceled = cb => registerListener(channels.downloadCanceled, cb);
+export const onDownloadSucceed = cb => registerListener(channels.downloadSucceed, cb);
+export const onDownloadFail = cb => registerListener(channels.downloadFail, cb);
+export const onQueueUpdate = cb => registerListener(channels.queueUpdated, cb);

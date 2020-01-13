@@ -1,6 +1,6 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
-const { ipcMain } = require('electron');
+const { app, ipcMain } = require('electron');
 const { performance } = require('perf_hooks');
 const { makeDownloadUrl, readableBits } = require('./helpers');
 
@@ -17,8 +17,8 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    // this.setSavePath('/Users/yannis/Downloads/');
-    this.setSavePath('C:/Users/AssAs/Downloads');
+    this.setSavePath('/Users/yannis/Downloads/');
+    // this.setSavePath('C:/Users/AssAs/Downloads');
     console.log('downloadSpeed', readableBits(1024000));
   }
 
@@ -131,7 +131,13 @@ class BeatmapDownloader {
     console.log('exec', this.queue.size);
 
     if (this.currentDownload.item || this.currentDownload.beatmapSetInfos.beatmapSetId) return;
-    if (this.queue.size === 0) return;
+    if (this.queue.size === 0) {
+      this.winRef.setProgressBar(-1);
+      if (['darwin', 'linux'].includes(process.platform)) {
+        app.badgeCount = this.queue.size;
+      }
+      return;
+    }
     const [item] = this.queue;
     this.download(item);
   }
@@ -168,18 +174,31 @@ class BeatmapDownloader {
     });
   }
 
+  overallProgress(currentDownloadProgress) {
+    const downloadsCount = this.queue.size;
+    if (downloadsCount === 1) {
+      this.winRef.setProgressBar(currentDownloadProgress / 100);
+    } else if (downloadsCount === 0) {
+      this.winRef.setProgressBar(-1);
+    } else {
+      this.winRef.setProgressBar(1 / downloadsCount);
+    }
+  }
+
   onProgress(item, beatmapsetId) {
     if (item.isPaused()) {
       console.log('Le téléchargement est en pause');
       this.sendToWin('download-paused', { beatmapsetId });
     } else {
       const receivedBytes = item.getReceivedBytes();
+      const now = performance.now();
       const bytesPerSecond =
-        (receivedBytes - (this.lastReceivedBytes || 0)) / ((performance.now() - (this.lastProgress || 0)) * 1000);
+        (receivedBytes - (this.lastReceivedBytes || 0)) / ((now - (this.lastProgress || 0)) * 1000);
 
-      this.lastProgress = performance.now();
+      this.lastProgress = now;
       this.lastReceivedBytes = receivedBytes;
       const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
+      this.globalProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
       this.sendToWin('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
       console.log(this.currentDownload);
@@ -205,6 +224,9 @@ class BeatmapDownloader {
 
   onDone(item, beatmapsetId) {
     console.log('Téléchargement réussi');
+    if (process.platform === 'darwin') {
+      app.dock.downloadFinished(join(this.savePath, item.getFilename()));
+    }
     this.sendToWin('download-succeeded', { beatmapsetId });
     this.clearCurrentDownload();
     this.executeQueue();
