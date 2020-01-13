@@ -139,7 +139,7 @@ class BeatmapDownloader {
   onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
     item.setSavePath(join(this.savePath, item.getFilename()));
-    const beatmapsetId = this.currentDownload.beatmapSetInfos.id || item.getURLChain()[0].split('/')[4];
+    const beatmapsetId = this.currentDownload.beatmapSetInfos.beatmapsetId || item.getURLChain()[0].split('/')[4];
 
     item.on('updated', (_event, state) => {
       switch (state) {
@@ -193,22 +193,26 @@ class BeatmapDownloader {
 
   onInterrupted(item, beatmapsetId) {
     console.log('Le téléchargement est interrompu mais peut être redémarrer');
+    this.sendToWin('download-interrupted', { beatmapsetId });
   }
 
   onCancel(item, beatmapsetId) {
     console.log('Telechargement anunlé');
+    this.sendToWin('download-canceled', { beatmapsetId });
     this.clearCurrentDownload();
     this.executeQueue();
   }
 
   onDone(item, beatmapsetId) {
     console.log('Téléchargement réussi');
+    this.sendToWin('download-succeeded', { beatmapsetId });
     this.clearCurrentDownload();
     this.executeQueue();
   }
 
   onFailed(item, state, beatmapsetId) {
     console.log(`Téléchargement échoué : ${state}`);
+    this.sendToWin('download-failed', { beatmapsetId });
     this.clearCurrentDownload();
     this.executeQueue();
   }

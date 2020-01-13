@@ -4,10 +4,15 @@ const ipcChannels = {
   pauseDownload: 'pause-current-download',
   cancelCurrentDownload: 'cancel-current-download',
   download: 'download-beatmap',
-  downloadProgress: 'download-progress',
-  downloadPaused: 'download-paused',
   pauseResume: 'pause-resume-current-download',
   clearQueue: 'clear-download-queue',
+  queueUpdated: 'queue-updated',
+  downloadProgress: 'download-progress',
+  downloadPaused: 'download-paused',
+  downloadInterrupt: 'download-interrupted',
+  downloadCanceled: 'download-canceled',
+  downloadSucceed: 'download-succeeded',
+  downloadFail: 'download-failed',
 };
 
 export default ipcChannels;
