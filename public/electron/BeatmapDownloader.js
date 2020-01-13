@@ -17,8 +17,8 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    this.setSavePath('/Users/yannis/Downloads/');
-    // this.setSavePath('C:/Users/AssAs/Downloads');
+    // this.setSavePath('/Users/yannis/Downloads/');
+    this.setSavePath('C:/Users/AssAs/Downloads');
     console.log('downloadSpeed', readableBits(1024000));
   }
 
@@ -198,7 +198,7 @@ class BeatmapDownloader {
       this.lastProgress = now;
       this.lastReceivedBytes = receivedBytes;
       const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
-      this.globalProgress(progressPercent);
+      this.overallProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
       this.sendToWin('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
       console.log(this.currentDownload);

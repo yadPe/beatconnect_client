@@ -6,6 +6,7 @@ import { remote, shell } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
+import { onDownloadProgress } from './ipc/listeners';
 
 export const DownloadQueueContext = React.createContext();
 
@@ -29,7 +30,6 @@ class DownloadQueueProvider extends Component {
       setPath: this.setPath,
       push: this.push,
       pushMany: this.pushMany,
-      _execQueue: this._execQueue,
     };
   }
 
@@ -46,109 +46,12 @@ class DownloadQueueProvider extends Component {
     }
   };
 
-  push = item => {
-    const { queue } = this.state;
-    if (queue.some(e => e.id === item.id)) return;
-    queue.push(item);
-    this.setState({ queue }, () => {
-      if (this.state.queue.length >= 1) {
-        this._execQueue();
-      }
-    });
-  };
+  updateQueue(newQueue) {
+    this.setState(prevState => ({ ...prevState, queue: newQueue }));
+  }
 
-  pushMany = itemArray => {
-    itemArray.forEach(item => this.push(item));
-  };
-
-  removeItemfromQueue = id => {
-    let { queue } = this.state;
-    queue = queue.filter(item => item.id !== id);
-    this.setState({ queue });
-  };
-
-  cancelDownload = () => {
-    let { currentDownload } = this.state;
-    if (!currentDownload.item) return;
-    currentDownload.item.cancel();
-    this.downloading = false;
-    currentDownload = {};
-    this.setState({ currentDownload }, () => {
-      if (this.state.queue.length !== 0) {
-        this._execQueue();
-      }
-    });
-  };
-
-  pauseDownload = () => {
-    const { currentDownload } = this.state;
-    currentDownload.item.pause();
-  };
-
-  resumeDownload = () => {
-    const { currentDownload } = this.state;
-    currentDownload.item.resume();
-  };
-
-  _execQueue = () => {
-    let { queue, currentDownload } = this.state;
-    if (this.downloading) return;
-    this.downloading = true;
-    const { url, id, onFinished } = (currentDownload.infos = queue.shift());
-    this.setState({ currentDownload }, () =>
-      download({ url, downloadFolder: this.dlPath, onProgress: this._onDownloadProgress }, (err, infos) => {
-        if (err) {
-          this._onDownloadFailed(err);
-        } else {
-          onFinished();
-          this._onDownloadSucceed(infos, id);
-        }
-        currentDownload = {};
-        this.downloading = false;
-        queue = this.state.queue; // Check if queue was updated since we started dling
-        this.setState({ queue, currentDownload }, () => {
-          if (this.state.queue.length !== 0) {
-            this._execQueue();
-          }
-        });
-      }),
-    );
-  };
-
-  clear = () => {
-    const { queue } = this.state;
-    queue.length = 0;
-    this.setState({ queue });
-  };
-
-  _onDownloadProgress = (progress, item) => {
-    let { overallProgress } = this.state;
-    const { currentDownload, queue } = this.state;
-    currentDownload.item = item;
-    currentDownload.progress = progress;
-    overallProgress = progress.progress / 100 / (queue.length + 1);
-    remote.getCurrentWindow().setProgressBar(overallProgress);
-    this.setState({ currentDownload, overallProgress });
-  };
-
-  _onDownloadFailed = err => {
-    remote.getCurrentWindow().setProgressBar(-1);
-    console.error(err);
-  };
-
-  _onQueueTerminated = () => {
-    remote.getCurrentWindow().setProgressBar(-1);
-  };
-
-  _onDownloadSucceed(infos, beatmapSetId) {
-    const { importMethod } = this.props;
-    const { queue } = this.state;
-    if (importMethod === 'auto') {
-      shell.openItem(infos.filePath);
-    }
-    if (queue.length === 0) this._onQueueTerminated();
-    console.log('Finished dl', infos);
-    console.log('QUEUE', this.state.queue);
+  updateCurrentDowload(item) {
+    this.state(prevState => ({ ...prevState, currentDownload: item }));
   }
 
   render() {
