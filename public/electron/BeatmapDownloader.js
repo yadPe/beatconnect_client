@@ -114,11 +114,11 @@ class BeatmapDownloader {
     else item.pause();
   };
 
-  cancel = id => {
+  cancel = beatmapSetId => {
     // check if id is current download and cancel it
     // or look for this id in the queue and removes it
-    const item = Array.from(this.queue).find(({ beatmapSetId }) => beatmapSetId === id);
-    this.deleteFromQueue(item);
+    // const item = Array.from(this.queue).find(({ beatmapSetId }) => beatmapSetId === id);
+    this.queue.forEach(item => item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item));
   };
 
   download(item) {
@@ -136,7 +136,7 @@ class BeatmapDownloader {
     this.download(item);
   }
 
-  onWillDownload(event, item, webContents) {
+  onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
     item.setSavePath(join(this.savePath, item.getFilename()));
     const beatmapsetId = this.currentDownload.beatmapSetInfos.id || item.getURLChain()[0].split('/')[4];
@@ -147,7 +147,7 @@ class BeatmapDownloader {
           this.onInterrupted(item, beatmapsetId);
           break;
         case 'progressing':
-          this.onProgress(item, beatmapsetId, webContents);
+          this.onProgress(item, beatmapsetId);
           break;
         default:
           break;
@@ -168,7 +168,7 @@ class BeatmapDownloader {
     });
   }
 
-  onProgress(item, beatmapsetId, webContents) {
+  onProgress(item, beatmapsetId) {
     if (item.isPaused()) {
       console.log('Le téléchargement est en pause');
       this.sendToWin('download-paused', { beatmapsetId });
@@ -191,23 +191,23 @@ class BeatmapDownloader {
     }
   }
 
-  onInterrupted(item, beatmapsetId, webContents) {
+  onInterrupted(item, beatmapsetId) {
     console.log('Le téléchargement est interrompu mais peut être redémarrer');
   }
 
-  onCancel(item, beatmapsetId, webContents) {
+  onCancel(item, beatmapsetId) {
     console.log('Telechargement anunlé');
     this.clearCurrentDownload();
     this.executeQueue();
   }
 
-  onDone(item, beatmapsetId, webContents) {
+  onDone(item, beatmapsetId) {
     console.log('Téléchargement réussi');
     this.clearCurrentDownload();
     this.executeQueue();
   }
 
-  onFailed(item, state, beatmapsetId, webContents) {
+  onFailed(item, state, beatmapsetId) {
     console.log(`Téléchargement échoué : ${state}`);
     this.clearCurrentDownload();
     this.executeQueue();
