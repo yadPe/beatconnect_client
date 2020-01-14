@@ -6,6 +6,7 @@ import renderIcons from '../../../utils/renderIcons';
 import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 import { make as ProgressRing } from '../ProgressRing.bs';
+import { useDownloadQueue } from '../../../../Providers/downloadManager';
 
 const styles = {
   wrapper: {
@@ -19,7 +20,9 @@ const styles = {
 const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
-  const { currentDownload, push, queue, pushMany } = useContext(DownloadQueueContext);
+  const { currentDownload, queue, pushMany } = useContext(DownloadQueueContext);
+  const { push } = useDownloadQueue();
+  // console.log('con', cont);
 
   const downloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
@@ -51,12 +54,12 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
       );
     } else {
       push({
-        url,
-        id: infos.id,
-        fullTitle,
-        onFinished: () => {
-          history.save({ id: infos.id, name: fullTitle });
-        },
+        beatmapSetId: infos.id,
+        uniqId: infos.unique_id,
+        beatmapSetInfos: { fullTitle },
+        // onFinished: () => {
+        //   history.save({ id: infos.id, name: fullTitle });
+        // },
       });
     }
   };

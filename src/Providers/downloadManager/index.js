@@ -1,21 +1,25 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unused-state */
-import React, { Component } from 'react';
+import React, { Component, useContext, createContext } from 'react';
 import { remote, shell } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
-import { onDownloadProgress } from './ipc/listeners';
+import { onDownloadProgress, onDownloadPaused, onQueueUpdate } from './ipc/listeners';
 
-export const DownloadQueueContext = React.createContext();
+export const DownloadManagerContext = createContext();
+export const useDownloadQueue = () => useContext(DownloadManagerContext);
 
 // const { download } = remote.require('electron-download-manager');
 const { app } = remote;
 
-class DownloadQueueProvider extends Component {
+class DownloadManagerProvider extends Component {
   constructor(props) {
     super(props);
+    onDownloadProgress(this.updateCurrentDowload.bind(this));
+    onDownloadPaused(this.downloadPaused.bind(this));
+    onQueueUpdate(this.updateQueue.bind(this));
     this.state = {
       queue: [],
       currentDownload: {},
@@ -28,7 +32,7 @@ class DownloadQueueProvider extends Component {
       clear: clearQueue,
 
       setPath: this.setPath,
-      push: this.push,
+      push: download,
       pushMany: this.pushMany,
     };
   }
@@ -51,12 +55,16 @@ class DownloadQueueProvider extends Component {
   }
 
   updateCurrentDowload(item) {
-    this.state(prevState => ({ ...prevState, currentDownload: item }));
+    this.state(prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }));
+  }
+
+  downloadPaused() {
+    this.state(prevState => ({ ...prevState, currentDownload: { ...prevState.currentDownload, status: 'paused' } }));
   }
 
   render() {
     const { children } = this.props;
-    return <DownloadQueueContext.Provider value={this.state}>{children}</DownloadQueueContext.Provider>;
+    return <DownloadManagerContext.Provider value={this.state}>{children}</DownloadManagerContext.Provider>;
   }
 }
 
@@ -64,4 +72,4 @@ const mapStateToProps = ({ settings }) => {
   const { autoImport, importMethod, osuSongsPath } = settings.userPreferences;
   return { autoImport, importMethod, osuSongsPath };
 };
-export default connect(mapStateToProps)(DownloadQueueProvider);
+export default connect(mapStateToProps)(DownloadManagerProvider);
