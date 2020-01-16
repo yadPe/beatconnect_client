@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, className, ...otherProps }) => {
+const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
   const { currentDownload, queue, pushMany } = useContext(DownloadQueueContext);
@@ -26,14 +26,14 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
 
   const downloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
-    : history.contains(infos.id);
+    : history.contains(beatmapSet.id);
   let isInQueue = false;
   let fullTitle = '';
   let isDownloading = false;
   if (pack) {
     isInQueue = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
   } else {
-    const { title, artist, creator, id } = infos;
+    const { title, artist, creator, id } = beatmapSet;
     fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
     isInQueue = queue.filter(item => item.id === id).length;
     isDownloading = currentDownload.infos && currentDownload.infos.id === id;
@@ -54,8 +54,8 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
       );
     } else {
       push({
-        beatmapSetId: infos.id,
-        uniqId: infos.unique_id,
+        beatmapSetId: beatmapSet.id,
+        uniqId: beatmapSet.unique_id,
         beatmapSetInfos: { fullTitle },
         // onFinished: () => {
         //   history.save({ id: infos.id, name: fullTitle });

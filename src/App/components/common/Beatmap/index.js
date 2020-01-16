@@ -97,11 +97,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
           <Text color="#fff">{artist}</Text>
           {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
           <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
-          <DownloadBeatmapBtn
-            autoDl={autoDl}
-            url={beatconnectDlLink || getDownloadUrl(beatmap)}
-            infos={{ title, artist, creator, id: beatmapset_id || id }}
-          />
+          <DownloadBeatmapBtn autoDl={autoDl} beatmapSet={beatmap} />
           <Button
             push
             color={theme.palette.primary.accent}

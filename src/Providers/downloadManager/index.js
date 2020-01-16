@@ -51,15 +51,19 @@ class DownloadManagerProvider extends Component {
   };
 
   updateQueue(newQueue) {
+    console.log('newQueue', newQueue);
+
     this.setState(prevState => ({ ...prevState, queue: newQueue }));
   }
 
   updateCurrentDowload(item) {
-    this.state(prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }));
+    console.log('currentDownload', item);
+
+    this.setState(prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }));
   }
 
   downloadPaused() {
-    this.state(prevState => ({ ...prevState, currentDownload: { ...prevState.currentDownload, status: 'paused' } }));
+    this.setState(prevState => ({ ...prevState, currentDownload: { ...prevState.currentDownload, status: 'paused' } }));
   }
 
   render() {

@@ -17,9 +17,9 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    // this.setSavePath('/Users/yannis/Downloads/');
-    this.setSavePath('C:/Users/AssAs/Downloads');
-    console.log('downloadSpeed', readableBits(1024000));
+    this.setSavePath('/Users/yannis/Downloads/');
+    // this.setSavePath('C:/Users/AssAs/Downloads');
+    // console.log('downloadSpeed', readableBits(1024000));
   }
 
   register = win => {
@@ -75,9 +75,10 @@ class BeatmapDownloader {
   }
 
   setCurrentDownloadItem(item) {
-    if (this.currentDownload.beatmapSetInfos) {
+    if (this.currentDownload.beatmapSetInfos.beatmapSetId) {
       const beatmapsetId = item.getURLChain()[0].split('/')[4];
-      if (this.currentDownload.beatmapSetInfos.beatmapSetId !== beatmapsetId) {
+
+      if (this.currentDownload.beatmapSetInfos.beatmapSetId.toString() !== beatmapsetId) {
         throw new Error('currentDownloadIdMissmatch');
       }
     }
@@ -121,15 +122,13 @@ class BeatmapDownloader {
     this.queue.forEach(item => item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item));
   };
 
-  download(item) {
-    const url = makeDownloadUrl({ beatmapSetId: item.beatmapSetId, uniqId: item.uniqId });
+  download(queueItem) {
+    const url = makeDownloadUrl({ beatmapSetId: queueItem.beatmapSetId, uniqId: queueItem.uniqId });
     this.winRef.webContents.downloadURL(url);
-    this.setCurrentDownloadBeatmapInfos(item);
+    this.setCurrentDownloadBeatmapInfos(queueItem);
   }
 
   executeQueue() {
-    console.log('exec', this.queue.size);
-
     if (this.currentDownload.item || this.currentDownload.beatmapSetInfos.beatmapSetId) return;
     if (this.queue.size === 0) {
       this.winRef.setProgressBar(-1);
@@ -138,8 +137,8 @@ class BeatmapDownloader {
       }
       return;
     }
-    const [item] = this.queue;
-    this.download(item);
+    const [queueItem] = this.queue;
+    this.download(queueItem);
   }
 
   onWillDownload(event, item) {
@@ -201,7 +200,7 @@ class BeatmapDownloader {
       this.overallProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
       this.sendToWin('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
-      console.log(this.currentDownload);
+      // console.log(this.currentDownload);
       console.log('QUEUE::::::::::::', this.queue.size);
 
       // console.log('speed', bytesPerSecond);
