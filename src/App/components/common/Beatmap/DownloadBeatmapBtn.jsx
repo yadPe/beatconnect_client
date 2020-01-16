@@ -3,7 +3,6 @@ import { ProgressCircle } from 'react-desktop/windows';
 import InjectSheet, { useTheme } from 'react-jss';
 import Button from '../Button';
 import renderIcons from '../../../utils/renderIcons';
-import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 import { make as ProgressRing } from '../ProgressRing.bs';
 import { useDownloadQueue } from '../../../../Providers/downloadManager';
@@ -20,23 +19,21 @@ const styles = {
 const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
-  const { currentDownload, queue, pushMany } = useContext(DownloadQueueContext);
-  const { push } = useDownloadQueue();
-  // console.log('con', cont);
+  const { push, queue } = useDownloadQueue();
 
-  const downloaded = pack
+  const isDownloading = queue[0].beatmapSetId === beatmapSet.id;
+  const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
     : history.contains(beatmapSet.id);
+
   let isInQueue = false;
   let fullTitle = '';
-  let isDownloading = false;
   if (pack) {
     isInQueue = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
   } else {
     const { title, artist, creator, id } = beatmapSet;
     fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
     isInQueue = queue.filter(item => item.id === id).length;
-    isDownloading = currentDownload.infos && currentDownload.infos.id === id;
   }
 
   const downloadBeatmap = e => {
@@ -72,7 +69,7 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
     if (isDownloading && currentDownload.progress)
       return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progress.progress} />;
     if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
-    return downloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
+    return alreadydownloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
   };
 
   if (noStyle) {

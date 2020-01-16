@@ -5,7 +5,6 @@ import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
-import DownloadQueueProvider from './Providers/DownloadQueueProvider';
 import DownloadManagerProvider from './Providers/downloadManager';
 import AudioPlayerProvider from './Providers/AudioPlayerProvider';
 import ErrorBoundary from './ErrorBoundary';
@@ -18,15 +17,13 @@ ReactDOM.render(
     <HistoryProvider>
       <ThemeProvider>
         <Provider store={store}>
-          <DownloadQueueProvider>
-            <DownloadManagerProvider>
-              <AudioPlayerProvider>
-                <TasksProvider>
-                  <App />
-                </TasksProvider>
-              </AudioPlayerProvider>
-            </DownloadManagerProvider>
-          </DownloadQueueProvider>
+          <DownloadManagerProvider>
+            <AudioPlayerProvider>
+              <TasksProvider>
+                <App />
+              </TasksProvider>
+            </AudioPlayerProvider>
+          </DownloadManagerProvider>
         </Provider>
       </ThemeProvider>
     </HistoryProvider>

@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unused-state */
 import React, { Component, useContext, createContext } from 'react';
-import { remote, shell } from 'electron';
+import { remote } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
@@ -11,7 +11,6 @@ import { onDownloadProgress, onDownloadPaused, onQueueUpdate } from './ipc/liste
 export const DownloadManagerContext = createContext();
 export const useDownloadQueue = () => useContext(DownloadManagerContext);
 
-// const { download } = remote.require('electron-download-manager');
 const { app } = remote;
 
 class DownloadManagerProvider extends Component {

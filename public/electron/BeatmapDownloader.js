@@ -17,8 +17,8 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    this.setSavePath('/Users/yannis/Downloads/');
-    // this.setSavePath('C:/Users/AssAs/Downloads');
+    // this.setSavePath('/Users/yannis/Downloads/');
+    this.setSavePath('C:/Users/AssAs/Downloads');
     // console.log('downloadSpeed', readableBits(1024000));
   }
 
@@ -26,7 +26,10 @@ class BeatmapDownloader {
     if (this.winRef) return;
 
     this.winRef = win;
-    this.sendToWin = args => win.webContents.send(args);
+
+    console.log('win', win.id);
+
+    this.sendToWin = (channel, args) => win.webContents.send(channel, args);
     this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
 
     ipcMain.on('download-beatmap', (_event, args) => this.pushToQueue(args));
