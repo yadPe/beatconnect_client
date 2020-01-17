@@ -21,20 +21,14 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const history = useContext(HistoryContext);
   const { push, queue } = useDownloadQueue();
 
+  const fullTitle = `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
+  const isInQueue = pack
+    ? queue.filter(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
+    : history.contains(beatmapSet.id);
   const isDownloading = queue[0].beatmapSetId === beatmapSet.id;
   const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
     : history.contains(beatmapSet.id);
-
-  let isInQueue = false;
-  let fullTitle = '';
-  if (pack) {
-    isInQueue = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
-  } else {
-    const { title, artist, creator, id } = beatmapSet;
-    fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
-    isInQueue = queue.filter(item => item.id === id).length;
-  }
 
   const downloadBeatmap = e => {
     e.stopPropagation();
