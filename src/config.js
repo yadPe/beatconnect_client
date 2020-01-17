@@ -14,6 +14,13 @@ export default {
     defaultTransitionDuration: '200ms',
     defaultAccentColor: '#17b04c',
   },
+  download: {
+    status: {
+      canceled: 'canceled',
+      downloading: 'downloading',
+      paused: 'paused',
+    },
+  },
   beatmaps: {
     availableStatusLabels: ['Ranked', 'Approved', 'Qualified', 'Loved', 'Unranked', 'All'],
     availableStatus: ['ranked', 'approved', 'qualified', 'loved', 'unranked', 'all'],

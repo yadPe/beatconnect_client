@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
-import { DownloadQueueContext } from './DownloadQueueProvider';
+import { DownloadManagerContext } from './downloadManager';
 
 export const TasksContext = React.createContext();
 
 class TasksProvider extends Component {
-  static contextType = DownloadQueueContext;
+  static contextType = DownloadManagerContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +14,7 @@ class TasksProvider extends Component {
       lastTask: {},
       add: this.add,
     };
+
     ipcRenderer.on('autoUpdater', (e, { status, releaseName }) => {
       switch (status) {
         case 'checkingUpdate':

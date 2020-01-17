@@ -21,7 +21,7 @@ class DownloadManagerProvider extends Component {
     onQueueUpdate(this.updateQueue.bind(this));
     this.state = {
       queue: [],
-      currentDownload: {},
+      currentDownload: { beatmapsetId: null, progressPercent: null, downloadSpeed: null, status: null },
       overallProgress: 0,
 
       pauseDownload: pause,

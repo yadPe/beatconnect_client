@@ -1,17 +1,17 @@
-import React, { useEffect, useState, cloneElement, useContext } from 'react';
+import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
+
 import DownloadedItems from './DownloadedItems';
 import DownloadsInQueue from './DownloadsInQueue';
 import DownloadsInProgress from './DownloadsInProgress';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
-import { DownloadQueueContext } from '../../../Providers/DownloadQueueProvider';
+import { useDownloadQueue } from '../../../Providers/downloadManager';
 
 const Downloads = ({ setHeaderContent }) => {
-  const DownloadQueue = useContext(DownloadQueueContext);
+  const DownloadQueue = useDownloadQueue();
   const theme = useTheme();
-  const { queue } = DownloadQueue;
-  const queueActive = queue.length !== 0;
+  const queueActive = !!DownloadQueue.queue.length;
   const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
 
   useEffect(() => {

@@ -17,8 +17,8 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    // this.setSavePath('/Users/yannis/Downloads/');
-    this.setSavePath('C:/Users/AssAs/Downloads');
+    this.setSavePath('/Users/yannis/Downloads/');
+    // this.setSavePath('C:/Users/AssAs/Downloads');
     // console.log('downloadSpeed', readableBits(1024000));
   }
 
