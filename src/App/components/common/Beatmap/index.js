@@ -43,7 +43,7 @@ const useStyles = createUseStyles({
       left: '0%',
       boxShadow: '0 0 15px #287ec6',
       filter: 'blur(1px)',
-      animation: ({ bpm, isPlaying }) => (isPlaying ? `$pulse ${bpmToBps(bpm)}s linear infinite` : ``),
+      animation: ({ bpm, isPlaying }) => (isPlaying ? `$pulse ${bpmToBps(bpm)}s linear infinite` : `none`),
       opacity: ({ isPlaying }) => (isPlaying ? 1 : 0),
       transitionDuration: '.5s',
       transitionDelay: '.2s',
