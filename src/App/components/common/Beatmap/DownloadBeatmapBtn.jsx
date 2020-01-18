@@ -25,10 +25,9 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const fullTitle = `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
   const isInQueue = pack
     ? queue.filter(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
-    : history.contains(beatmapSet.id);
-  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id;
-  console.log(' currentDownload.beatmapSetId', currentDownload.beatmapSetId);
-  console.log('beatmapSet.id', beatmapSet.id);
+    : queue.some(queueItem => queueItem.beatmapSetId === beatmapSet.id);
+  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id.toString();
+  console.log('isInQueue', isInQueue);
 
   const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length

@@ -16,6 +16,7 @@ export default {
   },
   download: {
     status: {
+      queued: 'queued',
       canceled: 'canceled',
       downloading: 'downloading',
       paused: 'paused',

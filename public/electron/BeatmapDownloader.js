@@ -17,8 +17,8 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    // this.setSavePath('/Users/yannis/Downloads/');
-    this.setSavePath('C:/Users/AssAs/Downloads');
+    this.setSavePath('/Users/yannis/Downloads/');
+    // this.setSavePath('C:/Users/AssAs/Downloads');
     // console.log('downloadSpeed', readableBits(1024000));
   }
 
@@ -187,10 +187,10 @@ class BeatmapDownloader {
     }
   }
 
-  onProgress(item, beatmapsetId) {
+  onProgress(item, beatmapSetId) {
     if (item.isPaused()) {
       console.log('Le téléchargement est en pause');
-      this.sendToWin('download-paused', { beatmapsetId });
+      this.sendToWin('download-paused', { beatmapSetId });
     } else {
       const receivedBytes = item.getReceivedBytes();
       const now = performance.now();
@@ -202,7 +202,7 @@ class BeatmapDownloader {
       const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
       this.overallProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
-      this.sendToWin('download-progress', { beatmapsetId, progressPercent, downloadSpeed });
+      this.sendToWin('download-progress', { beatmapSetId, progressPercent, downloadSpeed });
       // console.log(this.currentDownload);
       console.log('QUEUE::::::::::::', this.queue.size);
 

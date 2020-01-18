@@ -1,5 +1,5 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import injectSheet, { useTheme } from 'react-jss';
 import renderIcons from '../../utils/renderIcons';
 import Button from '../common/Button';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
@@ -18,16 +18,18 @@ const styles = {
   },
 };
 
-const DownloadsInProgress = ({ theme, classes }) => {
+const DownloadsInProgress = ({ classes }) => {
+  const theme = useTheme();
   const { cancelDownload, currentDownload, clear, queue, pauseResumeDownload } = useDownloadQueue();
-  const { beatmapsetId, progressPercent, downloadSpeed, status } = currentDownload;
-  const [currentQueueItem] = queue || [];
+  const { beatmapSetId, progressPercent, downloadSpeed, status } = currentDownload || {};
+  const [currentQueueItem] = queue;
+
   const isPaused = status === config.download.status.paused;
   const renderDownloads = () => {
-    if (!beatmapsetId) return null;
+    if (!beatmapSetId) return null;
     return (
       <div className={classes.DownloadsInProgress}>
-        <p>{currentQueueItem.fullTitle}</p>
+        <p>{currentQueueItem.beatmapSetInfos.fullTitle}</p>
         {progressPercent ? (
           <>
             <p>{`${Math.round(progressPercent)}% @`}</p>

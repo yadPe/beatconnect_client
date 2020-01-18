@@ -9,13 +9,13 @@ import NavPanel from '../common/NavPanel';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 
 const Downloads = ({ setHeaderContent }) => {
-  const DownloadQueue = useDownloadQueue();
+  const { queue, removeItemfromQueue } = useDownloadQueue();
   const theme = useTheme();
-  const queueActive = !!DownloadQueue.queue.length;
+  const queueActive = !!queue.length;
   const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
 
   useEffect(() => {
-    setHeaderContent(<DownloadsInProgress theme={theme} />);
+    setHeaderContent(<DownloadsInProgress />);
     return () => setHeaderContent(null);
   }, [setHeaderContent, theme]);
 
@@ -34,7 +34,7 @@ const Downloads = ({ setHeaderContent }) => {
   return (
     <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
       <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground={theme.palette.secondary.dark}>
-        {renderItem(`Queued`, <DownloadsInQueue theme={theme} DownloadQueue={DownloadQueue} />)}
+        {renderItem(`Queued`, <DownloadsInQueue queue={queue} removeItemfromQueue={removeItemfromQueue} />)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>
     </div>

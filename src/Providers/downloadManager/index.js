@@ -6,7 +6,7 @@ import { remote } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
-import { onDownloadProgress, onDownloadPaused, onQueueUpdate } from './ipc/listeners';
+import { onDownloadProgress, onDownloadPaused, onQueueUpdate, onDownloadSucceed } from './ipc/listeners';
 
 export const DownloadManagerContext = createContext();
 export const useDownloadQueue = () => useContext(DownloadManagerContext);
@@ -19,6 +19,7 @@ class DownloadManagerProvider extends Component {
     onDownloadProgress(this.updateCurrentDowload.bind(this));
     onDownloadPaused(this.downloadPaused.bind(this));
     onQueueUpdate(this.updateQueue.bind(this));
+    // onDownloadSucceed()
     this.state = {
       queue: [],
       currentDownload: { beatmapsetId: null, progressPercent: null, downloadSpeed: null, status: null },
@@ -49,16 +50,19 @@ class DownloadManagerProvider extends Component {
     }
   };
 
-  updateQueue(newQueue) {
-    console.log('newQueue', newQueue);
+  updateQueue({ queue }) {
+    // console.log('newQueue', newQueue);
 
-    this.setState(prevState => ({ ...prevState, queue: newQueue }));
+    this.setState(prevState => ({ ...prevState, queue, ...(!queue.length ? { currentDownload: null } : {}) }));
   }
 
   updateCurrentDowload(item) {
-    console.log('currentDownload', item);
+    // console.log('currentDownload', item);
 
-    this.setState(prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }));
+    this.setState(
+      prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }),
+      () => console.log('setState:::::::::::', this.state),
+    );
   }
 
   downloadPaused() {

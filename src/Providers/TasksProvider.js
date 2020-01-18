@@ -44,7 +44,7 @@ class TasksProvider extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { tasks } = this.state;
     const { queue } = this.context;
-    if (!this.context.currentDownload.item && queue.length === 0) {
+    if (this.context.currentDownload && !this.context.currentDownload.item && queue.length === 0) {
       if (tasks['Downloading']) tasks['Downloading'].terminate();
     }
   }
