@@ -94,7 +94,6 @@
   },
   "dependencies": {
     "camelcase": "^5.2.0",
-    "electron-download-manager": "git+https://github.com/yadPe/electron-download-manager.git",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.7",
     "electron-updater": "^4.1.2",

@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, createContext, useContext } from 'react';
 import { ipcRenderer } from 'electron';
-import { DownloadQueueContext } from './DownloadQueueProvider';
+import { DownloadManagerContext } from './downloadManager';
 
-export const TasksContext = React.createContext();
+export const TasksContext = createContext();
+export const useTasks = () => useContext(TasksContext);
 
 class TasksProvider extends Component {
-  static contextType = DownloadQueueContext;
+  static contextType = DownloadManagerContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,20 +15,22 @@ class TasksProvider extends Component {
       lastTask: {},
       add: this.add,
     };
+
     ipcRenderer.on('autoUpdater', (e, { status, releaseName }) => {
+      const { tasks } = this.state;
       switch (status) {
         case 'checkingUpdate':
           this.add({ name: 'Checking for update', status: 'running', section: 'Settings' });
           break;
         case 'noUpdateAvailable':
-          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate();
+          if (tasks['Checking for update']) tasks['Checking for update'].terminate();
           break;
         case 'updateAvailable':
-          if (this.state.tasks['Checking for update']) this.state.tasks['Checking for update'].terminate();
+          if (tasks['Checking for update']) tasks['Checking for update'].terminate();
           this.add({ name: 'Downloading update', status: 'running', section: 'Settings' });
           break;
         case 'updateDownloaded':
-          if (this.state.tasks['Downloading update']) this.state.tasks['Downloading update'].terminate();
+          if (tasks['Downloading update']) tasks['Downloading update'].terminate();
           this.add({
             name: `Version ${releaseName} ready`,
             status: 'running',
@@ -39,17 +43,11 @@ class TasksProvider extends Component {
       }
     });
   }
-  componentDidUpdate(prevProps, prevState) {
-    const { tasks } = this.state;
-    const { queue } = this.context;
-    if (!this.context.currentDownload.item && queue.length === 0) {
-      if (tasks['Downloading']) tasks['Downloading'].terminate();
-    }
-  }
+
   componentWillUpdate() {
     const { tasks } = this.state;
     const { overallProgress, queue } = this.context;
-    if (this.context.currentDownload.item) {
+    if (this.context.currentDownload) {
       if (!tasks['Downloading'])
         return this.add({ name: 'Downloading', status: 'running', description: `initializing`, section: 'Downloads' });
       const description = `${Math.round(overallProgress * 100)}% - ${queue.length} items in queue`;
@@ -57,6 +55,15 @@ class TasksProvider extends Component {
         tasks['Downloading'].description = description;
         this.setState({ tasks });
       }
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    const { queue, currentDownload } = this.context;
+
+    if (!currentDownload && !queue.length) {
+      if (tasks['Downloading']) tasks['Downloading'].terminate();
     }
   }
 

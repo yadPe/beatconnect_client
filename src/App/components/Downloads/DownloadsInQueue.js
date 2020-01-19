@@ -1,22 +1,32 @@
 import React from 'react';
 import DownloadsItem from './Item';
+import config from '../../../config';
 
-const DownloadsInQueue = ({ theme, DownloadQueue }) => {
-  const { queue, removeItemfromQueue } = DownloadQueue;
-
+const DownloadsInQueue = ({ queue, removeItemfromQueue }) => {
   const renderDownloads = () => {
-    if (queue.length === 0) return null;
+    if (!queue.length) return null;
     return (
       <div className="downloadMenu DownloadsInQueue" style={{ marginBottom: '5vh' }}>
-        {queue.map(item => {
-          const { id, fullTitle } = item;
-          const unQueue = () => removeItemfromQueue(id);
-          return <DownloadsItem id={id} name={fullTitle} cancel={unQueue} status="queued" key={id} />;
+        {queue.slice(1).map(item => {
+          const {
+            beatmapSetId,
+            beatmapSetInfos: { fullTitle },
+          } = item;
+          const unQueue = () => removeItemfromQueue(beatmapSetId);
+          return (
+            <DownloadsItem
+              id={beatmapSetId}
+              name={fullTitle}
+              cancel={unQueue}
+              status={config.download.status.queued}
+              key={beatmapSetId}
+            />
+          );
         })}
       </div>
     );
   };
-  return <React.Fragment>{renderDownloads()}</React.Fragment>;
+  return <>{renderDownloads()}</>;
 };
 
 export default DownloadsInQueue;

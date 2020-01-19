@@ -3,9 +3,9 @@ import { ProgressCircle } from 'react-desktop/windows';
 import InjectSheet, { useTheme } from 'react-jss';
 import Button from '../Button';
 import renderIcons from '../../../utils/renderIcons';
-import { DownloadQueueContext } from '../../../../Providers/DownloadQueueProvider';
 import { HistoryContext } from '../../../../Providers/HistoryProvider';
 import { make as ProgressRing } from '../ProgressRing.bs';
+import { useDownloadQueue } from '../../../../Providers/downloadManager';
 
 const styles = {
   wrapper: {
@@ -16,25 +16,21 @@ const styles = {
   },
 };
 
-const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, className, ...otherProps }) => {
+const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
-  const { currentDownload, push, queue, pushMany } = useContext(DownloadQueueContext);
+  const { push, queue, currentDownload } = useDownloadQueue();
+  // console.log('beatmapSet', beatmapSet);
 
-  const downloaded = pack
+  const fullTitle = `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
+  const isInQueue = pack
+    ? queue.filter(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
+    : queue.some(queueItem => queueItem.beatmapSetId === beatmapSet.id);
+  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id;
+
+  const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
-    : history.contains(infos.id);
-  let isInQueue = false;
-  let fullTitle = '';
-  let isDownloading = false;
-  if (pack) {
-    isInQueue = queue.filter(item => pack.find(beatmap => beatmap.id === item.id)).length;
-  } else {
-    const { title, artist, creator, id } = infos;
-    fullTitle = `${title} - ${artist} ${creator && `| ${creator}`}`;
-    isInQueue = queue.filter(item => item.id === id).length;
-    isDownloading = currentDownload.infos && currentDownload.infos.id === id;
-  }
+    : history.contains(beatmapSet.id);
 
   const downloadBeatmap = e => {
     e.stopPropagation();
@@ -51,12 +47,12 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
       );
     } else {
       push({
-        url,
-        id: infos.id,
-        fullTitle,
-        onFinished: () => {
-          history.save({ id: infos.id, name: fullTitle });
-        },
+        beatmapSetId: beatmapSet.id,
+        uniqId: beatmapSet.unique_id,
+        beatmapSetInfos: { fullTitle },
+        // onFinished: () => {
+        //   history.save({ id: infos.id, name: fullTitle });
+        // },
       });
     }
   };
@@ -66,10 +62,10 @@ const DownloadBeatmapBtn = ({ classes, url, infos, autoDl, noStyle, pack, classN
   }, [autoDl]);
 
   const renderContent = () => {
-    if (isDownloading && currentDownload.progress)
-      return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progress.progress} />;
+    if (isDownloading && currentDownload.progressPercent)
+      return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progressPercent} />;
     if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
-    return downloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
+    return alreadydownloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
   };
 
   if (noStyle) {

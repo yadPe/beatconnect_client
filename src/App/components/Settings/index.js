@@ -22,11 +22,13 @@ import { HistoryContext } from '../../../Providers/HistoryProvider';
 import { TasksContext } from '../../../Providers/TasksProvider';
 import ColorPicker from '../common/ColorPicker';
 import { useSetTheme } from '../../../Providers/ThemeProvider';
+import { useDownloadQueue } from '../../../Providers/downloadManager';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
   const { add, tasks } = useContext(TasksContext);
+  const { setPath } = useDownloadQueue();
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selected, setSelected] = useState('General');
   const { setAccentColor } = useSetTheme();
@@ -40,8 +42,10 @@ const Settings = ({ userPreferences }) => {
       properties: ['openDirectory'],
     });
     if (path) {
-      if (song === 'song') setOsuSongsPath(path[0]);
-      else setOsuPath(path[0]);
+      if (song === 'song') {
+        setPath(userPreferences.importMethod, path[0]);
+        setOsuSongsPath(path[0]);
+      } else setOsuPath(path[0]);
     }
   };
 

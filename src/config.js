@@ -1,4 +1,6 @@
 export default {
+  osu: 'https://osu.ppy.sh',
+  beatconnect: 'https://beatconnect.io',
   api: {
     packsBaseUrl: 'https://beatconnect.io/api/packs/?token=3u80rns2wkcidsz7',
     weeklyPackBaseUrl: 'https://beatconnect.io/api/packs/weekly/?token=3u80rns2wkcidsz7',
@@ -13,6 +15,14 @@ export default {
     titleBarHeight: 23,
     defaultTransitionDuration: '200ms',
     defaultAccentColor: '#17b04c',
+  },
+  download: {
+    status: {
+      queued: 'queued',
+      canceled: 'canceled',
+      downloading: 'downloading',
+      paused: 'paused',
+    },
   },
   beatmaps: {
     availableStatusLabels: ['Ranked', 'Approved', 'Qualified', 'Loved', 'Unranked', 'All'],

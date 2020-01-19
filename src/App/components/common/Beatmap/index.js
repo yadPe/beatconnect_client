@@ -43,7 +43,7 @@ const useStyles = createUseStyles({
       left: '0%',
       boxShadow: '0 0 15px #287ec6',
       filter: 'blur(1px)',
-      animation: ({ bpm, isPlaying }) => (isPlaying ? `$pulse ${bpmToBps(bpm)}s linear infinite` : ``),
+      animation: ({ bpm, isPlaying }) => (isPlaying ? `$pulse ${bpmToBps(bpm)}s linear infinite` : `none`),
       opacity: ({ isPlaying }) => (isPlaying ? 1 : 0),
       transitionDuration: '.5s',
       transitionDelay: '.2s',
@@ -97,11 +97,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
           <Text color="#fff">{artist}</Text>
           {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
           <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
-          <DownloadBeatmapBtn
-            autoDl={autoDl}
-            url={beatconnectDlLink || getDownloadUrl(beatmap)}
-            infos={{ title, artist, creator, id: beatmapset_id || id }}
-          />
+          <DownloadBeatmapBtn autoDl={autoDl} beatmapSet={beatmap} />
           <Button
             push
             color={theme.palette.primary.accent}

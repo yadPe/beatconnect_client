@@ -3,7 +3,6 @@ const { app, webContents } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const DownloadManager = require('electron-download-manager');
 const path = require('path');
 const url = require('url');
 const MainWindow = require('./MainWindow');
@@ -22,10 +21,6 @@ autoUpdater.on('update-downloaded', ({ releaseName }) => {
 });
 autoUpdater.on('update-not-available', () => {
   webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' });
-});
-
-DownloadManager.register({
-  downloadFolder: `${app.getPath('downloads')}/beatconnect`,
 });
 
 const main = () => {
