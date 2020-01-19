@@ -36,11 +36,7 @@ class BeatmapDownloader {
   };
 
   setSavePath(path) {
-    console.log('setSavePath');
-
     const validPath = normalize(path);
-    console.log(existsSync(validPath));
-    console.log(lstatSync(validPath).isDirectory());
 
     if (existsSync(validPath) && lstatSync(validPath).isDirectory()) this.savePath = validPath;
     else throw new Error('InvalidPath');
@@ -105,13 +101,11 @@ class BeatmapDownloader {
   }
 
   cancelCurrent = () => {
-    // cancel the current download
     if (!this.currentDownload.item) throw new Error('noCurrentDownloadItem');
     this.currentDownload.item.cancel();
   };
 
   pauseResumeCurrent = () => {
-    // pause or resume the current download based on its state
     const { item } = this.currentDownload;
     if (!item) throw new Error('noCurrentDownloadItem');
     if (item.isPaused()) item.resume();
@@ -119,15 +113,7 @@ class BeatmapDownloader {
   };
 
   cancel = ({ beatmapSetId }) => {
-    // check if id is current download and cancel it
-    // or look for this id in the queue and removes it
-    // const item = Array.from(this.queue).find(({ beatmapSetId }) => beatmapSetId === id);
-    this.queue.forEach(item => {
-      console.log('item.beatmapSetId', item.beatmapSetId);
-      console.log('beatmapSetId', beatmapSetId);
-
-      return item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item);
-    });
+    this.queue.forEach(item => item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item));
   };
 
   download(queueItem) {
@@ -198,7 +184,6 @@ class BeatmapDownloader {
 
   onProgress(item, beatmapSetId) {
     if (item.isPaused()) {
-      console.log('Le téléchargement est en pause');
       this.sendToWin('download-paused', { beatmapSetId });
     } else {
       if (this.retryIntervalId) {
@@ -212,39 +197,27 @@ class BeatmapDownloader {
 
       this.lastProgress = now;
       this.lastReceivedBytes = receivedBytes;
-      console.log('receivedBytes', receivedBytes);
-      console.log('totalBuytes', item.getTotalBytes());
-
       const progressPercent = ((receivedBytes / (item.getTotalBytes() || 1)) * 100).toFixed(2);
       this.overallProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
-      console.log('send dl progress', { beatmapSetId, progressPercent, downloadSpeed });
 
       this.sendToWin('download-progress', { beatmapSetId, progressPercent, downloadSpeed });
-      // console.log(this.currentDownload);
-      console.log('QUEUE::::::::::::', this.queue.size);
-
-      // console.log('speed', bytesPerSecond);
-      // console.log('downloadSpeed', downloadSpeed);
-      // console.log('progressPercent', progressPercent);
     }
   }
 
-  onInterrupted(item, beatmapSetId) {
-    console.log('Le téléchargement est interrompu mais peut être redémarrer');
+  onInterrupted(_item, beatmapSetId) {
+    // Download is interrupted but can be resumed
     this.sendToWin('download-interrupted', { beatmapSetId });
     this.startRetrying();
   }
 
-  onCancel(item, beatmapSetId) {
-    console.log('Telechargement anunlé');
+  onCancel(_item, beatmapSetId) {
     this.sendToWin('download-canceled', { beatmapSetId });
     this.clearCurrentDownload(true);
     this.executeQueue();
   }
 
   onDone(item, beatmapSetId) {
-    console.log('Téléchargement réussi');
     if (process.platform === 'darwin') {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
@@ -253,8 +226,7 @@ class BeatmapDownloader {
     this.executeQueue();
   }
 
-  onFailed(item, state, beatmapSetId) {
-    console.log(`Téléchargement échoué : ${state}`);
+  onFailed(_item, _state, beatmapSetId) {
     this.sendToWin('download-failed', { beatmapSetId });
     this.clearCurrentDownload();
     this.executeQueue();
@@ -281,17 +253,14 @@ class BeatmapDownloader {
           // retry current 4 times then skip to next one
           if (this.currentDownload.retryCount > 3) {
             // skip to next one
-            console.log('Skipping current download');
             this.currentDownload.item.cancel();
           } else {
             this.resumeCurrent();
             this.currentDownload.retryCount = (this.currentDownload.retryCount || 0) + 1;
-            console.log('retrying current download, retry count: ', this.currentDownload.retryCount);
           }
         } else {
           // keep retrying current
           this.resumeCurrent();
-          console.log('No internet, trying to reconnect');
         }
       }, this.sendToWin);
     };
