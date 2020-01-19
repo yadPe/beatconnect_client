@@ -10,8 +10,6 @@ const isOnline = require('./helpers/isOnline');
 // it is interfaced with the renderer thread via ipc channels
 // and listen to the will-download session event to know when we want to download a something.
 
-/* eslint-disable class-methods-use-this */
-
 class BeatmapDownloader {
   constructor() {
     this.winRef = null;
@@ -19,18 +17,12 @@ class BeatmapDownloader {
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
     this.retryInterval = 3500;
-    // this.setSavePath('/Users/yannis/Downloads/');
-    this.setSavePath('C:/Users/AssAs/Downloads');
-    // console.log('downloadSpeed', readableBits(1024000));
   }
 
   register = win => {
     if (this.winRef) return;
 
     this.winRef = win;
-
-    console.log('win', win.id);
-
     this.sendToWin = (channel, args) => win.webContents.send(channel, args);
     this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
 
@@ -40,10 +32,16 @@ class BeatmapDownloader {
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
     ipcMain.on('set-beatmap-save-folder', (_event, path) => this.setSavePath(path));
     ipcMain.on('clear-download-queue', this.clearQueue);
+    this.sendToWin('ready');
   };
 
   setSavePath(path) {
+    console.log('setSavePath');
+
     const validPath = normalize(path);
+    console.log(existsSync(validPath));
+    console.log(lstatSync(validPath).isDirectory());
+
     if (existsSync(validPath) && lstatSync(validPath).isDirectory()) this.savePath = validPath;
     else throw new Error('InvalidPath');
   }

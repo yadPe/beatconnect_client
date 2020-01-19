@@ -2,12 +2,18 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unused-state */
 import React, { Component, useContext, createContext } from 'react';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
 import { HistoryContext } from '../HistoryProvider';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
-import { onDownloadProgress, onDownloadPaused, onQueueUpdate, onDownloadSucceed } from './ipc/listeners';
+import {
+  onDownloadProgress,
+  onDownloadPaused,
+  onQueueUpdate,
+  onDownloadSucceed,
+  onDownloadManagerReady,
+} from './ipc/listeners';
 import config from '../../config';
 
 export const DownloadManagerContext = createContext();
@@ -20,6 +26,7 @@ class DownloadManagerProvider extends Component {
 
   constructor(props) {
     super(props);
+    onDownloadManagerReady(this.initSaveLocation.bind(this));
     onDownloadProgress(this.updateCurrentDowload.bind(this));
     onDownloadPaused(this.downloadPaused.bind(this));
     onQueueUpdate(this.updateQueue.bind(this));
@@ -41,7 +48,7 @@ class DownloadManagerProvider extends Component {
     };
   }
 
-  componentDidMount() {
+  initSaveLocation() {
     const { importMethod, osuSongsPath } = this.props;
     this.setPath(importMethod, osuSongsPath);
   }

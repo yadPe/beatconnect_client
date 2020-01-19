@@ -1,4 +1,5 @@
 const ipcChannels = {
+  ready: 'ready',
   setSavePath: 'set-beatmap-save-folder',
   cancel: 'cancel-download',
   pauseDownload: 'pause-current-download',

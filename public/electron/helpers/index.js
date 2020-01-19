@@ -1,3 +1,5 @@
+// TODO make this work
+
 const readableBits = bytes => {
   if (!bytes) return '0 b';
   const i = Math.floor(Math.log(bytes) / Math.log(1024 / 8));

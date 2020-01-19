@@ -10,3 +10,4 @@ export const onDownloadCanceled = cb => registerListener(channels.downloadCancel
 export const onDownloadSucceed = cb => registerListener(channels.downloadSucceed, cb);
 export const onDownloadFail = cb => registerListener(channels.downloadFail, cb);
 export const onQueueUpdate = cb => registerListener(channels.queueUpdated, cb);
+export const onDownloadManagerReady = cb => ipcRenderer.once(channels.ready, (_event, args) => cb(args));

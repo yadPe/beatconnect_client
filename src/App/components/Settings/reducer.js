@@ -37,7 +37,6 @@ export default (settings = ConfLoader.conf, { type, payload }) => {
       userPreferences = { ...userPreferences, osuSongsPath: payload };
       return { ...settings, userPreferences: { ...userPreferences } };
     case 'OSUPATH':
-      console.log('osuPath');
       userPreferences = { ...userPreferences, osuPath: payload };
       return { ...settings, userPreferences: { ...userPreferences } };
     case 'LASTSCAN':
