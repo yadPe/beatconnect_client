@@ -1,14 +1,17 @@
+/* eslint-disable no-underscore-dangle */
 /* Provides download history from {localUser}/Documents/Beatconnect/history.json */
-import React, { Component } from 'react';
+import React, { Component, useContext, createContext } from 'react';
 import { remote } from 'electron';
 import { outputJSON, readJson } from 'fs-extra';
+import { join } from 'path';
 
-export const HistoryContext = React.createContext();
+export const HistoryContext = createContext();
+export const useDownloadHistory = () => useContext(HistoryContext);
 
 class HistoryProvider extends Component {
   constructor(props) {
     super(props);
-    this.path = remote.app.getPath('documents') + '/Beatconnect/history.json';
+    this.path = join(remote.app.getPath('documents'), '/Beatconnect/history.json');
     this.state = {
       history: {},
       save: this.save,
@@ -23,22 +26,18 @@ class HistoryProvider extends Component {
   }
 
   componentDidUpdate() {
-    // const { history } = this.state
-    //if (Object.keys(history).length !== 0) {
     this._writeHistory();
-    //}
   }
 
   set = data => {
     let { history } = this.state;
-    console.log(data);
     history = { ...data };
     this.setState({ history });
   };
 
   save = item => {
     const { id, name } = item;
-    let { history } = this.state;
+    const { history } = this.state;
     history[id] = { id, name, date: Date.now() };
     console.log('saved in history', history);
     this.setState({ history });

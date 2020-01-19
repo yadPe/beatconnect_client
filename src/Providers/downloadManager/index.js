@@ -5,8 +5,10 @@ import React, { Component, useContext, createContext } from 'react';
 import { remote } from 'electron';
 import { connect } from 'react-redux';
 import { join } from 'path';
+import { HistoryContext } from '../HistoryProvider';
 import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
 import { onDownloadProgress, onDownloadPaused, onQueueUpdate, onDownloadSucceed } from './ipc/listeners';
+import config from '../../config';
 
 export const DownloadManagerContext = createContext();
 export const useDownloadQueue = () => useContext(DownloadManagerContext);
@@ -14,15 +16,17 @@ export const useDownloadQueue = () => useContext(DownloadManagerContext);
 const { app } = remote;
 
 class DownloadManagerProvider extends Component {
+  static contextType = HistoryContext;
+
   constructor(props) {
     super(props);
     onDownloadProgress(this.updateCurrentDowload.bind(this));
     onDownloadPaused(this.downloadPaused.bind(this));
     onQueueUpdate(this.updateQueue.bind(this));
-    // onDownloadSucceed()
+    onDownloadSucceed(this.downloadSucceeded.bind(this));
     this.state = {
       queue: [],
-      currentDownload: { beatmapsetId: null, progressPercent: null, downloadSpeed: null, status: null },
+      currentDownload: { beatmapSetId: null, progressPercent: null, downloadSpeed: null, status: null },
       overallProgress: 0,
 
       pauseDownload: pause,
@@ -51,22 +55,34 @@ class DownloadManagerProvider extends Component {
   };
 
   updateQueue({ queue }) {
-    // console.log('newQueue', newQueue);
-
     this.setState(prevState => ({ ...prevState, queue, ...(!queue.length ? { currentDownload: null } : {}) }));
   }
 
   updateCurrentDowload(item) {
-    // console.log('currentDownload', item);
-
     this.setState(
-      prevState => ({ ...prevState, currentDownload: { ...item, status: 'downloading' } }),
-      () => console.log('setState:::::::::::', this.state),
+      prevState => ({
+        ...prevState,
+        currentDownload: { ...item, status: config.download.status.downloading },
+      }),
+      () => console.log('updateCurrent', this.state),
     );
   }
 
   downloadPaused() {
-    this.setState(prevState => ({ ...prevState, currentDownload: { ...prevState.currentDownload, status: 'paused' } }));
+    this.setState(prevState => ({
+      ...prevState,
+      currentDownload: { ...prevState.currentDownload, status: config.download.status.paused },
+    }));
+  }
+
+  downloadSucceeded({ beatmapSetId }) {
+    const {
+      queue: [currentQueueItem],
+    } = this.state;
+    const { save } = this.context;
+
+    if (beatmapSetId === currentQueueItem.beatmapSetId)
+      save({ id: beatmapSetId, name: currentQueueItem.beatmapSetInfos.fullTitle });
   }
 
   render() {

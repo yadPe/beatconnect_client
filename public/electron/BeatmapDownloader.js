@@ -3,6 +3,7 @@ const { normalize, join } = require('path');
 const { app, ipcMain } = require('electron');
 const { performance } = require('perf_hooks');
 const { makeDownloadUrl, readableBits } = require('./helpers');
+const isOnline = require('./helpers/isOnline');
 
 // BeatmapDownloader register to the app window
 // It handles all beatmaps downloads and provide a queue system for them,
@@ -17,8 +18,9 @@ class BeatmapDownloader {
     this.savePath = null;
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
-    this.setSavePath('/Users/yannis/Downloads/');
-    // this.setSavePath('C:/Users/AssAs/Downloads');
+    this.retryInterval = 3500;
+    // this.setSavePath('/Users/yannis/Downloads/');
+    this.setSavePath('C:/Users/AssAs/Downloads');
     // console.log('downloadSpeed', readableBits(1024000));
   }
 
@@ -64,13 +66,14 @@ class BeatmapDownloader {
 
   clearQueue = () => {
     this.queue.clear();
+    this.cancelCurrent();
     this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
   };
 
   setCurrentDownloadBeatmapInfos(beatmapSetInfos) {
     if (this.currentDownload.item) {
-      const beatmapsetId = this.currentDownload.item.getURLChain()[0].split('/')[4];
-      if (beatmapSetInfos.beatmapSetId !== beatmapsetId) {
+      const beatmapSetId = this.currentDownload.item.getURLChain()[0].split('/')[4];
+      if (beatmapSetInfos.beatmapSetId !== beatmapSetId) {
         throw new Error('currentDownloadIdMissmatch');
       }
     }
@@ -79,22 +82,21 @@ class BeatmapDownloader {
 
   setCurrentDownloadItem(item) {
     if (this.currentDownload.beatmapSetInfos.beatmapSetId) {
-      const beatmapsetId = item.getURLChain()[0].split('/')[4];
+      const beatmapSetId = item.getURLChain()[0].split('/')[4];
 
-      if (this.currentDownload.beatmapSetInfos.beatmapSetId.toString() !== beatmapsetId) {
+      if (this.currentDownload.beatmapSetInfos.beatmapSetId.toString() !== beatmapSetId) {
         throw new Error('currentDownloadIdMissmatch');
       }
     }
     this.currentDownload.item = item;
   }
 
-  clearCurrentDownload() {
+  clearCurrentDownload(skip) {
     const downloadState = this.currentDownload.item && this.currentDownload.item.getState();
-    if (downloadState === 'progressing' || downloadState === 'interrupted') {
+    if ((downloadState === 'progressing' || downloadState === 'interrupted') && !skip) {
       throw new Error('downloadNotStopped');
     }
-    const deleted = this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
-    if (!deleted) throw new Error('couldntRemoveItemFromQueue');
+    this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
   }
 
@@ -112,17 +114,22 @@ class BeatmapDownloader {
 
   pauseResumeCurrent = () => {
     // pause or resume the current download based on its state
-    const item = this.currentDownload;
+    const { item } = this.currentDownload;
     if (!item) throw new Error('noCurrentDownloadItem');
     if (item.isPaused()) item.resume();
     else item.pause();
   };
 
-  cancel = beatmapSetId => {
+  cancel = ({ beatmapSetId }) => {
     // check if id is current download and cancel it
     // or look for this id in the queue and removes it
     // const item = Array.from(this.queue).find(({ beatmapSetId }) => beatmapSetId === id);
-    this.queue.forEach(item => item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item));
+    this.queue.forEach(item => {
+      console.log('item.beatmapSetId', item.beatmapSetId);
+      console.log('beatmapSetId', beatmapSetId);
+
+      return item.beatmapSetId === beatmapSetId && this.deleteFromQueue(item);
+    });
   };
 
   download(queueItem) {
@@ -134,6 +141,10 @@ class BeatmapDownloader {
   executeQueue() {
     if (this.currentDownload.item || this.currentDownload.beatmapSetInfos.beatmapSetId) return;
     if (this.queue.size === 0) {
+      if (this.retryIntervalId) {
+        clearInterval(this.retryIntervalId);
+        this.retryIntervalId = null;
+      }
       this.winRef.setProgressBar(-1);
       if (['darwin', 'linux'].includes(process.platform)) {
         app.badgeCount = this.queue.size;
@@ -147,15 +158,15 @@ class BeatmapDownloader {
   onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
     item.setSavePath(join(this.savePath, item.getFilename()));
-    const beatmapsetId = this.currentDownload.beatmapSetInfos.beatmapsetId || item.getURLChain()[0].split('/')[4];
+    const beatmapSetId = this.currentDownload.beatmapSetInfos.beatmapSetId || item.getURLChain()[0].split('/')[4];
 
     item.on('updated', (_event, state) => {
       switch (state) {
         case 'interrupted':
-          this.onInterrupted(item, beatmapsetId);
+          this.onInterrupted(item, beatmapSetId);
           break;
         case 'progressing':
-          this.onProgress(item, beatmapsetId);
+          this.onProgress(item, beatmapSetId);
           break;
         default:
           break;
@@ -164,13 +175,13 @@ class BeatmapDownloader {
     item.once('done', (_event, state) => {
       switch (state) {
         case 'completed':
-          this.onDone(item, beatmapsetId);
+          this.onDone(item, beatmapSetId);
           break;
         case 'cancelled':
-          this.onCancel(item, beatmapsetId);
+          this.onCancel(item, beatmapSetId);
           break;
         default:
-          this.onFailed(item, state, beatmapsetId);
+          this.onFailed(item, state, beatmapSetId);
           break;
       }
     });
@@ -192,6 +203,10 @@ class BeatmapDownloader {
       console.log('Le téléchargement est en pause');
       this.sendToWin('download-paused', { beatmapSetId });
     } else {
+      if (this.retryIntervalId) {
+        clearInterval(this.retryIntervalId);
+        this.retryIntervalId = null;
+      }
       const receivedBytes = item.getReceivedBytes();
       const now = performance.now();
       const bytesPerSecond =
@@ -199,9 +214,14 @@ class BeatmapDownloader {
 
       this.lastProgress = now;
       this.lastReceivedBytes = receivedBytes;
-      const progressPercent = ((receivedBytes / item.getTotalBytes()) * 100).toFixed(2);
+      console.log('receivedBytes', receivedBytes);
+      console.log('totalBuytes', item.getTotalBytes());
+
+      const progressPercent = ((receivedBytes / (item.getTotalBytes() || 1)) * 100).toFixed(2);
       this.overallProgress(progressPercent);
       const downloadSpeed = readableBits(bytesPerSecond);
+      console.log('send dl progress', { beatmapSetId, progressPercent, downloadSpeed });
+
       this.sendToWin('download-progress', { beatmapSetId, progressPercent, downloadSpeed });
       // console.log(this.currentDownload);
       console.log('QUEUE::::::::::::', this.queue.size);
@@ -212,33 +232,72 @@ class BeatmapDownloader {
     }
   }
 
-  onInterrupted(item, beatmapsetId) {
+  onInterrupted(item, beatmapSetId) {
     console.log('Le téléchargement est interrompu mais peut être redémarrer');
-    this.sendToWin('download-interrupted', { beatmapsetId });
+    this.sendToWin('download-interrupted', { beatmapSetId });
+    this.startRetrying();
   }
 
-  onCancel(item, beatmapsetId) {
+  onCancel(item, beatmapSetId) {
     console.log('Telechargement anunlé');
-    this.sendToWin('download-canceled', { beatmapsetId });
-    this.clearCurrentDownload();
+    this.sendToWin('download-canceled', { beatmapSetId });
+    this.clearCurrentDownload(true);
     this.executeQueue();
   }
 
-  onDone(item, beatmapsetId) {
+  onDone(item, beatmapSetId) {
     console.log('Téléchargement réussi');
     if (process.platform === 'darwin') {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
-    this.sendToWin('download-succeeded', { beatmapsetId });
+    this.sendToWin('download-succeeded', { beatmapSetId });
     this.clearCurrentDownload();
     this.executeQueue();
   }
 
-  onFailed(item, state, beatmapsetId) {
+  onFailed(item, state, beatmapSetId) {
     console.log(`Téléchargement échoué : ${state}`);
-    this.sendToWin('download-failed', { beatmapsetId });
+    this.sendToWin('download-failed', { beatmapSetId });
     this.clearCurrentDownload();
     this.executeQueue();
+  }
+
+  resumeCurrent() {
+    this.currentDownload.item.resume();
+  }
+
+  startRetrying() {
+    if (!this.currentDownload.item) {
+      throw new Error('noCurrentDownloaditem');
+    }
+    if (this.currentDownload.item.getState() !== 'interrupted') {
+      throw new Error('currentDownloadNotInterrupted');
+    }
+    const retry = () => {
+      isOnline(online => {
+        if (online) {
+          if (!this.currentDownload.item) {
+            clearInterval(this.retryIntervalId);
+            this.retryIntervalId = null;
+          }
+          // retry current 4 times then skip to next one
+          if (this.currentDownload.retryCount > 3) {
+            // skip to next one
+            console.log('Skipping current download');
+            this.currentDownload.item.cancel();
+          } else {
+            this.resumeCurrent();
+            this.currentDownload.retryCount = (this.currentDownload.retryCount || 0) + 1;
+            console.log('retrying current download, retry count: ', this.currentDownload.retryCount);
+          }
+        } else {
+          // keep retrying current
+          this.resumeCurrent();
+          console.log('No internet, trying to reconnect');
+        }
+      }, this.sendToWin);
+    };
+    if (!this.retryIntervalId) this.retryIntervalId = setInterval(retry, this.retryInterval);
   }
 }
 

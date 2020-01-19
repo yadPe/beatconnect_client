@@ -26,8 +26,7 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const isInQueue = pack
     ? queue.filter(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
     : queue.some(queueItem => queueItem.beatmapSetId === beatmapSet.id);
-  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id.toString();
-  console.log('isInQueue', isInQueue);
+  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id;
 
   const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length

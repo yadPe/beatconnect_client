@@ -1,4 +1,6 @@
 export default {
+  osu: 'https://osu.ppy.sh',
+  beatconnect: 'https://beatconnect.io',
   api: {
     packsBaseUrl: 'https://beatconnect.io/api/packs/?token=3u80rns2wkcidsz7',
     weeklyPackBaseUrl: 'https://beatconnect.io/api/packs/weekly/?token=3u80rns2wkcidsz7',
