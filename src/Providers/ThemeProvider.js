@@ -1,6 +1,6 @@
 import React, { Component, createContext, useContext } from 'react';
 import { ThemeProvider } from 'react-jss';
-import ConfLoader from '../App/components/Settings/ConfLoader';
+import ConfLoader from '../App/modules/Settings/ConfLoader';
 import config from '../config';
 
 export const AppThemeContext = createContext();

@@ -1,8 +1,8 @@
 import React from 'react';
 import { remote } from 'electron';
 import { useTheme, createUseStyles } from 'react-jss';
-import Nav from './components/Nav';
-import TitleBar from './components/common/TitleBar.bs';
+import Nav from './modules/Nav';
+import TitleBar from './modules/common/TitleBar.bs';
 import config from '../config';
 
 const useStyles = createUseStyles({
