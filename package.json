@@ -138,7 +138,7 @@
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
     "babel-plugin-named-asset-import": "^0.3.2",
-    "babel-preset-react-app": "^9.0.0",
+    "babel-preset-react-app": "^9.1.0",
     "bs-css": "^11.0.0",
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
