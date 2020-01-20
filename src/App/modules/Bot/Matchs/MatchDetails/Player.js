@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-desktop/windows';
 import { createUseStyles, useTheme } from 'react-jss';
-import config from '../../../../../config';
+import config from '../../../../../shared/config';
 import Button from '../../../common/Button';
 
 const useStyles = createUseStyles({

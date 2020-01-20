@@ -1,7 +1,7 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import convertRange from '../../utils/convertRange';
-import config from '../../../config';
+import convertRange from '../../helpers/convertRange';
+import config from '../../../shared/config';
 
 const useStyle = createUseStyles({
   slider: {

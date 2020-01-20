@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import Header from './Header';
-import config from '../../../../config';
+import config from '../../../../shared/config';
 
 const useStyle = createUseStyles({
   contentContainer: {

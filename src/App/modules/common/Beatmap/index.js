@@ -6,10 +6,10 @@ import { createUseStyles, useTheme } from 'react-jss';
 import Cover from './Cover';
 import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
-import renderIcons from '../../../utils/renderIcons';
-import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
+import renderIcons from '../../../helpers/renderIcons';
+import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import { make as Badge } from '../Badge.bs';
-import reqImgAssets from '../../../utils/reqImgAssets';
+import reqImgAssets from '../../../helpers/reqImgAssets';
 import Button from '../Button';
 
 const bpmToBps = bpm => 60 / bpm;

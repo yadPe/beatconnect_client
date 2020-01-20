@@ -1,6 +1,6 @@
 import { getDlLink } from '../BeatconnectApi';
 import mpSettingsMessage from '../msg/mpSettings';
-import store from '../../store';
+import store from '../../shared/store';
 
 class MpMatch {
   constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {

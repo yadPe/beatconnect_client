@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import config from '../../../../config';
+import config from '../../../../shared/config';
 
 const Cover = ({ url, width, height, paddingBottom, noFade }) => {
   const [loaded, isLoaded] = useState(false);

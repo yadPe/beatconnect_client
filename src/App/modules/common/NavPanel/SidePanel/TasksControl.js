@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
-import renderIcons from '../../../../utils/renderIcons';
-import { TasksContext } from '../../../../../Providers/TasksProvider';
-import store from '../../../../../store';
+import renderIcons from '../../../../helpers/renderIcons';
+import { TasksContext } from '../../../../Providers/TasksProvider';
+import store from '../../../../../shared/store';
 
 const useStyle = createUseStyles({
   '@keyframes spin': {

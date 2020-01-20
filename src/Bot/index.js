@@ -1,5 +1,5 @@
 import Bot from './Bot';
-import store from '../store';
+import store from '../shared/store';
 
 export default () => {
   const { settings, main } = store.getState();

@@ -13,16 +13,16 @@ import {
   setLastScan,
   setImportMethod,
   saveThemeAccentColor,
-} from './actions';
-import ConfLoader from './ConfLoader';
+} from './reducer/actions';
+import ConfLoader from './helpers/ConfLoader';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
 import Setting from './Setting';
-import { HistoryContext } from '../../../Providers/HistoryProvider';
-import { TasksContext } from '../../../Providers/TasksProvider';
+import { HistoryContext } from '../../Providers/HistoryProvider';
+import { TasksContext } from '../../Providers/TasksProvider';
 import ColorPicker from '../common/ColorPicker';
-import { useSetTheme } from '../../../Providers/ThemeProvider';
-import { useDownloadQueue } from '../../../Providers/downloadManager';
+import { useSetTheme } from '../../Providers/ThemeProvider';
+import { useDownloadQueue } from '../../Providers/downloadManager';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();

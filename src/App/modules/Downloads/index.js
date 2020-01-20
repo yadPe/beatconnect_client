@@ -1,12 +1,12 @@
 import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
 
-import DownloadedItems from './DownloadedItems';
-import DownloadsInQueue from './DownloadsInQueue';
-import DownloadsInProgress from './DownloadsInProgress';
+import DownloadedItems from './components/DownloadedItems';
+import DownloadsInQueue from './components/DownloadsInQueue';
+import DownloadsInProgress from './components/DownloadsInProgress';
 import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
-import { useDownloadQueue } from '../../../Providers/downloadManager';
+import { useDownloadQueue } from '../../Providers/downloadManager';
 
 const Downloads = ({ setHeaderContent }) => {
   const { queue, removeItemfromQueue } = useDownloadQueue();

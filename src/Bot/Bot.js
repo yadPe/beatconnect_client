@@ -1,7 +1,7 @@
 import OsuIrc from './OsuIrc';
 import OsuApi from './OsuApi';
 import MpMatch from './multiplayer/mpMatch';
-import store from '../store';
+import store from '../shared/store';
 const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
 //const WebUi = require('./web/web')
 

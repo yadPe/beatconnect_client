@@ -8,10 +8,10 @@ import injectSheet, { useTheme } from 'react-jss';
 import Beatmap from '../common/Beatmap';
 import Search from './components/Search';
 import askBeatconnect from './helpers/askBeatconnect';
-import store from '../../../store';
-import { HistoryContext } from '../../../Providers/HistoryProvider';
+import store from '../../../shared/store';
+import { HistoryContext } from '../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
-import config from '../../../config';
+import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
 
 const styles = {

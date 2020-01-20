@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
-import config from '../../../../../config';
+import config from '../../../../../shared/config';
 
 const useStyle = createUseStyles({
   a: {

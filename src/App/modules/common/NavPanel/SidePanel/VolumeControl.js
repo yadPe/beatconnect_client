@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
-import renderIcons from '../../../../utils/renderIcons';
-import Volume from '../../../Settings/Volume';
-import config from '../../../../../config';
+import renderIcons from '../../../../helpers/renderIcons';
+import Volume from '../../../Settings/components/Volume';
+import config from '../../../../../shared/config';
 
 const useStyle = createUseStyles({
   a: {

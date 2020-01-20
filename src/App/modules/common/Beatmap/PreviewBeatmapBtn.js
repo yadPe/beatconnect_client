@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import renderIcons from '../../../utils/renderIcons';
-import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
+import renderIcons from '../../../helpers/renderIcons';
+import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
 import Button from '../Button';
 
 const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {

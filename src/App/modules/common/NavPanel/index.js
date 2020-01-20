@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import injectSheet from 'react-jss';
 import SidePanel from './SidePanel';
-import config from '../../../../config';
+import config from '../../../../shared/config';
 
 const styles = {
   NavPanel: {

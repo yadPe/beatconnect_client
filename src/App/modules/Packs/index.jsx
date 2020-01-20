@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Group from './Group';
+import Group from './components/Group';
 import BeatmapPackDetail from './BeatmapPackDetail';
 import Header from './Header';
-import config from '../../../config';
+import config from '../../../shared/config';
 
 const styles = {
   Packs: {

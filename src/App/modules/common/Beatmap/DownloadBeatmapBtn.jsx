@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { ProgressCircle } from 'react-desktop/windows';
 import InjectSheet, { useTheme } from 'react-jss';
 import Button from '../Button';
-import renderIcons from '../../../utils/renderIcons';
-import { HistoryContext } from '../../../../Providers/HistoryProvider';
+import renderIcons from '../../../helpers/renderIcons';
+import { HistoryContext } from '../../../Providers/HistoryProvider';
 import { make as ProgressRing } from '../ProgressRing.bs';
-import { useDownloadQueue } from '../../../../Providers/downloadManager';
+import { useDownloadQueue } from '../../../Providers/downloadManager';
 
 const styles = {
   wrapper: {

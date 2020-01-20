@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { useTheme, createUseStyles } from 'react-jss';
 import Nav from './modules/Nav';
 import TitleBar from './modules/common/TitleBar.bs';
-import config from '../config';
+import config from '../shared/config';
 
 const useStyles = createUseStyles({
   App: {

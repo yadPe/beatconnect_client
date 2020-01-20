@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 import _ from 'underscore';
-import config from '../../../../config';
-import store from '../../../../store';
+import config from '../../../../shared/config';
+import store from '../../../../shared/store';
 import { setIsFetchingBeatmaps, onBeatmapSearchResult } from '../reducer/actions';
 
 const askBeatconnect = (search, __, resetPage) => {

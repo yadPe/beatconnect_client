@@ -7,8 +7,8 @@ import { useTheme, createUseStyles } from 'react-jss';
 import TextInput from '../../common/TextInput';
 import askBeatconnect from '../helpers/askBeatconnect';
 import DropDown from '../../common/DropDown';
-import renderIcons from '../../../utils/renderIcons';
-import config from '../../../../config';
+import renderIcons from '../../../helpers/renderIcons';
+import config from '../../../../shared/config';
 import Button from '../../common/Button';
 
 const useStyle = createUseStyles({

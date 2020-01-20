@@ -5,14 +5,14 @@ import InjectSheet, { withTheme } from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import reqImgAssets from '../../../utils/reqImgAssets';
-import { AudioPlayerContext } from '../../../../Providers/AudioPlayerProvider';
+import reqImgAssets from '../../../helpers/reqImgAssets';
+import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { getDownloadUrl } from '../../common/Beatmap';
-import renderIcons from '../../../utils/renderIcons';
-import getBeatmapInfosUrl from '../../../utils/getBeatmapInfosUrl';
+import renderIcons from '../../../helpers/renderIcons';
+import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import Header from './Header';
-import config from '../../../../config';
+import config from '../../../../shared/config';
 
 const styles = {
   wrapper: {

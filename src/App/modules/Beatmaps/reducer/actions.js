@@ -1,4 +1,4 @@
-import store from '../../../../store';
+import store from '../../../../shared/store';
 
 export const onBeatmapSearchResult = searchResults =>
   store.dispatch({ type: 'SEARCH_RESULTS', payload: searchResults });

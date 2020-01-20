@@ -1,6 +1,6 @@
 import './App/resize';
 import { clone } from 'underscore';
-import config from './config';
+import config from './shared/config';
 
 const initialState = {
   connected: false,

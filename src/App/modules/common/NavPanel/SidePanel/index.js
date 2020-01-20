@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
 import TasksControl from './TasksControl';
-import config from '../../../../../config';
+import config from '../../../../../shared/config';
 
 const styles = {
   SidePanel: {

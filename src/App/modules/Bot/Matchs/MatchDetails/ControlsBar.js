@@ -1,6 +1,6 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import renderIcons from '../../../../utils/renderIcons';
+import renderIcons from '../../../../helpers/renderIcons';
 import Button from '../../../common/Button';
 
 const useStyles = createUseStyles({

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import getPacksDashboardData from './askBeatconnect';
+import getPacksDashboardData from './helpers/askBeatconnect';
 import DropDown from '../common/DropDown';
-import config from '../../../config';
-import store from '../../../store';
+import config from '../../../shared/config';
+import store from '../../../shared/store';
 
 const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
   useEffect(() => {

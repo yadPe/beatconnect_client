@@ -5,10 +5,10 @@ import Beatmaps from './Beatmaps';
 import Packs from './Packs';
 import Settings from './Settings';
 import Downloads from './Downloads';
-import renderIcon from '../utils/renderIcons';
+import renderIcon from '../helpers/renderIcons';
 import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
-import store from '../../store';
+import store from '../../shared/store';
 
 const Nav = ({ connected, bot, sidePanelExpended, activeSection }) => {
   const renderItem = (title, content) => (

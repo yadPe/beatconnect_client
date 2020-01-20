@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import InjectSheet from 'react-jss';
 import TextInput from '../../common/TextInput';
-import renderIcons from '../../../utils/renderIcons';
+import renderIcons from '../../../helpers/renderIcons';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
-import { HistoryContext } from '../../../../Providers/HistoryProvider';
+import { HistoryContext } from '../../../Providers/HistoryProvider';
 
 const styles = {
   wrapper: {
