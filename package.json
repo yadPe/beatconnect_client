@@ -87,7 +87,7 @@
       "icon": "icon.icns"
     },
     "win": {
-      "target": "NSIS",
+      "target": "nsis-web",
       "icon": "favicon.ico",
       "publish": "github"
     }
