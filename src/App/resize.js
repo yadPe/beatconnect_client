@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import store from '../store';
+import store from '../shared/store';
 
 export default window.addEventListener(
   'resize',

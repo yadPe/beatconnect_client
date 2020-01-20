@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import store from '../../store';
+import store from '../../shared/store';
 
 export default function(msg) {
   const osuApi = store.getState().main.bot.osuApi;

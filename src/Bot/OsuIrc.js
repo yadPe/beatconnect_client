@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '../shared/store';
 
 const irc = require('irc');
 const EventEmitter = require('events').EventEmitter;
