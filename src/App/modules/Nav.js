@@ -10,7 +10,7 @@ import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
 import store from '../../shared/store';
 
-const Nav = ({ connected, bot, sidePanelExpended, activeSection }) => {
+const Nav = ({ connected, instance: botInstance, sidePanelExpended, activeSection }) => {
   const renderItem = (title, content) => (
     <NavPanelItem
       title={title}
@@ -36,14 +36,15 @@ const Nav = ({ connected, bot, sidePanelExpended, activeSection }) => {
       {renderItem('Beatmaps', <Beatmaps />)}
       {renderItem('Packs', <Packs />)}
       {renderItem('Downloads', <Downloads />)}
-      {renderItem('Bot', <Bot connected={connected} bot={bot} />)}
+      {renderItem('Bot', <Bot connected={connected} bot={botInstance} />)}
       {renderItem('Settings', <Settings />)}
     </NavPanel>
   );
 };
 
-const mapStateToProps = ({ main, settings }) => ({
-  ...main,
+const mapStateToProps = ({ navigation, settings, bot }) => ({
+  activeSection: navigation.activeSection,
   sidePanelExpended: settings.userPreferences.sidePanelExpended,
+  ...bot,
 });
 export default connect(mapStateToProps)(Nav);

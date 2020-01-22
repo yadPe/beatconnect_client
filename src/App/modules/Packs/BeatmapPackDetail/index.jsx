@@ -166,8 +166,8 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
   );
 };
 
-const mapStateToProps = ({ main, settings }) => ({
-  windowSize: main.window,
+const mapStateToProps = ({ app, settings }) => ({
+  windowSize: app.window,
   panelExpended: settings.userPreferences.sidePanelExpended,
 });
 export default compose(

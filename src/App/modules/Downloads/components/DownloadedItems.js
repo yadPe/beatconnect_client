@@ -5,7 +5,7 @@ import { HistoryContext } from '../../../Providers/HistoryProvider';
 import DownloadsItem from './Item';
 import config from '../../../../shared/config';
 
-const DownloadedItems = ({ theme, window }) => {
+const DownloadedItems = ({ window }) => {
   const { history } = useContext(HistoryContext);
   const items = [];
   Object.values(history).forEach(item => {
@@ -31,5 +31,5 @@ const DownloadedItems = ({ theme, window }) => {
   );
 };
 
-const mapStateToProps = ({ main }) => ({ window: main.window });
+const mapStateToProps = ({ app }) => ({ window: app.window });
 export default connect(mapStateToProps)(DownloadedItems);

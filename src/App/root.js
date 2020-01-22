@@ -10,7 +10,9 @@ import AudioPlayerProvider from './Providers/AudioPlayerProvider';
 import ErrorBoundary from './ErrorBoundary';
 import TasksProvider from './Providers/TasksProvider';
 import ThemeProvider from './Providers/ThemeProvider';
+import dispatchOnResize from './resize';
 
+dispatchOnResize();
 document.body.style.margin = 0;
 ReactDOM.render(
   <ErrorBoundary>
