@@ -3,7 +3,7 @@ import store from '../../../../shared/store';
 
 const getPacksDashboardData = async (mode, callBack) => {
   const { packsBaseUrl, weeklyPackBaseUrl } = config.api;
-  const { packsDashboardData } = store.getState().main;
+  const { packsDashboardData } = store.getState().packs;
 
   const queries = [];
   if (!packsDashboardData.lastWeekOverview || packsDashboardData.lastWeekOverview[0] === 0)

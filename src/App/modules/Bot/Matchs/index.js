@@ -6,7 +6,7 @@ import AddMatch from './AddMatch';
 import MatchListItem from './MatchListItem';
 import MatchDetails from './MatchDetails';
 
-const renderMatchsList = (mpMatchs, bot, theme, setSelected, connected) => {
+const renderMatchsList = (mpMatchs, bot, setSelected, connected) => {
   if (mpMatchs.length > 0)
     return (
       <>
@@ -28,7 +28,7 @@ const renderMatchsList = (mpMatchs, bot, theme, setSelected, connected) => {
   );
 };
 
-const Matchs = ({ mpMatchs, theme, bot, connected }) => {
+const Matchs = ({ mpMatchs, bot, connected }) => {
   const [selectedMatch, setSelectedMatch] = useState(null);
 
   const renderSelectedMatch = () => {
@@ -41,10 +41,10 @@ const Matchs = ({ mpMatchs, theme, bot, connected }) => {
 
   return (
     <div className="mpMatchs" style={{ transition: 'background 0ms' }}>
-      {selectedMatch ? renderSelectedMatch() : renderMatchsList(mpMatchs, bot, theme, setSelectedMatch, connected)}
+      {selectedMatch ? renderSelectedMatch() : renderMatchsList(mpMatchs, bot, setSelectedMatch, connected)}
     </div>
   );
 };
 
-const mapStateToProps = ({ main }) => ({ mpMatchs: main.mpMatchs });
+const mapStateToProps = ({ bot }) => ({ mpMatchs: bot.mpMatchs });
 export default connect(mapStateToProps)(Matchs);

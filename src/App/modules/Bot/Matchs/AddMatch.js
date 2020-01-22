@@ -9,6 +9,7 @@ const AddMatch = ({ bot, errors, ircUsername, connected }) => {
   const [reqMatchId, setReqMatchId] = useState('');
   const theme = useTheme();
   const error = errors.filter(id => id === reqMatchId).length === 1;
+
   return (
     <>
       <TextInput placeholder="Match ID" value={reqMatchId} onChange={e => setReqMatchId(e.target.value)} />
@@ -16,7 +17,7 @@ const AddMatch = ({ bot, errors, ircUsername, connected }) => {
         className="btn"
         push
         color={theme.palette.primary.accent}
-        hidden={!(connected && connected !== 'connecting')}
+        hidden={!connected || connected === 'connecting'}
         onClick={() => bot.joinMatch(reqMatchId)}
       >
         <Text color="fff">Join</Text>
@@ -35,8 +36,8 @@ const AddMatch = ({ bot, errors, ircUsername, connected }) => {
   );
 };
 
-const mapStateToProps = ({ main, settings }) => ({
-  errors: main.errors,
+const mapStateToProps = ({ bot, settings }) => ({
+  errors: bot.errors,
   ircUsername: settings.userPreferences.irc.username,
 });
 export default connect(mapStateToProps)(AddMatch);
