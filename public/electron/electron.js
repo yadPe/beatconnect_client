@@ -25,13 +25,14 @@ autoUpdater.on('update-not-available', () => {
 });
 
 const main = () => {
-  let mainWindow = null;
   if (isDev) {
     console.log('Main process ready');
     console.log('Waiting for dev server to show up');
   }
 
-  const { trackEvent } = makeTracker();
+  let mainWindow = null;
+  const { trackEvent, trackNavigation } = makeTracker();
+  global.tracking = { trackEvent, trackNavigation };
 
   mainWindow = new MainWindow({
     url: isDev
@@ -49,9 +50,6 @@ const main = () => {
   });
 
   mainWindow.on('closed', () => {
-    // Dé-référence l'objet window , normalement, vous stockeriez les fenêtres
-    // dans un tableau si votre application supporte le multi-fenêtre. C'est le moment
-    // où vous devez supprimer l'élément correspondant.
     mainWindow = null;
   });
 };
