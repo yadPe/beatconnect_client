@@ -7,6 +7,7 @@ const path = require('path');
 const url = require('url');
 const MainWindow = require('./MainWindow');
 require('./ipcMessages');
+const { makeTracker } = require('./analytics');
 
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
@@ -29,6 +30,8 @@ const main = () => {
     console.log('Main process ready');
     console.log('Waiting for dev server to show up');
   }
+
+  const { trackEvent } = makeTracker();
 
   mainWindow = new MainWindow({
     url: isDev
