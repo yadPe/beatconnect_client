@@ -28,21 +28,13 @@ const makeTracker = () => {
         errorHandler,
       )
       .send();
-    console.log('traked', category, action);
   };
 
   const trackNavigation = sectionName => {
     visitor.pageview({ dp: `/${sectionName}`, dt: sectionName }, errorHandler).send();
-    console.log('trackNav', sectionName);
   };
 
   trackEvent('app', 'launch');
-  // visitor
-  //   .event({ ec: 'app', ea: 'launch' })
-  //   .event({ ea: 'name', ev: app.getName() })
-  //   .event({ ea: 'version', ev: app.getVersion() })
-  //   .event({ ea: 'language', ev: app.getLocale() })
-  //   .send();
   return { visitor, trackEvent, trackNavigation };
 };
 

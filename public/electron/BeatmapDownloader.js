@@ -227,7 +227,6 @@ class BeatmapDownloader {
     this.trackEvent(
       'beatmapDownload',
       'succeed',
-      this.currentDownload.beatmapSetInfos.beatmapSetInfos.fullTitle,
       this.currentDownload.beatmapSetInfos.beatmapSetId,
     );
     this.clearCurrentDownload();

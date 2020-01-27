@@ -1,6 +1,6 @@
 import { getDlLink } from '../BeatconnectApi';
 import mpSettingsMessage from '../msg/mpSettings';
-import store from '../../shared/store';
+import { updateSingleMatch } from '../actions';
 
 class MpMatch {
   constructor(id, matchName, ircRoom, creator, ircClient, sendBeatmap, destroy, autoBeat) {
@@ -120,7 +120,7 @@ class MpMatch {
 
   toggleAutoBeat = () => {
     this.autoBeat = !this.autoBeat;
-    store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: this });
+    updateSingleMatch(this);
   };
 }
 
