@@ -22,6 +22,8 @@ class BeatmapDownloader {
   register = win => {
     if (this.winRef) return;
 
+    this.trackEvent = global.tracking.trackEvent;
+
     this.winRef = win;
     this.sendToWin = (channel, args) => win.webContents.send(channel, args);
     this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
@@ -222,6 +224,11 @@ class BeatmapDownloader {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
     this.sendToWin('download-succeeded', { beatmapSetId });
+    this.trackEvent(
+      'beatmapDownload',
+      'succeed',
+      this.currentDownload.beatmapSetInfos.beatmapSetId,
+    );
     this.clearCurrentDownload();
     this.executeQueue();
   }

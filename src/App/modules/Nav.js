@@ -1,5 +1,6 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { remote } from 'electron';
 import Bot from './Bot';
 import Beatmaps from './Beatmaps';
 import Packs from './Packs';
@@ -10,13 +11,23 @@ import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
 import store from '../../shared/store';
 
+const { trackNavigation } = remote.getGlobal('tracking');
+
+const switchSectionTo = section => {
+  store.dispatch({ type: 'UPDATEACTIVESECTION', payload: section });
+};
+
 const Nav = ({ connected, instance: botInstance, sidePanelExpended, activeSection }) => {
+  useEffect(() => {
+    trackNavigation(activeSection);
+  }, [activeSection]);
+
   const renderItem = (title, content) => (
     <NavPanelItem
       title={title}
       icon={renderIcon({ name: title })}
       selected={activeSection === title}
-      onSelect={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: title })}
+      onSelect={() => switchSectionTo(title)}
       padding="10px 20px"
       header
     >
