@@ -17,6 +17,7 @@ class BeatmapDownloader {
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
     this.retryInterval = 3500;
+    this.receivedBytesArr = [];
   }
 
   register = win => {
@@ -193,15 +194,22 @@ class BeatmapDownloader {
         this.retryIntervalId = null;
       }
       const receivedBytes = item.getReceivedBytes();
-      const now = performance.now();
-      const bytesPerSecond =
-        (receivedBytes - (this.lastReceivedBytes || 0)) / ((now - (this.lastProgress || 0)) * 1000);
+      // const now = performance.now();
+      this.receivedBytesArr.push(receivedBytes);
+      let speedValue = 0;
+      if (this.receivedBytesArr.length >= 2) {
+        const lastReceivedBytes = this.receivedBytesArr.shift();
+        speedValue =
+          Math.max(lastReceivedBytes, this.receivedBytesArr[0]) - Math.min(lastReceivedBytes, this.receivedBytesArr[0]);
+      }
+      // const bytesPerSecond =
+      //   (receivedBytes - (this.lastReceivedBytes || 0)) / ((now - (this.lastProgress || 0)) * 1000);
 
-      this.lastProgress = now;
-      this.lastReceivedBytes = receivedBytes;
+      // this.lastProgress = now;
+      // this.lastReceivedBytes = receivedBytes;
       const progressPercent = ((receivedBytes / (item.getTotalBytes() || 1)) * 100).toFixed(2);
       this.overallProgress(progressPercent);
-      const downloadSpeed = readableBits(bytesPerSecond);
+      const downloadSpeed = readableBits(speedValue);
 
       this.sendToWin('download-progress', { beatmapSetId, progressPercent, downloadSpeed });
     }
@@ -224,11 +232,7 @@ class BeatmapDownloader {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
     this.sendToWin('download-succeeded', { beatmapSetId });
-    this.trackEvent(
-      'beatmapDownload',
-      'succeed',
-      this.currentDownload.beatmapSetInfos.beatmapSetId,
-    );
+    this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
     this.clearCurrentDownload();
     this.executeQueue();
   }
