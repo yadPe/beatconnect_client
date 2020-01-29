@@ -61,7 +61,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
-    .filter(key => !key.includes('npm_'))
+    .filter(key => key.includes('BEATCONNECT_CLIENT_'))
     .reduce(
       (env, key) => {
         env[key] = process.env[key];

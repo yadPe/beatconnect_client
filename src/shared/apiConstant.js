@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
+const beatconnectHostUrl = 'https://beatconnect.io/';
 export default {
-  packs: `${process.env.BEATCONNECT_HOST_URL}/api/packs/${process.env.BEATCONNECT_TOKEN}`,
-  weeklyPacks: `${process.env.BEATCONNECT_HOST_URL}/api/packs/weekly/${process.env.BEATCONNECT_TOKEN}`,
-  searchBeatmaps: `${process.env.BEATCONNECT_HOST_URL}/api/search/${process.env.BEATCONNECT_TOKEN}`,
+  packs: `${beatconnectHostUrl}/api/packs/${BEATCONNECT_CLIENT_TOKEN}`,
+  weeklyPacks: `${beatconnectHostUrl}/api/packs/weekly/${BEATCONNECT_CLIENT_TOKEN}`,
+  searchBeatmaps: `${beatconnectHostUrl}/api/search/${BEATCONNECT_CLIENT_TOKEN}`,
 };
