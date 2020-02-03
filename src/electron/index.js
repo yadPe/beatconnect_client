@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-const { app, webContents } = require('electron');
+const { app, webContents, BrowserWindow } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const url = require('url');
-const MainWindow = require('./MainWindow');
+const makeMainWindow = require('./MainWindow');
 require('./ipcMessages');
 const { makeTracker } = require('./analytics');
 
@@ -34,7 +34,8 @@ const main = () => {
   const { trackEvent, trackNavigation } = makeTracker();
   global.tracking = { trackEvent, trackNavigation };
 
-  mainWindow = new MainWindow({
+  // mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = makeMainWindow({
     url: isDev
       ? process.env.ELECTRON_START_URL ||
         url.format({
@@ -43,7 +44,7 @@ const main = () => {
           slashes: true,
         })
       : url.format({
-          pathname: path.join(__dirname, '../index.html'),
+          pathname: path.join(__dirname, './build/index.html'),
           protocol: 'file:',
           slashes: true,
         }),
