@@ -84,6 +84,7 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  rendererWebpackConfig: resolveApp('config/renderer.webpack.config.js')
 };
 
 
