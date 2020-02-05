@@ -155,7 +155,7 @@
     "file-loader": "3.0.1",
     "gentype": "^3.4.2",
     "html-webpack-plugin": "4.0.0-beta.5",
-    "is-wsl": "^1.1.0",
+    "is-wsl": "^2.1.1",
     "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.7.1",
