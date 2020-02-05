@@ -3,8 +3,9 @@ const windowStateKeeper = require('electron-window-state');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
 const beatmapDownloader = require('./BeatmapDownloader');
+const isDev = require('electron-is-dev');
 
-const getMainWindowSettings = () => {
+const makeMainWindowSettings = () => {
   const mainWindowState = windowStateKeeper({
     defaultWidth: 1200,
     defaultHeight: 800,
@@ -34,26 +35,23 @@ const getMainWindowSettings = () => {
   ];
 };
 
-class MainWindow extends BrowserWindow {
-  constructor({ url, ...windowSettings }) {
-    const [mainWindowState, settings] = getMainWindowSettings();
-    // calls new BrowserWindow with these props
-    super({ ...settings, ...windowSettings });
-
-    this.loadURL(url);
-
-    this.once('ready-to-show', () => {
-      this.show();
-      beatmapDownloader.register(this);
-      mainWindowState.manage(this);
-    });
-
-    this.on('show', () => {
+const makeMainWindow = ({ url, ...options }) => {
+  const [mainWindowState, defaultOptions] = makeMainWindowSettings();
+  const mainWindow = new BrowserWindow({ ...defaultOptions, ...options });
+  mainWindow
+    .once('ready-to-show', () => {
+      mainWindow.show();
+      beatmapDownloader.register(mainWindow);
+      mainWindowState.manage(mainWindow);
+      if (isDev) mainWindow.webContents.openDevTools();
+    })
+    .on('show', () => {
       setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
       }, 5000);
-    });
-  }
-}
+    })
+    .loadURL(url);
+  return mainWindow;
+};
 
-module.exports = MainWindow;
+module.exports = makeMainWindow;

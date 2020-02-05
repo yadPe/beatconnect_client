@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ipcRenderer } from 'electron';
+import { remote } from 'electron';
 import { ProgressCircle } from 'react-desktop/windows';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
@@ -10,6 +10,8 @@ import DropDown from '../../common/DropDown';
 import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
+
+const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   Search: {
@@ -46,6 +48,11 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
     }
   };
 
+  const togleHideDownloaded = () => {
+    if (!search.hideDownloaded) trackEvent('beatmap', 'search', 'enableHideDownloaded');
+    setSearch({ ...search, hideDownloaded: !search.hideDownloaded });
+  };
+
   useEffect(() => {
     if (
       beatmapCount === 0 ||
@@ -57,18 +64,10 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
       execSearch(true);
   }, [search]);
 
-  const test = () => {
-    ipcRenderer.send('download-beatmap', {
-      beatmapSetId: '1080224',
-      uniqId: 'VZik6KIO',
-      beatmapSetInfos: { fullTitle: 'title - artist' },
-    }); // https://beatconnect.io/b/1080224/VZik6KIO/
-  };
-
   return (
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
-        <Button className="btn" push color={theme.palette.primary.accent} onClick={test} icon>
+        <Button className="btn" push color={theme.palette.primary.accent} onClick={execSearch} icon>
           {isBusy ? (
             <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
           ) : (
@@ -102,7 +101,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
       <div className={classes.right} />
       <div
         className={classes.hideDownloaded}
-        onClick={() => setSearch({ ...search, hideDownloaded: !search.hideDownloaded })}
+        onClick={togleHideDownloaded}
         title="Hide downloaded beatmaps"
         role="button"
         tabIndex={0}

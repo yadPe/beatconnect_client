@@ -2,18 +2,18 @@ import Bot from './Bot';
 import store from '../shared/store';
 
 export default () => {
-  const { settings, main } = store.getState();
-  const { connected, bot } = main;
-  if (!bot.connect) {
+  const { settings, bot } = store.getState();
+  const { connected, instance } = bot;
+  if (!instance.connect) {
     console.log('connecting using new Bot');
-    store.dispatch({ type: 'CONNECT', status: 'connecting', bot: new Bot(settings) });
+    store.dispatch({ type: 'CONNECT', status: 'connecting', instance: new Bot(settings) });
   } else if (connected) {
     console.log('disconnecting');
     store.dispatch({ type: 'DISCONNECT' });
-    bot.disconnect();
+    instance.disconnect();
   } else {
     console.log('connecting using existing Bot');
     store.dispatch({ type: 'CONNECT', status: 'connecting' });
-    bot.connect();
+    instance.connect();
   }
 };

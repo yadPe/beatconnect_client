@@ -64,7 +64,7 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
   );
 };
 
-const mapStateToProps = ({ main }) => ({ packsDashboardData: main.packsDashboardData });
+const mapStateToProps = ({ packs }) => ({ packsDashboardData: packs.packsDashboardData });
 export default compose(
   connect(mapStateToProps),
   injectSheet(styles),

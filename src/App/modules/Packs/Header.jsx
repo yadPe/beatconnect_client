@@ -22,7 +22,7 @@ const Header = ({ processBeatconnectPacksData, setSelectedMode }) => {
 };
 
 const processBeatconnectPacksData = datas => {
-  const output = store.getState().main.packsDashboardData;
+  const output = store.getState().packs.packsDashboardData;
   output.lastWeekOverview = [];
   datas.forEach(data => {
     if (data.map) {

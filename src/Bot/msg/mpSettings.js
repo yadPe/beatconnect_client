@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import store from '../../shared/store';
+import { updateSingleMatch } from '../actions';
 
 export default function(msg) {
   const osuApi = store.getState().main.bot.osuApi;
@@ -22,7 +23,7 @@ export default function(msg) {
     console.log(player);
     if (player.isHost === '[Host]') {
       this.host = player.userName;
-      store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: this });
+      updateSingleMatch(this);
     }
 
     return mpData;
@@ -42,7 +43,7 @@ export default function(msg) {
       osuApi.getSetId(data[1]).then(beatmap => {
         this.beatmapset_id = beatmap.beatmapset_id;
         this.fullBeatmapData = beatmap;
-        store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: this });
+        updateSingleMatch(this);
         console.log('osuapi', beatmap);
       });
     }

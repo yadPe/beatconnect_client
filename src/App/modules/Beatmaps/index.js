@@ -109,9 +109,9 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   );
 };
 
-const mapStateToProps = ({ main, settings, beatmaps }) => ({
+const mapStateToProps = ({ app, settings, beatmaps }) => ({
   searchResults: beatmaps.searchResults,
-  window: main.window,
+  window: app.window,
   panelExpended: settings.userPreferences.sidePanelExpended,
 });
 export default compose(
