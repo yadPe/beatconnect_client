@@ -1,3 +1,5 @@
+import config from '../shared/config';
+
 class BeatconnectApi {
   constructor(key) {
     this.key = key;
@@ -15,7 +17,7 @@ class BeatconnectApi {
 
   getBeatmapById(beatmapId) {
     console.log(beatmapId);
-    return fetch(`${this.url}/beatmap/${beatmapId}/?token=${this.key}`, { mode: 'cors' })
+    return fetch(config.api.getBeatmapById(beatmapId), { mode: 'cors' })
       .then(res => res.json())
       .catch(err => console.error(err));
   }
@@ -23,7 +25,7 @@ class BeatconnectApi {
   searchBeatmap(query, page) {
     query = query.join('%20');
     console.log('searching ' + query);
-    return fetch(`${this.url}/search/?token=${this.key}&q=${query}&p=${page || 0}`)
+    return fetch(config.api.searchBeatmaps(query, page))
       .then(res => res.json())
       .then(results => {
         const { beatmaps, max_page } = results;

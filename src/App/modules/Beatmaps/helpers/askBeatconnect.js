@@ -19,7 +19,7 @@ const askBeatconnect = (search, __, resetPage) => {
     setIsFetchingBeatmaps(false);
   }
   const formatQuery = encodeURIComponent(query);
-  fetch(`${config.api.beatmapsBaseUrl}&p=${page || 0}&q=${formatQuery}&s=${status || 'ranked'}&m=${mode || 'all'}`, {
+  fetch(config.api.searchBeatmaps(formatQuery, page, status, mode), {
     signal: controller.signal,
   })
     .then(res => res.ok && res.json())
