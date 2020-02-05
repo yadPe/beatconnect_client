@@ -23,7 +23,7 @@ export default {
     },
   },
   beatconnectAPI: {
-    key: 'b3z8gl9pzt7iqa89',
+    key: process.env.BEATCONNECT_CLIENT_TOKEN,
   },
   _comment: 'Below you can change how a command is called in the chat and its description',
   commands: [

@@ -5,7 +5,7 @@ const log = require('electron-log');
 const isDev = require('electron-is-dev');
 
 const makeTracker = () => {
-  const visitor = ua('UA-xxxxx-2', machineIdSync(true), {
+  const visitor = ua(process.env.BEATCONNECT_CLIENT_GA_TRACKING_ID, machineIdSync(true), {
     // TODO Parse user agent so we can track user os type
     an: app.getName(),
     av: app.getVersion(),

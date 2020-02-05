@@ -224,11 +224,7 @@ class BeatmapDownloader {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
     this.sendToWin('download-succeeded', { beatmapSetId });
-    this.trackEvent(
-      'beatmapDownload',
-      'succeed',
-      this.currentDownload.beatmapSetInfos.beatmapSetId,
-    );
+    this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
     this.clearCurrentDownload();
     this.executeQueue();
   }
