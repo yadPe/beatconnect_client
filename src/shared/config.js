@@ -1,10 +1,10 @@
+import apiConstant from './apiConstant';
+
 export default {
   osu: 'https://osu.ppy.sh',
   beatconnect: 'https://beatconnect.io',
   api: {
-    packsBaseUrl: 'https://beatconnect.io/api/packs/?token=3u80rns2wkcidsz7',
-    weeklyPackBaseUrl: 'https://beatconnect.io/api/packs/weekly/?token=3u80rns2wkcidsz7',
-    beatmapsBaseUrl: 'https://beatconnect.io/api/search/?token=b3z8gl9pzt7iqa89',
+    ...apiConstant,
   },
   display: {
     defaultLanguage: 'en',
