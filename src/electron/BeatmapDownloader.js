@@ -202,6 +202,8 @@ class BeatmapDownloader {
         speedValue =
           Math.max(lastReceivedBytes, this.receivedBytesArr[0]) - Math.min(lastReceivedBytes, this.receivedBytesArr[0]);
       }
+      console.log('speedValue', speedValue);
+
       // const bytesPerSecond =
       //   (receivedBytes - (this.lastReceivedBytes || 0)) / ((now - (this.lastProgress || 0)) * 1000);
 

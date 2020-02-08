@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const beatconnectHostUrl = 'https://beatconnect.io';
 export default {
   packs: `${beatconnectHostUrl}/api/packs/?token=${process.env.BEATCONNECT_CLIENT_TOKEN}`,
