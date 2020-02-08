@@ -57,13 +57,13 @@ These instructions will get you a copy of the project up and running on your loc
 $ git clone https://github.com/yadPe/beatconnect_client.git
 
 # Go into the repository
-$ cd beatconnect_irc_bot
+$ cd beatconnect_client
 
 # Install dependencies
 $ npm i
 
-# Start the server and launch the app
-$ npm start
+# Start the dev server and launch the app
+$ npm run dev
 
 # (if you're running WSL you will have to start electron from within Windows with "npm run electron-dev")
 ```
