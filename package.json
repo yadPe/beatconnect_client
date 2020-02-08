@@ -8,7 +8,8 @@
   "main": "./src/electron/index.js",
   "homepage": "./",
   "scripts": {
-    "start": "node scripts/start.js",
+    "dev": "node scripts/start.js",
+    "start": "electron ./build/main.js",
     "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
@@ -21,7 +22,6 @@
     "bsb": "bsb -make-world",
     "bsb:watch": "bsb -make-world -w",
     "bsb:clean": "bsb -clean-world",
-    "go": "electron .",
     "dist": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64",
     "dist:win": "npm i && npm run build && electron-builder build --win",
     "dist:linux": "npm i && npm run build && electron-builder build --linux --x64",

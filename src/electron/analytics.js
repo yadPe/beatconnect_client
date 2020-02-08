@@ -4,12 +4,13 @@ const { machineIdSync } = require('node-machine-id');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 
-const makeTracker = () => {
+const makeTracker = userAgent => {
   const visitor = ua(process.env.BEATCONNECT_CLIENT_GA_TRACKING_ID, machineIdSync(true), {
-    // TODO Parse user agent so we can track user os type
+    ua: userAgent,
     an: app.getName(),
     av: app.getVersion(),
     ul: app.getLocale(),
+    ds: 'app',
   });
 
   const errorHandler = err =>

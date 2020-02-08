@@ -2,8 +2,8 @@ const { BrowserWindow } = require('electron');
 const windowStateKeeper = require('electron-window-state');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
-const beatmapDownloader = require('./BeatmapDownloader');
 const isDev = require('electron-is-dev');
+const beatmapDownloader = require('./BeatmapDownloader');
 
 const makeMainWindowSettings = () => {
   const mainWindowState = windowStateKeeper({
