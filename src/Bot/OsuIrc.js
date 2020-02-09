@@ -1,3 +1,4 @@
+import { remote } from 'electron';
 import store from '../shared/store';
 
 const irc = require('irc');
@@ -40,8 +41,8 @@ class OsuIrc {
       encoding: 'utf8',
     });
     this.onError = err => {
-      this.eventEmitter.emit('ircError', err);
-      console.error(err);
+      // this.eventEmitter.emit('ircError', err); // wtf
+      console.error(`IRC Client error: ${err}`);
     };
     this.client.on('error', this.onError);
     this.client.addListener('message', (from, channel, text, rawMsg) => {
@@ -50,11 +51,22 @@ class OsuIrc {
       this.previousMessage = rawMsg;
     });
     this.client.addListener('raw', msg => {
+      // Filter noise
       if (msg.command !== 'QUIT') {
-        console.log(msg);
-        if (msg.command === 'rpl_welcome') {
-          store.dispatch({ type: 'CONNECT' });
+        // Handle error
+        if (msg.commandType === 'error') {
+          // Bad auth infos
+          if (msg.command === 'err_passwdmismatch') {
+            remote.dialog.showMessageBox({ title: 'IRC', message: 'Bad IRC username or password', type: 'error' });
+            this.client.disconnect();
+            store.dispatch({ type: 'DISCONNECT' });
+          }
+          console.error('RECEIVED ERROR FROM IRC SERVER: ', msg.args);
         }
+        if (msg.command === 'rpl_welcome') {
+          store.dispatch({ type: 'CONNECTED' });
+        }
+        // Handle msg from BanchoBot
         if (msg.nick === 'BanchoBot') {
           this.banchoMsg(msg);
         }
@@ -127,7 +139,7 @@ class OsuIrc {
     });
   }
 
-  // Don't work when called again before previous call is resolved - Need Fix //
+  // TODO Don't work when called again before previous call is resolved - Need Fix //
   makeMatch(name, creator) {
     return new Promise((resolve, reject) => {
       const onNewMatch = msg => {

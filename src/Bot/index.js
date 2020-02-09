@@ -6,14 +6,13 @@ export default () => {
   const { connected, instance } = bot;
   if (!instance.connect) {
     console.log('connecting using new Bot');
-    store.dispatch({ type: 'CONNECT', status: 'connecting', instance: new Bot(settings) });
+    store.dispatch({ type: 'CONNECT', payload: { status: 'connecting', instance: new Bot(settings) } });
   } else if (connected) {
     console.log('disconnecting');
-    store.dispatch({ type: 'DISCONNECT' });
     instance.disconnect();
   } else {
     console.log('connecting using existing Bot');
-    store.dispatch({ type: 'CONNECT', status: 'connecting' });
+    store.dispatch({ type: 'CONNECT', payload: { status: 'connecting' } });
     instance.connect();
   }
 };
