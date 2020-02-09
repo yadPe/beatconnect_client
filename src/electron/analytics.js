@@ -1,4 +1,4 @@
-const { app, dialog } = require('electron');
+const { app, dialog, ipcMain } = require('electron');
 const ua = require('universal-analytics');
 const { machineIdSync } = require('node-machine-id');
 const log = require('electron-log');
@@ -34,6 +34,16 @@ const makeTracker = userAgent => {
   const trackNavigation = sectionName => {
     visitor.pageview({ dp: `/${sectionName}`, dt: sectionName }, errorHandler).send();
   };
+
+  ipcMain.on('renderer-crash', (_event, error) => {
+    visitor.exception(error).send();
+    const messageBoxOptions = {
+      type: 'error',
+      title: "WHO'S AFRAID OF THE BIG BLACK",
+      message: `Beatconnect failed: ${error} \n to retry please restarting the app`,
+    };
+    dialog.showMessageBox(messageBoxOptions);
+  });
 
   process.on('uncaughtException', err => {
     visitor.exception(err.toString()).send();
