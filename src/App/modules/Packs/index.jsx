@@ -6,6 +6,7 @@ import Group from './components/Group';
 import BeatmapPackDetail from './BeatmapPackDetail';
 import Header from './Header';
 import config from '../../../shared/config';
+import Disabled from './Disabled';
 
 const styles = {
   Packs: {
@@ -23,7 +24,8 @@ const styles = {
   },
 };
 
-const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
+const Packs = ({ classes, setHeaderContent, packsDashboardData, serviceStatus }) => {
+  if (serviceStatus !== config.packs.serviceStatus.ok) return <Disabled status={serviceStatus} />;
   const [selectedPack, setSelected] = useState({});
   const [selectedMode, setSelectedMode] = useState(config.packs.availableModes[0]);
 
@@ -64,7 +66,7 @@ const Packs = ({ classes, theme, setHeaderContent, packsDashboardData }) => {
   );
 };
 
-const mapStateToProps = ({ packs }) => ({ packsDashboardData: packs.packsDashboardData });
+const mapStateToProps = ({ packs }) => packs;
 export default compose(
   connect(mapStateToProps),
   injectSheet(styles),

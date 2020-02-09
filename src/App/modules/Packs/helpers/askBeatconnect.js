@@ -1,6 +1,16 @@
 import config from '../../../../shared/config';
 import store from '../../../../shared/store';
 
+const checkResponse = res => {
+  if (res.ok) return true;
+  if (res.status === 503) {
+    store.dispatch({ type: 'PACKS_DISABLED', payload: config.packs.serviceStatus.disabled });
+    return false;
+  }
+  store.dispatch({ type: 'PACKS_DISABLED', payload: config.packs.serviceStatus.error });
+  return false;
+};
+
 const getPacksDashboardData = async (mode, callBack) => {
   const { packs, weeklyPacks } = config.api;
   const { packsDashboardData } = store.getState().packs;
@@ -12,11 +22,13 @@ const getPacksDashboardData = async (mode, callBack) => {
   if (queries.length) {
     const promises = queries.map(queryUrl => fetch(queryUrl));
 
-    const results = await Promise.all(promises);
-
-    const jsonResults = await Promise.all(results.filter(res => res.ok).map(res => res.json()));
-
-    return callBack(jsonResults);
+    try {
+      const results = await Promise.all(promises);
+      const jsonResults = await Promise.all(results.filter(checkResponse).map(res => res.json()));
+      return callBack(jsonResults);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return packsDashboardData;

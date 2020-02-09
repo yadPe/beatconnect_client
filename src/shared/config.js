@@ -31,6 +31,11 @@ export default {
     availableModes: ['all', 'std', 'mania', 'taiko', 'ctb'],
   },
   packs: {
+    serviceStatus: {
+      disabled: 'disabled',
+      ok: 'ok',
+      error: 'ko',
+    },
     availableModesLabels: ['Osu!', 'Mania', 'Taiko', 'CTB'],
     availableModes: ['std', 'mania', 'taiko', 'ctb'],
   },
