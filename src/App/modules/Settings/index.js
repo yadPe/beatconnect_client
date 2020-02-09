@@ -38,8 +38,6 @@ const Settings = ({ userPreferences }) => {
     return ConfLoader.save;
   }, [userPreferences]);
 
-  console.log(salut);
-
   const osuPathSetup = song => {
     const path = remote.dialog.showOpenDialog({
       properties: ['openDirectory'],
