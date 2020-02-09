@@ -23,6 +23,7 @@ import { TasksContext } from '../../Providers/TasksProvider';
 import ColorPicker from '../common/ColorPicker';
 import { useSetTheme } from '../../Providers/ThemeProvider';
 import { useDownloadQueue } from '../../Providers/downloadManager';
+import config from '../../../shared/config';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();
@@ -36,6 +37,8 @@ const Settings = ({ userPreferences }) => {
     ConfLoader.save();
     return ConfLoader.save;
   }, [userPreferences]);
+
+  console.log(salut);
 
   const osuPathSetup = song => {
     const path = remote.dialog.showOpenDialog({
@@ -79,6 +82,11 @@ const Settings = ({ userPreferences }) => {
     const { value } = e.target;
     saveThemeAccentColor(value);
     setAccentColor(value);
+  };
+
+  const handleImportMethodChange = newMethod => {
+    setImportMethod(newMethod);
+    setPath(newMethod, osuSongsPath);
   };
 
   const settings = {
@@ -153,15 +161,16 @@ const Settings = ({ userPreferences }) => {
       'Beatmaps import method': [
         {
           name: 'Auto',
-          value: importMethod === 'auto',
-          action: () => setImportMethod('auto'),
-          description: 'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not running)',
+          value: importMethod === config.settings.importMethod.auto,
+          action: () => handleImportMethodChange(config.settings.importMethod.auto),
+          description:
+            'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not currently running)',
           type: 'CheckBox',
         },
         {
           name: 'Bulk',
-          value: importMethod === 'bulk',
-          action: () => setImportMethod('bulk'),
+          value: importMethod === config.settings.importMethod.bulk,
+          action: () => handleImportMethodChange(config.settings.importMethod.bulk),
           description:
             'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection',
           disabled: !osuSongsPath || osuSongsPath === '',
@@ -169,9 +178,9 @@ const Settings = ({ userPreferences }) => {
         },
         {
           name: 'Manual',
-          value: importMethod === 'manual',
-          action: () => setImportMethod('manual'),
-          description: 'Downloaded beatmaps are stored as is in your download folder inside the Beatconnect folder',
+          value: importMethod === config.settings.importMethod.manual,
+          action: () => handleImportMethodChange(config.settings.importMethod.manual),
+          description: 'Beatmaps are save to your default download folder',
           type: 'CheckBox',
         },
       ],

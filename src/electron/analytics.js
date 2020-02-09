@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app, dialog } = require('electron');
 const ua = require('universal-analytics');
 const { machineIdSync } = require('node-machine-id');
 const log = require('electron-log');
@@ -33,6 +33,16 @@ const makeTracker = () => {
   const trackNavigation = sectionName => {
     visitor.pageview({ dp: `/${sectionName}`, dt: sectionName }, errorHandler).send();
   };
+
+  process.on('uncaughtException', err => {
+    visitor.exception(err.toString()).send();
+    const messageBoxOptions = {
+      type: 'error',
+      title: '404 cookiezi not found',
+      message: `Oops something failed inside Beatconnect: "${err.message}" \n If you notice some unusual behaviors please report it on discord and restart the app`,
+    };
+    dialog.showMessageBox(messageBoxOptions);
+  });
 
   trackEvent('app', 'launch');
   return { visitor, trackEvent, trackNavigation };

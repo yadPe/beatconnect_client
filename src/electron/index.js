@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { app, webContents, BrowserWindow } = require('electron');
+const { app, webContents, dialog } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');

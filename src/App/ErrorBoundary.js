@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import store from '../shared/store';
 import os from 'os';
 import { remote } from 'electron';
+import store from '../shared/store';
+
+const { visitor } = remote.getGlobal('tracking');
 
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { report: null, status: null };
+    this.state = { crashed: null };
+  }
+
+  componentDidUpdate() {
+    console.log('strate', this.state);
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { crashed: true };
   }
 
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below, send a crash report and re-render with error message
-    if (this.crashed) return;
-    this.crashed = true;
     const report = {
       error: error.toString(),
       errorInfo: { componentStack: errorInfo.componentStack.trim().split('\n') },
@@ -33,42 +42,18 @@ class ErrorBoundary extends Component {
     delete report.applicationState.settings.userPreferences.irc.password;
     delete report.applicationState.settings.userPreferences.osuApi;
     console.log('report ready', report);
-    this.setState(
-      {
-        report,
-      },
-      this.sendReport,
-    );
-  }
 
-  sendReport() {
-    if (process.env.NODE_ENV === 'development')
-      return this.setState({ status: 'No crash report will be sent since the app is running in the dev environement' });
-    const { report } = this.state;
-    this.setState({ status: 'Sending crash report..' });
-    fetch('https://oaw7vuooo1.execute-api.eu-west-1.amazonaws.com/production/BC-crash-report/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ report }),
-    }).then(res =>
-      res.status === 200
-        ? this.setState({ status: 'Report sent, you can restart the app' })
-        : this.setState({ status: 'Failed to send report, you can restart the app' }),
-    );
+    if (process.env.NODE_ENV === 'development') return;
+    console.log('Sending error report via ga');
+    visitor.exception(JSON.stringify(report, undefined, 2)).send();
   }
 
   render() {
-    if (this.state.report) {
+    if (this.state.crashed) {
       // Error path
       return (
         <div style={{ color: 'white', textAlign: 'center' }}>
           <h2>Oops Beatconnect crashed, an error report will be automatically sent to the developers</h2>
-          <h4>{this.state.status}</h4>
-          <details style={{ whiteSpace: 'pre-wrap', textAlign: 'left' }}>
-            {this.state.report.error && this.state.report.error.toString()}
-            <br />
-            {this.state.report.errorInfo.componentStack.join('\n')}
-          </details>
         </div>
       );
     }
