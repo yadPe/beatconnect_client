@@ -34,7 +34,10 @@ class Bot {
       this.osuApi = new OsuApi(this.conf.userPreferences.osuApi.key);
     }
     this.connect = () => this.irc.client.connect();
-    this.disconnect = () => this.irc.client.disconnect();
+    this.disconnect = () => {
+      store.dispatch({ type: 'DISCONNECT' });
+      this.irc.client.disconnect();
+    };
     //this.web = new WebUi(this.matchs, this.irc.makeMatch);
   }
 
