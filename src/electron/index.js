@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
-const { app, webContents, dialog } = require('electron');
+const { app } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const path = require('path');
 const url = require('url');
 const makeMainWindow = require('./MainWindow');
 require('./ipcMessages');
@@ -11,18 +10,6 @@ const { makeTracker } = require('./analytics');
 
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
-autoUpdater.on('checking-for-update', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'checkingUpdate' });
-});
-autoUpdater.on('update-available', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateAvailable' });
-});
-autoUpdater.on('update-downloaded', ({ releaseName }) => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'updateDownloaded', releaseName });
-});
-autoUpdater.on('update-not-available', () => {
-  webContents.getFocusedWebContents().send('autoUpdater', { status: 'noUpdateAvailable' });
-});
 
 const main = () => {
   if (isDev) {
@@ -31,27 +18,35 @@ const main = () => {
   }
 
   let mainWindow = null;
-  const { trackEvent, trackNavigation } = makeTracker();
-  global.tracking = { trackEvent, trackNavigation };
-
-  // mainWindow = new BrowserWindow({ width: 800, height: 600 });
   mainWindow = makeMainWindow({
-    url: isDev
-      ? process.env.ELECTRON_START_URL ||
-        url.format({
-          pathname: path.join(__dirname, '../../build/index.html'),
-          protocol: 'file:',
-          slashes: true,
-        })
-      : url.format({
-          pathname: path.join(__dirname, './build/index.html'),
-          protocol: 'file:',
-          slashes: true,
-        }),
+    url:
+      process.env.ELECTRON_START_URL ||
+      url.format({
+        pathname: './build/index.html',
+        protocol: 'file:',
+        slashes: true,
+      }),
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+
+  const { trackEvent, trackNavigation } = makeTracker(mainWindow.webContents.session.getUserAgent());
+  global.tracking = { trackEvent, trackNavigation };
+
+  const sendToMainWindow = mainWindow.webContents.send;
+  autoUpdater.on('checking-for-update', () => {
+    sendToMainWindow('autoUpdater', { status: 'checkingUpdate' });
+  });
+  autoUpdater.on('update-available', () => {
+    sendToMainWindow('autoUpdater', { status: 'updateAvailable' });
+  });
+  autoUpdater.on('update-downloaded', ({ releaseName }) => {
+    sendToMainWindow('autoUpdater', { status: 'updateDownloaded', releaseName });
+  });
+  autoUpdater.on('update-not-available', () => {
+    sendToMainWindow('autoUpdater', { status: 'noUpdateAvailable' });
   });
 };
 
