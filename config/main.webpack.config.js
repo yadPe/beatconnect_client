@@ -15,7 +15,7 @@ module.exports = mode => {
       publicPath: paths.publicUrl,
     },
     node: {
-      __dirname: true
+      __dirname: false
     },
     module: {
       rules : [{
