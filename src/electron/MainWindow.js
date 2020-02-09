@@ -35,7 +35,7 @@ const makeMainWindowSettings = () => {
   ];
 };
 
-const makeMainWindow = ({ url, ...options }) => {
+const makeMainWindow = ({ content, ...options }) => {
   const [mainWindowState, defaultOptions] = makeMainWindowSettings();
   const mainWindow = new BrowserWindow({ ...defaultOptions, ...options });
   mainWindow
@@ -49,8 +49,10 @@ const makeMainWindow = ({ url, ...options }) => {
       setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
       }, 5000);
-    })
-    .loadURL(url);
+    });
+
+  if (process.env.ELECTRON_START_URL) mainWindow.loadURL(process.env.ELECTRON_START_URL);
+  else mainWindow.loadFile(content);
   return mainWindow;
 };
 

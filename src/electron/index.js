@@ -3,10 +3,11 @@ const { app } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const url = require('url');
+const { join } = require('path');
+
 const makeMainWindow = require('./MainWindow');
-require('./ipcMessages');
 const { makeTracker } = require('./analytics');
+require('./ipcMessages');
 
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
@@ -19,13 +20,7 @@ const main = () => {
 
   let mainWindow = null;
   mainWindow = makeMainWindow({
-    url:
-      process.env.ELECTRON_START_URL ||
-      url.format({
-        pathname: './build/index.html',
-        protocol: 'file:',
-        slashes: true,
-      }),
+    content: join(__dirname, 'index.html'),
   });
 
   mainWindow.on('closed', () => {
