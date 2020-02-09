@@ -134,7 +134,7 @@ checkBrowsers(paths.appPath, isInteractive)
 
       console.log(chalk.cyan('Starting the development server...\n'));
       exec('npm run electron-dev',
-        (err, stdout) => {
+        (err) => {
           if (err) {
             if (isWsl){
               console.log(chalk.green("WSL does not support graphical program natively,"));
@@ -144,8 +144,7 @@ checkBrowsers(paths.appPath, isInteractive)
               console.log(chalk.yellow("Couldn't launch electron, try starting it manually"));
             }
           }
-          else console.log(stdout);
-        });
+        }).stdout.pipe(process.stdout).on('exit', () => console.log('Electron process terminated'));
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function (sig) {

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const beatconnectHostUrl = 'https://beatconnect.io';
 const beatconnectApiToken = process.env.BEATCONNECT_CLIENT_TOKEN;
 

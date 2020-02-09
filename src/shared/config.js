@@ -34,4 +34,11 @@ export default {
     availableModesLabels: ['Osu!', 'Mania', 'Taiko', 'CTB'],
     availableModes: ['std', 'mania', 'taiko', 'ctb'],
   },
+  settings: {
+    importMethod: {
+      bulk: 'bulk',
+      auto: 'auto',
+      manual: 'manual',
+    },
+  },
 };

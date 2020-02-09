@@ -1,7 +1,6 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
-const { app, ipcMain } = require('electron');
-const { performance } = require('perf_hooks');
+const { app, ipcMain, shell } = require('electron');
 const { makeDownloadUrl, readableBits } = require('./helpers');
 const isOnline = require('./helpers/isOnline');
 
@@ -17,6 +16,8 @@ class BeatmapDownloader {
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
     this.queue = new Set();
     this.retryInterval = 3500;
+    this.receivedBytesArr = [];
+    this.autoOpenOnDone = false;
   }
 
   register = win => {
@@ -32,14 +33,15 @@ class BeatmapDownloader {
     ipcMain.on('cancel-current-download', this.cancelCurrent);
     ipcMain.on('pause-resume-current-download', this.pauseResumeCurrent);
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
-    ipcMain.on('set-beatmap-save-folder', (_event, path) => this.setSavePath(path));
+    ipcMain.on('set-beatmap-save-folder', (_event, { path, isAuto }) => this.setSavePath(path, isAuto));
     ipcMain.on('clear-download-queue', this.clearQueue);
     this.sendToWin('ready');
   };
 
-  setSavePath(path) {
+  setSavePath(path, isAuto) {
     const validPath = normalize(path);
-
+    if (isAuto) this.autoOpenOnDone = true;
+    else this.autoOpenOnDone = false;
     if (existsSync(validPath) && lstatSync(validPath).isDirectory()) this.savePath = validPath;
     else throw new Error('InvalidPath');
   }
@@ -193,15 +195,17 @@ class BeatmapDownloader {
         this.retryIntervalId = null;
       }
       const receivedBytes = item.getReceivedBytes();
-      const now = performance.now();
-      const bytesPerSecond =
-        (receivedBytes - (this.lastReceivedBytes || 0)) / ((now - (this.lastProgress || 0)) * 1000);
+      this.receivedBytesArr.push(receivedBytes);
+      let speedValue = 0;
+      if (this.receivedBytesArr.length >= 2) {
+        const lastReceivedBytes = this.receivedBytesArr.shift();
+        speedValue =
+          Math.max(lastReceivedBytes, this.receivedBytesArr[0]) - Math.min(lastReceivedBytes, this.receivedBytesArr[0]);
+      }
 
-      this.lastProgress = now;
-      this.lastReceivedBytes = receivedBytes;
       const progressPercent = ((receivedBytes / (item.getTotalBytes() || 1)) * 100).toFixed(2);
       this.overallProgress(progressPercent);
-      const downloadSpeed = readableBits(bytesPerSecond);
+      const downloadSpeed = readableBits(speedValue);
 
       this.sendToWin('download-progress', { beatmapSetId, progressPercent, downloadSpeed });
     }
@@ -225,6 +229,7 @@ class BeatmapDownloader {
     }
     this.sendToWin('download-succeeded', { beatmapSetId });
     this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
+    if (this.autoOpenOnDone) shell.openItem(item.getSavePath());
     this.clearCurrentDownload();
     this.executeQueue();
   }

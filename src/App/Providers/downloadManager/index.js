@@ -40,9 +40,9 @@ class DownloadManagerProvider extends Component {
       cancelDownload: cancelCurrent,
       removeItemfromQueue: cancel,
       clear: clearQueue,
+      push: download,
 
       setPath: this.setPath,
-      push: download,
       pushMany: this.pushMany,
     };
   }
@@ -53,10 +53,13 @@ class DownloadManagerProvider extends Component {
   }
 
   setPath = (importMethod, osuSongsPath) => {
-    if (importMethod === 'bulk') {
-      setSavePath(osuSongsPath);
+    if (importMethod === config.settings.importMethod.bulk && osuSongsPath) {
+      setSavePath({ path: osuSongsPath });
     } else {
-      setSavePath(app.getPath('downloads'));
+      setSavePath({
+        path: app.getPath('downloads'),
+        isAuto: importMethod === config.settings.importMethod.auto && config.settings.importMethod.auto,
+      });
     }
   };
 
@@ -65,13 +68,10 @@ class DownloadManagerProvider extends Component {
   }
 
   updateCurrentDowload(item) {
-    this.setState(
-      prevState => ({
-        ...prevState,
-        currentDownload: { ...item, status: config.download.status.downloading },
-      }),
-      () => console.log('updateCurrent', this.state),
-    );
+    this.setState(prevState => ({
+      ...prevState,
+      currentDownload: { ...item, status: config.download.status.downloading },
+    }));
   }
 
   downloadPaused() {
