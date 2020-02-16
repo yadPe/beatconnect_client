@@ -19,25 +19,29 @@ const makeTracker = userAgent => {
     err && (isDev ? log.error(`Analytics error: ${JSON.stringify(err)}`) : console.log('Analytics error: ', err));
 
   const trackEvent = (category, action, label, value) => {
-    visitor
-      .event(
-        {
-          ec: category,
-          ea: action,
-          el: label,
-          ev: value,
-        },
-        errorHandler,
-      )
-      .send();
+    if (!isDev) {
+      visitor
+        .event(
+          {
+            ec: category,
+            ea: action,
+            el: label,
+            ev: value,
+          },
+          errorHandler,
+        )
+        .send();
+    }
   };
 
   const trackNavigation = sectionName => {
-    visitor.pageview({ dp: `/${sectionName}`, dt: sectionName }, errorHandler).send();
+    if (!isDev) {
+      visitor.pageview({ dp: `/${sectionName}`, dt: sectionName }, errorHandler).send();
+    }
   };
 
   ipcMain.on('renderer-crash', (_event, error) => {
-    visitor.exception(error).send();
+    if (!isDev) visitor.exception(error).send();
     const messageBoxOptions = {
       type: 'error',
       title: "WHO'S AFRAID OF THE BIG BLACK",
@@ -47,7 +51,7 @@ const makeTracker = userAgent => {
   });
 
   process.on('uncaughtException', err => {
-    visitor.exception(err.toString()).send();
+    if (!isDev) visitor.exception(err.toString()).send();
     const messageBoxOptions = {
       type: 'error',
       title: '404 cookiezi not found',
