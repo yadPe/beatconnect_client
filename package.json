@@ -138,7 +138,7 @@
     "cross-env": "^6.0.3",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
-    "electron": "^5.0.5",
+    "electron": "^8.0.1",
     "electron-builder": "^22.2.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",

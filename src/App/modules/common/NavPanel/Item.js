@@ -5,12 +5,10 @@ import config from '../../../../shared/config';
 
 const useStyle = createUseStyles({
   contentContainer: {
+    height: `calc(100vh - ${config.display.titleBarHeight}px)`,
     position: 'relative',
     flexGrow: 1,
     flexShrink: 1,
-    display: 'flex',
-  },
-  contentSubContainer: {
     display: 'flex',
     flex: '1 1 0%',
     flexDirection: 'column',
@@ -48,15 +46,18 @@ const Item = ({ title, children, header }) => {
   const theme = useTheme();
   const classes = useStyle({ theme });
 
-  return (
+  return header ? (
     <div className={classes.contentContainer}>
-      <div className={classes.contentSubContainer}>
-        {header ? <Header title={title}>{headerContent}</Header> : null}
-        <div className={classes.contentWrapper}>
-          <div id="modal-root" />
-          {children(setHeaderContent)}
-        </div>
+      {header && <Header title={title}>{headerContent}</Header>}
+      <div className={classes.contentWrapper}>
+        <div id="modal-root" />
+        {children(setHeaderContent)}
       </div>
+    </div>
+  ) : (
+    <div className={classes.contentWrapper}>
+      <div id="modal-root" />
+      {children(setHeaderContent)}
     </div>
   );
 };
