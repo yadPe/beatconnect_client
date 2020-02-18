@@ -1,6 +1,7 @@
 const { ipcMain } = require('electron');
 const { join } = require('path');
 const { fork } = require('child_process');
+const { setWallpaper } = require('./helpers/wallpaper');
 
 ipcMain.on('osuSongsScan', (event, options) => {
   const osuSongsScanProcess = fork(join(__dirname, './helpers/osuSongsScan.js'));
@@ -12,3 +13,5 @@ ipcMain.on('osuSongsScan', (event, options) => {
     if (err) event.reply('osuSongsScanError', err);
   });
 });
+
+ipcMain.on('set-wallpaper', (_event, path) => setWallpaper(path));
