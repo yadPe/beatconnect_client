@@ -16,6 +16,7 @@
 lib
 .merlin
 *.bs.js
+*gen.js
 
 # misc
 .DS_Store

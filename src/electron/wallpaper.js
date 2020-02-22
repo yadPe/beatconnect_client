@@ -4,7 +4,7 @@ const { set } = require('wallpaper');
 const { get } = require('https');
 const { join } = require('path');
 
-const downloadAndSetBg = uri =>
+const downloadAndSetWallpaper = uri =>
   new Promise((resolve, reject) => {
     const savePath = join(app.getPath('temp'), 'bg.jpg');
     const file = createWriteStream(savePath);
@@ -12,22 +12,23 @@ const downloadAndSetBg = uri =>
       res.pipe(file);
       res.once('end', () => {
         if (res.statusCode !== 200) {
-          file.destroy();
-          reject(new Error(`Status code ${res.statusCode}`));
+          const error = new Error(`Server returned status code ${res.statusCode}`);
+          file.destroy(error);
         } else file.close();
       });
     });
     file.once('close', () => {
+      file.removeAllListeners();
       resolve(set(savePath));
     });
-    request.on('error', reject);
+    file.once('error', err => {
+      file.removeAllListeners();
+      reject(err);
+    });
+    request.once('error', err => {
+      file.removeAllListeners();
+      reject(err);
+    });
   });
 
-// setTimeout(() => {
-//   downloadAndSetBg('https://beatconnect.io/bg/1041596/2176932/')
-//     .then(() => console.log('new bg set!'))
-//     .catch(err => console.log('failed', err.message));
-//   // wallpaper.set(path);
-// }, 5000);
-
-module.exports = { setWallpaper: downloadAndSetBg };
+module.exports = { downloadAndSetWallpaper };

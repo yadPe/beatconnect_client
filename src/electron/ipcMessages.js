@@ -1,7 +1,7 @@
-const { ipcMain } = require('electron');
+const { ipcMain, dialog } = require('electron');
 const { join } = require('path');
 const { fork } = require('child_process');
-const { setWallpaper } = require('./helpers/wallpaper');
+const { downloadAndSetWallpaper } = require('./wallpaper');
 
 ipcMain.on('osuSongsScan', (event, options) => {
   const osuSongsScanProcess = fork(join(__dirname, './helpers/osuSongsScan.js'));
@@ -14,4 +14,15 @@ ipcMain.on('osuSongsScan', (event, options) => {
   });
 });
 
-ipcMain.on('set-wallpaper', (_event, path) => setWallpaper(path));
+ipcMain.on('set-wallpaper', (event, bgUri) => {
+  downloadAndSetWallpaper(bgUri)
+    .then(() => event.reply('set-wallpaper-response', true))
+    .catch(e => {
+      dialog.showMessageBox({
+        type: 'error',
+        title: 'Wallpaper',
+        message: `Failed to change desktop wallaper\n ${e.message}`,
+      });
+      event.reply('set-wallpaper-response', false);
+    });
+});
