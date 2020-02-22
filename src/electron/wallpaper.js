@@ -17,18 +17,17 @@ const downloadAndSetWallpaper = uri =>
         } else file.close();
       });
     });
+    const onError = err => {
+      file.removeAllListeners();
+      request.removeAllListeners();
+      reject(err);
+    };
     file.once('close', () => {
       file.removeAllListeners();
       resolve(set(savePath));
     });
-    file.once('error', err => {
-      file.removeAllListeners();
-      reject(err);
-    });
-    request.once('error', err => {
-      file.removeAllListeners();
-      reject(err);
-    });
+    file.once('error', onError);
+    request.once('error', onError);
   });
 
 module.exports = { downloadAndSetWallpaper };
