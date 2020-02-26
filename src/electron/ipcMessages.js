@@ -12,3 +12,5 @@ ipcMain.on('osuSongsScan', (event, options) => {
     if (err) event.reply('osuSongsScanError', err);
   });
 });
+
+// ipcMain.on('')

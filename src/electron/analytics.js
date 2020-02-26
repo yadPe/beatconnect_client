@@ -8,7 +8,7 @@ const makeTracker = userAgent => {
   const visitor = ua(process.env.BEATCONNECT_CLIENT_GA_TRACKING_ID, machineIdSync(true), {
     strictCidFormat: false,
     ua: userAgent,
-    an: app.getName(),
+    an: app.name,
     av: app.getVersion(),
     ul: app.getLocale(),
     ds: 'app',
