@@ -12,8 +12,7 @@ const downloadAndSetWallpaper = uri =>
       res.pipe(file);
       res.once('end', () => {
         if (res.statusCode !== 200) {
-          const error = new Error(`Server returned status code ${res.statusCode}`);
-          file.destroy(error);
+          file.destroy(new Error(`Server returned status code ${res.statusCode}`));
         } else file.close();
       });
     });

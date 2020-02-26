@@ -1,25 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { ipcRenderer } from 'electron';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import { connect } from 'react-redux';
+
 import config from '../../../../shared/config';
+import renderIcons from '../../../helpers/renderIcons';
+import { setWallpaper } from '../../Beatmaps/reducer/actions';
 
 const makeBeatmapBackgroundUrl = (beatmapSetId, beatmapId) => `${config.beatconnect}/bg/${beatmapSetId}/${beatmapId}/`;
-const sendSetWallpaperSignal = imageUri => ipcRenderer.send('set-wallpaper', imageUri);
 
-const SetWallpaperButton = ({ beatmapSetId, beatmapId }) => {
-  const [state, setState] = useState({ loading: false, listenerRegistered: false });
-  const setIsNotLoading = () => setState({ ...state, loading: false });
-  const registerResponseListener = () => {
-    ipcRenderer.on('set-wallpaper-response', setIsNotLoading);
-  };
-  useEffect(() => {
-    return () => state.listenerRegistered && ipcRenderer.removeListener('set-wallpaper-response', setIsNotLoading);
-  });
+const useStyles = createUseStyles({
+  SetWallpaperButton: {
+    position: 'absolute',
+    top: 121,
+    right: 5,
+    opacity: isLoading => (isLoading ? 0.3 : 1),
+    transition: 'opacity .5s',
+  },
+});
+
+const SetWallpaperButton = ({ beatmapSetId, beatmapId, isBusy }) => {
+  const classes = useStyles(isBusy);
+
   const handleClick = () => {
-    setState({ ...state, loading: true });
-    registerResponseListener();
-    sendSetWallpaperSignal(makeBeatmapBackgroundUrl(beatmapSetId, beatmapId));
+    if (isBusy) return;
+    setWallpaper(makeBeatmapBackgroundUrl(beatmapSetId, beatmapId));
   };
-  return <button onClick={handleClick}>{state.loading ? 'Loading...' : 'Set walpaper!'}</button>;
+  return (
+    <div
+      title="Set beatmap art as desktop wallpaper"
+      className={classes.SetWallpaperButton}
+      onClick={handleClick}
+      role="button"
+    >
+      {renderIcons({ name: 'screenHeart' })}
+    </div>
+  );
 };
 
-export default SetWallpaperButton;
+const mapDispatchToProps = ({ beatmaps }) => ({ isBusy: beatmaps.switchingWallpaper });
+export default connect(mapDispatchToProps)(SetWallpaperButton);
