@@ -5,7 +5,7 @@ let makeBaseStyle = () =>
     border(px(2), solid, hex("2c3e50")),
     borderRadius(rem(0.25)),
     fontSize(rem(0.8)),
-    padding3(rem(0.1), rem(0.45), rem(0.2)),
+    padding3(~top=rem(0.1), ~h=rem(0.45), ~bottom=rem(0.2)),
     display(inlineFlex),
     alignItems(center),
   ]);
@@ -94,6 +94,6 @@ let makeStyle = status => [makeBaseStyle(), makeStatusStyle(status)]->merge;
 [@genType]
 let make = (~status, _children) => {
   <span className={makeStyle(status)}>
-    {status->String.capitalize->React.string}
+    {status->String.capitalize_ascii->React.string}
   </span>;
 };
