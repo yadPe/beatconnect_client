@@ -45,7 +45,7 @@ const makeTracker = userAgent => {
     const messageBoxOptions = {
       type: 'error',
       title: "WHO'S AFRAID OF THE BIG BLACK",
-      message: `Beatconnect failed: ${error} \n to retry please restarting the app`,
+      message: `Beatconnect failed: ${error} \n to retry please restart the app`,
     };
     dialog.showMessageBox(messageBoxOptions);
   });

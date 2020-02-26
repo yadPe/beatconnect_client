@@ -115,7 +115,8 @@
     "string.prototype.startswith": "^0.2.0",
     "uleb128": "^1.0.1",
     "underscore": "^1.9.1",
-    "universal-analytics": "^0.4.20"
+    "universal-analytics": "^0.4.20",
+    "wallpaper": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "7.4.3",

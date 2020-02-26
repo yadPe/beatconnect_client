@@ -11,6 +11,7 @@ import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import { make as Badge } from '../Badge.bs';
 import reqImgAssets from '../../../helpers/reqImgAssets';
 import Button from '../Button';
+import SetWallpaperButton from './SetWallpaperButton';
 
 const bpmToBps = bpm => 60 / bpm;
 
@@ -72,7 +73,8 @@ export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/$
 const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
   const theme = useTheme();
   const [isPlaying, setIsPLaying] = useState(false);
-  const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink } = beatmap;
+  const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink, beatmaps } = beatmap;
+  const wallpaperBeatmapId = beatmaps[Math.max(beatmaps.length - 2, 0)].id;
 
   const modePillsStyle = mode => ({
     width: 20,
@@ -106,6 +108,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
           >
             {renderIcons({ name: 'Search', style: theme.accentContrast })}
           </Button>
+          <SetWallpaperButton beatmapSetId={beatmapset_id || id} beatmapId={wallpaperBeatmapId} />
           <div
             className="rightContainer"
             style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}
