@@ -4,9 +4,10 @@ const { set } = require('wallpaper');
 const { get } = require('https');
 const { join } = require('path');
 
+const tempFolder = app.getPath('temp');
 const downloadAndSetWallpaper = uri =>
   new Promise((resolve, reject) => {
-    const savePath = join(app.getPath('temp'), 'bg.jpg');
+    const savePath = join(tempFolder, 'bg.jpg');
     const file = createWriteStream(savePath);
     const request = get(uri, res => {
       res.pipe(file);
