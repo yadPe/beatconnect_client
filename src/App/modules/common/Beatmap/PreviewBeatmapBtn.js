@@ -12,7 +12,7 @@ const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying }) => {
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, setIsPlayable);
   };
   return isPlayable ? (
-    <Button push color={theme.palette.primary.accent} onClick={playPreview}>
+    <Button color={theme.palette.primary.accent} onClick={playPreview}>
       {renderIcons({ name: `${isPlaying ? 'Pause' : 'Play'}`, style: theme.accentContrast })}
     </Button>
   ) : null;

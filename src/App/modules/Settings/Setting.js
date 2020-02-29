@@ -105,7 +105,7 @@ const Setting = ({ settingCategory }) => {
                 case 'Button':
                   return (
                     <div style={{ textAlign: 'start' }}>
-                      <Button className="btn" push color={theme.palette.primary.accent} onClick={item.action}>
+                      <Button className="btn" color={theme.palette.primary.accent} onClick={item.action}>
                         {item.name}
                       </Button>
                       <div style={{ fontSize: '0.8rem', margin: '0px 8px' }}>{item.description}</div>
