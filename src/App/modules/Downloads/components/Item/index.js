@@ -36,7 +36,6 @@ const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes,
           <Text color="#fff">{status === 'downloaded' ? `Downloaded ${timeSince(new Date(date))}` : status}</Text>
           <PreviewBeatmapBtn theme={theme} beatmapSetId={id} />
           <Button
-            push
             color={theme.palette.primary.accent}
             onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}
             hidden={false}
@@ -45,15 +44,10 @@ const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes,
           </Button>
         </div>
         <div className={classes.rightControls}>
-          <Button
-            push
-            color={theme.palette.primary.accent}
-            onClick={toggleDownload}
-            hidden={!(status === 'downloading')}
-          >
+          <Button color={theme.palette.primary.accent} onClick={toggleDownload} hidden={!(status === 'downloading')}>
             {renderIcons({ name: isPaused ? 'Download' : 'Pause', style: theme.accentContrast })}
           </Button>
-          <Button push color={theme.warning} onClick={cancel} hidden={status === 'downloaded'}>
+          <Button color={theme.warning} onClick={cancel} hidden={status === 'downloaded'}>
             {renderIcons({ name: 'Cancel', style: theme.accentContrast })}
           </Button>
         </div>

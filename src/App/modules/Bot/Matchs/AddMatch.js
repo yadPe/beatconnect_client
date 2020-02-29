@@ -15,7 +15,6 @@ const AddMatch = ({ bot, errors, ircUsername, connected }) => {
       <TextInput placeholder="Match ID" value={reqMatchId} onChange={e => setReqMatchId(e.target.value)} />
       <Button
         className="btn"
-        push
         color={theme.palette.primary.accent}
         hidden={!connected || connected === 'connecting'}
         onClick={() => bot.joinMatch(reqMatchId)}

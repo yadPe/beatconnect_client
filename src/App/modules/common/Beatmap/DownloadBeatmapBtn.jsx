@@ -77,7 +77,7 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   }
 
   return (
-    <Button push color={theme.palette.primary.accent} onClick={downloadBeatmap}>
+    <Button color={theme.palette.primary.accent} onClick={downloadBeatmap}>
       {renderContent()}
     </Button>
   );

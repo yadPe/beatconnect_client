@@ -38,7 +38,6 @@ const Player = ({ playerInfos, match }) => {
       <li>
         <Button
           className="btn"
-          push
           color={theme.palette.primary.accent}
           onClick={() => match.makeHost(playerInfos)}
           hidden={match.host === playerInfos}

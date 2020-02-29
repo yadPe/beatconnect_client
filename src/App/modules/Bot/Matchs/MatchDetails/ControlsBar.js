@@ -45,7 +45,6 @@ const ControlsBar = ({ match, close }) => {
       <li>
         <Button
           className="btn startMatch"
-          push
           color={theme.palette.primary.accent}
           onClick={() => match.start()}
           hidden={!match}
