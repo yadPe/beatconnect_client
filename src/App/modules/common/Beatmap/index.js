@@ -101,7 +101,6 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
           <PreviewBeatmapBtn theme={theme} beatmapSetId={beatmapset_id || id} setIsPLaying={setIsPLaying} />
           <DownloadBeatmapBtn autoDl={autoDl} beatmapSet={beatmap} />
           <Button
-            push
             color={theme.palette.primary.accent}
             onClick={() => shell.openExternal(getBeatmapInfosUrl(beatmap))}
             hidden={!beatmap.title}
