@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
 import TasksControl from './TasksControl';
+import PlayOsu from './PlayOsu';
 import config from '../../../../../shared/config';
 
 const styles = {
@@ -39,8 +40,9 @@ const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExp
       if (items.length - i === 1) {
         return (
           <>
-            {tasks ? <TasksControl expended={expended} tasks={tasks} /> : null}
-            {volume ? <VolumeControl expended={expended} /> : null}
+            {tasks && <TasksControl expended={expended} tasks={tasks} />}
+            {volume && <PlayOsu expended={expended} />}
+            {volume && <VolumeControl expended={expended} />}
             <Tab {...item.props} expended={expended} />
           </>
         );

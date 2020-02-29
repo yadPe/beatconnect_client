@@ -1,16 +1,22 @@
-const { ipcMain, dialog } = require('electron');
+const { ipcMain, dialog, shell } = require('electron');
 const { join } = require('path');
 const { fork } = require('child_process');
 const { downloadAndSetWallpaper } = require('./wallpaper');
 
 ipcMain.on('osuSongsScan', (event, options) => {
-  const osuSongsScanProcess = fork(join(__dirname, './helpers/osuSongsScan.js'));
+  const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'));
   osuSongsScanProcess.send(JSON.stringify({ msg: 'start', ...options }));
   osuSongsScanProcess.on('message', msg => {
     const { results, status, err } = JSON.parse(msg);
-    if (results) event.reply('osuSongsScanResults', results);
+    if (results) {
+      event.reply('osuSongsScanResults', results);
+      osuSongsScanProcess.kill('SIGTERM');
+    }
     if (status) event.reply('osuSongsScanStatus', status);
-    if (err) event.reply('osuSongsScanError', err);
+    if (err) {
+      event.reply('osuSongsScanError', err);
+      osuSongsScanProcess.kill('SIGTERM');
+    }
   });
 });
 
@@ -25,4 +31,14 @@ ipcMain.on('set-wallpaper', (event, bgUri) => {
       });
       event.reply('set-wallpaper-response', false);
     });
+});
+
+ipcMain.on('start-osu', (event, osuPath) => shell.openItem(join(osuPath, 'osu!.exe')));
+
+ipcMain.once('start-pulling-osu-state', event => {
+  const osuIsRunningChecker = fork(join(__dirname, './processes/osuIsRunning.js'));
+  osuIsRunningChecker.on('message', msg => {
+    event.reply('osu-is-running', !!msg);
+  });
+  osuIsRunningChecker.send('start');
 });

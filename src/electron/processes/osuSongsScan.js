@@ -1,8 +1,8 @@
 const log = require('electron-log');
 const path = require('path');
 const fs = require('fs');
-const parser = require('./beatmapParser');
-const { readOsuDB } = require('./osudb');
+const parser = require('../helpers/beatmapParser');
+const { readOsuDB } = require('../helpers/osudb');
 
 const osuSongsScan = songsDirectoryPath =>
   new Promise((resolve, reject) => {
