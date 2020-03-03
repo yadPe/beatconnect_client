@@ -243,15 +243,17 @@ function writeCollectionDB(path, collections, callback) {
   buf.writeInt32LE(20160212);
   buf.writeInt32LE(Object.keys(collections).length, 4);
 
-  collections.forEach(name => {
+  const collectionNames = Object.keys(collections);
+
+  collectionNames.forEach(name => {
     buf = Buffer.concat([buf, createString(name)]);
 
     const beatmapCountBuf = Buffer.alloc(4);
-    beatmapCountBuf.writeInt32LE(name.length);
+    beatmapCountBuf.writeInt32LE(collections[name].length);
     buf = Buffer.concat([buf, beatmapCountBuf]);
 
-    for (let j = 0; j < name.length; j++) {
-      buf = Buffer.concat([buf, createString(name[j])]);
+    for (let j = 0; j < collections[name].length; j++) {
+      buf = Buffer.concat([buf, createString(collections[name][j])]);
     }
   });
 
@@ -381,3 +383,16 @@ module.exports = {
   readScoresDB,
   writeScoresDB,
 };
+
+// readCollectionDB('/Users/yannis/Downloads/collecDab.db', collections => {
+//   console.log('READ : ', collections);
+//   collections['Top KEK'] = [
+//     'DABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+//     'OMEGAROBDAB',
+//     'SAMARCH',
+//     '44444444444444444444444444444449',
+//   ];
+//   writeCollectionDB('/Users/yannis/Downloads/collection.db', collections, () => {
+//     readCollectionDB('/Users/yannis/Downloads/collection.db', console.log);
+//   });
+// });
