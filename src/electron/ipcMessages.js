@@ -4,7 +4,9 @@ const { fork } = require('child_process');
 const { downloadAndSetWallpaper } = require('./wallpaper');
 
 ipcMain.on('osuSongsScan', (event, options) => {
+  // TODO Replace with osu-db-parser module
   const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'));
+  osuSongsScanProcess.stdout.pipe(process.stdout);
   osuSongsScanProcess.send(JSON.stringify({ msg: 'start', ...options }));
   osuSongsScanProcess.on('message', msg => {
     const { results, status, err } = JSON.parse(msg);
@@ -42,3 +44,10 @@ ipcMain.once('start-pulling-osu-state', event => {
   });
   osuIsRunningChecker.send('start');
 });
+
+// try {
+//   const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'));
+//   osuSongsScanProcess.stdout.pipe(process.stdout);
+// } catch (e) {
+//   console.error(e);
+// }
