@@ -14,10 +14,18 @@ let osuDb =
     | Some(err) => Js.log(err)
     | None => Js.log(OsuDbParser.read(buffer))
     }
-  ) /* on("message"*/;
+  );
 
 // let handleMessage = (message) =>
 // switch (message) {
 //   | "start" => "Yep"
 //   | _ =>
 //   };
+
+// on("message")
+
+// TODO Handle incoming messages from main
+// Send messages to main
+// Handle those messages in main
+// Send back datas from main to renderer 
+// All of this on reason via shared channel polymorphic variants and JSON converters 
