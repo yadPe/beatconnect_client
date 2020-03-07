@@ -11,7 +11,7 @@ const makeBeatmapBackgroundUrl = (beatmapSetId, beatmapId) => `${config.beatconn
 const useStyles = createUseStyles({
   SetWallpaperButton: {
     position: 'absolute',
-    top: 121,
+    top: 125,
     right: 5,
     opacity: isLoading => (isLoading ? 0.3 : 1),
     transition: 'opacity .5s',
