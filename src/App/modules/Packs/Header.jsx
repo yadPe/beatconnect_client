@@ -39,6 +39,8 @@ const processBeatconnectPacksData = datas => {
   return { type: 'PACKS_DASHBOARD_QUERY_DATA', payload: output };
 };
 
+getPacksDashboardData(config.packs.availableModes[0], processBeatconnectPacksData);
+
 export default connect(
   null,
   { processBeatconnectPacksData },
