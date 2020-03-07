@@ -63,202 +63,61 @@ function winTickToMs(num) {
 
 // ---- //
 
-function readOsuDB(path) {
-  return new Promise((resolve, reject) => {
-    // eslint-disable-next-line consistent-return
+const readCollectionDB = path =>
+  new Promise((resolve, reject) => {
     fs.readFile(path, (err, buf) => {
-      if (err || !buf) return reject(err);
+      if (err || !buf) reject(new Error('Failed to open collection.db'));
 
-      const version = buf.readInt32LE(0);
-      const _folderCount = buf.readInt32LE(4);
+      const collections = {};
 
-      const player = readString(buf, 17);
-      const beatmapCount = buf.readInt32LE(17 + player.length);
-      let offset = 21 + player.length;
+      const _version = buf.readInt32LE(0);
+      const collectionCount = buf.readInt32LE(4);
+      let offset = 8;
+      for (let i = 0; i < collectionCount; i++) {
+        const name = readString(buf, offset);
+        offset += name.length;
+        collections[name.str] = [];
 
-      const beatmaps = [];
+        const beatmapCount = buf.readInt32LE(offset);
+        offset += 4;
 
-      for (let i = 0; i < beatmapCount; i++) {
-        const beatmap = {};
-
-        const gets1 = [
-          'artist',
-          'artistUnicode',
-          'title',
-          'titleUnicode',
-          'creator',
-          'difficulty',
-          'audioFilename',
-          'md5',
-          'osuPath',
-        ];
-        beatmap.size = buf.readInt32LE((offset += 4) - 4);
-
-        gets1.forEach(get => {
-          const strobj = readString(buf, offset);
-          beatmap[get] = strobj.str;
-          offset += strobj.length;
-        });
-
-        beatmap.rankedStatus = buf[offset++];
-        beatmap.hitcircleCount = buf.readUInt16LE((offset += 2) - 2);
-        beatmap.sliderCount = buf.readUInt16LE((offset += 2) - 2);
-        beatmap.spinnerCount = buf.readUInt16LE((offset += 2) - 2);
-
-        // Timestamp
-        beatmap.lastModificationWindows = readLongStr(buf, (offset += 8) - 8);
-        beatmap.lastModificationMs = winTickToMs(beatmap.lastModificationWindows);
-
-        if (version < 20140609) {
-          beatmap.AR = buf[offset++];
-          beatmap.CS = buf[offset++];
-          beatmap.HP = buf[offset++];
-          beatmap.OD = buf[offset++];
-        } else {
-          beatmap.AR = buf.readFloatLE((offset += 4) - 4);
-          beatmap.CS = buf.readFloatLE((offset += 4) - 4);
-          beatmap.HP = buf.readFloatLE((offset += 4) - 4);
-          beatmap.OD = buf.readFloatLE((offset += 4) - 4);
+        for (let j = 0; j < beatmapCount; j++) {
+          const md5 = readString(buf, offset);
+          offset += md5.length;
+          collections[name.str].push(md5.str);
         }
-
-        beatmap.sliderVelocity = buf.readDoubleLE((offset += 8) - 8);
-
-        // Purpose for this is unknown so it will be ignored
-        if (version >= 20140609) {
-          for (let j = 0; j < 4; j++) {
-            const unknownNumCount = buf.readInt32LE((offset += 4) - 4);
-            for (let k = 0; k < unknownNumCount; k++) {
-              if (buf[offset++] !== 0x08) return reject(new Error('Invalid beatmap!'));
-              buf.readInt32LE((offset += 4) - 4);
-              if (buf[offset++] !== 0x0d) return reject(new Error('Invalid beatmap!'));
-              buf.readDoubleLE((offset += 8) - 8);
-            }
-          }
-        }
-
-        beatmap.drainTime = buf.readInt32LE((offset += 4) - 4);
-        beatmap.totalTime = buf.readInt32LE((offset += 4) - 4);
-        beatmap.audioPreviewTime = buf.readInt32LE((offset += 4) - 4);
-
-        // Timing points
-        beatmap.timingPoints = [];
-        const timingPointCount = buf.readInt32LE((offset += 4) - 4);
-        for (let j = 0; j < timingPointCount; j++) {
-          beatmap.timingPoints[j] = {
-            msPerBeat: buf.readDoubleLE((offset += 8) - 8),
-            offset: buf.readDoubleLE((offset += 8) - 8),
-            inherited: buf[offset++],
-          };
-        }
-
-        beatmap.beatmapId = buf.readInt32LE((offset += 4) - 4);
-        beatmap.beatmapSetId = buf.readInt32LE((offset += 4) - 4);
-        beatmap.threadId = buf.readInt32LE((offset += 4) - 4);
-
-        offset += 4; // Unknown bytes
-
-        beatmap.localBeatmapOffset = buf.readUInt16LE((offset += 2) - 2);
-        beatmap.stackLeniency = buf.readFloatLE((offset += 4) - 4);
-        beatmap.mode = buf[offset++];
-
-        const source = readString(buf, offset);
-        offset += source.length;
-        beatmap.source = source.str;
-        const tags = readString(buf, offset);
-        offset += tags.length;
-        beatmap.tags = tags.str;
-
-        beatmap.onlineTags = buf.readUInt16LE((offset += 2) - 2);
-
-        const font = readString(buf, offset);
-        offset += font.length;
-        beatmap.font = font.str;
-
-        beatmap.isUnplayed = buf[offset++];
-
-        beatmap.lastPlayedWindows = readLongStr(buf, (offset += 8) - 8);
-        beatmap.lastPlayedMs = winTickToMs(beatmap.lastPlayedWindows);
-
-        beatmap.isOsz2 = buf[offset++];
-
-        const beatmapFolder = readString(buf, offset);
-        offset += beatmapFolder.length;
-        beatmap.beatmapFolder = beatmapFolder.str;
-
-        beatmap.lastCheckWindows = readLongStr(buf, (offset += 8) - 8);
-        beatmap.lastCheckMs = winTickToMs(beatmap.lastCheckWindows);
-
-        beatmap.ignoreHitsounds = buf[offset++];
-        beatmap.ignoreSkin = buf[offset++];
-        beatmap.disableStoryboard = buf[offset++];
-        beatmap.disableVideo = buf[offset++];
-        beatmap.visualOverride = buf[offset++];
-
-        if (version < 20140609) offset++; // Unknown
-        offset += 4; // Unknown
-
-        beatmap.maniaScrollSpeed = buf[offset++];
-
-        beatmaps.push(beatmap);
       }
-      resolve({
-        player: player.str,
-        beatmaps,
-      });
+
+      resolve(collections);
     });
   });
-}
 
-function readCollectionDB(path, callback) {
-  fs.readFile(path, (err, buf) => {
-    if (err || !buf) throw new Error('Failed to open collection.db');
+const writeCollectionDB = (path, collections) =>
+  new Promise((resolve, reject) => {
+    let buf = Buffer.alloc(8);
 
-    const collections = {};
+    buf.writeInt32LE(20160212);
+    buf.writeInt32LE(Object.keys(collections).length, 4);
 
-    const _version = buf.readInt32LE(0);
-    const collectionCount = buf.readInt32LE(4);
-    let offset = 8;
-    for (let i = 0; i < collectionCount; i++) {
-      const name = readString(buf, offset);
-      offset += name.length;
-      collections[name.str] = [];
+    const collectionNames = Object.keys(collections);
 
-      const beatmapCount = buf.readInt32LE(offset);
-      offset += 4;
+    collectionNames.forEach(name => {
+      buf = Buffer.concat([buf, createString(name)]);
 
-      for (let j = 0; j < beatmapCount; j++) {
-        const md5 = readString(buf, offset);
-        offset += md5.length;
-        collections[name.str].push(md5.str);
+      const beatmapCountBuf = Buffer.alloc(4);
+      beatmapCountBuf.writeInt32LE(collections[name].length);
+      buf = Buffer.concat([buf, beatmapCountBuf]);
+
+      for (let j = 0; j < collections[name].length; j++) {
+        buf = Buffer.concat([buf, createString(collections[name][j])]);
       }
-    }
+    });
 
-    callback(collections);
+    fs.writeFile(path, buf, err => {
+      if (err) reject(err);
+      else resolve();
+    });
   });
-}
-
-function writeCollectionDB(path, collections, callback) {
-  let buf = Buffer.alloc(8);
-
-  buf.writeInt32LE(20160212);
-  buf.writeInt32LE(Object.keys(collections).length, 4);
-
-  const collectionNames = Object.keys(collections);
-
-  collectionNames.forEach(name => {
-    buf = Buffer.concat([buf, createString(name)]);
-
-    const beatmapCountBuf = Buffer.alloc(4);
-    beatmapCountBuf.writeInt32LE(collections[name].length);
-    buf = Buffer.concat([buf, beatmapCountBuf]);
-
-    for (let j = 0; j < collections[name].length; j++) {
-      buf = Buffer.concat([buf, createString(collections[name][j])]);
-    }
-  });
-
-  fs.writeFile(path, buf, callback);
-}
 
 function readScoresDB(path, callback) {
   fs.readFile(path, (err, buf) => {
