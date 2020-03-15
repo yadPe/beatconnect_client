@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
 import DownloadManagerProvider from './Providers/downloadManager';
 import ErrorBoundary from './ErrorBoundary';
-import TasksProvider from './Providers/TasksProvider';
+import { make as TasksProvider } from './Providers/TaskProvider.bs';
 import ThemeProvider from './Providers/ThemeProvider';
 import { make as AudioPlayerProvider } from './Providers/AudioPlayerProvider.bs';
 import dispatchOnResize from './resize';

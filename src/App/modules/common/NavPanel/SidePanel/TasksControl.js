@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
+
 import renderIcons from '../../../../helpers/renderIcons';
-import { TasksContext } from '../../../../Providers/TasksProvider';
 import store from '../../../../../shared/store';
+import { useTasks } from '../../../../Providers/TaskProvider.bs';
 
 const useStyle = createUseStyles({
   '@keyframes spin': {
@@ -101,26 +102,25 @@ const useStyle = createUseStyles({
 });
 
 const TasksControl = ({ onSelect, ...otherProps }) => {
-  const { tasks } = useContext(TasksContext);
+  const { tasks } = useTasks();
   const theme = useTheme();
   const classes = useStyle({ ...otherProps, theme });
-  const tasksKeys = Object.keys(tasks);
-  const active = tasksKeys.length > 0;
+  const active = !!tasks.length;
   const renderContent = () => {
     if (active)
       return (
         <>
-          {tasksKeys.map(task => (
+          {tasks.map(task => (
             <div
               className="task"
               role="button"
-              onClick={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: tasks[task].section })}
+              onClick={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: task.section })}
             >
               <div className={classes.divider} />
-              <div style={{ fontSize: '1rem' }}>{tasks[task].name}</div>
+              <div style={{ fontSize: '1rem' }}>{task.name}</div>
               <div style={{ fontSize: '0.8rem' }}>
-                <div>{tasks[task].description}</div>
-                <div>{tasks[task].description1}</div>
+                <div>{task.description}</div>
+                <div>{task.description1}</div>
               </div>
               <div className={classes.divider} />
             </div>
