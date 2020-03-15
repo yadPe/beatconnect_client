@@ -8,7 +8,7 @@ import HistoryProvider from './Providers/HistoryProvider';
 import DownloadManagerProvider from './Providers/downloadManager';
 import AudioPlayerProvider from './Providers/AudioPlayerProvider';
 import ErrorBoundary from './ErrorBoundary';
-import TasksProvider from './Providers/TasksProvider';
+import { make as TasksProvider } from './Providers/TaskProvider.bs';
 import ThemeProvider from './Providers/ThemeProvider';
 import dispatchOnResize from './resize';
 
