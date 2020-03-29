@@ -1,7 +1,7 @@
 {
   "name": "beatconnect_client",
   "productName": "Beatconnect Client",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
@@ -141,7 +141,7 @@
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
     "electron": "^8.0.1",
-    "electron-builder": "^22.2.0",
+    "electron-builder": "^22.4.1",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
