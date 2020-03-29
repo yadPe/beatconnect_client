@@ -34,7 +34,7 @@ const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes,
         <div className={classes.leftControls}>
           <Text color="#fff">{name}</Text>
           <Text color="#fff">{status === 'downloaded' ? `Downloaded ${timeSince(new Date(date))}` : status}</Text>
-          <PreviewBeatmapBtn theme={theme} beatmapSetId={id} />
+          <PreviewBeatmapBtn theme={theme} beatmapSetId={id} songTitle={name} />
           <Button
             color={theme.palette.primary.accent}
             onClick={() => shell.openExternal(getBeatmapInfosUrl({ id }))}

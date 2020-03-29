@@ -38,15 +38,22 @@ let makeControlStyle = (~bgColor: option(Css.Types.Color.t)=?, ()) =>
 
 [@react.component]
 [@genType]
-let make =
-    (
-      ~title,
-      ~height: int,
-      ~onMinimizeClick,
-      ~onMaximizeClick,
-      ~onCloseClick,
-      _children,
-    ) => {
+let make = (~height: int, _children) => {
+  let {AudioPlayerProvider.playingState} =
+    AudioPlayerProvider.useAudioPlayer();
+  let songTitle = playingState.songTitle;
+  let title =
+    playingState.isPlaying
+      ? {j|Beatconnect \u23F5 $songTitle|j} : "Beatconnect";
+  let window = Remote.getCurrentWindow(Remote.remote);
+  window->BrowserWindow.setTitle(title);
+
+  let onMinimizeClick = _e => BrowserWindow.minimize(window);
+  let onCloseClick = _e => BrowserWindow.close(window);
+  let onMaximizeClick = _e =>
+    BrowserWindow.isMaximized(window)
+      ? BrowserWindow.unmaximize(window) : BrowserWindow.maximize(window);
+
   <div className={makeWrapperStyle(~height)}>
     <div className={makeTitleStyle()}> title->React.string </div>
     <div className={makeControlStyle()} onClick=onMinimizeClick>

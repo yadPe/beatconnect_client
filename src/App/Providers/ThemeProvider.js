@@ -44,6 +44,7 @@ class AppThemeProvider extends Component {
       },
       setAccentColor: this.setAccentColor.bind(this),
       setTheme: this.setTheme.bind(this),
+      setAppTitle: this.setAppTitle.bind(this),
     };
   }
 
@@ -60,11 +61,16 @@ class AppThemeProvider extends Component {
     this.setState({ theme: { ...currentTheme, ...newTheme } });
   };
 
+  setAppTitle = title => {
+    const { theme } = this.state;
+    this.setState({ theme: { ...theme, title } });
+  };
+
   render() {
-    const { theme, setTheme, setAccentColor } = this.state;
+    const { theme, setTheme, setAccentColor, setAppTitle } = this.state;
     const { children } = this.props;
     return (
-      <AppThemeContext.Provider value={{ setTheme, setAccentColor }}>
+      <AppThemeContext.Provider value={{ setTheme, setAccentColor, setAppTitle }}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </AppThemeContext.Provider>
     );
