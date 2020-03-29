@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shell } from 'electron';
 import InjectSheet, { withTheme } from 'react-jss';
 import { FixedSizeList as List } from 'react-window';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import reqImgAssets from '../../../helpers/reqImgAssets';
-import { AudioPlayerContext } from '../../../Providers/AudioPlayerProvider';
+import { useAudioPlayer } from '../../../Providers/AudioPlayerProvider.bs';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { getDownloadUrl } from '../../common/Beatmap';
 import renderIcons from '../../../helpers/renderIcons';
@@ -94,9 +94,9 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
     select({ header: <Header pack={pack} quit={() => select({ pack: null })} filter={{ filter, setFilter }} /> });
   }, []);
 
-  const audioPlayer = useContext(AudioPlayerContext);
-  const playPreview = (beatmapSetId, isPlaying) =>
-    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId);
+  const audioPlayer = useAudioPlayer();
+  const playPreview = (beatmapSetId, isPlaying, songTitle) =>
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, null, songTitle);
 
   const filteredBeatmapsets =
     filter !== ''
@@ -113,7 +113,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
 
   // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
-    const isPlaying = audioPlayer.isPlaying === filteredBeatmapsets[index].id;
+    const isPlaying = audioPlayer.playingState.beatmapSetId === filteredBeatmapsets[index].id;
     const wrapperStyle = {
       backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
     };
@@ -132,7 +132,13 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
               className="playIco clickable"
               style={playIcoStyle}
               role="button"
-              onClick={() => playPreview(filteredBeatmapsets[index].id, isPlaying)}
+              onClick={() =>
+                playPreview(
+                  filteredBeatmapsets[index].id,
+                  isPlaying,
+                  `${filteredBeatmapsets[index].title} - ${filteredBeatmapsets[index].artist}`,
+                )
+              }
             />
           </div>
           <div className={classes.title}>{filteredBeatmapsets[index].title}</div>
