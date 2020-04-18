@@ -11,6 +11,7 @@
     "dev": "node scripts/start.js",
     "start": "electron ./build/main.js",
     "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
+    "prebuild": "node scripts/preBuild.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "npm run lint:prettier && npm run lint:es",
