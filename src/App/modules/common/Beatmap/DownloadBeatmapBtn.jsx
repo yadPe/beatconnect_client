@@ -19,8 +19,7 @@ const styles = {
 const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, className, ...otherProps }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
-  const { push, queue, currentDownload } = useDownloadQueue();
-  // console.log('beatmapSet', beatmapSet);
+  const { push, queue, currentDownload, pushMany } = useDownloadQueue();
 
   const fullTitle = `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
   const isInQueue = pack
@@ -33,16 +32,14 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
     : history.contains(beatmapSet.id);
 
   const downloadBeatmap = e => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     if (pack) {
       const beatmapsToDownload = pack.filter(beatmap => !history.contains(beatmap.id));
       pushMany(
-        // eslint-disable-next-line camelcase
         beatmapsToDownload.map(({ unique_id, id, title, artist }) => ({
           url: `https://beatconnect.io/b/${id}/${unique_id}`,
           id,
           fullTitle: `${title} - ${artist}`,
-          onFinished: () => history.save({ id, name: `${title} - ${artist}` }),
         })),
       );
     } else {
@@ -50,9 +47,6 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
         beatmapSetId: beatmapSet.id,
         uniqId: beatmapSet.unique_id,
         beatmapSetInfos: { fullTitle },
-        // onFinished: () => {
-        //   history.save({ id: infos.id, name: fullTitle });
-        // },
       });
     }
   };

@@ -16,7 +16,7 @@ class TasksProvider extends Component {
       add: this.add,
     };
 
-    ipcRenderer.on('autoUpdater', (e, { status, releaseName }) => {
+    ipcRenderer.on('autoUpdater', (e, { status, info }) => {
       const { tasks } = this.state;
       switch (status) {
         case 'checkingUpdate':
@@ -27,12 +27,12 @@ class TasksProvider extends Component {
           break;
         case 'updateAvailable':
           if (tasks['Checking for update']) tasks['Checking for update'].terminate();
-          this.add({ name: 'Downloading update', status: 'running', section: 'Settings' });
+          this.add({ name: `New version available`, status: 'running', section: 'Settings' });
           break;
         case 'updateDownloaded':
-          if (tasks['Downloading update']) tasks['Downloading update'].terminate();
+          if (tasks['New version available']) tasks['New version available'].terminate();
           this.add({
-            name: `Version ${releaseName} ready`,
+            name: `Version ${info.releaseName} ready`,
             status: 'running',
             section: 'Settings',
             description: 'You can now restart the app',

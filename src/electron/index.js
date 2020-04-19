@@ -30,18 +30,40 @@ const main = () => {
   const { trackEvent, trackNavigation } = makeTracker(mainWindow.webContents.session.getUserAgent());
   global.tracking = { trackEvent, trackNavigation };
 
-  const sendToMainWindow = mainWindow.webContents.send;
   autoUpdater.on('checking-for-update', () => {
-    sendToMainWindow('autoUpdater', { status: 'checkingUpdate' });
+    try {
+      mainWindow.webContents.send('autoUpdater', { status: 'checkingUpdate' });
+    } catch (e) {
+      log.error(e);
+    }
   });
-  autoUpdater.on('update-available', () => {
-    sendToMainWindow('autoUpdater', { status: 'updateAvailable' });
+  autoUpdater.on('update-available', ({ info }) => {
+    try {
+      mainWindow.webContents.send('autoUpdater', { status: 'updateAvailable', info });
+    } catch (e) {
+      log.error(e);
+    }
   });
   autoUpdater.on('update-downloaded', ({ releaseName }) => {
-    sendToMainWindow('autoUpdater', { status: 'updateDownloaded', releaseName });
+    try {
+      mainWindow.webContents.send('autoUpdater', { status: 'updateDownloaded', info: { releaseName } });
+    } catch (e) {
+      log.error(e);
+    }
   });
   autoUpdater.on('update-not-available', () => {
-    sendToMainWindow('autoUpdater', { status: 'noUpdateAvailable' });
+    try {
+      mainWindow.webContents.send('autoUpdater', { status: 'noUpdateAvailable' });
+    } catch (e) {
+      log.error(e);
+    }
+  });
+  autoUpdater.on('download-progress', ({ percent }) => {
+    try {
+      mainWindow.webContents.send('autoUpdater', { status: 'updateDownloadProgress', info: { percent } });
+    } catch (e) {
+      log.error(e);
+    }
   });
 };
 
