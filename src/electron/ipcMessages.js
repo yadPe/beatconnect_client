@@ -5,7 +5,7 @@ const { downloadAndSetWallpaper } = require('./wallpaper');
 
 ipcMain.on('osuSongsScan', (event, options) => {
   // TODO Replace with osu-db-parser module
-  const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'));
+  const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'), null, { silent: true });
   osuSongsScanProcess.stdout.pipe(process.stdout);
   osuSongsScanProcess.send(JSON.stringify({ msg: 'start', ...options }));
   osuSongsScanProcess.on('message', msg => {

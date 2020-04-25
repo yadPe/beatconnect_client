@@ -239,6 +239,7 @@ function writeScoresDB(path, beatmaps, callback) {
 const readOsuDB = path => read(fs.readFileSync(path));
 
 module.exports = {
+  winTickToMs,
   readOsuDB,
   readCollectionDB,
   writeCollectionDB,

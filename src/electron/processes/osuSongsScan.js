@@ -2,7 +2,7 @@ const log = require('electron-log');
 const path = require('path');
 const fs = require('fs');
 const parser = require('../helpers/beatmapParser');
-const { readOsuDB } = require('../helpers/osudb');
+const { readOsuDB, winTickToMs } = require('../helpers/osudb');
 
 const osuSongsScan = songsDirectoryPath =>
   new Promise((resolve, reject) => {
@@ -43,8 +43,19 @@ const osuSongsScan = songsDirectoryPath =>
 
 const osuDbScan = osuPath => {
   const re = readOsuDB(`${osuPath}/osu!.db`);
-  console.log('read db');
-  console.log(re);
+  const out = {};
+  re.beatmaps.forEach(beatmap => {
+    if (beatmap.beatmapset_id === -1) return;
+    out[beatmap.beatmapset_id] = {
+      id: beatmap.beatmapset_id,
+      date: winTickToMs(beatmap.last_modification_time),
+      name: `${beatmap.song_title_unicode} | ${beatmap.artist_name_unicode}`,
+      creator: beatmap.creator_name,
+      isUnplayed: beatmap.unplayed,
+      hash: beatmap.md5,
+    };
+  });
+  return out;
 };
 
 // eslint-disable-next-line consistent-return
@@ -54,7 +65,7 @@ process.on('message', async data => {
   switch (msg) {
     case 'start':
       try {
-        if (osuPath) beatmaps = await osuDbScan(osuPath);
+        if (osuPath) beatmaps = osuDbScan(osuPath);
         if (!Object.keys(beatmaps).length && allowLegacy) beatmaps = await osuSongsScan(osuSongsPath);
       } catch (err) {
         log.error(`OsuSongScan: ${JSON.stringify(err)}`);
