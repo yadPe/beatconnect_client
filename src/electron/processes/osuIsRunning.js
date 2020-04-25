@@ -25,7 +25,3 @@ process.once('SIGTERM', () => {
   process.removeAllListeners();
   if (pullIntervalId) clearInterval(pullIntervalId);
 });
-
-module.exports = {
-  osuIsRuning,
-};

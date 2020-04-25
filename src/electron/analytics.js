@@ -57,6 +57,8 @@ const makeTracker = userAgent => {
       title: '404 cookiezi not found',
       message: `Oops something failed inside Beatconnect: "${err.message}" \n If you notice some unusual behaviors please report it on discord and restart the app`,
     };
+    console.error(err);
+    log.error(err);
     dialog.showMessageBox(messageBoxOptions);
   });
 

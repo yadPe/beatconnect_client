@@ -19,16 +19,16 @@ import NavPanelItem from '../common/NavPanel/Item';
 import NavPanel from '../common/NavPanel';
 import Setting from './Setting';
 import { HistoryContext } from '../../Providers/HistoryProvider';
-import { TasksContext } from '../../Providers/TasksProvider';
 import ColorPicker from '../common/ColorPicker';
 import { useSetTheme } from '../../Providers/ThemeProvider';
 import { useDownloadQueue } from '../../Providers/downloadManager';
 import config from '../../../shared/config';
+import { useTasks } from '../../Providers/TaskProvider.bs';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();
   const history = useContext(HistoryContext);
-  const { add, tasks } = useContext(TasksContext);
+  const { add, update, terminate } = useTasks();
   const { setPath } = useDownloadQueue();
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selected, setSelected] = useState('General');
@@ -55,15 +55,13 @@ const Settings = ({ userPreferences }) => {
     add({ name: 'Scanning beatmaps', status: 'running', description: '', section: 'Settings' });
     ipcRenderer.send('osuSongsScan', { osuPath, osuSongsPath, allowLegacy: true }); // User osu folder path
     ipcRenderer.on('osuSongsScanStatus', (e, args) => {
-      add({
+      update({
         name: 'Scanning beatmaps',
-        status: 'running',
         description: `${Math.round(args * 100)}%`,
-        section: 'Settings',
       });
     });
     ipcRenderer.on('osuSongsScanResults', (e, args) => {
-      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Finished');
+      terminate('Scanning beatmaps');
       if (args.err) console.error(`Error while scannings song: ${args.err}`);
       else {
         history.set({ ...history.history, ...args });
@@ -71,7 +69,7 @@ const Settings = ({ userPreferences }) => {
       }
     });
     ipcRenderer.on('osuSongsScanError', (e, args) => {
-      if (tasks['Scanning beatmaps']) tasks['Scanning beatmaps'].terminate('Failed');
+      terminate('Scanning beatmaps');
       alert('Failed to scan beatmaps, check your songs and osu! path in settings section');
     });
   };
