@@ -6,7 +6,7 @@ import Button from '../Button';
 const PreviewBeatmapBtn = ({ beatmapSetId, theme, setIsPLaying, songTitle }) => {
   const audioPlayer = useAudioPlayer();
   const [isPlayable, setIsPlayable] = useState(true);
-  const isPlaying = audioPlayer.playingState.beatmapSetId === beatmapSetId;
+  const isPlaying = audioPlayer.playingState.beatmapSetId === beatmapSetId && audioPlayer.playingState.isPlaying;
   if (setIsPLaying) setIsPLaying(isPlaying);
   const playPreview = () => {
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, setIsPlayable, songTitle);

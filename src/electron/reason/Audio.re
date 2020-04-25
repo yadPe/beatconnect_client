@@ -11,3 +11,5 @@ type callback('a) = 'a => unit;
 [@bs.send] external play: t => unit = "play";
 [@bs.set] external onended: (t, callback(Dom.event)) => unit = "onended";
 [@bs.set] external onerror: (t, callback(Dom.event)) => unit = "onerror";
+[@bs.set] external onpause: (t, callback(Dom.event)) => unit = "onpause";
+[@bs.set] external onplay: (t, callback(Dom.event)) => unit = "onplay";
