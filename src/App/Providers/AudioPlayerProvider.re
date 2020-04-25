@@ -52,6 +52,22 @@ let make = (~children) => {
     )
   });
 
+  Audio.onpause(
+    audio,
+    _e => {
+      Js.log("PAUSEEEE");
+      setPlayingState(oldState => {...oldState, isPlaying: false});
+    },
+  );
+
+  Audio.onplay(
+    audio,
+    _e => {
+      Js.log("PAUSEEEE");
+      setPlayingState(oldState => {...oldState, isPlaying: true});
+    },
+  );
+
   let setPreviewAudio = (beatmapSetId: int) => {
     Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
   };
