@@ -5,6 +5,7 @@
 const fs = require('fs');
 const uleb128 = require('uleb128');
 const Long = require('long');
+const { read } = require('./OsuDbParser.bs');
 
 const windowsTickEpoch = Long.fromInt(621355968).multiply(100000);
 
@@ -234,6 +235,8 @@ function writeScoresDB(path, beatmaps, callback) {
 
   fs.writeFile(path, buf, callback);
 }
+
+const readOsuDB = path => read(fs.readFileSync(path));
 
 module.exports = {
   readOsuDB,

@@ -41,26 +41,11 @@ const osuSongsScan = songsDirectoryPath =>
     }
   });
 
-const osuDbScan = osuPath =>
-  new Promise(resolve => {
-    readOsuDB(`${osuPath}/osu!.db`)
-      .then(({ beatmaps }) => {
-        const out = {};
-        beatmaps.forEach(beatmap => {
-          if (beatmap.beatmapSetId === -1) return;
-          out[beatmap.beatmapSetId] = {
-            id: beatmap.beatmapSetId,
-            date: beatmap.lastModificationMs,
-            name: `${beatmap.title} | ${beatmap.artist}`,
-            creator: beatmap.creator,
-            isUnplayed: beatmap.isUnplayed === 1,
-            hash: beatmap.md5,
-          };
-        });
-        resolve(out);
-      })
-      .catch(() => resolve({}));
-  });
+const osuDbScan = osuPath => {
+  const re = readOsuDB(`${osuPath}/osu!.db`);
+  console.log('read db');
+  console.log(re);
+};
 
 // eslint-disable-next-line consistent-return
 process.on('message', async data => {
