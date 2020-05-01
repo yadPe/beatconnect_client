@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from '.';
 import store from '../shared/store';
-import * as serviceWorker from './serviceWorker';
 import HistoryProvider from './Providers/HistoryProvider';
 import DownloadManagerProvider from './Providers/downloadManager';
 import ErrorBoundary from './ErrorBoundary';

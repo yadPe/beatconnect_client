@@ -1,10 +1,10 @@
 const { app } = require('electron');
 const { createWriteStream } = require('fs');
-const { set } = require('wallpaper');
 const { get } = require('https');
 const { join } = require('path');
+const { set } = require('./helpers/wallpaper');
 
-const tempFolder = app.getPath('temp');
+const tempFolder = app.getPath('userData');
 const downloadAndSetWallpaper = uri =>
   new Promise((resolve, reject) => {
     const savePath = join(tempFolder, 'bg.jpg');

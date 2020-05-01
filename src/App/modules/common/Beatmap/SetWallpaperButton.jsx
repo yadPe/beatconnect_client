@@ -19,6 +19,7 @@ const useStyles = createUseStyles({
 });
 
 const SetWallpaperButton = ({ beatmapSetId, beatmapId, isBusy }) => {
+  const disabled = !['darwin', 'win32'].includes(process.platform);
   const classes = useStyles(isBusy);
 
   const handleClick = () => {
@@ -26,14 +27,16 @@ const SetWallpaperButton = ({ beatmapSetId, beatmapId, isBusy }) => {
     setWallpaper(makeBeatmapBackgroundUrl(beatmapSetId, beatmapId));
   };
   return (
-    <div
-      title="Set beatmap art as desktop wallpaper"
-      className={classes.SetWallpaperButton}
-      onClick={handleClick}
-      role="button"
-    >
-      {renderIcons({ name: 'screenHeart' })}
-    </div>
+    !disabled && (
+      <div
+        title="Set beatmap art as desktop wallpaper"
+        className={classes.SetWallpaperButton}
+        onClick={handleClick}
+        role="button"
+      >
+        {renderIcons({ name: 'screenHeart' })}
+      </div>
+    )
   );
 };
 

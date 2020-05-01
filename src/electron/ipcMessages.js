@@ -1,3 +1,4 @@
+const log = require('electron-log');
 const { ipcMain, dialog, shell } = require('electron');
 const { join } = require('path');
 const { fork } = require('child_process');
@@ -30,8 +31,11 @@ ipcMain.on('set-wallpaper', (event, bgUri) => {
         type: 'error',
         title: 'Wallpaper',
         message: `Failed to change desktop wallaper\n ${e.message}`,
+        detail: e.message,
       });
       event.reply('set-wallpaper-response', false);
+      log.error(e.message);
+      throw e;
     });
 });
 
