@@ -3,8 +3,7 @@ const { copyFileSync } = require('fs');
 // Copy wallpaper binaries to public folder on build
 
 const sources = [
-  '../src/electron/helpers/wallpaper/win-wallpaper.exe',
-  '../src/electron/helpers/wallpaper/macos-wallpaper'
+  '../src/electron/helpers/wallpaper/win-wallpaper.exe'
 ]
 
 const destFolder = join(__dirname, '..', 'public');

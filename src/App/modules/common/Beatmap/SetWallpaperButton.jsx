@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
 });
 
 const SetWallpaperButton = ({ beatmapSetId, beatmapId, isBusy }) => {
-  const disabled = !['darwin', 'win32'].includes(process.platform);
+  const disabled = process.platform !== 'win32';
   const classes = useStyles(isBusy);
 
   const handleClick = () => {
