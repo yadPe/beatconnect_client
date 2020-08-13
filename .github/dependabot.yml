@@ -5,6 +5,9 @@ updates:
   schedule:
     interval: daily
     time: "04:00"
+  commit-message:
+    # Prefix all commit messages with "npm"
+    prefix: "chore(deps): "
   open-pull-requests-limit: 10
   reviewers:
   - YadPe
