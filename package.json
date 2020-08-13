@@ -28,8 +28,8 @@
     "dist:linux": "npm i && npm run build && electron-builder build --linux --x64",
     "dist:mac": "npm i && npm run build && electron-builder build --mac --x64",
     "dist:gh-publish": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64 -p always",
-    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron .",
-    "electron:debug-analytics": "cross-env ELECTRON_START_URL=http://localhost:3000 DEBUG=universal-analytics electron ."
+    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3200 electron .",
+    "electron:debug-analytics": "cross-env ELECTRON_START_URL=http://localhost:3200 DEBUG=universal-analytics electron ."
   },
   "repository": {
     "type": "git",
