@@ -3,7 +3,7 @@ import { createUseStyles, useTheme } from 'react-jss';
 
 const useStyle = createUseStyles({
   header: {
-    position: 'relative',
+    position: 'absolute',
     height: '48px',
     display: 'flex',
     alignItems: 'center',
@@ -13,6 +13,10 @@ const useStyle = createUseStyles({
     overflow: 'hidden',
     cursor: 'default',
     userSelect: 'none',
+    backdropFilter: 'saturate(180%) blur(5px)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    zIndex: 300,
+    width: '100%',
     color: ({ theme }) => (theme.dark ? '#fff' : '#000'),
   },
   divider: {
