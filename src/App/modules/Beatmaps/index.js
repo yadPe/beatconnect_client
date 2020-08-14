@@ -68,7 +68,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
     const beatmap =
       (displayGrid && beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + columnIndex]) || beatmaps[rowIndex];
-    if (beatmap === 0) return <BeatmapSkeleton style={style} />;
+    if (beatmap === 0) return <BeatmapSkeleton style={style} rowIndex={rowIndex} />;
     if (!beatmap) return <div style={style} className="NoBeatmap" />;
     return (
       <div style={style}>
