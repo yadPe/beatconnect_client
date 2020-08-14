@@ -19,7 +19,7 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
     animationName: '$color',
-    animationDuration: '2s',
+    animationDuration: '2.4s',
     animationIterationCount: 'infinite',
     animationDelay: props => `0.${props.delay}s`,
   },
