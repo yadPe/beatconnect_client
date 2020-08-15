@@ -118,7 +118,7 @@
     "redux": "^4.0.1",
     "string.prototype.startswith": "^0.2.0",
     "uleb128": "^1.0.1",
-    "underscore": "^1.9.1",
+    "underscore": "^1.10.2",
     "universal-analytics": "^0.4.20"
   },
   "devDependencies": {
