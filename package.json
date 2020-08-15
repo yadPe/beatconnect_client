@@ -146,7 +146,7 @@
     "electron-builder": "^22.8.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "2.50.1",
