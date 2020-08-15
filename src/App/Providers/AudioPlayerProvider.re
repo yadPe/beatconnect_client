@@ -60,12 +60,14 @@ let make = (~children) => {
     },
   );
 
-  Audio.onplay(
-    audio,
-    _e => {
-      Js.log("PAUSEEEE");
-      setPlayingState(oldState => {...oldState, isPlaying: true});
-    },
+  Audio.onplay(audio, e => {
+    setPlayingState(oldState =>
+      {...oldState, isPlaying: e.target.readyState === 4}
+    )
+  });
+
+  Audio.oncanplay(audio, _e =>
+    setPlayingState(oldState => {...oldState, isPlaying: true})
   );
 
   let setPreviewAudio = (beatmapSetId: int) => {
@@ -82,7 +84,7 @@ let make = (~children) => {
     );
     setPreviewAudio(beatmapSetId);
     Audio.play(audio);
-    setPlayingState(_oldState => {isPlaying: true, beatmapSetId, songTitle});
+    setPlayingState(_oldState => {isPlaying: false, beatmapSetId, songTitle});
   };
 
   let pause = () => {
