@@ -172,8 +172,7 @@
     "pnp-webpack-plugin": "1.2.1",
     "webpack": "4.29.6",
     "webpack-dev-server": "3.2.1",
-    "webpack-manifest-plugin": "2.0.4",
-    "workbox-webpack-plugin": "4.2.0"
+    "webpack-manifest-plugin": "2.0.4"
   },
   "browserslist": {
     "production": [
