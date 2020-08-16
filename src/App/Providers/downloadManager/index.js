@@ -24,7 +24,6 @@ const DownloadManagerProvider = props => {
   });
   const stateRef = useRef(state);
   stateRef.current = state;
-  console.log(stateRef);
 
   const taskManager = useTasks();
   const downloadHistory = useDownloadHistory();
