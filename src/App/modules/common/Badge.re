@@ -92,7 +92,7 @@ let makeStyle = status => [makeBaseStyle(), makeStatusStyle(status)]->merge;
 
 [@react.component]
 [@genType]
-let make = (~status, _children) => {
+let make = (~status) => {
   <span className={makeStyle(status)}>
     {status->String.capitalize_ascii->React.string}
   </span>;

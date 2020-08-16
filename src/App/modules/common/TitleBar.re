@@ -43,7 +43,7 @@ let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
 
 [@react.component]
 [@genType]
-let make = (~height: int, _children) => {
+let make = (~height: int) => {
   let {AudioPlayerProvider.playingState} =
     AudioPlayerProvider.useAudioPlayer();
   let songTitle = playingState.songTitle;

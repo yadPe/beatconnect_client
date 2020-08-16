@@ -18,7 +18,7 @@ let checkBoxStyle = (~color, ~activeColor) =>
 
 [@react.component]
 [@genType]
-let make = (~checked, ~disabled, ~color, ~activeColor, _children) => {
+let make = (~checked, ~disabled, ~color, ~activeColor) => {
   <input
     className={checkBoxStyle(~color, ~activeColor)}
     type_="checkbox"

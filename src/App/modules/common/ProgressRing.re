@@ -12,7 +12,7 @@ let floatToString = Js.Float.toString;
 
 [@react.component]
 [@genType]
-let make = (~radius, ~stroke, ~progress, _children) => {
+let make = (~radius, ~stroke, ~progress) => {
   let normalizedRadius = radius -. stroke *. 2.;
   let circumference = normalizedRadius *. 2. *. Js.Math._PI;
   let strokeDashoffset =
