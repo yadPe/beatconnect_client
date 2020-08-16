@@ -14,6 +14,7 @@ const useStyle = createUseStyles({
     flexDirection: 'column',
   },
   contentWrapper: {
+    height: '100vh',
     display: 'flex',
     flex: '1 1 0%',
     flexDirection: 'column',
@@ -29,9 +30,9 @@ const useStyle = createUseStyles({
     backgroundColor: ({ theme }) => theme.palette.primary.dark,
     textRendering: 'optimizelegibility',
     fontFamily: 'Open Sans, sans - serif',
-    height: `calc(100vh - ${config.display.titleBarHeight + config.display.topBarHeight}px)`,
-    width: `calc(100vw - ${config.display.sidePanelCompactedLength}px)`,
-    overflow: 'visible',
+    // height: `calc(100vh - ${config.display.titleBarHeight + config.display.topBarHeight}px)`,
+    // width: `calc(100vw - ${config.display.sidePanelCompactedLength}px)`, // TODO Ugly when sidePanel expends but will be fixed in next revamp
+    overflow: 'auto',
     '&, & *': {
       '&::-webkit-scrollbar': {
         width: '8px',

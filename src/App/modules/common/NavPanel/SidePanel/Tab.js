@@ -9,6 +9,10 @@ const useStyle = createUseStyles({
     height: '44px',
     backgroundColor: 'transparent',
     cursor: 'pointer',
+    color: 'rgb(255, 255, 255)',
+    letterSpacing: '0.4pt',
+    fontSize: '15px',
+    padding: '0px 16px',
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,0.05)',
     },
@@ -18,16 +22,6 @@ const useStyle = createUseStyles({
     '&:hover .tooltiptext': {
       visibility: props => (props.expended ? 'hidden' : 'visible'),
     },
-  },
-  span: {
-    display: 'flex',
-    alignItems: 'center',
-    color: 'rgb(255, 255, 255)',
-    fontSize: '15px',
-    letterSpacing: '0.4pt',
-    padding: '0px 16px',
-    transition: 'transform 0.1s ease-in 0s',
-    userSelect: 'none',
   },
   i: {
     marginRight: '8px',
@@ -47,18 +41,6 @@ const useStyle = createUseStyles({
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
   },
-  tooltiptext: {
-    visibility: 'hidden',
-    width: '120px',
-    backgroundColor: ({ theme }) => theme.palette.primary.main,
-    color: '#fff',
-    textAlign: 'center',
-    padding: '5px 0',
-    borderRadius: '6px',
-    position: 'absolute',
-    left: '105%',
-    zIndex: 1,
-  },
 });
 
 const Tab = ({ icon, title, onSelect, ...otherProps }) => {
@@ -66,16 +48,14 @@ const Tab = ({ icon, title, onSelect, ...otherProps }) => {
   const classes = useStyle({ ...otherProps, theme });
   return (
     <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
-      <span className={`${classes.tooltiptext} tooltiptext`}>{title}</span>
-      <span data-radium="true" className={classes.span}>
-        <div className={`${classes.indicator} indicator`} />
-        <i data-radium="true" className={classes.i}>
-          {icon}
-        </i>
-        <span data-radium="true" className={classes.title}>
-          {title}
-        </span>
+      <div className={`${classes.indicator} indicator`} />
+      <i data-radium="true" className={classes.i}>
+        {icon}
+      </i>
+      <span data-radium="true" className={classes.title}>
+        {title}
       </span>
+      {/* </span> */}
     </a>
   );
 };

@@ -3,7 +3,6 @@ import { FixedSizeList } from 'react-window';
 import { connect } from 'react-redux';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import DownloadsItem from './Item';
-import config from '../../../../shared/config';
 
 const DownloadedItems = ({ window }) => {
   const { history } = useContext(HistoryContext);
@@ -18,7 +17,7 @@ const DownloadedItems = ({ window }) => {
   return (
     <div className="downloadMenu DownloadsItem" style={{ width: '100%' }}>
       <FixedSizeList
-        height={window.height - (config.display.titleBarHeight + config.display.topBarHeight)}
+        height={window.height}
         itemCount={items.length}
         itemSize={130}
         overscanCount={2}
