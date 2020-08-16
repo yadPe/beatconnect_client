@@ -5,6 +5,7 @@ const ipcChannels = {
   pauseDownload: 'pause-current-download',
   cancelCurrentDownload: 'cancel-current-download',
   download: 'download-beatmap',
+  downloadMany: 'download-many',
   pauseResume: 'pause-resume-current-download',
   clearQueue: 'clear-download-queue',
   queueUpdated: 'queue-updated',

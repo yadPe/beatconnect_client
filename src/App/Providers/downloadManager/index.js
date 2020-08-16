@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unused-state */
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext, useState, useRef } from 'react';
 import { remote } from 'electron';
 import { connect } from 'react-redux';
 
 import { useDownloadHistory } from '../HistoryProvider';
-import { download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
+import { downloadMany, download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
 import config from '../../../shared/config';
 import { useTasks } from '../TaskProvider.bs';
 import { useDownloadMangerIPC } from './ipc/listeners';
@@ -22,6 +22,9 @@ const DownloadManagerProvider = props => {
     currentDownload: { beatmapSetId: null, progressPercent: null, downloadSpeed: null, status: null },
     overallProgress: 0,
   });
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  console.log(stateRef);
 
   const taskManager = useTasks();
   const downloadHistory = useDownloadHistory();
@@ -45,7 +48,7 @@ const DownloadManagerProvider = props => {
   const updateQueue = ({ queue }) => {
     const queueIsEmpty = !queue.length;
     if (queueIsEmpty) taskManager.terminate('download');
-    else if (!state.queue.length)
+    else if (!stateRef.current.queue.length)
       taskManager.add({ name: 'download', status: 'running', description: 'initializing', section: 'Downloads' });
     setState(prevState => ({ ...prevState, queue, ...(queueIsEmpty ? { currentDownload: null } : {}) }));
   };
@@ -58,7 +61,7 @@ const DownloadManagerProvider = props => {
     taskManager.update({
       name: 'download',
       status: 'running',
-      description: `${state.currentDownload.progressPercent}% - ${state.queue.length} items in queue`,
+      description: `${stateRef.current.currentDownload.progressPercent}% - ${stateRef.current.queue.length} items in queue`,
     });
   };
 
@@ -70,14 +73,12 @@ const DownloadManagerProvider = props => {
     taskManager.update({
       name: 'download',
       status: 'suspended',
-      description: `${state.currentDownload.progressPercent}% (PAUSED) - ${state.queue.length} items in queue`,
+      description: `${stateRef.current.currentDownload.progressPercent}% (PAUSED) - ${stateRef.current.queue.length} items in queue`,
     });
   };
 
   const downloadSucceeded = ({ beatmapSetId }) => {
-    const {
-      queue: [currentQueueItem],
-    } = state;
+    const [currentQueueItem] = stateRef.current.queue;
     const { save } = downloadHistory;
 
     if (beatmapSetId === currentQueueItem.beatmapSetId)
@@ -93,7 +94,7 @@ const DownloadManagerProvider = props => {
   });
 
   const value = {
-    ...state,
+    ...stateRef.current,
     pauseDownload: pause,
     pauseResumeDownload: pauseResume,
     cancelDownload: cancelCurrent,
@@ -102,7 +103,7 @@ const DownloadManagerProvider = props => {
     push: download,
 
     setPath,
-    // pushMany,
+    pushMany: downloadMany,
   };
   const { children } = props;
 

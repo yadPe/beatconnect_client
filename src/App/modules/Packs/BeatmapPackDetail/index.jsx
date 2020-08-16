@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import reqImgAssets from '../../../helpers/reqImgAssets';
 import { useAudioPlayer } from '../../../Providers/AudioPlayerProvider.bs';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
-import { getDownloadUrl } from '../../common/Beatmap';
 import renderIcons from '../../../helpers/renderIcons';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import Header from './Header';
@@ -144,8 +143,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
           <div className={classes.title}>{filteredBeatmapsets[index].title}</div>
           <div className={classes.artist}>{filteredBeatmapsets[index].artist}</div>
           <DownloadBeatmapBtn
-            url={getDownloadUrl(filteredBeatmapsets[index])}
-            infos={filteredBeatmapsets[index]}
+            beatmapSet={filteredBeatmapsets[index]}
             title="Download"
             noStyle
             className={`${classes.downloadButton} clickable`}

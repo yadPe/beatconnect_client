@@ -21,11 +21,12 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const history = useContext(HistoryContext);
   const { push, queue, currentDownload, pushMany } = useDownloadQueue();
 
-  const fullTitle = `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
+  const fullTitle =
+    !pack && `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
   const isInQueue = pack
-    ? queue.filter(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
+    ? queue.some(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
     : queue.some(queueItem => queueItem.beatmapSetId === beatmapSet.id);
-  const isDownloading = currentDownload && currentDownload.beatmapSetId === beatmapSet.id;
+  const isDownloading = !pack && currentDownload && currentDownload.beatmapSetId === beatmapSet.id;
 
   const alreadydownloaded = pack
     ? pack.filter(map => history.contains(map.id)).length === pack.length
@@ -37,9 +38,9 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
       const beatmapsToDownload = pack.filter(beatmap => !history.contains(beatmap.id));
       pushMany(
         beatmapsToDownload.map(({ unique_id, id, title, artist }) => ({
-          url: `https://beatconnect.io/b/${id}/${unique_id}`,
-          id,
-          fullTitle: `${title} - ${artist}`,
+          beatmapSetId: id,
+          uniqId: unique_id,
+          beatmapSetInfos: { fullTitle: `${title} - ${artist}` },
         })),
       );
     } else {

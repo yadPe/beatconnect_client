@@ -30,6 +30,7 @@ class BeatmapDownloader {
     this.winRef.webContents.session.on('will-download', this.onWillDownload.bind(this));
 
     ipcMain.on('download-beatmap', (_event, args) => this.pushToQueue(args));
+    ipcMain.on('download-many', (_event, args) => this.pushManytoQueue(args));
     ipcMain.on('cancel-current-download', this.cancelCurrent);
     ipcMain.on('pause-resume-current-download', this.pauseResumeCurrent);
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
@@ -46,14 +47,14 @@ class BeatmapDownloader {
     else throw new Error('InvalidPath');
   }
 
-  addToQueue(item) {
+  addToQueue(item, silent) {
     let alreadyExist;
     this.queue.forEach(queueItem => {
       if (queueItem.beatmapSetId === item.beatmapSetId) alreadyExist = true;
     });
     if (alreadyExist) return;
     this.queue.add(item);
-    this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
+    if (!silent) this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
   }
 
   deleteFromQueue(item) {
@@ -96,6 +97,13 @@ class BeatmapDownloader {
     }
     this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
+  }
+
+  pushManytoQueue(items) {
+    if (!this.savePath) throw new Error('noSavePath');
+    items.forEach(item => this.addToQueue(item, true));
+    this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
+    this.executeQueue();
   }
 
   pushToQueue({ beatmapSetId, uniqId, beatmapSetInfos }) {
