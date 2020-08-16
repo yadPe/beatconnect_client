@@ -127,7 +127,7 @@ const Settings = ({ userPreferences }) => {
         {
           name: 'Osu! beatmaps scan',
           description:
-            'Scan your osu folder to import all your previously downloded beatmaps to your Beatconnect history',
+            'Scan your osu folder to import all your previously downloaded beatmaps to your Beatconnect history',
           type: 'Text',
         },
         {
