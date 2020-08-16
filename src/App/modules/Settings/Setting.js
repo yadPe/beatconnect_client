@@ -9,7 +9,7 @@ import { make as CheckBox } from '../common/Checkbox.bs';
 const useStyles = createUseStyles({
   settingWrapper: {
     margin: '0 4vmin',
-    paddingTop: '20px',
+    paddingTop: '70px',
     justifyContent: 'space-evenly',
     '& p': {
       fontSize: '1.05rem',

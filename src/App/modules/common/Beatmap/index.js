@@ -23,6 +23,7 @@ const useStyles = createUseStyles({
     background: ({ theme }) => theme.palette.primary.main,
     margin: ({ margin }) => margin || '1.3vh auto',
     paddingBottom: '10px',
+    borderRadius: '5px',
     transition: ({ bpm }) => `opacity ${bpmToBps(bpm)}s`,
     '&:hover': {
       opacity: 1.1,
@@ -55,14 +56,14 @@ const useStyles = createUseStyles({
   '@keyframes pulse': {
     '0%': {
       opacity: 0.1,
-      transform: 'scale(.995)',
+      transform: 'scale(.990)',
     },
     '60%': {
-      transform: 'scale(1.000)',
+      transform: 'scale(0.995)',
       opacity: 0.65,
     },
     '100%': {
-      transform: 'scale(1.015)',
+      transform: 'scale(1.010)',
       opacity: 0,
     },
   },

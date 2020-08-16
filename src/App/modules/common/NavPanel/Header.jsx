@@ -1,8 +1,10 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
+import config from '../../../../shared/config';
 
 const useStyle = createUseStyles({
   header: {
+    WebkitAppRegion: 'drag',
     position: 'absolute',
     height: '48px',
     display: 'flex',
@@ -10,13 +12,15 @@ const useStyle = createUseStyles({
     fontSize: '15px',
     textTransform: 'uppercase',
     padding: '0px 24px',
+    marginLeft: '48px',
     overflow: 'hidden',
     cursor: 'default',
     userSelect: 'none',
     backdropFilter: 'saturate(180%) blur(5px)',
     backgroundColor: 'rgba(0,0,0,0.5)',
+    borderBottom: 'inset 1px hsla(0,0%,100%,0.1)',
     zIndex: 300,
-    width: '100%',
+    width: `calc(100% - ${config.display.sidePanelCompactedLength * 2}px)`,
     color: ({ theme }) => (theme.dark ? '#fff' : '#000'),
   },
   divider: {

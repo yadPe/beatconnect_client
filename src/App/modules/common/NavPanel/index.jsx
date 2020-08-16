@@ -23,11 +23,13 @@ const NavPanel = ({
   sidePanelBackground,
   children,
   onExpended,
+  subPanel,
 }) => {
   const [isExpended, setIsExpended] = useState(defaultIsPanelExpanded);
   return (
     <div className={classes.NavPanel}>
       <SidePanel
+        subPanel={subPanel}
         items={children}
         expended={isExpended}
         setExpended={expended => {

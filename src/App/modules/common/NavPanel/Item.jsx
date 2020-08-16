@@ -5,7 +5,7 @@ import config from '../../../../shared/config';
 
 const useStyle = createUseStyles({
   contentContainer: {
-    height: `calc(100vh - ${config.display.titleBarHeight}px)`,
+    height: `100vh`,
     position: 'relative',
     flexGrow: 1,
     flexShrink: 1,
@@ -18,6 +18,10 @@ const useStyle = createUseStyles({
     flex: '1 1 0%',
     flexDirection: 'column',
     padding: '0px',
+    paddingLeft: `${config.display.sidePanelCompactedLength}px`,
+    // scrollPadding: ({ hasHeader }) =>
+    //   `${hasHeader ? config.display.topBarHeight : 0}px 0 0 ${config.display.sidePanelCompactedLength}px`,
+    // paddingTop: ({ hasHeader }) => hasHeader && `${config.display.topBarHeight}px`,
     background: ({ theme }) => theme.palette.primary.dark,
     textAlign: 'center',
     fontSize: 'calc(10px + 2vmin)',
@@ -26,8 +30,8 @@ const useStyle = createUseStyles({
     textRendering: 'optimizelegibility',
     fontFamily: 'Open Sans, sans - serif',
     height: `calc(100vh - ${config.display.titleBarHeight + config.display.topBarHeight}px)`,
-    width: `calc(100vw - ${config.display.sidePanelCompactedLength}px)`, // TODO Ugly when sidePanel expends but will be fixed in next revamp
-    overflow: 'auto',
+    width: `calc(100vw - ${config.display.sidePanelCompactedLength}px)`,
+    overflow: 'visible',
     '&, & *': {
       '&::-webkit-scrollbar': {
         width: '8px',
@@ -45,7 +49,7 @@ const useStyle = createUseStyles({
 const Item = ({ title, children, header }) => {
   const [headerContent, setHeaderContent] = useState(null);
   const theme = useTheme();
-  const classes = useStyle({ theme });
+  const classes = useStyle({ theme, hasHeader: !!header });
 
   return header ? (
     <div className={classes.contentContainer}>

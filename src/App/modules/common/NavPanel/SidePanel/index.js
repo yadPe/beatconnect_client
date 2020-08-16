@@ -8,10 +8,12 @@ import config from '../../../../../shared/config';
 
 const styles = {
   SidePanel: {
+    WebkitAppRegion: 'drag',
     cursor: 'default',
     userSelect: 'none',
     display: 'flex',
-    position: 'absolute',
+    position: ({ subPanel }) => (subPanel ? 'relative' : 'absolute'),
+    marginTop: ({ subPanel }) => subPanel && '48px',
     flexGrow: 0,
     flexShrink: 0,
     flexDirection: 'column',
@@ -22,9 +24,10 @@ const styles = {
     left: 0,
     top: 0,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    zIndex: 3000,
+    zIndex: ({ subPanel }) => (subPanel ? 2000 : 3000),
     height: '100%',
     backdropFilter: 'saturate(180%) blur(5px)',
+    borderRight: 'inset 1px hsla(0,0%,100%,0.1)',
   },
   head: {
     height: config.display.topBarHeight,
@@ -40,15 +43,19 @@ const styles = {
   },
 };
 
-const SidePanel = ({ classes, items, expended, expendable, volume, tasks, setExpended }) => {
+const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, subPanel }) => {
   const itemTab = () =>
     items.map((item, i) => {
       if (items.length - i === 1) {
         return (
           <>
-            {tasks && <TasksControl expended={expended} tasks={tasks} />}
-            {volume && <PlayOsu expended={expended} />}
-            {volume && <VolumeControl expended={expended} />}
+            {!subPanel && (
+              <>
+                <TasksControl expended={expended} tasks={tasks} />
+                <PlayOsu expended={expended} />
+                <VolumeControl expended={expended} />
+              </>
+            )}
             <Tab {...item.props} expended={expended} />
           </>
         );

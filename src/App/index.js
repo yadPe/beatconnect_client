@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
     sans-serif`,
   },
   appContentWrapper: {
-    paddingTop: config.display.titleBarHeight,
+    // paddingTop: config.display.titleBarHeight,
   },
 });
 

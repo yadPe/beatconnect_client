@@ -1,27 +1,28 @@
 open Css;
 let makeWrapperStyle = (~height as h) =>
   style([
-    unsafe("WebkitAppRegion", "drag"),
+    // unsafe("WebkitAppRegion", "drag"),
     backgroundColor(hex("171717")),
-    zIndex(100),
+    zIndex(10000),
     position(fixed),
     height(px(h)),
-    width(pct(100.)),
+    right(zero),
+    // width(pct(100.)),
     display(`flex),
     alignItems(center),
   ]);
 
-let makeTitleStyle = () =>
-  style([
-    textOverflow(`ellipsis),
-    whiteSpace(`nowrap),
-    overflow(`hidden),
-    maxWidth(pct(40.)),
-    paddingLeft(px(12)),
-    fontSize(px(12)),
-    color(white),
-    flex3(~grow=1., ~shrink=1., ~basis=zero),
-  ]);
+// let makeTitleStyle = () =>
+//   style([
+//     textOverflow(`ellipsis),
+//     whiteSpace(`nowrap),
+//     overflow(`hidden),
+//     maxWidth(pct(40.)),
+//     paddingLeft(px(12)),
+//     fontSize(px(12)),
+//     color(white),
+//     flex3(~grow=1., ~shrink=1., ~basis=zero),
+//   ]);
 
 let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
   style([
@@ -60,18 +61,21 @@ let make = (~height: int) => {
       ? BrowserWindow.unmaximize(window) : BrowserWindow.maximize(window);
 
   <div className={makeWrapperStyle(~height)}>
-    <div className={makeTitleStyle()}> title->React.string </div>
-    <div
-      className={makeControlStyle(~spacer=true, ())} onClick=onMinimizeClick>
-      {Icon.make(~name="Dash", ~width=12, ~height=12, ())}
-    </div>
-    <div className={makeControlStyle()} onClick=onMaximizeClick>
-      {Icon.make(~name="Square", ~width=12, ~height=12, ())}
-    </div>
-    <div className={makeControlStyle(~bgColor=red, ())} onClick=onCloseClick>
-      {Icon.make(~name="Cancel", ~width=12, ~height=12, ())}
-    </div>
-  </div>;
+    // <div className={makeTitleStyle()}> title->React.string </div>
+
+      <div
+        className={makeControlStyle(~spacer=true, ())}
+        onClick=onMinimizeClick>
+        {Icon.make(~name="Dash", ~width=12, ~height=12, ())}
+      </div>
+      <div className={makeControlStyle()} onClick=onMaximizeClick>
+        {Icon.make(~name="Square", ~width=12, ~height=12, ())}
+      </div>
+      <div
+        className={makeControlStyle(~bgColor=red, ())} onClick=onCloseClick>
+        {Icon.make(~name="Cancel", ~width=12, ~height=12, ())}
+      </div>
+    </div>;
 };
 
 let default = make;
