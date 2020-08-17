@@ -27,6 +27,9 @@ const useStyle = createUseStyles({
   },
   hideDownloaded: {
     cursor: 'pointer',
+    right: '20px',
+    top: '20px',
+    position: 'absolute',
   },
   searchButtonWrapper: {
     margin: 8,

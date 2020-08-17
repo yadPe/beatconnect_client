@@ -38,7 +38,7 @@ const useStyle = createUseStyles({
         width: '8px',
       },
       '&::-webkit-scrollbar-track': {
-        background: ({ theme }) => theme.palette.primary.main,
+        background: 'transparent',
       },
       '&::-webkit-scrollbar-thumb': {
         background: ({ theme }) => theme.palette.primary.accent,
