@@ -12,7 +12,7 @@ export default {
     topBarHeight: 48,
     sidePanelCompactedLength: 48,
     sidePanelExpandedLength: 150,
-    titleBarHeight: 23,
+    titleBarHeight: 12,
     defaultTransitionDuration: '200ms',
     defaultAccentColor: '#17b04c',
   },

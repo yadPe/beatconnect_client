@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Start from './components/Start';
 import Matchs from './Matchs';
+import config from '../../../shared/config';
 
 const Bot = ({ connected, bot, theme, setHeaderContent }) => {
   useEffect(() => {
@@ -9,7 +10,7 @@ const Bot = ({ connected, bot, theme, setHeaderContent }) => {
   }, [setHeaderContent, connected, theme]);
 
   return (
-    <div className="menuContainer">
+    <div className="menuContainer" style={{ paddingTop: `${config.display.topBarHeight}px` }}>
       <Matchs bot={bot} connected={connected} />
     </div>
   );

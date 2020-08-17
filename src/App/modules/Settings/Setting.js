@@ -65,6 +65,11 @@ const useStyles = createUseStyles({
   clickable: {
     cursor: 'pointer',
   },
+  description: {
+    fontWeight: 100,
+    fontSize: '0.8rem',
+    color: 'rgba(255, 255, 255, 0.75)',
+  },
 });
 
 const Setting = ({ settingCategory }) => {

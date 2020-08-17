@@ -10,6 +10,7 @@ import Disabled from './Disabled';
 
 const styles = {
   Packs: {
+    paddingTop: `${config.display.topBarHeight}px`,
     textAlign: 'auto',
     margin: 'auto 5rem',
     display: 'grid',

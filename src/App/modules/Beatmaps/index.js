@@ -16,8 +16,8 @@ import { saveLastScrollPosition } from './reducer/actions';
 
 // TODO Fix first and last item disapear in grid
 // TODO Fix card size incorrect after risize
-// TODO Fix tooltip appearing when hovering next to sidePanel
-
+// TODO Check if osu is running button works well
+// TODO Check if osu db reader still works
 const styles = {
   '@keyframes fadeIn': {
     from: {
