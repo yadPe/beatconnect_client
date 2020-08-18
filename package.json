@@ -97,7 +97,7 @@
   "dependencies": {
     "electron-is-dev": "^1.1.0",
     "electron-log": "^4.1.1",
-    "electron-updater": "^4.1.2",
+    "electron-updater": "^4.3.4",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^7.0.1",
     "irc": "git+https://github.com/yadPe/node-irc.git",
