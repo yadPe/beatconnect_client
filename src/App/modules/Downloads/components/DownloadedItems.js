@@ -17,16 +17,22 @@ const DownloadedItems = ({ window }) => {
   const renderItems = ({ index, style }) => (index === 0 ? <div /> : <div style={style}>{items[index - 1]}</div>);
   return (
     <div className="downloadMenu DownloadsItem" style={{ width: '100%' }}>
-      <VariableSizeList
-        height={window.height}
-        itemCount={items.length + 1}
-        itemSize={index => (index === 0 ? config.display.topBarHeight : 130)}
-        overscanCount={5}
-        width="100%"
-        className="downloadMenu customScroll"
-      >
-        {items.length > 0 ? renderItems : 'The beatmaps you download will go here'}
-      </VariableSizeList>
+      {items.length ? (
+        <VariableSizeList
+          height={window.height}
+          itemCount={items.length + 1}
+          itemSize={index => (index === 0 ? config.display.topBarHeight : 130)}
+          overscanCount={5}
+          width="100%"
+          className="downloadMenu customScroll"
+        >
+          {renderItems}
+        </VariableSizeList>
+      ) : (
+        <span style={{ marginTop: `calc(${config.display.topBarHeight}px + 1rem)`, display: 'block' }}>
+          The beatmaps you download will go here
+        </span>
+      )}
     </div>
   );
 };

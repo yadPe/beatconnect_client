@@ -49,7 +49,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     lastSearch.current = search;
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current;
   }
-  const gridWidth = window.width - config.display.sidePanelCompactedLength;
+  const gridWidth = window.width - config.display.sidePanelCompactedLength - 1;
   const gridHeight = window.height;
   const displayGrid = gridWidth >= 1200;
   const rowCount = (displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length) + 1; // Add one for the invisible top placeholder

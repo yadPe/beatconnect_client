@@ -55,7 +55,6 @@ const Tab = ({ icon, title, onSelect, ...otherProps }) => {
       <span data-radium="true" className={classes.title}>
         {title}
       </span>
-      {/* </span> */}
     </a>
   );
 };
