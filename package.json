@@ -135,7 +135,7 @@
     "bs-css": "^11.0.0",
     "bs-platform": "^8.2.0",
     "camelcase": "^5.2.0",
-    "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "case-sensitive-paths-webpack-plugin": "2.3.0",
     "resolve": "1.10.0",
     "identity-obj-proxy": "3.0.0",
     "cross-env": "^6.0.3",
