@@ -4,6 +4,7 @@ const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
+const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
@@ -12,8 +13,20 @@ require('./ipcMessages');
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
 
-const main = () => {
+const installExtensions = async extensions => {
+  return Promise.all(
+    extensions.map(extension =>
+      extensionInstaller(extension)
+        .then(name => console.log(`[extensionInstaller]: Installed ${name}!`))
+        .catch(err => console.log('[extensionInstaller]: An error occurred: ', err)),
+    ),
+  );
+};
+
+const main = async () => {
   if (isDev) {
+    console.log('Loading extensions..');
+    await installExtensions([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]);
     console.log('Main process ready');
     console.log('Waiting for dev server to show up');
   }
