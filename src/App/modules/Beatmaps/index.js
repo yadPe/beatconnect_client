@@ -17,7 +17,8 @@ import { saveLastScrollPosition } from './reducer/actions';
 // TODO Fix first and last item disapear in grid
 // TODO Fix card size incorrect after risize
 // TODO Check if osu is running button works well
-// TODO Check if osu db reader still works
+// TODO Add fade in for every section
+// TODO Add debounce on beatmap image loading when scrolling for download section
 const styles = {
   '@keyframes fadeIn': {
     from: {
