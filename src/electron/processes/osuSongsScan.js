@@ -49,7 +49,7 @@ const osuDbScan = osuPath => {
     out[beatmap.beatmapset_id] = {
       id: beatmap.beatmapset_id,
       date: winTickToMs(beatmap.last_modification_time),
-      name: `${beatmap.song_title_unicode} | ${beatmap.artist_name_unicode}`,
+      name: `${beatmap.song_title} - ${beatmap.artist_name}`,
       creator: beatmap.creator_name,
       isUnplayed: beatmap.unplayed,
       hash: beatmap.md5,
@@ -58,7 +58,6 @@ const osuDbScan = osuPath => {
   return out;
 };
 
-// eslint-disable-next-line consistent-return
 process.on('message', async data => {
   const { msg, osuPath, osuSongsPath, allowLegacy } = JSON.parse(data);
   let beatmaps = [];
@@ -66,10 +65,12 @@ process.on('message', async data => {
     case 'start':
       try {
         if (osuPath) beatmaps = osuDbScan(osuPath);
+        // Fallback to direcrory scan if failed to read osu db
         if (!Object.keys(beatmaps).length && allowLegacy) beatmaps = await osuSongsScan(osuSongsPath);
       } catch (err) {
-        log.error(`OsuSongScan: ${JSON.stringify(err)}`);
-        return process.send(JSON.stringify({ err }));
+        log.error(`OsuSongScan: ${JSON.stringify(err.message)}`);
+        process.send(JSON.stringify({ err: err.message }));
+        throw err;
       }
       process.send(JSON.stringify({ results: beatmaps }));
       break;
