@@ -159,7 +159,7 @@
     "is-wsl": "^1.1.0",
     "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.7.1",
+    "jest-resolve": "26.4.0",
     "jest-watch-typeahead": "0.3.0",
     "prettier": "^1.18.2",
     "react-dev-utils": "^9.0.1",
