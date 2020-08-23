@@ -16,7 +16,6 @@ import { saveLastScrollPosition } from './reducer/actions';
 
 // TODO Check if osu is running button works well
 // TODO Add fade in for every section
-// TODO Add debounce on beatmap image loading when scrolling for download section
 const styles = {
   '@keyframes fadeIn': {
     from: {

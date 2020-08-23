@@ -7,14 +7,16 @@ import config from '../../../../shared/config';
 
 const DownloadedItems = ({ window }) => {
   const { history } = useContext(HistoryContext);
-  const items = [];
-  Object.values(history).forEach(item => {
+  const sortedHistory = Object.values(history).sort((itemA, itemB) => itemB.date - itemA.date);
+  const items = sortedHistory.map(item => {
     const { id, date, name } = item;
-    items.push(<DownloadsItem id={id} date={date} name={name} status="downloaded" key={id} />);
+    return isScrolling => (
+      <DownloadsItem id={id} date={date} name={name} status="downloaded" key={id} isScrolling={isScrolling} />
+    );
   });
-  items.sort((a, b) => b.props.date - a.props.date);
 
-  const renderItems = ({ index, style }) => (index === 0 ? <div /> : <div style={style}>{items[index - 1]}</div>);
+  const renderItems = ({ index, style, isScrolling }) =>
+    index === 0 ? <div /> : <div style={style}>{items[index - 1](isScrolling)}</div>;
   return (
     <div className="downloadMenu DownloadsItem" style={{ width: '100%' }}>
       {items.length ? (
@@ -25,6 +27,7 @@ const DownloadedItems = ({ window }) => {
           overscanCount={5}
           width="100%"
           className="downloadMenu customScroll"
+          useIsScrolling
         >
           {renderItems}
         </VariableSizeList>
