@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useContext, useState, useRef } from 'react';
+import React, { useEffect, useContext, useState, useRef, useCallback } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -14,7 +14,6 @@ import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
 
-// TODO Fix card size incorrect after risize
 // TODO Check if osu is running button works well
 // TODO Add fade in for every section
 // TODO Add debounce on beatmap image loading when scrolling for download section
@@ -50,8 +49,8 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current;
   }
   const gridWidth = window.width - config.display.sidePanelCompactedLength - 1;
-  const gridHeight = window.height;
-  const displayGrid = gridWidth >= 1200;
+  const gridHeight = window.height - 1;
+  const displayGrid = gridWidth >= 1000;
   const rowCount = (displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length) + 1; // Add one for the invisible top placeholder
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const onScroll = ({ scrollTop }) => {
@@ -77,6 +76,11 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
   useEffect(() => {
     return () => saveLastScrollPosition(lastScrollPosition.current);
   }, []);
+
+  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / 2 - 9 : gridWidth - 18), [
+    displayGrid,
+    gridWidth,
+  ]);
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
     if (rowIndex === 0) return <div style={{ height: `${config.display.topBarHeight}px` }} />;
@@ -106,8 +110,8 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     >
       <VariableSizeGrid
         columnCount={displayGrid ? 2 : 1}
-        columnWidth={() => (displayGrid ? gridWidth / 2 - 9 : gridWidth - 18)}
-        estimatedColumnWidth={displayGrid ? gridWidth / 2 - 9 : gridWidth - 18}
+        columnWidth={getColumnWidth}
+        estimatedColumnWidth={getColumnWidth()}
         estimatedRowHeight={250}
         rowCount={rowCount}
         rowHeight={index => (index === 0 ? config.display.topBarHeight : 250)}
@@ -117,6 +121,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
         onItemsRendered={newItemsRendered}
         onScroll={onScroll}
         initialScrollTop={lastScrollPosition.current}
+        key={getColumnWidth()}
       >
         {renderBeatmaps}
       </VariableSizeGrid>
