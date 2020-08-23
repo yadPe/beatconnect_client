@@ -8,4 +8,6 @@ import app from '../App/reducer';
 
 const rootReducer = combineReducers({ bot, settings, beatmaps, navigation, packs, app });
 
-export default createStore(rootReducer);
+/* eslint-disable no-underscore-dangle */
+export default createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+/* eslint-enable */
