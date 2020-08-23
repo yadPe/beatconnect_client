@@ -14,7 +14,6 @@ import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
 
-// TODO Fix first and last item disapear in grid
 // TODO Fix card size incorrect after risize
 // TODO Check if osu is running button works well
 // TODO Add fade in for every section
