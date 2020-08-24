@@ -1,10 +1,11 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import config from '../../../../shared/config';
+import { getDragRegion } from '../../../helpers/css.utils';
 
 const useStyle = createUseStyles({
   header: {
-    WebkitAppRegion: 'drag',
+    ...getDragRegion(),
     position: 'absolute',
     height: '48px',
     display: 'flex',

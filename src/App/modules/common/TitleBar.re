@@ -1,7 +1,7 @@
 open Css;
 let makeWrapperStyle = () =>
   style([
-    zIndex(10000),
+    zIndex(500),
     position(fixed),
     right(zero),
     display(`flex),

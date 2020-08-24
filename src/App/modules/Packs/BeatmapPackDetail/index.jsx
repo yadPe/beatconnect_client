@@ -110,7 +110,6 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
     (panelExpended ? config.display.sidePanelExpandedLength : config.display.sidePanelCompactedLength);
   const listHeight = windowSize.height - (config.display.titleBarHeight + config.display.topBarHeight);
 
-  // optimization needed (useCallback or memo ?) k
   const renderRow = ({ index, style }) => {
     const isPlaying = audioPlayer.playingState.beatmapSetId === filteredBeatmapsets[index].id;
     const wrapperStyle = {

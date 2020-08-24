@@ -5,10 +5,11 @@ import VolumeControl from './VolumeControl';
 import TasksControl from './TasksControl';
 import PlayOsu from './PlayOsu';
 import config from '../../../../../shared/config';
+import { getDragRegion } from '../../../../helpers/css.utils';
 
 const styles = {
   SidePanel: {
-    WebkitAppRegion: 'drag',
+    ...getDragRegion(),
     cursor: 'default',
     userSelect: 'none',
     display: 'flex',
@@ -20,7 +21,6 @@ const styles = {
     overflow: 'visible',
     width: props => (props.expended ? props.panelExpandedLength : props.panelCompactedLength),
     height: ({ subPanel }) => (subPanel ? `calc(100vh - ${config.display.topBarHeight}px)` : '100%'),
-    // backgroundColor: props => props.background,
     transition: `width ${config.display.defaultTransitionDuration}`,
     left: 0,
     top: 0,

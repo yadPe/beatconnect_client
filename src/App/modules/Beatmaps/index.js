@@ -18,6 +18,7 @@ import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 // TODO add a spacer to beatmap pack list
 // TODO Disble resize of beatmaps pack list
 // TODO Check if osu is running button works well
+// TODO Fix drag region causing stuff to be unusable
 const styles = {
   ...getFadeIn(),
   Beatmaps: {

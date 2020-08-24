@@ -26,3 +26,10 @@ export const sectionSwitchAnimation = () => ({
   opacity: 0,
   animation: '140ms ease-in forwards $fadeIn',
 });
+
+export const getDragRegion = () => ({
+  WebkitAppRegion: 'drag',
+  '& > *': {
+    WebkitAppRegion: 'no-drag',
+  },
+});
