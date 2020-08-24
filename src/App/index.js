@@ -4,8 +4,10 @@ import { createUseStyles } from 'react-jss';
 import Nav from './modules/Nav';
 import TitleBar from './modules/common/TitleBar.bs';
 import config from '../shared/config';
+import { getAppear } from './helpers/css.utils';
 
 const useStyles = createUseStyles({
+  ...getAppear(),
   App: {
     '-webkit-font-smoothing': 'antialiased',
     userSelect: 'none',
@@ -15,8 +17,8 @@ const useStyles = createUseStyles({
     sans-serif`,
   },
   appContentWrapper: {
+    animation: '500ms ease-in forwards $appear',
     overflow: 'hidden',
-    // paddingTop: config.display.titleBarHeight,
   },
 });
 

@@ -13,22 +13,16 @@ import { HistoryContext } from '../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
+import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 
+// TODO add a spacer to beatmap pack list
+// TODO Disble resize of beatmaps pack list
 // TODO Check if osu is running button works well
-// TODO Add fade in for every section
 const styles = {
-  '@keyframes fadeIn': {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  },
+  ...getFadeIn(),
   Beatmaps: {
     outline: 'none',
-    opacity: 0,
-    animation: '128ms linear forwards $fadeIn',
+    ...sectionSwitchAnimation(),
   },
 };
 
