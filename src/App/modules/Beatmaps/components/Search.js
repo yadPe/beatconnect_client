@@ -10,11 +10,13 @@ import DropDown from '../../common/DropDown';
 import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
+import { getDragRegion } from '../../../helpers/css.utils';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   Search: {
+    ...getDragRegion(true),
     width: '100%',
     display: 'inline-flex',
     '& div, select, input, label': {

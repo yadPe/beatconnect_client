@@ -27,9 +27,9 @@ export const sectionSwitchAnimation = () => ({
   animation: '140ms ease-in forwards $fadeIn',
 });
 
-export const getDragRegion = () => ({
-  WebkitAppRegion: 'drag',
+export const getDragRegion = override => ({
+  WebkitAppRegion: `drag ${override ? '!important' : ''}`,
   '& > *': {
-    WebkitAppRegion: 'no-drag',
+    WebkitAppRegion: `no-drag ${override ? '!important' : ''}`,
   },
 });
