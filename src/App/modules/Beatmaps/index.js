@@ -16,6 +16,7 @@ import { saveLastScrollPosition } from './reducer/actions';
 import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 
 // TODO Fix search input and window control overlaping in pack details
+// TODO Fix song scan on built app
 // TODO Check if osu is running button works well
 // TODO Fix drag region causing stuff to be unusable
 const styles = {
