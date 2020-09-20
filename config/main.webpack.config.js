@@ -9,10 +9,15 @@ module.exports = mode => {
   return {
     target: "electron-main",
     mode,
-    entry: paths.electronIndexJs,
+    entry: {
+      main: paths.electronIndexJs,
+      osuSongsScan: paths.osuSongsScan,
+      osuIsRunning: paths.osuIsRunning
+    },
     output: {
       path: paths.appBuild,
       publicPath: paths.publicUrl,
+      filename: '[name].bundle.js'
     },
     node: {
       __dirname: false
@@ -29,7 +34,23 @@ module.exports = mode => {
           ],
           plugins: ["transform-class-properties"]
         }
-      },]
+      },
+      {
+        test: /ipcMessages.js$/,
+        loader: 'string-replace-loader',
+        options:{
+          multiple: [
+            {
+              search: './processes/osuSongsScan.js',
+              replace: './osuSongsScan.bundle.js'
+            },
+            {
+              search: './processes/osuIsRunning.js',
+              replace: './osuIsRunning.bundle.js'
+            }
+          ]
+        }
+      }]
     },
     plugins: [
       new webpack.DefinePlugin(env.stringified),
