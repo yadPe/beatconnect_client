@@ -29,9 +29,7 @@ const useStyle = createUseStyles({
   },
   hideDownloaded: {
     cursor: 'pointer',
-    right: '20px',
-    top: '20px',
-    position: 'absolute',
+    margin: 'auto 5px',
   },
   searchButtonWrapper: {
     margin: 8,
@@ -103,14 +101,13 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
         onKeyDown={searchOnEnter}
         onBlur={() => execSearch()}
       />
-      <div className={classes.right} />
       <div
         className={classes.hideDownloaded}
         onClick={togleHideDownloaded}
         title="Hide downloaded beatmaps"
         role="button"
-        tabIndex={0}
       >
+        <div className={classes.right} />
         {renderIcons({ name: 'Verified', color: search.hideDownloaded && theme.palette.primary.accent })}
       </div>
     </div>

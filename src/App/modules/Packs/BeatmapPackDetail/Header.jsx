@@ -4,11 +4,9 @@ import TextInput from '../../common/TextInput';
 import renderIcons from '../../../helpers/renderIcons';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
-import { getDragRegion } from '../../../helpers/css.utils';
 
 const styles = {
   wrapper: {
-    ...getDragRegion(true),
     display: 'inline-flex',
     width: '100%',
     '& > *': {

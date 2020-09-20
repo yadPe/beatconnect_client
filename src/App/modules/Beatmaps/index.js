@@ -15,8 +15,6 @@ import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
 import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 
-// TODO Fix search input and window control overlaping in pack details
-// TODO Fix drag region causing stuff to be unusable
 const styles = {
   ...getFadeIn(),
   Beatmaps: {

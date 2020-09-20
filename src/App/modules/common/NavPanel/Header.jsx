@@ -5,7 +5,7 @@ import { getDragRegion } from '../../../helpers/css.utils';
 
 const useStyle = createUseStyles({
   header: {
-    ...getDragRegion(),
+    ...getDragRegion(false, true),
     position: 'absolute',
     height: '48px',
     display: 'flex',
