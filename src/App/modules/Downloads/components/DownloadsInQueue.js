@@ -6,7 +6,10 @@ const DownloadsInQueue = ({ queue, removeItemfromQueue }) => {
   const renderDownloads = () => {
     if (!queue.length) return null;
     return (
-      <div className="downloadMenu DownloadsInQueue" style={{ marginBottom: '5vh' }}>
+      <div
+        className="downloadMenu DownloadsInQueue"
+        style={{ marginBottom: '5vh', marginTop: config.display.topBarHeight }}
+      >
         {queue.slice(1).map(item => {
           const {
             beatmapSetId,
