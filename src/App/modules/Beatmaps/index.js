@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useContext, useState, useRef } from 'react';
+import React, { useEffect, useContext, useState, useRef, useCallback } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { FixedSizeGrid } from 'react-window';
+import { VariableSizeGrid } from 'react-window';
 import injectSheet, { useTheme } from 'react-jss';
 import Beatmap from '../common/Beatmap';
 import Search from './components/Search';
@@ -13,14 +13,17 @@ import { HistoryContext } from '../../Providers/HistoryProvider';
 import BeatmapSkeleton from '../common/Beatmap/beatmap.skeleton';
 import config from '../../../shared/config';
 import { saveLastScrollPosition } from './reducer/actions';
+import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 
 const styles = {
+  ...getFadeIn(),
   Beatmaps: {
     outline: 'none',
+    ...sectionSwitchAnimation(),
   },
 };
 
-const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpended }) => {
+const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
   const theme = useTheme();
   const gridContainer = useRef(null);
   const [autoDl, setAutoDl] = useState(false);
@@ -35,11 +38,10 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
     lastSearch.current = search;
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current;
   }
-  const gridWidth =
-    window.width - (panelExpended ? config.display.sidePanelExpandedLength : config.display.sidePanelCompactedLength);
-  const gridHeight = window.height - (config.display.titleBarHeight + config.display.topBarHeight);
-  const displayGrid = gridWidth >= 1200;
-  const rowCount = displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length;
+  const gridWidth = window.width - config.display.sidePanelCompactedLength - 1;
+  const gridHeight = window.height - 1;
+  const displayGrid = gridWidth >= 1000;
+  const rowCount = (displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length) + 1; // Add one for the invisible top placeholder
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const onScroll = ({ scrollTop }) => {
     lastScrollPosition.current = scrollTop;
@@ -65,10 +67,15 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
     return () => saveLastScrollPosition(lastScrollPosition.current);
   }, []);
 
+  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / 2 - 9 : gridWidth - 18), [
+    displayGrid,
+    gridWidth,
+  ]);
+
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
-    const beatmap =
-      (displayGrid && beatmaps[(rowIndex === 0 ? 0 : rowIndex + rowIndex) + columnIndex]) || beatmaps[rowIndex];
-    if (beatmap === 0) return <BeatmapSkeleton style={style} />;
+    if (rowIndex === 0) return <div style={{ height: `${config.display.topBarHeight}px` }} />;
+    const beatmap = displayGrid ? beatmaps[rowIndex * 2 + columnIndex - 2] : beatmaps[rowIndex - 1];
+    if (beatmap === 0) return <BeatmapSkeleton style={style} rowIndex={rowIndex} />;
     if (!beatmap) return <div style={style} className="NoBeatmap" />;
     return (
       <div style={style}>
@@ -91,28 +98,30 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window, panelExpen
       role="button"
       ref={gridContainer}
     >
-      <FixedSizeGrid
+      <VariableSizeGrid
         columnCount={displayGrid ? 2 : 1}
-        columnWidth={displayGrid ? gridWidth / 2 - 9 : gridWidth - 18}
+        columnWidth={getColumnWidth}
+        estimatedColumnWidth={getColumnWidth()}
+        estimatedRowHeight={250}
         rowCount={rowCount}
-        rowHeight={250}
+        rowHeight={index => (index === 0 ? config.display.topBarHeight : 250)}
         overscanRowCount={7}
         height={gridHeight}
         width={gridWidth}
         onItemsRendered={newItemsRendered}
         onScroll={onScroll}
         initialScrollTop={lastScrollPosition.current}
+        key={getColumnWidth()}
       >
         {renderBeatmaps}
-      </FixedSizeGrid>
+      </VariableSizeGrid>
     </div>
   );
 };
 
-const mapStateToProps = ({ app, settings, beatmaps }) => ({
+const mapStateToProps = ({ app, beatmaps }) => ({
   searchResults: beatmaps.searchResults,
   window: app.window,
-  panelExpended: settings.userPreferences.sidePanelExpended,
 });
 export default compose(
   connect(mapStateToProps),

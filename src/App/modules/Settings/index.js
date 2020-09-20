@@ -204,7 +204,12 @@ const Settings = ({ userPreferences }) => {
 
   return (
     <div className="menuContainer Settings" style={{ transition: 'background 0ms', textAlign: 'center' }}>
-      <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground={theme.palette.secondary.dark}>
+      <NavPanel
+        paneExpandedLength={150}
+        defaultIsPanelExpanded
+        sidePanelBackground={theme.palette.secondary.dark}
+        subPanel
+      >
         {renderItems()}
       </NavPanel>
     </div>

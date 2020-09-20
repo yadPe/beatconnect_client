@@ -24,16 +24,16 @@ const useStyle = createUseStyles({
   },
 });
 
-const BeatmapSkeleton = ({ style }) => {
+const BeatmapSkeleton = ({ style, rowIndex }) => {
   const theme = useTheme();
   const classes = useStyle({ theme });
   return (
     <div style={style}>
       <div className={`${classes.beatmap} Beatmap`}>
-        <Skeleton className={classes.cover} />
-        <Skeleton className={classes.text} style={{ width: '9%' }} />
-        <Skeleton className={classes.text} style={{ width: '16%' }} />
-        <Skeleton className={classes.buttons} />
+        <Skeleton className={classes.cover} delay={rowIndex} />
+        <Skeleton className={classes.text} style={{ width: '9%' }} delay={rowIndex} />
+        <Skeleton className={classes.text} style={{ width: '16%' }} delay={rowIndex} />
+        <Skeleton className={classes.buttons} delay={rowIndex} />
       </div>
     </div>
   );

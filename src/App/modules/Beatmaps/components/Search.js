@@ -10,11 +10,13 @@ import DropDown from '../../common/DropDown';
 import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
+import { getDragRegion } from '../../../helpers/css.utils';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   Search: {
+    ...getDragRegion(true),
     width: '100%',
     display: 'inline-flex',
     '& div, select, input, label': {
@@ -27,6 +29,7 @@ const useStyle = createUseStyles({
   },
   hideDownloaded: {
     cursor: 'pointer',
+    margin: 'auto 5px',
   },
   searchButtonWrapper: {
     margin: 8,
@@ -98,14 +101,13 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
         onKeyDown={searchOnEnter}
         onBlur={() => execSearch()}
       />
-      <div className={classes.right} />
       <div
         className={classes.hideDownloaded}
         onClick={togleHideDownloaded}
         title="Hide downloaded beatmaps"
         role="button"
-        tabIndex={0}
       >
+        <div className={classes.right} />
         {renderIcons({ name: 'Verified', color: search.hideDownloaded && theme.palette.primary.accent })}
       </div>
     </div>

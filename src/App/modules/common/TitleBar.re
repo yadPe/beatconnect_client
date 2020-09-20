@@ -1,26 +1,11 @@
 open Css;
-let makeWrapperStyle = (~height as h) =>
+let makeWrapperStyle = () =>
   style([
-    unsafe("WebkitAppRegion", "drag"),
-    backgroundColor(hex("171717")),
-    zIndex(100),
+    zIndex(500),
     position(fixed),
-    height(px(h)),
-    width(pct(100.)),
+    right(zero),
     display(`flex),
     alignItems(center),
-  ]);
-
-let makeTitleStyle = () =>
-  style([
-    textOverflow(`ellipsis),
-    whiteSpace(`nowrap),
-    overflow(`hidden),
-    maxWidth(pct(40.)),
-    paddingLeft(px(12)),
-    fontSize(px(12)),
-    color(white),
-    flex3(~grow=1., ~shrink=1., ~basis=zero),
   ]);
 
 let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
@@ -32,7 +17,7 @@ let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
       [
         backgroundColor(
           switch (bgColor) {
-          | None => rgba(255, 255, 255, 0.15)
+          | None => rgba(255, 255, 255, 0.25)
           | Some(c) => c
           },
         ),
@@ -59,17 +44,16 @@ let make = (~height: int) => {
     BrowserWindow.isMaximized(window)
       ? BrowserWindow.unmaximize(window) : BrowserWindow.maximize(window);
 
-  <div className={makeWrapperStyle(~height)}>
-    <div className={makeTitleStyle()}> title->React.string </div>
+  <div className={makeWrapperStyle()}>
     <div
       className={makeControlStyle(~spacer=true, ())} onClick=onMinimizeClick>
-      {Icon.make(~name="Dash", ~width=12, ~height=12, ())}
+      {Icon.make(~name="Dash", ~width=height, ~height, ())}
     </div>
     <div className={makeControlStyle()} onClick=onMaximizeClick>
-      {Icon.make(~name="Square", ~width=12, ~height=12, ())}
+      {Icon.make(~name="Square", ~width=height, ~height, ())}
     </div>
     <div className={makeControlStyle(~bgColor=red, ())} onClick=onCloseClick>
-      {Icon.make(~name="Cancel", ~width=12, ~height=12, ())}
+      {Icon.make(~name="Cancel", ~width=height, ~height, ())}
     </div>
   </div>;
 };

@@ -1,14 +1,18 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import config from '../../../../shared/config';
 
-const Cover = ({ url, width, height, paddingBottom, noFade }) => {
+const Cover = ({ url, width, height, paddingBottom, noFade, canLoad = true }) => {
   const [loaded, isLoaded] = useState(false);
-  const cover = new Image();
-  cover.onload = () => isLoaded(url);
-
+  const coverRef = useRef();
   useEffect(() => {
-    if (loaded !== url) cover.setAttribute('src', url);
-  }, [url, loaded]);
+    if (!coverRef.current && canLoad) {
+      coverRef.current = new Image();
+      coverRef.current.onload = () => isLoaded(true);
+    }
+    if (canLoad && !loaded) {
+      coverRef.current.setAttribute('src', url);
+    }
+  }, [canLoad, coverRef.current]);
 
   const style = {
     opacity: noFade ? 1 : loaded ? 1 : 0,
@@ -20,13 +24,10 @@ const Cover = ({ url, width, height, paddingBottom, noFade }) => {
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundImage: `url('${url}')`,
+    backgroundImage: loaded && `url('${url}')`,
     backgroundColor: 'rgba(255, 255, 255, 0.02)',
   };
   return <div className="cover" style={style} />;
 };
 
-const areEqual = (prevProps, nextProps) => {
-  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
-};
-export default memo(Cover, areEqual);
+export default Cover;

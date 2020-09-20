@@ -33,7 +33,12 @@ const Downloads = ({ setHeaderContent }) => {
 
   return (
     <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
-      <NavPanel paneExpandedLength={150} defaultIsPanelExpanded sidePanelBackground={theme.palette.secondary.dark}>
+      <NavPanel
+        paneExpandedLength={150}
+        defaultIsPanelExpanded
+        sidePanelBackground={theme.palette.secondary.dark}
+        subPanel
+      >
         {renderItem(`Queued`, <DownloadsInQueue queue={queue} removeItemfromQueue={removeItemfromQueue} />)}
         {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
       </NavPanel>

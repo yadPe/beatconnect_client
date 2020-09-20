@@ -105,14 +105,20 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
         )
       : pack.beatmapsets;
 
-  const listWidth =
-    windowSize.width -
-    (panelExpended ? config.display.sidePanelExpandedLength : config.display.sidePanelCompactedLength);
-  const listHeight = windowSize.height - (config.display.titleBarHeight + config.display.topBarHeight);
+  const itemCount = filteredBeatmapsets.length + 1; // +1 for top spacer
 
-  // optimization needed (useCallback or memo ?) k
+  const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
+  const listHeight = windowSize.height;
+
   const renderRow = ({ index, style }) => {
-    const isPlaying = audioPlayer.playingState.beatmapSetId === filteredBeatmapsets[index].id;
+    if (index === 0) {
+      return <div style={style} key="PackListSpacer" />;
+    }
+
+    const offsetedIndex = index - 1;
+    const item = filteredBeatmapsets[offsetedIndex];
+    const { id, title, artist } = item;
+    const isPlaying = audioPlayer.playingState.beatmapSetId === id;
     const wrapperStyle = {
       backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
     };
@@ -120,36 +126,28 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
       opacity: isPlaying && 0.9,
       backgroundImage: `url(${reqImgAssets(isPlaying ? './pause-button.png' : './play-button.png')})`,
     };
+
     return (
-      <div style={style} key={filteredBeatmapsets[index].id}>
+      <div style={style} key={id}>
         <div className={classes.listItem} style={wrapperStyle}>
-          <div
-            className={`${classes.thumbnail} thumbnail`}
-            style={{ backgroundImage: `url(${getThumbUrl(filteredBeatmapsets[index].id)})` }}
-          >
+          <div className={`${classes.thumbnail} thumbnail`} style={{ backgroundImage: `url(${getThumbUrl(id)})` }}>
             <div
               className="playIco clickable"
               style={playIcoStyle}
               role="button"
-              onClick={() =>
-                playPreview(
-                  filteredBeatmapsets[index].id,
-                  isPlaying,
-                  `${filteredBeatmapsets[index].title} - ${filteredBeatmapsets[index].artist}`,
-                )
-              }
+              onClick={() => playPreview(id, isPlaying, `${title} - ${artist}`)}
             />
           </div>
-          <div className={classes.title}>{filteredBeatmapsets[index].title}</div>
-          <div className={classes.artist}>{filteredBeatmapsets[index].artist}</div>
+          <div className={classes.title}>{title}</div>
+          <div className={classes.artist}>{artist}</div>
           <DownloadBeatmapBtn
-            beatmapSet={filteredBeatmapsets[index]}
+            beatmapSet={item}
             title="Download"
             noStyle
             className={`${classes.downloadButton} clickable`}
           />
           <div
-            onClick={() => shell.openExternal(getBeatmapInfosUrl(filteredBeatmapsets[index]))}
+            onClick={() => shell.openExternal(getBeatmapInfosUrl(item))}
             role="button"
             title="See beatmap page"
             className={`${classes.beatmapPageButton}  clickable`}
@@ -163,7 +161,7 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
 
   return (
     <div className={classes.wrapper}>
-      <List height={listHeight} itemCount={filteredBeatmapsets.length} itemSize={50} width={listWidth}>
+      <List height={listHeight} itemCount={itemCount} itemSize={50} width={listWidth}>
         {renderRow}
       </List>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import injectSheet, { useTheme } from 'react-jss';
 import { Text } from 'react-desktop';
 import { shell } from 'electron';
@@ -10,19 +10,20 @@ import PreviewBeatmapBtn from '../../../common/Beatmap/PreviewBeatmapBtn';
 import styles from './ItemStyles';
 import Button from '../../../common/Button';
 
-const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes, cancel }) => {
+const DownloadsItem = ({ id, name, item, date, status, progress, speed, classes, cancel, isScrolling }) => {
   const [isPaused, setIsPaused] = useState(false);
   const theme = useTheme();
 
   const toggleDownload = () => {
-    item.isPaused() ? item.resume() : item.pause();
+    if (item.isPaused()) item.resume();
+    else item.pause();
     setIsPaused(item.isPaused());
   };
 
   return (
     <div className={classes.DownloadsItem}>
       <div className={classes.fade}>
-        <Cover url={`https://assets.ppy.sh/beatmaps/${id}/covers/cover.jpg`} height={130} />
+        <Cover url={`https://assets.ppy.sh/beatmaps/${id}/covers/cover.jpg`} height={130} canLoad={!isScrolling} />
       </div>
       {progress ? (
         <div className={classes.downloadInfos}>
@@ -62,4 +63,4 @@ const areEqual = (prevProps, nextProps) => {
   }
   return prevProps.status === nextProps.status;
 };
-export default memo(injectSheet(styles)(DownloadsItem), areEqual);
+export default injectSheet(styles)(DownloadsItem);

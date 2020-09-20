@@ -7,9 +7,13 @@ import BeatmapPackDetail from './BeatmapPackDetail';
 import Header from './Header';
 import config from '../../../shared/config';
 import Disabled from './Disabled';
+import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 
 const styles = {
+  ...getFadeIn(),
   Packs: {
+    ...sectionSwitchAnimation(),
+    paddingTop: `${config.display.topBarHeight}px`,
     textAlign: 'auto',
     margin: 'auto 5rem',
     display: 'grid',

@@ -3,13 +3,13 @@ import injectSheet from 'react-jss';
 
 const styles = {
   '@keyframes color': {
-    '0%': {
+    '10%': {
       backgroundColor: '#5c5c5c',
     },
     '50%': {
       backgroundColor: '#7d7d7d',
     },
-    '100': {
+    '90': {
       backgroundColor: '#5c5c5c',
     },
   },
@@ -19,8 +19,9 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
     animationName: '$color',
-    animationDuration: '2s',
+    animationDuration: '2.4s',
     animationIterationCount: 'infinite',
+    animationDelay: props => `0.${props.delay}s`,
   },
 };
 

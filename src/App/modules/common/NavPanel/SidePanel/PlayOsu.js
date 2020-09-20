@@ -99,7 +99,7 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
 
   return (
     <a data-radium="true" className={classes.a} onClick={launchOsu} role="tab">
-      <span className={`${classes.tooltiptext} tooltiptext`}>{osuIsRunning ? 'Playing Osu!' : 'Play Osu!'}</span>
+      <span className={`${classes.tooltiptext} tooltiptext`}>{osuIsRunning ? 'Playing !' : 'Play!'}</span>
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
         <div data-radium="true" className={classes.i}>
@@ -110,7 +110,7 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
           })}
         </div>
         <span data-radium="true" className={classes.title}>
-          {osuIsRunning ? 'Playing Osu!' : 'Play Osu!'}
+          {osuIsRunning ? 'Playing !' : 'Play !'}
         </span>
       </span>
     </a>
