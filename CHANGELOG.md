@@ -1,4 +1,4 @@
-## [0.2.4](https://github.com/yadPe/beatconnect_client/compare/v0.2.3...v0.2.4) (2020-09-20)
+## [0.2.4](https://github.com/yadPe/beatconnect_client/compare/v0.2.3...v0.2.4) (2020-09-21)
 
 ### Bug Fixes
 
@@ -8,6 +8,7 @@
 - **download:** queue display ([f0c5379](https://github.com/yadPe/beatconnect_client/commit/f0c537906ba1cef6cfacb41fe2d0a32c85c9534a))
 - **packs:** put the feature back on tracks ([#196](https://github.com/yadPe/beatconnect_client/issues/196)) ([ee21143](https://github.com/yadPe/beatconnect_client/commit/ee21143e12eb4de81f3e579a3ce1ce018a831f12))
 - **typo:** typo in settings section ([#195](https://github.com/yadPe/beatconnect_client/issues/195)) ([cbfefab](https://github.com/yadPe/beatconnect_client/commit/cbfefabae5020aeb9b57e9c0a9140f5795d28601))
+- **update:** display update status ([#229](https://github.com/yadPe/beatconnect_client/issues/229)) ([1b6be67](https://github.com/yadPe/beatconnect_client/commit/1b6be6733c9293dbada3de816c8eac90c8d68d06))
 
 ### Features
 
