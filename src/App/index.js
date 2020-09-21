@@ -5,6 +5,7 @@ import Nav from './modules/Nav';
 import TitleBar from './modules/common/TitleBar.bs';
 import config from '../shared/config';
 import { getAppear } from './helpers/css.utils';
+import AutoUpdater from './modules/AutoUpdater';
 
 const useStyles = createUseStyles({
   ...getAppear(),
@@ -26,12 +27,15 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.App}>
-      <TitleBar height={config.display.titleBarHeight} />
-      <div className={classes.appContentWrapper}>
-        <Nav />
+    <>
+      <AutoUpdater />
+      <div className={classes.App}>
+        <TitleBar height={config.display.titleBarHeight} />
+        <div className={classes.appContentWrapper}>
+          <Nav />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
