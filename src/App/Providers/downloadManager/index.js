@@ -46,10 +46,15 @@ const DownloadManagerProvider = props => {
 
   const updateQueue = ({ queue }) => {
     const queueIsEmpty = !queue.length;
-    if (queueIsEmpty) taskManager.terminate('download');
-    else if (!stateRef.current.queue.length)
+
+    if (queueIsEmpty) {
+      taskManager.terminate('download');
+      setState(prevState => ({ ...prevState, currentDownload: null }));
+    } else if (!stateRef.current.queue.length) {
       taskManager.add({ name: 'download', status: 'running', description: 'initializing', section: 'Downloads' });
-    setState(prevState => ({ ...prevState, queue, ...(queueIsEmpty ? { currentDownload: null } : {}) }));
+    }
+
+    setState(prevState => ({ ...prevState, queue }));
   };
 
   const updateCurrentDowload = item => {
