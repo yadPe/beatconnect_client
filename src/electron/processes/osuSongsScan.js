@@ -1,4 +1,3 @@
-const log = require('electron-log');
 const path = require('path');
 const fs = require('fs');
 const parser = require('../helpers/beatmapParser');
