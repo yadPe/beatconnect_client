@@ -116,7 +116,7 @@
     "react-redux": "^7.1.0",
     "react-window": "^1.8.5",
     "reason-react": "^0.7.0",
-    "redux": "^4.0.1",
+    "redux": "^4.0.5",
     "relude": "^0.63.1",
     "string.prototype.startswith": "^1.0.0",
     "uleb128": "^1.0.1",
