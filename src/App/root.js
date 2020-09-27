@@ -18,13 +18,13 @@ ReactDOM.render(
     <HistoryProvider>
       <ThemeProvider>
         <Provider store={store}>
-          <DownloadManagerProvider>
-            <AudioPlayerProvider>
-              <TasksProvider>
+          <AudioPlayerProvider>
+            <TasksProvider>
+              <DownloadManagerProvider>
                 <App />
-              </TasksProvider>
-            </AudioPlayerProvider>
-          </DownloadManagerProvider>
+              </DownloadManagerProvider>
+            </TasksProvider>
+          </AudioPlayerProvider>
         </Provider>
       </ThemeProvider>
     </HistoryProvider>

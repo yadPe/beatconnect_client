@@ -17,7 +17,7 @@
   ],
   "suffix": ".bs.js",
   "namespace": true,
-  "bs-dependencies": ["reason-react", "bs-css"],
+  "bs-dependencies": ["reason-react", "bs-css", "bs-bastet", "relude"],
   "refmt": 3,
   "gentypeconfig": {
     "language": "untyped",

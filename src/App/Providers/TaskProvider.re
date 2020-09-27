@@ -1,11 +1,20 @@
 [@bs.deriving {jsConverter: newType}]
 type status = [ | `running | `terminated | `error];
 
-type task = {
-  name: string,
-  mutable description: string,
-  mutable status,
-  section: Sections.t,
+module Task = {
+  type t = {
+    name: string,
+    description: string,
+    status,
+    section: Sections.t,
+  };
+
+  module Setters = {
+    let setName = (name, t) => {...t, name};
+    let setDescription = (description, t) => {...t, description};
+    let setStatus = (status, t) => {...t, status};
+    let setSection = (section, t) => {...t, section};
+  };
 };
 
 type partialTask = {
@@ -15,17 +24,17 @@ type partialTask = {
 };
 
 type value = {
-  add: task => unit,
+  add: Task.t => unit,
   update: partialTask => unit,
   terminate: string => unit,
-  tasks: Js.Array.t(task),
+  tasks: Js.Array.t(Task.t),
 };
 
 module Provider = {
   let value = {
-    add: (task: task) => Js.log(task),
-    update: (partialTask: partialTask) => Js.log(partialTask),
-    terminate: (taskName: string) => Js.log(taskName),
+    add: task => Js.log(task),
+    update: partialTask => Js.log(partialTask),
+    terminate: taskName => Js.log(taskName),
     tasks: [||],
   };
   let taskContext = React.createContext(value);
@@ -36,6 +45,9 @@ module Provider = {
   };
 
   let make = React.Context.provider(taskContext);
+
+  let updateTaskAt = (index, tasks, task) =>
+    Relude.Array.updateAt(index, _ => task, tasks);
 };
 
 let useTasks = () => React.useContext(Provider.taskContext);
@@ -43,33 +55,53 @@ let useTasks = () => React.useContext(Provider.taskContext);
 [@react.component]
 [@genType]
 let make = (~children) => {
-  let (tasks, setTasks) =
-    React.useState(() => [||]: unit => Js.Array.t(task));
-  let add = (task: task) =>
+  let (tasks, setTasks) = React.useState(() => [||]);
+  let tasksRef = React.useRef(tasks);
+  React.useEffect1(
+    () => {
+      React.Ref.setCurrent(tasksRef, tasks);
+      None;
+    },
+    [|tasks|],
+  );
+  let add = (task: Task.t) =>
     setTasks(oldTasks => Js.Array.concat([|task|], oldTasks));
   let update = (partialTask: partialTask) => {
+    let tasks = React.Ref.current(tasksRef);
     let taskIndex =
       Js.Array.findIndex(
-        (task: task) => task.name == partialTask.name,
+        (task: Task.t) => task.name == partialTask.name,
         tasks,
       );
     if (taskIndex != (-1)) {
       let {description, status} = partialTask;
-      let tasksRef = tasks;
-      switch (description) {
-      | Some(description) => tasksRef[taskIndex].description = description
-      | None => ()
+      switch (description, status) {
+      | (Some(description), Some(status)) =>
+        setTasks(tasks =>
+          tasks[taskIndex]
+          |> Task.Setters.setDescription(description)
+          |> Task.Setters.setStatus(status)
+          |> Provider.updateTaskAt(taskIndex, tasks)
+        )
+      | (Some(description), None) =>
+        setTasks(tasks =>
+          tasks[taskIndex]
+          |> Task.Setters.setDescription(description)
+          |> Provider.updateTaskAt(taskIndex, tasks)
+        )
+      | (None, Some(status)) =>
+        setTasks(tasks =>
+          tasks[taskIndex]
+          |> Task.Setters.setStatus(status)
+          |> Provider.updateTaskAt(taskIndex, tasks)
+        )
+      | (None, None) => ()
       };
-      switch (status) {
-      | Some(status) => tasksRef[taskIndex].status = status
-      | None => ()
-      };
-      setTasks(_oldTasks => tasksRef);
     };
   };
   let terminate = (taskName: string) =>
     setTasks(oldTasks =>
-      Js.Array.filter((task: task) => !(task.name == taskName), oldTasks)
+      Js.Array.filter((task: Task.t) => !(task.name == taskName), oldTasks)
     );
   let value = {add, terminate, update, tasks};
   <Provider value> children </Provider>;
