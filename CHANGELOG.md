@@ -1,3 +1,18 @@
+## [0.2.5](https://github.com/yadPe/beatconnect_client/compare/v0.2.4...v0.2.5) (2020-09-27)
+
+
+### Bug Fixes
+
+* **beatmapScan:** fixed infinite loading ([#235](https://github.com/yadPe/beatconnect_client/issues/235)) ([8b521dc](https://github.com/yadPe/beatconnect_client/commit/8b521dc656ae9155fef661b6a22fd5593faaab76))
+* **download:** show download indicator ([#237](https://github.com/yadPe/beatconnect_client/issues/237)) ([a52507c](https://github.com/yadPe/beatconnect_client/commit/a52507c2cd0051b8befa06a21bb433433f0756fb))
+
+
+### Reverts
+
+* Revert "chore(deps): bump electron-is-dev from 1.1.0 to 1.2.0 (#186)" (#236) ([497a4d8](https://github.com/yadPe/beatconnect_client/commit/497a4d8c1434a4d052047d169ce5ef3b98035ebd)), closes [#186](https://github.com/yadPe/beatconnect_client/issues/186) [#236](https://github.com/yadPe/beatconnect_client/issues/236)
+
+
+
 ## [0.2.4](https://github.com/yadPe/beatconnect_client/compare/v0.2.3...v0.2.4) (2020-09-21)
 
 ### Bug Fixes
