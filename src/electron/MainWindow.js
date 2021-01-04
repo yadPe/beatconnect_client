@@ -30,6 +30,8 @@ const makeMainWindowSettings = () => {
       webPreferences: {
         nodeIntegration: true,
         webSecurity: false,
+        // FIXME: When migrating to electron 13
+        enableRemoteModule: true,
       },
     },
   ];
