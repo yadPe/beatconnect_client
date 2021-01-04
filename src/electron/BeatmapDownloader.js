@@ -3,6 +3,7 @@ const { normalize, join } = require('path');
 const { app, ipcMain, shell } = require('electron');
 const { makeDownloadUrl, readableBits } = require('./helpers');
 const isOnline = require('./helpers/isOnline');
+const { log, error } = require('electron-log');
 
 // BeatmapDownloader register to the app window
 // It handles all beatmaps downloads and provide a queue system for them,
@@ -237,7 +238,7 @@ class BeatmapDownloader {
     }
     this.sendToWin('download-succeeded', { beatmapSetId });
     this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
-    if (this.autoOpenOnDone) shell.openItem(item.getSavePath());
+    if (this.autoOpenOnDone) shell.openPath(item.getSavePath()).catch(error);
     this.clearCurrentDownload();
     this.executeQueue();
   }

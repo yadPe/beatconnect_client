@@ -24,6 +24,7 @@ import { useSetTheme } from '../../Providers/ThemeProvider';
 import { useDownloadQueue } from '../../Providers/downloadManager';
 import config from '../../../shared/config';
 import { useTasks } from '../../Providers/TaskProvider.bs';
+import { error } from 'electron-log';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();
@@ -110,7 +111,7 @@ const Settings = ({ userPreferences }) => {
         {
           name: 'Bancho IRC credentials',
           description: `If you don't have them already clic here or go to osu.ppy.sh/p/irc`,
-          action: () => shell.openItem('https://osu.ppy.sh/p/irc'),
+          action: () => shell.openPath('https://osu.ppy.sh/p/irc').catch(error),
           type: 'Text',
         },
         { name: 'Username', value: irc.username, action: setIrcUser, type: String },
