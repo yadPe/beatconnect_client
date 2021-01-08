@@ -16,6 +16,7 @@ import config from '../../../../shared/config';
 const styles = {
   wrapper: {
     // padding: '1.5rem 4rem',
+    overflow: 'hidden',
     '& svg': {
       display: 'block',
       margin: 'auto',
@@ -100,9 +101,9 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
   const filteredBeatmapsets =
     filter !== ''
       ? pack.beatmapsets.filter(
-          ({ title, artist }) =>
-            title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
-        )
+        ({ title, artist }) =>
+          title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
+      )
       : pack.beatmapsets;
 
   const itemCount = filteredBeatmapsets.length + 1; // +1 for top spacer

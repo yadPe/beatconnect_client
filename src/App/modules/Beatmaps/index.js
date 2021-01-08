@@ -19,6 +19,7 @@ const styles = {
   ...getFadeIn(),
   Beatmaps: {
     outline: 'none',
+    overflow: 'hidden',
     ...sectionSwitchAnimation(),
   },
 };
