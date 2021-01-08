@@ -1,3 +1,4 @@
+import { error } from 'electron-log';
 import config from '../../../../shared/config';
 import store from '../../../../shared/store';
 
@@ -25,9 +26,9 @@ const getPacksDashboardData = async (mode, callBack) => {
     try {
       const results = await Promise.all(promises);
       const jsonResults = await Promise.all(results.filter(checkResponse).map(res => res.json()));
-      return callBack(jsonResults);
+      return callBack(jsonResults, mode);
     } catch (err) {
-      console.error(err);
+      error(err);
     }
   }
 

@@ -62,12 +62,14 @@ const Group = ({ classes, classeName, name, packs = new Array(4).fill(0), select
       listenerAttached.current = true;
     }
     return () =>
-      listenerAttached.current &&
+      listenerAttached.current && packsContainer.current &&
       packsContainer.current.parentNode.removeEventListener(
         'scroll',
         _.debounce(e => setState({ scrollLeft: e.target.scrollLeft }), 200),
       );
   }, [packsContainer]);
+
+  if (!packs || packs.length === 0) return null;
 
   if (packsContainer.current) {
     const { scrollWidth, parentNode } = packsContainer.current;
