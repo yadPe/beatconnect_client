@@ -1,6 +1,10 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
   "env": {
     "browser": true,
     "node": true
@@ -23,18 +27,38 @@
         "tsx": "never"
       }
     ],
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/interactive-supports-focus": "off",
     "object-curly-newline": "off",
     "no-plusplus": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "import/prefer-default-export": "off"
   },
   "settings": {
     "import/resolver": {
-      "node": { "extensions": [".js", ".jsx", ".mjs", ".json", ".d.ts", ".ts", ".tsx"] }
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".mjs",
+          ".json",
+          ".d.ts",
+          ".ts",
+          ".tsx"
+        ]
+      }
     }
   }
 }
