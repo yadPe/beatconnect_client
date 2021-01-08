@@ -18,7 +18,7 @@ const DownloadedItems = ({ window }) => {
   const renderItems = ({ index, style, isScrolling }) =>
     index === 0 ? <div /> : <div style={style}>{items[index - 1](isScrolling)}</div>;
   return (
-    <div className="downloadMenu DownloadsItem" style={{ width: '100%' }}>
+    <div className="downloadMenu DownloadsItem" style={{ width: '100%', overflow: 'hidden' }}>
       {items.length ? (
         <VariableSizeList
           height={window.height}
@@ -32,10 +32,10 @@ const DownloadedItems = ({ window }) => {
           {renderItems}
         </VariableSizeList>
       ) : (
-        <span style={{ marginTop: `calc(${config.display.topBarHeight}px + 1rem)`, display: 'block' }}>
-          The beatmaps you download will go here
-        </span>
-      )}
+          <span style={{ marginTop: `calc(${config.display.topBarHeight}px + 1rem)`, display: 'block' }}>
+            The beatmaps you download will go here
+          </span>
+        )}
     </div>
   );
 };
