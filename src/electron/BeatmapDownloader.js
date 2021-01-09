@@ -20,6 +20,9 @@ class BeatmapDownloader {
     this.retryInterval = 3500;
     this.receivedBytesArr = [];
     this.autoOpenOnDone = false;
+    this.tempFolder = '';
+    // FIXME: use config
+    this.importMethod = 'auto';
   }
 
   register = win => {
@@ -43,35 +46,43 @@ class BeatmapDownloader {
 
   static isDirectory = path => existsSync(path) && lstatSync(path).isDirectory();
 
+  // FIXME: use config
   setSavePath(path, importMethod = 'auto') {
     console.log('setSavePath', { path, importMethod });
     const validPath = normalize(path);
     if (BeatmapDownloader.isDirectory(validPath)) this.savePath = validPath;
     else throw new Error('InvalidPath');
+    this.importMethod = importMethod;
 
-    switch (importMethod) {
-      // FIXEM: use config
-      // Cannot use config rn because of esm import
-      case 'auto': {
-        this.autoOpenOnDone = true;
-        break;
-      }
-      // FIXEM: use config
-      case 'bulk': {
-        this.autoOpenOnDone = false;
-        this.tempFolder = join(validPath, '__Beatconnect__');
-        ensureDirSync(this.tempFolder);
-        break;
-      }
-      // FIXEM: use config
-      case 'manual': {
-        this.autoOpenOnDone = false;
-        this.tempFolder = '';
-        break;
-      }
-      default:
-        break;
+    // FIXME: use config
+    if (this.importMethod === 'bulk') {
+      this.tempFolder = join(validPath, '__Beatconnect__');
+      ensureDirSync(this.tempFolder);
     }
+
+    // switch (importMethod) {
+    //   // FIXME: use config
+    //   // Cannot use config rn because of esm import
+    //   case 'auto': {
+    //     this.autoOpenOnDone = true;
+    //     break;
+    //   }
+    //   // FIXME: use config
+    //   case 'bulk': {
+    //     this.autoOpenOnDone = false;
+    //     this.tempFolder = join(validPath, '__Beatconnect__');
+    //     ensureDirSync(this.tempFolder);
+    //     break;
+    //   }
+    //   // FIXME: use config
+    //   case 'manual': {
+    //     this.autoOpenOnDone = false;
+    //     this.tempFolder = '';
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
   }
 
   addToQueue(item, silent) {
@@ -184,7 +195,7 @@ class BeatmapDownloader {
       tempFolder: this.tempFolder,
       dest: join(this.tempFolder || this.savePath, item.getFilename()),
     });
-    item.setSavePath(join(this.tempFolder || this.savePath, item.getFilename()));
+    item.setSavePath(join(this.importMethod === 'bulk' ? this.tempFolder : this.savePath, item.getFilename()));
     const beatmapSetId = this.currentDownload.beatmapSetInfos.beatmapSetId || item.getURLChain()[0].split('/')[4];
 
     item.on('updated', (_event, state) => {
@@ -263,8 +274,7 @@ class BeatmapDownloader {
   }
 
   async onDone(item, beatmapSetId) {
-    if (this.tempFolder) {
-      // if bulk import methode write to temp folder first
+    if (this.importMethod === 'bulk') {
       try {
         await move(join(this.tempFolder, item.getFilename()), join(this.savePath, item.getFilename()));
       } catch (err) {
@@ -280,7 +290,7 @@ class BeatmapDownloader {
 
     this.sendToWin('download-succeeded', { beatmapSetId });
     this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
-    if (this.autoOpenOnDone) shell.openPath(item.getSavePath()).catch(error);
+    if (this.importMethod === 'auto') shell.openPath(item.getSavePath()).catch(error);
     this.clearCurrentDownload();
     this.executeQueue();
   }
