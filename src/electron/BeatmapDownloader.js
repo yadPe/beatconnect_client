@@ -1,9 +1,10 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
+const { error } = require('electron-log');
+const { ensureDirSync, move } = require('fs-extra');
 const { app, ipcMain, shell } = require('electron');
 const { makeDownloadUrl, readableBits } = require('./helpers');
 const isOnline = require('./helpers/isOnline');
-const { log, error } = require('electron-log');
 
 // BeatmapDownloader register to the app window
 // It handles all beatmaps downloads and provide a queue system for them,
@@ -35,17 +36,42 @@ class BeatmapDownloader {
     ipcMain.on('cancel-current-download', this.cancelCurrent);
     ipcMain.on('pause-resume-current-download', this.pauseResumeCurrent);
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
-    ipcMain.on('set-beatmap-save-folder', (_event, { path, isAuto }) => this.setSavePath(path, isAuto));
+    ipcMain.on('set-beatmap-save-folder', (_event, { path, importMethod }) => this.setSavePath(path, importMethod));
     ipcMain.on('clear-download-queue', this.clearQueue);
     this.sendToWin('ready');
   };
 
-  setSavePath(path, isAuto) {
+  static isDirectory = (path) => existsSync(path) && lstatSync(path).isDirectory();
+
+  setSavePath(path, importMethod = 'auto') {
+    console.log('setSavePath', { path, importMethod });
     const validPath = normalize(path);
-    if (isAuto) this.autoOpenOnDone = true;
-    else this.autoOpenOnDone = false;
-    if (existsSync(validPath) && lstatSync(validPath).isDirectory()) this.savePath = validPath;
+    if (BeatmapDownloader.isDirectory(validPath)) this.savePath = validPath;
     else throw new Error('InvalidPath');
+
+    switch (importMethod) {
+      // FIXEM: use config 
+      // Cannot use config rn because of esm import 
+      case 'auto': {
+        this.autoOpenOnDone = true;
+        break;
+      }
+      // FIXEM: use config 
+      case 'bulk': {
+        this.autoOpenOnDone = false;
+        this.tempFolder = join(validPath, '__Beatconnect__');
+        ensureDirSync(this.tempFolder);
+        break;
+      }
+      // FIXEM: use config 
+      case 'manual': {
+        this.autoOpenOnDone = false;
+        this.tempFolder = '';
+        break;
+      }
+      default:
+        break;
+    }
   }
 
   addToQueue(item, silent) {
@@ -154,7 +180,8 @@ class BeatmapDownloader {
 
   onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
-    item.setSavePath(join(this.savePath, item.getFilename()));
+    console.log('onWillDownload', { tempFolder: this.tempFolder, dest: join(this.tempFolder || this.savePath, item.getFilename()) });
+    item.setSavePath(join(this.tempFolder || this.savePath, item.getFilename()));
     const beatmapSetId = this.currentDownload.beatmapSetInfos.beatmapSetId || item.getURLChain()[0].split('/')[4];
 
     item.on('updated', (_event, state) => {
@@ -232,57 +259,68 @@ class BeatmapDownloader {
     this.executeQueue();
   }
 
-  onDone(item, beatmapSetId) {
+  async onDone(item, beatmapSetId) {
+    if (this.tempFolder) { // if bulk import methode write to temp folder first
+      try {
+        await move(join(this.tempFolder, item.getFilename()), join(this.savePath, item.getFilename()))
+      } catch (err) {
+        error(err)
+        this.onFailed(undefined, undefined, beatmapSetId)
+        return
+      }
+    }
+
     if (process.platform === 'darwin') {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
+
     this.sendToWin('download-succeeded', { beatmapSetId });
     this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
     if (this.autoOpenOnDone) shell.openPath(item.getSavePath()).catch(error);
     this.clearCurrentDownload();
     this.executeQueue();
-  }
 
-  onFailed(_item, _state, beatmapSetId) {
-    this.sendToWin('download-failed', { beatmapSetId });
-    this.clearCurrentDownload();
-    this.executeQueue();
-  }
 
-  resumeCurrent() {
-    this.currentDownload.item.resume();
-  }
-
-  startRetrying() {
-    if (!this.currentDownload.item) {
-      throw new Error('noCurrentDownloaditem');
+    onFailed(_item, _state, beatmapSetId) {
+      this.sendToWin('download-failed', { beatmapSetId });
+      this.clearCurrentDownload();
+      this.executeQueue();
     }
-    if (this.currentDownload.item.getState() !== 'interrupted') {
-      throw new Error('currentDownloadNotInterrupted');
+
+    resumeCurrent() {
+      this.currentDownload.item.resume();
     }
-    const retry = () => {
-      isOnline(online => {
-        if (online) {
-          if (!this.currentDownload.item) {
-            clearInterval(this.retryIntervalId);
-            this.retryIntervalId = null;
-          }
-          // retry current 4 times then skip to next one
-          if (this.currentDownload.retryCount > 3) {
-            // skip to next one
-            this.currentDownload.item.cancel();
+
+    startRetrying() {
+      if (!this.currentDownload.item) {
+        throw new Error('noCurrentDownloaditem');
+      }
+      if (this.currentDownload.item.getState() !== 'interrupted') {
+        throw new Error('currentDownloadNotInterrupted');
+      }
+      const retry = () => {
+        isOnline(online => {
+          if (online) {
+            if (!this.currentDownload.item) {
+              clearInterval(this.retryIntervalId);
+              this.retryIntervalId = null;
+            }
+            // retry current 4 times then skip to next one
+            if (this.currentDownload.retryCount > 3) {
+              // skip to next one
+              this.currentDownload.item.cancel();
+            } else {
+              this.resumeCurrent();
+              this.currentDownload.retryCount = (this.currentDownload.retryCount || 0) + 1;
+            }
           } else {
+            // keep retrying current
             this.resumeCurrent();
-            this.currentDownload.retryCount = (this.currentDownload.retryCount || 0) + 1;
           }
-        } else {
-          // keep retrying current
-          this.resumeCurrent();
-        }
-      }, this.sendToWin);
-    };
-    if (!this.retryIntervalId) this.retryIntervalId = setInterval(retry, this.retryInterval);
+        }, this.sendToWin);
+      };
+      if (!this.retryIntervalId) this.retryIntervalId = setInterval(retry, this.retryInterval);
+    }
   }
-}
 
 module.exports = new BeatmapDownloader();
