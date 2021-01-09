@@ -29,14 +29,12 @@ const DownloadManagerProvider = props => {
   const downloadHistory = useDownloadHistory();
 
   const setPath = (importMethod, osuSongsPath) => {
-    if (importMethod === config.settings.importMethod.bulk && osuSongsPath) {
-      setSavePath({ path: osuSongsPath });
-    } else {
-      setSavePath({
-        path: app.getPath('downloads'),
-        isAuto: importMethod === config.settings.importMethod.auto && config.settings.importMethod.auto,
-      });
-    }
+    console.log('setPath', { importMethod, osuSongsPath });
+    setSavePath({
+      path:
+        importMethod === config.settings.importMethod.bulk && osuSongsPath ? osuSongsPath : app.getPath('downloads'),
+      importMethod,
+    });
   };
 
   const initSaveLocation = () => {

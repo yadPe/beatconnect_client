@@ -45,6 +45,7 @@ const Settings = ({ userPreferences }) => {
     });
     if (filePaths.length) {
       if (song === 'song') {
+        console.log({ importMethod: userPreferences.importMethod });
         setPath(userPreferences.importMethod, filePaths[0]);
         setOsuSongsPath(filePaths[0]);
       } else setOsuPath(filePaths[0]);

@@ -1,9 +1,10 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
+const { error } = require('electron-log');
+const { ensureDirSync, move } = require('fs-extra');
 const { app, ipcMain, shell } = require('electron');
 const { makeDownloadUrl, readableBits } = require('./helpers');
 const isOnline = require('./helpers/isOnline');
-const { log, error } = require('electron-log');
 
 // BeatmapDownloader register to the app window
 // It handles all beatmaps downloads and provide a queue system for them,
@@ -19,6 +20,9 @@ class BeatmapDownloader {
     this.retryInterval = 3500;
     this.receivedBytesArr = [];
     this.autoOpenOnDone = false;
+    this.tempFolder = '';
+    // FIXME: use config
+    this.importMethod = 'auto';
   }
 
   register = win => {
@@ -35,17 +39,50 @@ class BeatmapDownloader {
     ipcMain.on('cancel-current-download', this.cancelCurrent);
     ipcMain.on('pause-resume-current-download', this.pauseResumeCurrent);
     ipcMain.on('cancel-download', (_event, beatmapSetId) => this.cancel(beatmapSetId));
-    ipcMain.on('set-beatmap-save-folder', (_event, { path, isAuto }) => this.setSavePath(path, isAuto));
+    ipcMain.on('set-beatmap-save-folder', (_event, { path, importMethod }) => this.setSavePath(path, importMethod));
     ipcMain.on('clear-download-queue', this.clearQueue);
     this.sendToWin('ready');
   };
 
-  setSavePath(path, isAuto) {
+  static isDirectory = path => existsSync(path) && lstatSync(path).isDirectory();
+
+  // FIXME: use config
+  setSavePath(path, importMethod = 'auto') {
+    console.log('setSavePath', { path, importMethod });
     const validPath = normalize(path);
-    if (isAuto) this.autoOpenOnDone = true;
-    else this.autoOpenOnDone = false;
-    if (existsSync(validPath) && lstatSync(validPath).isDirectory()) this.savePath = validPath;
+    if (BeatmapDownloader.isDirectory(validPath)) this.savePath = validPath;
     else throw new Error('InvalidPath');
+    this.importMethod = importMethod;
+
+    // FIXME: use config
+    if (this.importMethod === 'bulk') {
+      this.tempFolder = join(validPath, '__Beatconnect__');
+      ensureDirSync(this.tempFolder);
+    }
+
+    // switch (importMethod) {
+    //   // FIXME: use config
+    //   // Cannot use config rn because of esm import
+    //   case 'auto': {
+    //     this.autoOpenOnDone = true;
+    //     break;
+    //   }
+    //   // FIXME: use config
+    //   case 'bulk': {
+    //     this.autoOpenOnDone = false;
+    //     this.tempFolder = join(validPath, '__Beatconnect__');
+    //     ensureDirSync(this.tempFolder);
+    //     break;
+    //   }
+    //   // FIXME: use config
+    //   case 'manual': {
+    //     this.autoOpenOnDone = false;
+    //     this.tempFolder = '';
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
   }
 
   addToQueue(item, silent) {
@@ -154,7 +191,11 @@ class BeatmapDownloader {
 
   onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
-    item.setSavePath(join(this.savePath, item.getFilename()));
+    console.log('onWillDownload', {
+      tempFolder: this.tempFolder,
+      dest: join(this.tempFolder || this.savePath, item.getFilename()),
+    });
+    item.setSavePath(join(this.importMethod === 'bulk' ? this.tempFolder : this.savePath, item.getFilename()));
     const beatmapSetId = this.currentDownload.beatmapSetInfos.beatmapSetId || item.getURLChain()[0].split('/')[4];
 
     item.on('updated', (_event, state) => {
@@ -232,13 +273,24 @@ class BeatmapDownloader {
     this.executeQueue();
   }
 
-  onDone(item, beatmapSetId) {
+  async onDone(item, beatmapSetId) {
+    if (this.importMethod === 'bulk') {
+      try {
+        await move(join(this.tempFolder, item.getFilename()), join(this.savePath, item.getFilename()));
+      } catch (err) {
+        error(`(BeatmapDownloader) [${beatmapSetId}]: ${err}`);
+        this.onFailed(undefined, undefined, beatmapSetId);
+        return;
+      }
+    }
+
     if (process.platform === 'darwin') {
       app.dock.downloadFinished(join(this.savePath, item.getFilename()));
     }
+
     this.sendToWin('download-succeeded', { beatmapSetId });
     this.trackEvent('beatmapDownload', 'succeed', this.currentDownload.beatmapSetInfos.beatmapSetId);
-    if (this.autoOpenOnDone) shell.openPath(item.getSavePath()).catch(error);
+    if (this.importMethod === 'auto') shell.openPath(item.getSavePath()).catch(error);
     this.clearCurrentDownload();
     this.executeQueue();
   }
