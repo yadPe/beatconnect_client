@@ -101,7 +101,7 @@
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
     "electron-window-state": "^5.0.3",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^9.0.1",
     "irc": "git+https://github.com/yadPe/node-irc.git",
     "long": "^4.0.0",
     "node-machine-id": "^1.1.12",
