@@ -96,7 +96,6 @@
     }
   },
   "dependencies": {
-    "bs-bastet": "^1.2.5",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
@@ -117,8 +116,7 @@
     "react-window": "^1.8.5",
     "reason-react": "^0.7.0",
     "redux": "^4.0.5",
-    "relude": "^0.63.1",
-    "string.prototype.startswith": "^1.0.0",
+    "relude": "^0.65.0",
     "uleb128": "^1.0.1",
     "underscore": "^1.10.2",
     "universal-analytics": "^0.4.20"
