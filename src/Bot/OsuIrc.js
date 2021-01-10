@@ -3,8 +3,6 @@ import store from '../shared/store';
 
 const irc = require('irc');
 const EventEmitter = require('events').EventEmitter;
-require('string.prototype.startswith');
-
 class OsuIrc {
   constructor(onMessage, onMpMessage, np, endMatch, config) {
     this.onMpMessage = onMpMessage;
