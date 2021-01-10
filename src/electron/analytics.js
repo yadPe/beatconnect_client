@@ -7,16 +7,18 @@ const isDev = require('electron-is-dev');
 const makeTracker = userAgent => {
   const visitor = ua(process.env.BEATCONNECT_CLIENT_GA_TRACKING_ID, machineIdSync(true), {
     strictCidFormat: false,
-    ua: userAgent,
-    an: app.name,
-    av: app.getVersion(),
-    ul: app.getLocale(),
-    ds: 'app',
+    tid: process.env.BEATCONNECT_CLIENT_GA_TRACKING_ID,
   });
 
-  const errorHandler = err =>
-    // eslint-disable-next-line no-console
-    err && (isDev ? log.error(`Analytics error: ${JSON.stringify(err)}`) : console.log('Analytics error: ', err));
+  visitor.set('ua', userAgent);
+  visitor.set('an', app.name);
+  visitor.set('av', app.getVersion());
+  visitor.set('ul', app.getLocale());
+  visitor.set('ds', 'app');
+
+  const errorHandler = err => {
+    if (err) log.error(`Analytics error: ${err.message}`);
+  };
 
   const trackEvent = (category, action, label, value) => {
     if (!isDev) {
