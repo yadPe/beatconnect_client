@@ -20,7 +20,7 @@ const makeMainWindowSettings = () => {
       y: mainWindowState.y,
       width: mainWindowState.width,
       height: mainWindowState.height,
-      minHeight: 350,
+      minHeight: 550,
       minWidth: 890,
       show: false,
       darkTheme: true,

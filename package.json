@@ -24,7 +24,7 @@
     "bsb:watch": "bsb -make-world -w",
     "bsb:clean": "bsb -clean-world",
     "dist": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64",
-    "dist:win": "electron-builder build --win --x64",
+    "dist:win": "npm i && npm run build && electron-builder build --win --x64",
     "dist:linux": "npm i && npm run build && electron-builder build --linux --x64",
     "dist:mac": "npm i && npm run build && electron-builder build --mac --x64",
     "dist:gh-publish": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64 -p always",
