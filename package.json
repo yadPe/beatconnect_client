@@ -98,7 +98,7 @@
   "dependencies": {
     "bs-bastet": "^1.2.5",
     "electron-is-dev": "^1.1.0",
-    "electron-log": "^4.2.4",
+    "electron-log": "^4.3.1",
     "electron-updater": "^4.3.4",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^9.0.1",
