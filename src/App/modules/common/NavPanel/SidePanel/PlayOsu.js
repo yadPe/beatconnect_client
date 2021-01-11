@@ -6,7 +6,7 @@ import renderIcons from '../../../../helpers/renderIcons';
 import config from '../../../../../shared/config';
 
 const useStyle = createUseStyles({
-  a: {
+  playOsuWrapper: {
     visibility: ({ visible }) => (visible ? 'visible' : 'hidden'),
     margin: '0 0 0 0',
     display: 'flex',
@@ -98,22 +98,24 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   }, []);
 
   return (
-    <a data-radium="true" className={classes.a} onClick={launchOsu} role="tab">
+    <div className={classes.playOsuWrapper} onClick={launchOsu} role="tab">
       <span className={`${classes.tooltiptext} tooltiptext`}>{osuIsRunning ? 'Playing !' : 'Play!'}</span>
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
         <div data-radium="true" className={classes.i}>
           {renderIcons({
-            name: 'playButton',
+            name: 'osu',
             color: osuIsRunning && theme.palette.primary.accent,
             secColor: osuIsRunning && '#e3609a',
+            width: '25px',
+            height: '25px',
           })}
         </div>
         <span data-radium="true" className={classes.title}>
           {osuIsRunning ? 'Playing !' : 'Play !'}
         </span>
       </span>
-    </a>
+    </div>
   );
 };
 
