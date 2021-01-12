@@ -99,7 +99,7 @@
     "bs-bastet": "^1.2.5",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^4.3.1",
-    "electron-updater": "^4.3.4",
+    "electron-updater": "^4.3.5",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^9.0.1",
     "irc": "git+https://github.com/yadPe/node-irc.git",
@@ -115,7 +115,7 @@
     "react-jss": "^10.5.0",
     "react-redux": "^7.1.0",
     "react-window": "^1.8.5",
-    "reason-react": "^0.7.0",
+    "reason-react": "^0.7.1",
     "redux": "^4.0.5",
     "relude": "^0.65.0",
     "uleb128": "^1.0.1",
@@ -123,7 +123,7 @@
     "universal-analytics": "^0.4.23"
   },
   "devDependencies": {
-    "@babel/core": "7.4.3",
+    "@babel/core": "7.12.10",
     "@babel/preset-env": "^7.8.4",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
@@ -145,7 +145,7 @@
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
@@ -173,7 +173,7 @@
     "ts-pnp": "1.1.2",
     "typescript": "^3.5.3",
     "url-loader": "1.1.2",
-    "webpack": "4.29.6",
+    "webpack": "4.46.0",
     "webpack-dev-server": "^3.11.0"
   },
   "browserslist": {
