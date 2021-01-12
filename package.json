@@ -123,7 +123,7 @@
     "universal-analytics": "^0.4.23"
   },
   "devDependencies": {
-    "@babel/core": "7.4.3",
+    "@babel/core": "7.12.10",
     "@babel/preset-env": "^7.8.4",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
