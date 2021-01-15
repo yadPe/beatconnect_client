@@ -41,6 +41,7 @@ const Nav = ({ connected, instance: botInstance, sidePanelExpended, activeSectio
       paneExpandedLength={150}
       defaultIsPanelExpanded={sidePanelExpended}
       onExpended={expended => store.dispatch({ type: 'SIDEPANELEXPENDED', payload: expended })}
+      autoExpend
       volume
       tasks
       expendable

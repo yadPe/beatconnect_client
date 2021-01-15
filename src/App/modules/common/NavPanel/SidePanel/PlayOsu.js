@@ -99,7 +99,6 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
 
   return (
     <div className={classes.playOsuWrapper} onClick={launchOsu} role="tab">
-      <span className={`${classes.tooltiptext} tooltiptext`}>{osuIsRunning ? 'Playing !' : 'Play!'}</span>
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
         <div data-radium="true" className={classes.i}>
