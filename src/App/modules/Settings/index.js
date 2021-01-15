@@ -2,6 +2,7 @@ import React, { useEffect, useState, cloneElement, useContext } from 'react';
 import { useTheme } from 'react-jss';
 import { remote, ipcRenderer, shell } from 'electron';
 import { connect } from 'react-redux';
+import { error } from 'electron-log';
 import {
   setIrcUser,
   setIrcPass,
@@ -24,7 +25,6 @@ import { useSetTheme } from '../../Providers/ThemeProvider';
 import { useDownloadQueue } from '../../Providers/downloadManager';
 import config from '../../../shared/config';
 import { useTasks } from '../../Providers/TaskProvider.bs';
-import { error } from 'electron-log';
 
 const Settings = ({ userPreferences }) => {
   const theme = useTheme();

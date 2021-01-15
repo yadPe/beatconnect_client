@@ -2,6 +2,8 @@ type playingState = {
   songTitle: string,
   beatmapSetId: int,
   isPlaying: bool,
+  volume: int,
+  muted: bool,
 };
 
 type value = {
@@ -11,12 +13,16 @@ type value = {
     unit,
   setVolume: float => unit,
   pause: unit => unit,
+  togglePlayPause: unit => unit,
+  setMuted: bool => unit,
 };
 
 let initialState: playingState = {
   songTitle: "",
   isPlaying: false,
   beatmapSetId: 0,
+  volume: 1,
+  muted: false,
 };
 
 module Provider = {
@@ -27,6 +33,8 @@ module Provider = {
       (),
     setVolume: (vol: float) => (),
     pause: () => (),
+    togglePlayPause: () => (),
+    setMuted: (muted: bool) => (),
   };
   let audioPlayerContext = React.createContext(value);
 
@@ -47,9 +55,7 @@ let make = (~children) => {
   let (playingState, setPlayingState) = React.useState(() => initialState);
 
   Audio.onended(audio, _e => {
-    setPlayingState(oldState =>
-      {...oldState, isPlaying: false, beatmapSetId: 0}
-    )
+    setPlayingState(oldState => {...oldState, isPlaying: false})
   });
 
   Audio.onpause(
@@ -60,15 +66,17 @@ let make = (~children) => {
     },
   );
 
-  Audio.onplay(audio, e => {
-    setPlayingState(oldState =>
-      {...oldState, isPlaying: e.target.readyState === 4}
-    )
+  Audio.onplay(audio, _e => {
+    setPlayingState(oldState => {...oldState, isPlaying: true})
   });
 
   Audio.oncanplay(audio, _e =>
     setPlayingState(oldState => {...oldState, isPlaying: true})
   );
+
+  Audio.onvolumechange(audio, e => {
+    setPlayingState(oldState => {...oldState, volume: e.target.volume})
+  });
 
   let setPreviewAudio = (beatmapSetId: int) => {
     Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
@@ -84,18 +92,35 @@ let make = (~children) => {
     );
     setPreviewAudio(beatmapSetId);
     Audio.play(audio);
-    setPlayingState(_oldState => {isPlaying: false, beatmapSetId, songTitle});
+    setPlayingState(oldState =>
+      {...oldState, isPlaying: false, beatmapSetId, songTitle}
+    );
   };
 
   let pause = () => {
-    setPlayingState(oldState =>
-      {...oldState, isPlaying: false, beatmapSetId: 0}
-    );
     Audio.pause(audio);
   };
 
-  let setVolume = volValue => Audio.setVolume(audio, volValue);
+  let play = () => {
+    Audio.play(audio);
+  };
 
-  let value = {playingState, pause, setAudio, setVolume};
+  let setVolume = Audio.setVolume(audio);
+
+  let togglePlayPause = () => Audio.paused(audio) ? play() : pause();
+
+  let setMuted = muted => {
+    Audio.setMuted(audio, muted);
+    setPlayingState(oldState => {...oldState, muted});
+  };
+
+  let value = {
+    playingState,
+    pause,
+    setAudio,
+    setVolume,
+    togglePlayPause,
+    setMuted,
+  };
   <Provider value> children </Provider>;
 };
