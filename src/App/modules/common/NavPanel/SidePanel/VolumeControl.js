@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { throttle } from 'underscore';
+import { connect } from 'react-redux';
 import { useTheme, createUseStyles } from 'react-jss';
 import renderIcons from '../../../../helpers/renderIcons';
 import Volume from '../../../Settings/components/Volume';
 import config from '../../../../../shared/config';
+import { useAudioPlayer } from '../../../../Providers/AudioPlayerProvider.bs';
+import { saveVolume } from '../../../Settings/reducer/actions';
+import { getVolume } from '../../../Settings/reducer/selectors';
+import store from '../../../../../shared/store';
+import convertRange from '../../../../helpers/convertRange';
+import ConfLoader from '../../../Settings/helpers/ConfLoader';
 
 const useStyle = createUseStyles({
   a: {
@@ -73,32 +81,61 @@ const useStyle = createUseStyles({
   },
 });
 
-const VolumeControl = ({ onSelect, ...otherProps }) => {
-  const [volumeValue, setVolumeValue] = useState();
-  const theme = useTheme();
+const denounceSave = throttle(
+  (vol, save) => {
+    save(convertRange(vol, 0, 1, 0, 100));
+    ConfLoader.save();
+  },
+  1000,
+  { leading: false },
+);
+
+const VolumeControl = ({ onSelect, volume, ...otherProps }) => {
   const classes = useStyle({ ...otherProps, theme });
+  const hasRestoredVolume = useRef(false);
+  const theme = useTheme();
+  const { playingState, setVolume, setMuted } = useAudioPlayer();
+  const playerVolume = playingState.volume;
+
+  const toggleMuted = () => (playingState.muted ? setMuted(false) : setMuted(true));
   const updateIcon = () => {
-    if (volumeValue < 1) return renderIcons({ name: 'VolumeMute' });
-    if (volumeValue < 35) return renderIcons({ name: 'VolumeLow' });
-    if (volumeValue < 75) return renderIcons({ name: 'VolumeMid' });
+    if (playingState.muted) return renderIcons({ name: 'VolumeMute' });
+    if (playerVolume < 0.01) return renderIcons({ name: 'VolumeMute' });
+    if (playerVolume < 0.35) return renderIcons({ name: 'VolumeLow' });
+    if (playerVolume < 0.75) return renderIcons({ name: 'VolumeMid' });
     return renderIcons({ name: 'VolumeHigh' });
   };
+  const handleVolChange = value => {
+    if (playingState.muted) setMuted(false);
+    setVolume(value);
+  };
+
+  useEffect(() => {
+    if (!hasRestoredVolume.current && volume !== null) {
+      setVolume(convertRange(getVolume(store.getState()), 0, 100, 0, 1));
+      hasRestoredVolume.current = true;
+    }
+    return () => {
+      denounceSave(playerVolume, saveVolume);
+    };
+  }, [hasRestoredVolume, playerVolume, volume]);
+
   return (
-    <a data-radium="true" className={classes.a} onClick={onSelect} role="tab">
-      <span className={`${classes.tooltiptext} tooltiptext`}>
-        <Volume onChange={setVolumeValue} />
-      </span>
-      <span data-radium="true" className={classes.span}>
+    <a className={classes.a} role="tab">
+      <span data-radium="true" className={classes.span} onClick={toggleMuted}>
         <div className={`${classes.indicator} indicator`} />
         <i data-radium="true" className={classes.i}>
           {updateIcon()}
         </i>
-        <span data-radium="true" className={classes.title}>
-          <Volume onChange={setVolumeValue} />
+        <span data-radium="true" className={classes.title} onClick={e => e.stopPropagation()}>
+          <Volume onChange={handleVolChange} value={playerVolume} />
         </span>
       </span>
     </a>
   );
 };
 
-export default VolumeControl;
+const mapStateTotProps = state => ({
+  volume: getVolume(state),
+});
+export default connect(mapStateTotProps)(VolumeControl);

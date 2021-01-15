@@ -8,7 +8,7 @@ const resetBot = () => {
   }
 };
 
-export const updateVolume = payload => store.dispatch({ type: 'VOLUME', payload });
+export const saveVolume = payload => store.dispatch({ type: 'VOLUME', payload });
 
 export const setIrcUser = payload => {
   resetBot();
