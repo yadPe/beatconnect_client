@@ -91,9 +91,9 @@ const denounceSave = throttle(
 );
 
 const VolumeControl = ({ onSelect, volume, ...otherProps }) => {
-  const classes = useStyle({ ...otherProps, theme });
   const hasRestoredVolume = useRef(false);
   const theme = useTheme();
+  const classes = useStyle({ ...otherProps, theme });
   const { playingState, setVolume, setMuted } = useAudioPlayer();
   const playerVolume = playingState.volume;
 
