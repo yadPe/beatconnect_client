@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
@@ -6,6 +6,7 @@ import TasksControl from './TasksControl';
 import PlayOsu from './PlayOsu';
 import config from '../../../../../shared/config';
 import { getDragRegion } from '../../../../helpers/css.utils';
+import PlayingSong from './PlayingSong';
 
 const styles = {
   SidePanel: {
@@ -43,7 +44,36 @@ const styles = {
   },
 };
 
-const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, subPanel }) => {
+const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, subPanel, autoExpend = false }) => {
+  const sidePanelRef = useRef();
+  useEffect(() => {
+    if (autoExpend) {
+      let expendTimeout;
+      let closeTimeout;
+      const expendAfterTime = () => {
+        if (closeTimeout) clearTimeout(closeTimeout);
+        expendTimeout = setTimeout(() => setExpended(true), 650);
+      };
+      const closeOnLeave = () => {
+        if (expendTimeout) clearTimeout(expendTimeout);
+        expendTimeout = null;
+        closeTimeout = setTimeout(() => setExpended(false), 400);
+      };
+      if (sidePanelRef.current) {
+        sidePanelRef.current.addEventListener('mouseenter', expendAfterTime);
+        sidePanelRef.current.addEventListener('mouseleave', closeOnLeave);
+      }
+      return () => {
+        if (expendTimeout) clearTimeout(expendTimeout);
+        if (closeTimeout) clearTimeout(closeTimeout);
+        if (sidePanelRef.current) {
+          sidePanelRef.current.removeEventListener('mouseenter', expendAfterTime);
+          sidePanelRef.current.removeEventListener('mouseleave', closeOnLeave);
+        }
+      };
+    }
+    return () => {};
+  }, [sidePanelRef]);
   const itemTab = () =>
     items.map((item, i) => {
       if (items.length - i === 1) {
@@ -52,8 +82,9 @@ const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, s
             {!subPanel && (
               <>
                 <TasksControl expended={expended} tasks={tasks} />
-                <PlayOsu expended={expended} />
+                <PlayingSong expended={expended} />
                 <VolumeControl expended={expended} />
+                <PlayOsu expended={expended} />
               </>
             )}
             <Tab {...item.props} expended={expended} />
@@ -64,7 +95,7 @@ const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, s
     });
 
   return (
-    <div className={classes.SidePanel}>
+    <div className={classes.SidePanel} ref={sidePanelRef}>
       {expendable ? (
         <>
           <div className={classes.head} />
