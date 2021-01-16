@@ -40,6 +40,7 @@ const main = async () => {
     mainWindow = null;
   });
 
+  // init ga tracking and set tracking methods on global
   const { trackEvent, trackNavigation } = makeTracker(mainWindow.webContents.session.getUserAgent());
   global.tracking = { trackEvent, trackNavigation };
 
