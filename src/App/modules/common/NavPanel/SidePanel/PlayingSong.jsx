@@ -33,7 +33,7 @@ const useStyle = createUseStyles({
     userSelect: 'none',
   },
   label: {
-    visibility: props => (props.expended ? 'visible' : 'hidden'),
+    display: props => (props.expended ? 'block' : 'none'),
   },
 });
 

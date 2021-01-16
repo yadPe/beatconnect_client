@@ -96,14 +96,14 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
 
   const audioPlayer = useAudioPlayer();
   const playPreview = (beatmapSetId, isPlaying, songTitle) =>
-    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, null, songTitle);
+    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, () => {}, songTitle);
 
   const filteredBeatmapsets =
     filter !== ''
       ? pack.beatmapsets.filter(
-        ({ title, artist }) =>
-          title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
-      )
+          ({ title, artist }) =>
+            title.toLowerCase().includes(filter.toLowerCase()) || artist.toLowerCase().includes(filter.toLowerCase()),
+        )
       : pack.beatmapsets;
 
   const itemCount = filteredBeatmapsets.length + 1; // +1 for top spacer
@@ -119,9 +119,10 @@ const BeatmapPackDetail = ({ classes, windowSize, panelExpended, pack, select })
     const offsetedIndex = index - 1;
     const item = filteredBeatmapsets[offsetedIndex];
     const { id, title, artist } = item;
-    const isPlaying = audioPlayer.playingState.beatmapSetId === id;
+    const isSelected = audioPlayer.playingState.beatmapSetId === id;
+    const isPlaying = audioPlayer.playingState.isPlaying && isSelected;
     const wrapperStyle = {
-      backgroundColor: isPlaying && 'rgba(255,255,255,.05)',
+      backgroundColor: isSelected && 'rgba(255,255,255,.05)',
     };
     const playIcoStyle = {
       opacity: isPlaying && 0.9,
