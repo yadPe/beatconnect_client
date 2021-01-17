@@ -57,7 +57,7 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   }, [autoDl]);
 
   const renderContent = () => {
-    if (isDownloading && currentDownload.progressPercent)
+    if (!noStyle && isDownloading && currentDownload.progressPercent)
       return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progressPercent} />;
     if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
     return alreadydownloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
