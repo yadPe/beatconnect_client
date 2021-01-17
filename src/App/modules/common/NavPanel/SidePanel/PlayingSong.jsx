@@ -32,9 +32,6 @@ const useStyle = createUseStyles({
     transition: 'transform 0.1s ease-in 0s',
     userSelect: 'none',
   },
-  label: {
-    display: props => (props.expended ? 'block' : 'none'),
-  },
 });
 
 const PlayingSong = ({ expended }) => {
@@ -59,6 +56,7 @@ const PlayingSong = ({ expended }) => {
           <ScrollingText
             text={playingState.songTitle || 'song song sing song sing song | sddsderetrgvf - df dffg'}
             maxWidth={`${config.display.sidePanelExpandedLength - 44 - 2}px`}
+            visible={expended}
           />
         </div>
       </span>

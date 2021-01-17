@@ -6,6 +6,7 @@ const useStyle = createUseStyles({
   wrapper: {
     whiteSpace: 'nowrap',
     maxWidth: props => props.maxWidth,
+    display: props => (props.visible ? 'block' : 'none'),
     overflow: 'scroll',
     '&::-webkit-scrollbar': {
       display: 'none',
@@ -19,13 +20,15 @@ const clearTimeouts = (...timeoutsRef) => {
   });
 };
 
-const ScrollingText = ({ maxWidth = 0, text = '' }) => {
+const ScrollingText = ({ maxWidth = 0, text = '', visible = true }) => {
+  const classes = useStyle({ maxWidth, visible });
+
   const wrapperRef = useRef();
   const timeoutId = useRef();
   const timeoutId2 = useRef();
 
   useLayoutEffect(() => {
-    if (wrapperRef.current) {
+    if (wrapperRef.current && visible) {
       clearTimeouts(timeoutId, timeoutId2);
       const onScrollFinish = () => {
         clearTimeouts(timeoutId, timeoutId2);
@@ -38,12 +41,11 @@ const ScrollingText = ({ maxWidth = 0, text = '' }) => {
       if (isOverflowing(wrapperRef.current)) scrollToEnd(wrapperRef.current, onScrollFinish);
     }
     return () => {
-      if (wrapperRef.current) resetScroll(wrapperRef.current);
+      if (wrapperRef.current && visible) resetScroll(wrapperRef.current);
       clearTimeouts(timeoutId, timeoutId2);
     };
-  }, [text]);
+  }, [text, visible]);
 
-  const classes = useStyle({ maxWidth });
   return (
     <div className={classes.wrapper} ref={wrapperRef}>
       <span>{text}</span>
