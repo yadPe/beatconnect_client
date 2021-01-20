@@ -1,6 +1,7 @@
 const { lstatSync, existsSync } = require('fs');
 const { normalize, join } = require('path');
-const { error } = require('electron-log');
+const { error, warn } = require('electron-log');
+const { remove } = require('fs-extra');
 const { ensureDirSync, move } = require('fs-extra');
 const { app, ipcMain, shell } = require('electron');
 const { makeDownloadUrl, readableBits } = require('./helpers');
@@ -48,7 +49,6 @@ class BeatmapDownloader {
 
   // FIXME: use config
   setSavePath(path, importMethod = 'auto') {
-    console.log('setSavePath', { path, importMethod });
     const validPath = normalize(path);
     if (BeatmapDownloader.isDirectory(validPath)) this.savePath = validPath;
     else throw new Error('InvalidPath');
@@ -59,30 +59,6 @@ class BeatmapDownloader {
       this.tempFolder = join(validPath, '__Beatconnect__');
       ensureDirSync(this.tempFolder);
     }
-
-    // switch (importMethod) {
-    //   // FIXME: use config
-    //   // Cannot use config rn because of esm import
-    //   case 'auto': {
-    //     this.autoOpenOnDone = true;
-    //     break;
-    //   }
-    //   // FIXME: use config
-    //   case 'bulk': {
-    //     this.autoOpenOnDone = false;
-    //     this.tempFolder = join(validPath, '__Beatconnect__');
-    //     ensureDirSync(this.tempFolder);
-    //     break;
-    //   }
-    //   // FIXME: use config
-    //   case 'manual': {
-    //     this.autoOpenOnDone = false;
-    //     this.tempFolder = '';
-    //     break;
-    //   }
-    //   default:
-    //     break;
-    // }
   }
 
   addToQueue(item, silent) {
@@ -191,10 +167,6 @@ class BeatmapDownloader {
 
   onWillDownload(event, item) {
     this.setCurrentDownloadItem(item);
-    console.log('onWillDownload', {
-      tempFolder: this.tempFolder,
-      dest: join(this.tempFolder || this.savePath, item.getFilename()),
-    });
     item.setSavePath(join(this.importMethod === 'bulk' ? this.tempFolder : this.savePath, item.getFilename()));
     const beatmapSetId = this.currentDownload.beatmapSetInfos.beatmapSetId || item.getURLChain()[0].split('/')[4];
 
@@ -219,7 +191,8 @@ class BeatmapDownloader {
           this.onCancel(item, beatmapSetId);
           break;
         default:
-          this.onFailed(item, state, beatmapSetId);
+          this.onFailed(state, beatmapSetId);
+          warn(`unhandled download item state ${state}`);
           break;
       }
     });
@@ -278,6 +251,12 @@ class BeatmapDownloader {
       try {
         await move(join(this.tempFolder, item.getFilename()), join(this.savePath, item.getFilename()));
       } catch (err) {
+        if (err.message === 'dest already exists.') {
+          // If already exist replace it
+          await remove(join(this.savePath, item.getFilename()));
+          this.onDone(item, beatmapSetId);
+          return;
+        }
         error(`(BeatmapDownloader) [${beatmapSetId}]: ${err}`);
         this.onFailed(undefined, undefined, beatmapSetId);
         return;
@@ -296,6 +275,7 @@ class BeatmapDownloader {
   }
 
   onFailed(_item, _state, beatmapSetId) {
+    error('Download manager onFailed ', _item, _state, beatmapSetId);
     this.sendToWin('download-failed', { beatmapSetId });
     this.clearCurrentDownload();
     this.executeQueue();

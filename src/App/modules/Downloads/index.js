@@ -1,49 +1,42 @@
-import React, { useEffect, useState, cloneElement } from 'react';
-import { useTheme } from 'react-jss';
-
-import DownloadedItems from './components/DownloadedItems';
-import DownloadsInQueue from './components/DownloadsInQueue';
-import DownloadsInProgress from './components/DownloadsInProgress';
-import NavPanelItem from '../common/NavPanel/Item';
-import NavPanel from '../common/NavPanel';
+import React, { useEffect } from 'react';
+import { FixedSizeList as List } from 'react-window';
+import { connect } from 'react-redux';
 import { useDownloadQueue } from '../../Providers/downloadManager';
+import config from '../../../shared/config';
+import BeatmapListItem from '../Packs/BeatmapPackDetail/Item';
+import Header from './components/Header';
+import Empty from './components/Empty';
 
-const Downloads = ({ setHeaderContent }) => {
-  const { queue, removeItemfromQueue } = useDownloadQueue();
-  const theme = useTheme();
-  const queueActive = !!queue.length;
-  const [selected, setSelected] = useState(queueActive ? `Queued` : 'Downloaded');
+const Downloads = ({ setHeaderContent, windowSize }) => {
+  const { removeItemfromQueue, beatmapSetsInQueue } = useDownloadQueue();
 
   useEffect(() => {
-    setHeaderContent(<DownloadsInProgress />);
+    setHeaderContent(<Header />);
     return () => setHeaderContent(null);
-  }, [setHeaderContent, theme]);
+  }, []);
 
-  const renderItem = (title, content) => (
-    <NavPanelItem
-      title={title}
-      background={theme.palette.primary.dark}
-      selected={selected === title}
-      onSelect={() => setSelected(title)}
-      padding="10px 20px"
-    >
-      {setHeader => cloneElement(content, { setHeaderContent: setHeader })}
-    </NavPanelItem>
-  );
-
+  const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
+  const listHeight = windowSize.height;
   return (
-    <div className="menuContainer Downloads" style={{ transition: 'background 0ms' }}>
-      <NavPanel
-        paneExpandedLength={150}
-        defaultIsPanelExpanded
-        sidePanelBackground={theme.palette.secondary.dark}
-        subPanel
-      >
-        {renderItem(`Queued`, <DownloadsInQueue queue={queue} removeItemfromQueue={removeItemfromQueue} />)}
-        {renderItem('Downloaded', <DownloadedItems theme={theme} />)}
-      </NavPanel>
+    <div className="menuContainer Downloads" style={{ transition: 'background 0ms', overflow: 'hidden' }}>
+      {beatmapSetsInQueue.length ? (
+        <List
+          height={listHeight}
+          itemCount={beatmapSetsInQueue.length}
+          itemSize={50}
+          width={listWidth}
+          itemData={{ items: beatmapSetsInQueue, downloadSection: true, removeItemfromQueue }}
+        >
+          {BeatmapListItem}
+        </List>
+      ) : (
+        <Empty />
+      )}
     </div>
   );
 };
 
-export default Downloads;
+const mapStateToProps = ({ app }) => ({
+  windowSize: app.window,
+});
+export default connect(mapStateToProps)(Downloads);

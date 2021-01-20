@@ -2,12 +2,13 @@ import { shell } from 'electron';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
-import renderIcons from '../../../helpers/renderIcons';
 import reqImgAssets from '../../../helpers/reqImgAssets';
 import { useAudioPlayer } from '../../../Providers/AudioPlayerProvider.bs';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { useCurrentDownloadItem } from '../../../Providers/downloadManager/downloadManager.hook';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
+import NewButton from '../../common/newButton';
+import config from '../../../../shared/config';
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
@@ -86,26 +87,28 @@ const useStyle = createUseStyles({
   },
 });
 
-const BeatmapListItem = ({ item, style }) => {
+const BeatmapListItem = ({ index, style, data }) => {
+  const { removeItemfromQueue = () => {}, downloadSection = false, items } = data;
+  const item = items[index];
   const audioPlayer = useAudioPlayer();
   const playPreview = (beatmapSetId, isPlaying, songTitle) =>
     isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, () => {}, songTitle);
 
-  const { id, title, artist, creator, unique_id } = item;
+  const { id, title, artist } = item;
 
   const downloadProgress = useCurrentDownloadItem(id);
-  const classes = useStyle({ downloadProgress });
+  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !downloadSection ? 0.5 : downloadProgress });
 
   const isSelected = audioPlayer.playingState.beatmapSetId === id;
   const isPlaying = audioPlayer.playingState.isPlaying && isSelected;
 
-  const { push } = useDownloadQueue();
+  const { push, pauseResumeDownload, currentDownload, cancelDownload } = useDownloadQueue();
+  const { status } = currentDownload || {};
+  const isDownloading = downloadProgress >= 0;
+  const isPaused = status === config.download.status.paused;
   const handleClick = () => {
-    push({
-      beatmapSetId: id,
-      uniqId: unique_id,
-      beatmapSetInfos: { fullTitle: `${title} - ${artist} ${creator && `| ${creator}`}` },
-    });
+    if (downloadSection) return;
+    push(item);
   };
 
   const wrapperStyle = {
@@ -117,7 +120,7 @@ const BeatmapListItem = ({ item, style }) => {
   };
 
   return (
-    <div style={style} key={id} onClick={handleClick}>
+    <div style={{ ...style, top: `${parseFloat(style.top) + 50}px` }} key={id} onClick={handleClick}>
       <div className={classes.listItem} style={wrapperStyle}>
         <div className={`${classes.thumbnail} thumbnail`} style={{ backgroundImage: `url(${getThumbUrl(id)})` }}>
           <div
@@ -131,23 +134,33 @@ const BeatmapListItem = ({ item, style }) => {
         </div>
         <div className={classes.title}>{title}</div>
         <div className={classes.artist}>{artist}</div>
-        <DownloadBeatmapBtn
-          beatmapSet={item}
-          title="Download"
-          noStyle
-          className={`${classes.downloadButton} clickable`}
-        />
-        <div
+        {downloadSection && isDownloading && (
+          <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
+        )}
+        {downloadSection && (
+          <NewButton
+            iconName="Cancel"
+            onClick={() => (isDownloading ? cancelDownload() : removeItemfromQueue(items[index].id))}
+            borderless
+          />
+        )}
+        {!downloadSection && (
+          <DownloadBeatmapBtn
+            beatmapSet={item}
+            title="Download"
+            noStyle
+            className={`${classes.downloadButton} clickable`}
+          />
+        )}
+        <NewButton
+          iconName="Search"
           onClick={e => {
             e.stopPropagation();
             shell.openExternal(getBeatmapInfosUrl(item));
           }}
-          role="button"
           title="See beatmap page"
-          className={`${classes.beatmapPageButton}  clickable`}
-        >
-          {renderIcons({ name: 'Search' })}
-        </div>
+          borderless
+        />
       </div>
     </div>
   );

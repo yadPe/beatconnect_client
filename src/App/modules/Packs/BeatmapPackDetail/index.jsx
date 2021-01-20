@@ -36,13 +36,14 @@ const BeatmapPackDetail = ({ classes, windowSize, pack, select }) => {
 
   return (
     <div className={classes.wrapper}>
-      <List height={listHeight} itemCount={filteredBeatmapsets.length} itemSize={50} width={listWidth}>
-        {({ index, style }) => (
-          <BeatmapListItem
-            style={{ ...style, top: `${parseFloat(style.top) + 50}px` }}
-            item={filteredBeatmapsets[index]}
-          />
-        )}
+      <List
+        height={listHeight}
+        itemCount={filteredBeatmapsets.length}
+        itemSize={50}
+        width={listWidth}
+        itemData={{ items: filteredBeatmapsets }}
+      >
+        {BeatmapListItem}
       </List>
     </div>
   );

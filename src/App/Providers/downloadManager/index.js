@@ -18,6 +18,7 @@ const { app } = remote;
 
 const DownloadManagerProvider = props => {
   const [state, setState] = useState({
+    beatmapSetsInQueue: [],
     queue: [],
     currentDownload: { beatmapSetId: null, progressPercent: null, downloadSpeed: null, status: null },
     overallProgress: 0,
@@ -52,7 +53,22 @@ const DownloadManagerProvider = props => {
       taskManager.add({ name: 'download', status: 'running', description: 'initializing', section: 'Downloads' });
     }
 
-    setState(prevState => ({ ...prevState, queue }));
+    const beatmapSetsInQueue = stateRef.current.beatmapSetsInQueue.filter(item =>
+      queue.some(itm => itm.beatmapSetId === item.id),
+    );
+
+    if (beatmapSetsInQueue.length < queue.length) {
+      const filterMissingItem = item => !beatmapSetsInQueue.some(itm => itm.id === item.beatmapSetId);
+      const mapQueueItemToPartialBeatmap = item => ({
+        id: item.beatmapSetId,
+        title: item.beatmapSetInfos.fullTitle,
+      });
+
+      const missingItems = queue.filter(filterMissingItem).map(mapQueueItemToPartialBeatmap);
+      beatmapSetsInQueue.push(...missingItems);
+    }
+
+    setState(prevState => ({ ...prevState, queue, beatmapSetsInQueue }));
   };
 
   const updateCurrentDowload = item => {
@@ -87,6 +103,30 @@ const DownloadManagerProvider = props => {
       save({ id: beatmapSetId, name: currentQueueItem.beatmapSetInfos.fullTitle });
   };
 
+  const push = beatmapSet => {
+    if (!stateRef.current.queue.some(item => item.beatmapSetId === beatmapSet.id)) {
+      setState(prevState => ({ ...prevState, beatmapSetsInQueue: [...prevState.beatmapSetsInQueue, beatmapSet] }));
+      download({
+        beatmapSetId: beatmapSet.id,
+        uniqId: beatmapSet.unique_id,
+        beatmapSetInfos: { fullTitle: `${beatmapSet.title} - ${beatmapSet.artist}` },
+      });
+    }
+  };
+
+  const pushMany = items => {
+    const itemsToAdd = items.filter(item => !stateRef.current.queue.some(itm => itm.beatmapSetId === item.id));
+    setState(prevState => ({ ...prevState, beatmapSetsInQueue: [...prevState.beatmapSetsInQueue, ...itemsToAdd] }));
+
+    downloadMany(
+      itemsToAdd.map(({ unique_id, id, title, artist }) => ({
+        beatmapSetId: id,
+        uniqId: unique_id,
+        beatmapSetInfos: { fullTitle: `${title} - ${artist}` },
+      })),
+    );
+  };
+
   useDownloadMangerIPC({
     onDownloadManagerReady: initSaveLocation,
     onDownloadProgress: updateCurrentDowload,
@@ -102,10 +142,9 @@ const DownloadManagerProvider = props => {
     cancelDownload: cancelCurrent,
     removeItemfromQueue: cancel,
     clear: clearQueue,
-    push: download,
-
+    push,
+    pushMany,
     setPath,
-    pushMany: downloadMany,
   };
   const { children } = props;
 

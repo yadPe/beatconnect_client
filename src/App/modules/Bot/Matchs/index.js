@@ -40,7 +40,7 @@ const Matchs = ({ mpMatchs, bot, connected }) => {
   };
 
   return (
-    <div className="mpMatchs" style={{ transition: 'background 0ms' }}>
+    <div className="mpMatchs" style={{ transition: 'background 0ms', fontSize: 'smaller' }}>
       {selectedMatch ? renderSelectedMatch() : renderMatchsList(mpMatchs, bot, setSelectedMatch, connected)}
     </div>
   );
