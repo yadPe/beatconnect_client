@@ -1,11 +1,13 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import config from '../../../../shared/config';
+import { getDragRegion } from '../../../helpers/css.utils';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 
 const useStyle = createUseStyles({
   wrapper: {
+    ...getDragRegion(),
     width: '100%',
     height: '100%',
     display: 'inline-flex',
