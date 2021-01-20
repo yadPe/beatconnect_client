@@ -21,8 +21,6 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const history = useContext(HistoryContext);
   const { push, queue, currentDownload, pushMany } = useDownloadQueue();
 
-  const fullTitle =
-    !pack && `${beatmapSet.title} - ${beatmapSet.artist} ${beatmapSet.creator && `| ${beatmapSet.creator}`}`;
   const isInQueue = pack
     ? queue.some(queueItem => pack.some(beatmap => beatmap.id === queueItem.beatmapSetId))
     : queue.some(queueItem => queueItem.beatmapSetId === beatmapSet.id);
@@ -36,19 +34,9 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
     if (e) e.stopPropagation();
     if (pack) {
       const beatmapsToDownload = pack.filter(beatmap => !history.contains(beatmap.id));
-      pushMany(
-        beatmapsToDownload.map(({ unique_id, id, title, artist }) => ({
-          beatmapSetId: id,
-          uniqId: unique_id,
-          beatmapSetInfos: { fullTitle: `${title} - ${artist}` },
-        })),
-      );
+      pushMany(beatmapsToDownload);
     } else {
-      push({
-        beatmapSetId: beatmapSet.id,
-        uniqId: beatmapSet.unique_id,
-        beatmapSetInfos: { fullTitle },
-      });
+      push(beatmapSet);
     }
   };
 
