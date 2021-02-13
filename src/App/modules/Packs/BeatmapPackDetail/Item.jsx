@@ -1,6 +1,7 @@
 import { shell } from 'electron';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import { connect } from 'react-redux';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import reqImgAssets from '../../../helpers/reqImgAssets';
 import { useAudioPlayer } from '../../../Providers/AudioPlayerProvider.bs';
@@ -9,6 +10,8 @@ import { useCurrentDownloadItem } from '../../../Providers/downloadManager/downl
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
+import { useDownloadHistory } from '../../../Providers/HistoryProvider';
+import { getOsuSongPath } from '../../Settings/reducer/selectors';
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
@@ -87,28 +90,45 @@ const useStyle = createUseStyles({
   },
 });
 
-const BeatmapListItem = ({ index, style, data }) => {
-  const { removeItemfromQueue = () => {}, downloadSection = false, items } = data;
-  const item = items[index];
-  const audioPlayer = useAudioPlayer();
-  const playPreview = (beatmapSetId, isPlaying, songTitle) =>
-    isPlaying ? audioPlayer.pause() : audioPlayer.setAudio(beatmapSetId, () => {}, songTitle);
+const getAudioFilePath = (songsPath, filePath) => encodeURI(`file:///${songsPath}/${filePath}`.replace(/\\/g, '/'));
 
+const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
+  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library' } = data;
+  const isPackMode = itemMode === 'pack';
+  const isDownloadMode = itemMode === 'download';
+  const isLibraryMode = itemMode === 'library';
+  const item = items[index];
   const { id, title, artist } = item;
 
-  const downloadProgress = useCurrentDownloadItem(id);
-  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !downloadSection ? 0.5 : downloadProgress });
+  const history = useDownloadHistory();
+  const audioPlayer = useAudioPlayer();
+  const { push, pauseResumeDownload, currentDownload, cancelDownload } = useDownloadQueue();
+  const isDownloaded = history.contains(id);
+  const audioPath =
+    osuSongPath &&
+    isDownloaded &&
+    history.history[id].audioPath &&
+    getAudioFilePath(osuSongPath, history.history[id].audioPath);
 
   const isSelected = audioPlayer.playingState.beatmapSetId === id;
   const isPlaying = audioPlayer.playingState.isPlaying && isSelected;
 
-  const { push, pauseResumeDownload, currentDownload, cancelDownload } = useDownloadQueue();
+  const playPreview = () => {
+    if (isSelected) audioPlayer.togglePlayPause();
+    else audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined);
+  };
+
+  const downloadProgress = useCurrentDownloadItem(id);
+
+  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !isDownloadMode ? 0.5 : downloadProgress });
+
   const { status } = currentDownload || {};
   const isDownloading = downloadProgress >= 0;
   const isPaused = status === config.download.status.paused;
   const handleClick = () => {
-    if (downloadSection) return;
-    push(item);
+    if (isDownloadMode) return;
+    if (isPackMode) push(item);
+    if (isLibraryMode) playPreview();
   };
 
   const wrapperStyle = {
@@ -128,23 +148,23 @@ const BeatmapListItem = ({ index, style, data }) => {
             style={playIcoStyle}
             onClick={e => {
               e.stopPropagation();
-              playPreview(id, isPlaying, `${title} - ${artist}`);
+              playPreview();
             }}
           />
         </div>
         <div className={classes.title}>{title}</div>
         <div className={classes.artist}>{artist}</div>
-        {downloadSection && isDownloading && (
+        {isDownloadMode && isDownloading && (
           <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
         )}
-        {downloadSection && (
+        {isDownloadMode && (
           <NewButton
             iconName="Cancel"
             onClick={() => (isDownloading ? cancelDownload() : removeItemfromQueue(items[index].id))}
             borderless
           />
         )}
-        {!downloadSection && (
+        {isPackMode && (
           <DownloadBeatmapBtn
             beatmapSet={item}
             title="Download"
@@ -166,4 +186,7 @@ const BeatmapListItem = ({ index, style, data }) => {
   );
 };
 
-export default BeatmapListItem;
+const mapStateToProps = state => ({
+  osuSongPath: getOsuSongPath(state),
+});
+export default connect(mapStateToProps)(BeatmapListItem);

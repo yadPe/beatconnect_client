@@ -11,6 +11,7 @@ import NavPanel from './common/NavPanel';
 import NavPanelItem from './common/NavPanel/Item';
 import store from '../../shared/store';
 import config from '../../shared/config';
+import MyLibrary from './MyLibrary';
 
 const { trackNavigation } = remote.getGlobal('tracking');
 
@@ -50,6 +51,7 @@ const Nav = ({ connected, instance: botInstance, sidePanelExpended, activeSectio
       {renderItem('Packs', <Packs />)}
       {renderItem('Downloads', <Downloads />)}
       {renderItem('Bot', <Bot connected={connected} bot={botInstance} />)}
+      {renderItem('My Library', <MyLibrary />)}
       {renderItem('Settings', <Settings />)}
     </NavPanel>
   );
