@@ -9,7 +9,12 @@ type playingState = {
 type value = {
   playingState,
   setAudio:
-    (~beatmapSetId: int, ~setIsPlayable: bool => unit, ~songTitle: string) =>
+    (
+      ~beatmapSetId: int,
+      ~setIsPlayable: bool => unit,
+      ~songTitle: string,
+      ~audioFilePath: option(string)
+    ) =>
     unit,
   setVolume: float => unit,
   pause: unit => unit,
@@ -29,7 +34,12 @@ module Provider = {
   let value = {
     playingState: initialState,
     setAudio:
-      (~beatmapSetId: int, ~setIsPlayable: bool => unit, ~songTitle: string) =>
+      (
+        ~beatmapSetId: int,
+        ~setIsPlayable: bool => unit,
+        ~songTitle: string,
+        ~audioFilePath: option(string),
+      ) =>
       (),
     setVolume: (vol: float) => (),
     pause: () => (),
@@ -82,7 +92,13 @@ let make = (~children) => {
     Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
   };
 
-  let setAudio = (~beatmapSetId, ~setIsPlayable: bool => unit, ~songTitle) => {
+  let setAudio =
+      (
+        ~beatmapSetId,
+        ~setIsPlayable: bool => unit,
+        ~songTitle,
+        ~audioFilePath: option(string),
+      ) => {
     Audio.onerror(
       audio,
       _e => {
@@ -90,7 +106,11 @@ let make = (~children) => {
         setPlayingState(oldState => {...oldState, isPlaying: false});
       },
     );
-    setPreviewAudio(beatmapSetId);
+    if (Belt.Option.isSome(audioFilePath)) {
+      Audio.setSrc(audio, Belt.Option.getWithDefault(audioFilePath, ""));
+    } else {
+      setPreviewAudio(beatmapSetId);
+    };
     Audio.play(audio);
     setPlayingState(oldState =>
       {...oldState, isPlaying: false, beatmapSetId, songTitle}

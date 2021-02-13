@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const { join } = require('path');
+const { log } = require('electron-log');
 const parser = require('../helpers/beatmapParser');
 const { readOsuDB, winTickToMs } = require('../helpers/osudb');
 
@@ -43,27 +45,40 @@ const osuSongsScan = songsDirectoryPath =>
 const osuDbScan = osuPath => {
   const re = readOsuDB(`${osuPath}/osu!.db`);
   const out = {};
+  let overallDuration = 0;
+  let overallUnplayedCount = 0;
   re.beatmaps.forEach(beatmap => {
     if (beatmap.beatmapset_id === -1) return;
+    if (out[beatmap.beatmapset_id]) return;
+    if (beatmap.unplayed) overallUnplayedCount += 1;
+    overallDuration += beatmap.total_time;
     out[beatmap.beatmapset_id] = {
       id: beatmap.beatmapset_id,
       date: winTickToMs(beatmap.last_modification_time),
-      name: `${beatmap.song_title} - ${beatmap.artist_name}`,
+      title: beatmap.song_title,
+      artist: beatmap.artist_name,
       creator: beatmap.creator_name,
       isUnplayed: beatmap.unplayed,
-      hash: beatmap.md5,
+      md5: beatmap.md5,
+      audioPath: join(beatmap.folder_name, beatmap.audio_file_name),
+      previewOffset: beatmap.preview_offset,
     };
   });
-  return out;
+
+  return [out, overallDuration, overallUnplayedCount];
 };
 
 process.on('message', async data => {
   const { msg, osuPath, osuSongsPath, allowLegacy } = JSON.parse(data);
   let beatmaps = [];
+  let overallDuration = 0;
+  let overallUnplayedCount = 0;
   switch (msg) {
     case 'start':
       try {
-        if (osuPath) beatmaps = osuDbScan(osuPath);
+        if (osuPath) {
+          [beatmaps, overallDuration, overallUnplayedCount] = osuDbScan(osuPath);
+        }
         // Fallback to direcrory scan if failed to read osu db
         if (!Object.keys(beatmaps).length && allowLegacy) beatmaps = await osuSongsScan(osuSongsPath);
       } catch (err) {
@@ -71,7 +86,7 @@ process.on('message', async data => {
         process.send(JSON.stringify({ err: err.message }));
         throw err;
       }
-      process.send(JSON.stringify({ results: beatmaps }));
+      process.send(JSON.stringify({ results: beatmaps, overallDuration, overallUnplayedCount }));
       break;
     default:
       break;

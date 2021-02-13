@@ -100,7 +100,12 @@ const DownloadManagerProvider = props => {
     const { save } = downloadHistory;
 
     if (beatmapSetId === currentQueueItem.beatmapSetId)
-      save({ id: beatmapSetId, name: currentQueueItem.beatmapSetInfos.fullTitle });
+      save({
+        id: beatmapSetId,
+        title: currentQueueItem.beatmapSetInfos.title,
+        artist: currentQueueItem.beatmapSetInfos.artist,
+        creator: currentQueueItem.beatmapSetInfos.creator,
+      });
   };
 
   const push = beatmapSet => {
@@ -109,7 +114,7 @@ const DownloadManagerProvider = props => {
       download({
         beatmapSetId: beatmapSet.id,
         uniqId: beatmapSet.unique_id,
-        beatmapSetInfos: { fullTitle: `${beatmapSet.title} - ${beatmapSet.artist}` },
+        beatmapSetInfos: { title: beatmapSet.title, artist: beatmapSet.artist, creator: beatmapSet.creator },
       });
     }
   };
