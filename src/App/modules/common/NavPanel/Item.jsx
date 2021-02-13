@@ -39,6 +39,9 @@ const useStyle = createUseStyles({
       '&::-webkit-scrollbar-thumb': {
         background: ({ theme }) => theme.palette.primary.accent,
       },
+      '&::-webkit-scrollbar-button:start:decrement': {
+        height: `${config.display.topBarHeight}px`,
+      },
     },
   },
 });
