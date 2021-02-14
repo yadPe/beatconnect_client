@@ -8,7 +8,7 @@ const checkResponse = res => {
     store.dispatch({ type: 'PACKS_DISABLED', payload: config.packs.serviceStatus.disabled });
     return false;
   }
-  store.dispatch({ type: 'PACKS_DISABLED', payload: config.packs.serviceStatus.error });
+  // store.dispatch({ type: 'PACKS_DISABLED', payload: config.packs.serviceStatus.error });
   return false;
 };
 

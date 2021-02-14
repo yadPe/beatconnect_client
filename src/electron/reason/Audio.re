@@ -16,6 +16,7 @@ type partialAudioEvent = {target};
 [@bs.get] external getVolume: t => int = "volume";
 [@bs.set] external setSrc: (t, string) => unit = "src";
 [@bs.set] external setVolume: (t, float) => unit = "volume";
+[@bs.set] external setCurrentTime: (t, int) => unit = "currentTime";
 [@bs.set] external setMuted: (t, bool) => unit = "muted";
 [@bs.send] external pause: t => unit = "pause";
 [@bs.send] external play: t => unit = "play";

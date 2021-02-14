@@ -13,7 +13,8 @@ type value = {
       ~beatmapSetId: int,
       ~setIsPlayable: bool => unit,
       ~songTitle: string,
-      ~audioFilePath: option(string)
+      ~audioFilePath: option(string),
+      ~previewOffset: option(int)
     ) =>
     unit,
   setVolume: float => unit,
@@ -39,6 +40,7 @@ module Provider = {
         ~setIsPlayable: bool => unit,
         ~songTitle: string,
         ~audioFilePath: option(string),
+        ~previewOffset: option(int),
       ) =>
       (),
     setVolume: (vol: float) => (),
@@ -98,6 +100,7 @@ let make = (~children) => {
         ~setIsPlayable: bool => unit,
         ~songTitle,
         ~audioFilePath: option(string),
+        ~previewOffset: option(int),
       ) => {
     Audio.onerror(
       audio,
@@ -106,11 +109,16 @@ let make = (~children) => {
         setPlayingState(oldState => {...oldState, isPlaying: false});
       },
     );
-    if (Belt.Option.isSome(audioFilePath)) {
-      Audio.setSrc(audio, Belt.Option.getWithDefault(audioFilePath, ""));
-    } else {
-      setPreviewAudio(beatmapSetId);
+
+    switch (audioFilePath, previewOffset) {
+    | (None, None) => setPreviewAudio(beatmapSetId)
+    | (None, Some(_)) => setPreviewAudio(beatmapSetId)
+    | (Some(audioFilePath), None) => Audio.setSrc(audio, audioFilePath)
+    | (Some(audioFilePath), Some(previewOffset)) =>
+      Audio.setSrc(audio, audioFilePath);
+      Audio.setCurrentTime(audio, previewOffset);
     };
+
     Audio.play(audio);
     setPlayingState(oldState =>
       {...oldState, isPlaying: false, beatmapSetId, songTitle}

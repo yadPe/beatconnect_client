@@ -12,6 +12,7 @@ import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
+import { getAudioFilePath } from './item.utils';
 
 const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
 
@@ -90,8 +91,6 @@ const useStyle = createUseStyles({
   },
 });
 
-const getAudioFilePath = (songsPath, filePath) => encodeURI(`file:///${songsPath}/${filePath}`.replace(/\\/g, '/'));
-
 const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library' } = data;
   const isPackMode = itemMode === 'pack';
@@ -109,13 +108,15 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
     isDownloaded &&
     history.history[id].audioPath &&
     getAudioFilePath(osuSongPath, history.history[id].audioPath);
+  const previewTime = audioPath && history.history[id].previewOffset / 1000;
 
   const isSelected = audioPlayer.playingState.beatmapSetId === id;
   const isPlaying = audioPlayer.playingState.isPlaying && isSelected;
 
   const playPreview = () => {
     if (isSelected) audioPlayer.togglePlayPause();
-    else audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined);
+    else if (isLibraryMode) audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined);
+    else audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined, previewTime || undefined);
   };
 
   const downloadProgress = useCurrentDownloadItem(id);
