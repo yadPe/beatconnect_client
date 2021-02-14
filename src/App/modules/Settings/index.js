@@ -66,7 +66,7 @@ const Settings = ({ userPreferences }) => {
       terminate('Scanning beatmaps');
       if (args.err) console.error(`Error while scannings song: ${args.err}`);
       else {
-        history.set({ ...history.history, ...args });
+        history.set(args);
         setLastScan({ date: Date.now(), beatmaps: Object.keys(args).length });
       }
     });

@@ -9,7 +9,13 @@ type playingState = {
 type value = {
   playingState,
   setAudio:
-    (~beatmapSetId: int, ~setIsPlayable: bool => unit, ~songTitle: string) =>
+    (
+      ~beatmapSetId: int,
+      ~setIsPlayable: bool => unit,
+      ~songTitle: string,
+      ~audioFilePath: option(string),
+      ~previewOffset: option(int)
+    ) =>
     unit,
   setVolume: float => unit,
   pause: unit => unit,
@@ -29,7 +35,13 @@ module Provider = {
   let value = {
     playingState: initialState,
     setAudio:
-      (~beatmapSetId: int, ~setIsPlayable: bool => unit, ~songTitle: string) =>
+      (
+        ~beatmapSetId: int,
+        ~setIsPlayable: bool => unit,
+        ~songTitle: string,
+        ~audioFilePath: option(string),
+        ~previewOffset: option(int),
+      ) =>
       (),
     setVolume: (vol: float) => (),
     pause: () => (),
@@ -82,7 +94,14 @@ let make = (~children) => {
     Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
   };
 
-  let setAudio = (~beatmapSetId, ~setIsPlayable: bool => unit, ~songTitle) => {
+  let setAudio =
+      (
+        ~beatmapSetId,
+        ~setIsPlayable: bool => unit,
+        ~songTitle,
+        ~audioFilePath: option(string),
+        ~previewOffset: option(int),
+      ) => {
     Audio.onerror(
       audio,
       _e => {
@@ -90,7 +109,16 @@ let make = (~children) => {
         setPlayingState(oldState => {...oldState, isPlaying: false});
       },
     );
-    setPreviewAudio(beatmapSetId);
+
+    switch (audioFilePath, previewOffset) {
+    | (None, None) => setPreviewAudio(beatmapSetId)
+    | (None, Some(_)) => setPreviewAudio(beatmapSetId)
+    | (Some(audioFilePath), None) => Audio.setSrc(audio, audioFilePath)
+    | (Some(audioFilePath), Some(previewOffset)) =>
+      Audio.setSrc(audio, audioFilePath);
+      Audio.setCurrentTime(audio, previewOffset);
+    };
+
     Audio.play(audio);
     setPlayingState(oldState =>
       {...oldState, isPlaying: false, beatmapSetId, songTitle}

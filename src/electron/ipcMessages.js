@@ -11,9 +11,9 @@ ipcMain.on('osuSongsScan', (event, options) => {
   osuSongsScanProcess.stdout.pipe(process.stdout);
   osuSongsScanProcess.send(JSON.stringify({ msg: 'start', ...options }));
   osuSongsScanProcess.on('message', msg => {
-    const { results, status, err } = JSON.parse(msg);
+    const { results, status, err, overallDuration, overallUnplayedCount } = JSON.parse(msg);
     if (results) {
-      event.reply('osuSongsScanResults', results);
+      event.reply('osuSongsScanResults', { beatmaps: results, overallDuration, overallUnplayedCount });
       osuSongsScanProcess.kill('SIGTERM');
     }
     if (status) event.reply('osuSongsScanStatus', status);

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { app } = require('electron');
+const { app, protocol } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
@@ -25,6 +25,11 @@ const installExtensions = async extensions => {
 
 const main = async () => {
   if (isDev) {
+    // Makes local file access work when using dev server
+    protocol.registerFileProtocol('file', (request, callback) => {
+      const pathname = decodeURI(request.url.replace('file:///', ''));
+      callback(pathname);
+    });
     console.log('Loading extensions..');
     await installExtensions([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]);
     console.log('Main process ready');

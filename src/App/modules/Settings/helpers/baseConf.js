@@ -8,6 +8,8 @@ export default {
     autoBeat: true,
     autoImport: true,
     importMethod: 'auto',
+    osuPath: '',
+    osuSongsPath: '',
     theme: {
       accentColor: config.display.defaultAccentColor,
     },
