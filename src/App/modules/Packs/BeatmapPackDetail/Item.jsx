@@ -13,8 +13,7 @@ import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { getAudioFilePath } from './item.utils';
-
-const getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`;
+import { getThumbUrl } from '../../../../shared/ppy.helpers';
 
 const useStyle = createUseStyles({
   listItem: {

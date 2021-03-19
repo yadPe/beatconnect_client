@@ -6,7 +6,7 @@ import TasksControl from './TasksControl';
 import PlayOsu from './PlayOsu';
 import config from '../../../../../shared/config';
 import { getDragRegion } from '../../../../helpers/css.utils';
-import PlayingSong from './PlayingSong';
+import MusicPlayer from './MusicPlayer';
 
 const styles = {
   SidePanel: {
@@ -82,7 +82,7 @@ const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, s
             {!subPanel && (
               <>
                 <TasksControl expended={expended} tasks={tasks} />
-                <PlayingSong expended={expended} />
+                <MusicPlayer expended={expended} />
                 <VolumeControl expended={expended} />
                 <PlayOsu expended={expended} />
               </>
