@@ -2,7 +2,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../../../shared/config';
-import { getThumbUrl } from '../../../../../shared/ppy.helpers';
+import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
@@ -50,6 +50,7 @@ const useStyle = createUseStyles({
   },
   songImage: {
     backgroundSize: 'cover',
+    backgroundPosition: 'center',
     borderRadius: '5px',
     width: '60px',
     height: '60px',
@@ -62,7 +63,7 @@ const useStyle = createUseStyles({
 const PlayingSong = ({ expended }) => {
   const classes = useStyle({ expended });
   const { playingState, togglePlayPause } = useAudioPlayer();
-  const visible = playingState.songTitle;
+  const visible = playingState.beatmapSetId;
 
   if (!visible) return null;
   return (
@@ -91,7 +92,7 @@ const PlayingSong = ({ expended }) => {
           </div>
           <div className={classes.label}>
             <ScrollingText
-              text={playingState.songTitle}
+              text={`${playingState.artist} - ${playingState.title}`}
               maxWidth={`${config.display.sidePanelExpandedLength - 44 - 2}px`}
               visible={expended}
             />
