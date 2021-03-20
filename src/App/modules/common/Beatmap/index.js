@@ -74,7 +74,7 @@ export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/$
 const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
   const theme = useTheme();
   const [isPlaying, setIsPLaying] = useState(false);
-  const { beatmapset_id, id, title, artist, creator, version, beatconnectDlLink, beatmaps } = beatmap;
+  const { beatmapset_id, id, title, artist, creator, version, bpm, beatconnectDlLink, beatmaps } = beatmap;
   const wallpaperBeatmapId = beatmaps[Math.max(beatmaps.length - 2, 0)].id;
 
   const modePillsStyle = mode => ({
@@ -91,13 +91,35 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
     <div className={classes.Beatmap}>
       {beatmap && (
         <>
+          {beatmap.status && <Badge style={{ position: 'absolute', top: '4%', right: '1%' }} status={beatmap.status} />}
           <Cover
             url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`}
             height={130}
             noFade={noFade}
           />
-          <Text color="#fff">{title}</Text>
-          <Text color="#fff">{artist}</Text>
+          <div
+            className="leftContainer"
+            style={{ position: 'absolute', left: '2%', bottom: '3%' }}
+          >
+            <div className="additionalInfo" >
+              <span style={{ display: 'flex', alignItems: 'center', height: "13px" }}>{renderIcons({ name: 'Creator', color: "white" })}<Text color="#fff" style={{ marginLeft: '2px' }}>{creator}</Text></span>
+              <span style={{ display: 'flex', alignItems: 'center', marginLeft: '-2px' }}>{renderIcons({ name: 'Metronome', color: "white" })}<Text color="#fff" style={{ marginLeft: '2px' }}>{bpm}</Text></span>
+            </div>
+          </div>
+          <div style={{ color: "white", fontSize: "14px", lineHeight: "21px", marginTop: "5px", marginBottom: "5px" }}>
+            <p style={{
+              margin: 0,paddingLeft:"2%",paddingRight:"2%", whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "100%"
+            }}>{title}</p>
+            <p style={{
+              margin: 0,paddingLeft:"2%",paddingRight:"2%", whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "100%"
+            }}>{artist}</p>
+          </div>
           {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
           <PreviewBeatmapBtn
             theme={theme}
@@ -132,7 +154,6 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
                 <img alt="ctb" title="Catch The Beat" className="pill ctb" style={modePillsStyle('ctb')} />
               )}
             </div>
-            {beatmap.status && <Badge status={beatmap.status} />}
           </div>
         </>
       )}
