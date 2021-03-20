@@ -1,18 +1,35 @@
 type playingState = {
-  songTitle: string,
+  artist: string,
+  title: string,
   beatmapSetId: int,
   isPlaying: bool,
   volume: int,
   muted: bool,
 };
 
+type song = {
+  id: int,
+  artist: string,
+  title: string,
+};
+
+type playlistItem = {
+  id: int,
+  path: string,
+  title: string,
+  artist: string,
+};
+
+type playlist = array(playlistItem);
+
 type value = {
   playingState,
+  playlist,
+  setPlaylist: playlist => unit,
   setAudio:
     (
-      ~beatmapSetId: int,
+      ~song: song,
       ~setIsPlayable: bool => unit,
-      ~songTitle: string,
       ~audioFilePath: option(string),
       ~previewOffset: option(int)
     ) =>
@@ -24,7 +41,8 @@ type value = {
 };
 
 let initialState: playingState = {
-  songTitle: "",
+  artist: "",
+  title: "",
   isPlaying: false,
   beatmapSetId: 0,
   volume: 1,
@@ -34,11 +52,12 @@ let initialState: playingState = {
 module Provider = {
   let value = {
     playingState: initialState,
+    playlist: [||],
+    setPlaylist: playlist => (),
     setAudio:
       (
-        ~beatmapSetId: int,
+        ~song: song,
         ~setIsPlayable: bool => unit,
-        ~songTitle: string,
         ~audioFilePath: option(string),
         ~previewOffset: option(int),
       ) =>
@@ -65,9 +84,44 @@ let audio = Audio.make();
 [@genType]
 let make = (~children) => {
   let (playingState, setPlayingState) = React.useState(() => initialState);
+  let (playlist: playlist, setPlaylist) = React.useState(() => [||]);
+
+  let play = () => {
+    Audio.play(audio);
+  };
+
+  let updateMetadata = (song: song) => {
+    MediaMetadata.make({
+      title: song.title,
+      artist: song.artist,
+      artwork: [|MediaMetadata.makeArtwork(song.id)|],
+    })
+    ->MediaSession.setMediaSessionMetadata;
+  };
 
   Audio.onended(audio, _e => {
-    setPlayingState(oldState => {...oldState, isPlaying: false})
+    switch (playlist) {
+    | [||] => setPlayingState(oldState => {...oldState, isPlaying: false})
+    | playlist =>
+      let nextSong = playlist->Js_array2.shift->Belt_Option.getExn;
+      Audio.setSrc(audio, nextSong.path);
+      play();
+      updateMetadata({
+        id: nextSong.id,
+        title: nextSong.title,
+        artist: nextSong.artist,
+      });
+      setPlayingState(oldState =>
+        {
+          ...oldState,
+          isPlaying: false,
+          beatmapSetId: nextSong.id,
+          title: nextSong.title,
+          artist: nextSong.artist,
+        }
+      );
+      setPlaylist(_ => playlist);
+    }
   });
 
   Audio.onpause(
@@ -94,11 +148,22 @@ let make = (~children) => {
     Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
   };
 
+  let setAudioSrc = (~audioFilePath, ~previewOffset=?, ()) => {
+    Audio.setSrc(audio, audioFilePath);
+    switch (previewOffset) {
+    | Some(offset) => Audio.setCurrentTime(audio, offset)
+    | None => ()
+    };
+  };
+
+  let setPlaylist = (beatmapPlaylist: playlist) => {
+    setPlaylist(_ => beatmapPlaylist);
+  };
+
   let setAudio =
       (
-        ~beatmapSetId,
+        ~song: song,
         ~setIsPlayable: bool => unit,
-        ~songTitle,
         ~audioFilePath: option(string),
         ~previewOffset: option(int),
       ) => {
@@ -110,27 +175,32 @@ let make = (~children) => {
       },
     );
 
+    setPlaylist([||]);
+
+    updateMetadata(song);
+
     switch (audioFilePath, previewOffset) {
-    | (None, None) => setPreviewAudio(beatmapSetId)
-    | (None, Some(_)) => setPreviewAudio(beatmapSetId)
-    | (Some(audioFilePath), None) => Audio.setSrc(audio, audioFilePath)
+    | (None, None) => setPreviewAudio(song.id)
+    | (None, Some(_)) => setPreviewAudio(song.id)
+    | (Some(audioFilePath), None) => setAudioSrc(~audioFilePath, ())
     | (Some(audioFilePath), Some(previewOffset)) =>
-      Audio.setSrc(audio, audioFilePath);
-      Audio.setCurrentTime(audio, previewOffset);
+      setAudioSrc(~audioFilePath, ~previewOffset, ())
     };
 
     Audio.play(audio);
     setPlayingState(oldState =>
-      {...oldState, isPlaying: false, beatmapSetId, songTitle}
+      {
+        ...oldState,
+        isPlaying: false,
+        beatmapSetId: song.id,
+        artist: song.artist,
+        title: song.title,
+      }
     );
   };
 
   let pause = () => {
     Audio.pause(audio);
-  };
-
-  let play = () => {
-    Audio.play(audio);
   };
 
   let setVolume = Audio.setVolume(audio);
@@ -146,9 +216,11 @@ let make = (~children) => {
     playingState,
     pause,
     setAudio,
+    setPlaylist,
     setVolume,
     togglePlayPause,
     setMuted,
+    playlist,
   };
   <Provider value> children </Provider>;
 };

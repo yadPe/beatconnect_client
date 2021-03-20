@@ -31,7 +31,9 @@ let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
 let make = (~height: int) => {
   let {AudioPlayerProvider.playingState} =
     AudioPlayerProvider.useAudioPlayer();
-  let songTitle = playingState.songTitle;
+  let artist = playingState.artist;
+  let title = playingState.title;
+  let songTitle = {j|$artist - $title|j};
   let title =
     playingState.isPlaying
       ? {j|Beatconnect \u23F5 $songTitle|j} : "Beatconnect";
