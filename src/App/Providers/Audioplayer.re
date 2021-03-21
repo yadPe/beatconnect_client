@@ -33,6 +33,12 @@ let make = (~children) => {
     };
   };
 
+  let pause = () => {
+    Audio.pause(audio);
+  };
+
+  let togglePlayPause = () => Audio.paused(audio) ? _play() : pause();
+
   let setPlaylist = (beatmapPlaylist: playlist) => {
     setPlaylist(_ => beatmapPlaylist);
   };
@@ -76,13 +82,7 @@ let make = (~children) => {
     );
   };
 
-  let pause = () => {
-    Audio.pause(audio);
-  };
-
   let setVolume = Audio.setVolume(audio);
-
-  let togglePlayPause = () => Audio.paused(audio) ? _play() : pause();
 
   let setMuted = muted => {
     Audio.setMuted(audio, muted);
