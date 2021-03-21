@@ -94,6 +94,7 @@ let make = (~children) => {
     MediaMetadata.make({
       title: song.title,
       artist: song.artist,
+      album: "Beatconnect",
       artwork: [|MediaMetadata.makeArtwork(song.id)|],
     })
     ->MediaSession.setMediaSessionMetadata;

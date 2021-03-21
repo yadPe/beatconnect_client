@@ -46,6 +46,7 @@ const useStyle = createUseStyles({
     height: '40px',
     margin: '5px 15px 5px 35px',
     position: 'relative',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     '& .playIco': {
       position: 'absolute',
       content: '',
@@ -155,9 +156,7 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
         <div
           className={`${classes.thumbnail} thumbnail`}
           style={{
-            backgroundImage: `url(${getListCoverUrl(id)}), url(${getThumbUrl(
-              id,
-            )}), url(https://i.ytimg.com/vi/5x7VnC1R0Do/maxresdefault.jpg)`,
+            backgroundImage: `url(${getListCoverUrl(id)}), url(${getThumbUrl(id)})`,
           }}
         >
           <div

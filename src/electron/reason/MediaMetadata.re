@@ -9,13 +9,14 @@ type artwork = {
 type metadata = {
   title: string,
   artist: string,
+  album: string,
   artwork: array(artwork),
 };
 
 [@bs.new] external make: metadata => t = "MediaMetadata";
 
-let makeArtwork = (id) => {
+let makeArtwork = id => {
   src: PpyHelpers.getListCoverUrl(id),
   sizes: "160x100",
-  type_: "image/jpg"
-}
+  type_: "image/jpg",
+};
