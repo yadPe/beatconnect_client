@@ -19,6 +19,8 @@ const useStyles = createUseStyles({
   Beatmap: {
     zIndex: 1,
     position: 'relative',
+    fontSize: '14px',
+    color: 'white',
     width: ({ width }) => width || '80%',
     background: ({ theme }) => theme.palette.primary.main,
     margin: ({ margin }) => margin || '1.3vh auto',
@@ -33,6 +35,9 @@ const useStyles = createUseStyles({
     },
     '& > div': {
       justifyContent: 'center',
+    },
+    '& p': {
+      margin: 0,
     },
     '&::before, &::after': {
       zIndex: -1,
@@ -52,6 +57,20 @@ const useStyles = createUseStyles({
       transitionProperty: 'transform, opacity',
       transitionTimingFunction: 'ease-out',
     },
+  },
+  MainInformationsContainer: {
+    padding: '0 2%',
+    margin: '7px 0',
+  },
+  TextElipsis: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '100%',
+  },
+  Row: {
+    display: 'flex',
+    alignItems: 'center',
   },
   '@keyframes pulse': {
     '0%': {
@@ -97,30 +116,27 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
             height={130}
             noFade={noFade}
           />
-          <div
-            className="leftContainer"
-            style={{ position: 'absolute', left: '2%', bottom: '3%' }}
-          >
-            <div className="additionalInfo" >
-              <span style={{ display: 'flex', alignItems: 'center', height: "13px" }}>{renderIcons({ name: 'Creator', color: "white" })}<Text color="#fff" style={{ marginLeft: '2px' }}>{creator}</Text></span>
-              <span style={{ display: 'flex', alignItems: 'center', marginLeft: '-2px' }}>{renderIcons({ name: 'Metronome', color: "white" })}<Text color="#fff" style={{ marginLeft: '2px' }}>{bpm}</Text></span>
-            </div>
+          <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%' }}>
+            <p className={classes.Row}>
+              {renderIcons({ name: 'Creator', color: 'white' })}
+              <span style={{ marginLeft: '2px' }}>{creator}</span>
+            </p>
+            <p className={classes.Row} style={{ marginLeft: '-2px' }}>
+              {renderIcons({ name: 'Metronome', color: 'white' })}
+              <span color="white" style={{ marginLeft: '3px' }}>
+                {bpm}
+              </span>
+            </p>
           </div>
-          <div style={{ color: "white", fontSize: "14px", lineHeight: "21px", marginTop: "5px", marginBottom: "5px" }}>
-            <p style={{
-              margin: 0,paddingLeft:"2%",paddingRight:"2%", whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              maxWidth: "100%"
-            }}>{title}</p>
-            <p style={{
-              margin: 0,paddingLeft:"2%",paddingRight:"2%", whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              maxWidth: "100%"
-            }}>{artist}</p>
+          <div className={classes.MainInformationsContainer}>
+            <p title={title} className={classes.TextElipsis}>
+              {title}
+            </p>
+            <p title={artist} className={classes.TextElipsis}>
+              {artist}
+            </p>
           </div>
-          {version && <Text color="#fff">{`[${version || ''}]`}</Text>}
+          {version && <p>{`[${version || ''}]`}</p>}
           <PreviewBeatmapBtn
             theme={theme}
             beatmapSetId={beatmapset_id || id}
