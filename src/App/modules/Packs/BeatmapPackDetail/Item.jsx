@@ -119,7 +119,7 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
     else if (isLibraryMode) {
       audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined);
       audioPlayer.setPlaylist(
-        items.slice(Math.min(index + 1, items.length)).map(({ id: mapId, title: mapTitle, artist: mapArtist }) => ({
+        items.map(({ id: mapId, title: mapTitle, artist: mapArtist }) => ({
           id: mapId,
           title: mapTitle,
           artist: mapArtist,

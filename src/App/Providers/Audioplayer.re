@@ -1,47 +1,127 @@
 open AudioPlayerProvider;
 
 let audio = Audio.make();
+
+let _play = () => {
+  Audio.play(audio);
+};
+
+let _updateMetadata = (song: song) => {
+  MediaMetadata.make({
+    title: song.title,
+    artist: song.artist,
+    album: "Beatconnect",
+    artwork: [|MediaMetadata.makeArtwork(song.id)|],
+  })
+  ->MediaSession.setMediaSessionMetadata;
+};
+
+let _setPreviewAudio = (beatmapSetId: int) => {
+  Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
+};
+
+let _setAudioSrc = (~audioFilePath, ~previewOffset=?, ()) => {
+  Audio.setSrc(audio, audioFilePath);
+  switch (previewOffset) {
+  | Some(offset) => Audio.setCurrentTime(audio, offset)
+  | None => ()
+  };
+};
+
+let pause = () => {
+  Audio.pause(audio);
+};
+
+let togglePlayPause = () => Audio.paused(audio) ? _play() : pause();
+
+let setVolume = Audio.setVolume(audio);
+
 [@react.component]
 [@genType]
 let make = (~children) => {
   let (playingState, setPlayingState) = React.useState(() => initialState);
   let (playlist: playlist, setPlaylist) = React.useState(() => [||]);
 
-  let _play = () => {
-    Audio.play(audio);
-  };
-
-  let _updateMetadata = (song: song) => {
-    MediaMetadata.make({
-      title: song.title,
-      artist: song.artist,
-      album: "Beatconnect",
-      artwork: [|MediaMetadata.makeArtwork(song.id)|],
-    })
-    ->MediaSession.setMediaSessionMetadata;
-  };
-
-  let _setPreviewAudio = (beatmapSetId: int) => {
-    Audio.setSrc(audio, {j|https://b.ppy.sh/preview/$beatmapSetId.mp3|j});
-  };
-
-  let _setAudioSrc = (~audioFilePath, ~previewOffset=?, ()) => {
-    Audio.setSrc(audio, audioFilePath);
-    switch (previewOffset) {
-    | Some(offset) => Audio.setCurrentTime(audio, offset)
-    | None => ()
+  let _canPlay = (offset: int) =>
+    if (playlist->Belt_Array.length > 0) {
+      let currentSongIndex =
+        playlist->Belt_Array.getIndexBy(item =>
+          item.id == playingState.beatmapSetId
+        );
+      switch (currentSongIndex) {
+      | None => None
+      | Some(index) =>
+        index + offset < playlist->Js_array.length && index + offset > (-1)
+          ? Some(index + offset) : None
+      };
+    } else {
+      None;
     };
-  };
 
-  let pause = () => {
-    Audio.pause(audio);
-  };
-
-  let togglePlayPause = () => Audio.paused(audio) ? _play() : pause();
+  let canPlayNextSong = () => _canPlay(1);
+  let canPlayPrevSong = () => _canPlay(-1);
 
   let setPlaylist = (beatmapPlaylist: playlist) => {
     setPlaylist(_ => beatmapPlaylist);
   };
+
+  let _stop = () => {
+    pause();
+    setPlaylist([||]);
+  };
+
+  React.useEffect0(() => {
+    MediaSession.setActionHandler(`play, Some(_play));
+    MediaSession.setActionHandler(`pause, Some(pause));
+    MediaSession.setActionHandler(`stop, Some(_stop));
+    None;
+  });
+
+  let playFromPlaylist = (playlistindex: int) => {
+    let nextSong = playlist[playlistindex];
+    Audio.setSrc(audio, nextSong.path);
+    _updateMetadata({
+      id: nextSong.id,
+      title: nextSong.title,
+      artist: nextSong.artist,
+    });
+    _play();
+    setPlayingState(oldState =>
+      {
+        ...oldState,
+        isPlaying: false,
+        beatmapSetId: nextSong.id,
+        title: nextSong.title,
+        artist: nextSong.artist,
+      }
+    );
+    setPlaylist(playlist);
+  };
+
+  let updateMediaHandlers = () => {
+    (
+      switch (canPlayNextSong()) {
+      | Some(nextSongindex) => Some(() => playFromPlaylist(nextSongindex))
+      | None => None
+      }
+    )
+    |> MediaSession.setActionHandler(`nexttrack);
+    (
+      switch (canPlayPrevSong()) {
+      | Some(prevSongindex) => Some(() => playFromPlaylist(prevSongindex))
+      | None => None
+      }
+    )
+    |> MediaSession.setActionHandler(`previoustrack);
+  };
+
+  React.useEffect2(
+    () => {
+      updateMediaHandlers();
+      None;
+    },
+    (playingState, playlist),
+  );
 
   let setAudio =
       (
@@ -59,7 +139,6 @@ let make = (~children) => {
     );
 
     setPlaylist([||]);
-
     _updateMetadata(song);
 
     switch (audioFilePath, previewOffset) {
@@ -70,7 +149,7 @@ let make = (~children) => {
       _setAudioSrc(~audioFilePath, ~previewOffset, ())
     };
 
-    Audio.play(audio);
+    _play();
     setPlayingState(oldState =>
       {
         ...oldState,
@@ -82,35 +161,15 @@ let make = (~children) => {
     );
   };
 
-  let setVolume = Audio.setVolume(audio);
-
   let setMuted = muted => {
     Audio.setMuted(audio, muted);
     setPlayingState(oldState => {...oldState, muted});
   };
 
   Audio.onended(audio, _e => {
-    switch (playlist) {
-    | [||] => setPlayingState(oldState => {...oldState, isPlaying: false})
-    | playlist =>
-      let nextSong = playlist->Js_array2.shift->Belt_Option.getExn;
-      Audio.setSrc(audio, nextSong.path);
-      _play();
-      _updateMetadata({
-        id: nextSong.id,
-        title: nextSong.title,
-        artist: nextSong.artist,
-      });
-      setPlayingState(oldState =>
-        {
-          ...oldState,
-          isPlaying: false,
-          beatmapSetId: nextSong.id,
-          title: nextSong.title,
-          artist: nextSong.artist,
-        }
-      );
-      setPlaylist(playlist);
+    switch (canPlayNextSong()) {
+    | Some(nextSongindex) => playFromPlaylist(nextSongindex)
+    | None => ()
     }
   });
 
