@@ -13,7 +13,7 @@ import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { getAudioFilePath } from './item.utils';
-import { getThumbUrl } from '../../../../shared/ppy.helpers';
+import { getListCoverUrl, getThumbUrl } from '../../../../shared/PpyHelpers.bs';
 
 const useStyle = createUseStyles({
   listItem: {
@@ -41,10 +41,12 @@ const useStyle = createUseStyles({
   },
   thumbnail: {
     backgroundSize: 'cover',
+    backgroundPosition: 'center',
     width: '50px',
     height: '40px',
     margin: '5px 15px 5px 35px',
     position: 'relative',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     '& .playIco': {
       position: 'absolute',
       content: '',
@@ -114,8 +116,17 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
 
   const playPreview = () => {
     if (isSelected) audioPlayer.togglePlayPause();
-    else if (isLibraryMode) audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined);
-    else audioPlayer.setAudio(id, () => {}, `${title} - ${artist}`, audioPath || undefined, previewTime || undefined);
+    else if (isLibraryMode) {
+      audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined);
+      audioPlayer.setPlaylist(
+        items.map(({ id: mapId, title: mapTitle, artist: mapArtist }) => ({
+          id: mapId,
+          title: mapTitle,
+          artist: mapArtist,
+          path: getAudioFilePath(osuSongPath, history.history[mapId].audioPath),
+        })),
+      );
+    } else audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined, previewTime || undefined);
   };
 
   const downloadProgress = useCurrentDownloadItem(id);
@@ -142,7 +153,12 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   return (
     <div style={{ ...style, top: `${parseFloat(style.top) + 50}px` }} key={id} onClick={handleClick}>
       <div className={classes.listItem} style={wrapperStyle}>
-        <div className={`${classes.thumbnail} thumbnail`} style={{ backgroundImage: `url(${getThumbUrl(id)})` }}>
+        <div
+          className={`${classes.thumbnail} thumbnail`}
+          style={{
+            backgroundImage: `url(${getListCoverUrl(id)}), url(${getThumbUrl(id)})`,
+          }}
+        >
           <div
             className="playIco clickable"
             style={playIcoStyle}
