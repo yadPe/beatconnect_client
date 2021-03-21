@@ -103,7 +103,8 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
             theme={theme}
             beatmapSetId={beatmapset_id || id}
             setIsPLaying={setIsPLaying}
-            songTitle={`${title} - ${artist}`}
+            title={title}
+            artist={artist}
           />
           <DownloadBeatmapBtn autoDl={autoDl} beatmapSet={beatmap} />
           <Button
