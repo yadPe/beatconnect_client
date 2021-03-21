@@ -58,8 +58,8 @@ let make = (~children) => {
       None;
     };
 
-  let canPlayNextSong = () => _canPlay(1);
-  let canPlayPrevSong = () => _canPlay(-1);
+  let _canPlayNextSong = () => _canPlay(1);
+  let _canPlayPrevSong = () => _canPlay(-1);
 
   let setPlaylist = (beatmapPlaylist: playlist) => {
     setPlaylist(_ => beatmapPlaylist);
@@ -100,16 +100,25 @@ let make = (~children) => {
 
   let updateMediaHandlers = () => {
     (
-      switch (canPlayNextSong()) {
-      | Some(nextSongindex) => Some(() => playFromPlaylist(nextSongindex))
-      | None => None
+      switch (_canPlayNextSong()) {
+      | Some(nextSongindex) =>
+        setPlayingState(prevState => {...prevState, hasNext: true});
+        Some(() => playFromPlaylist(nextSongindex));
+      | None =>
+        setPlayingState(prevState => {...prevState, hasNext: false});
+        None;
       }
     )
     |> MediaSession.setActionHandler(`nexttrack);
     (
-      switch (canPlayPrevSong()) {
-      | Some(prevSongindex) => Some(() => playFromPlaylist(prevSongindex))
-      | None => None
+      switch (_canPlayPrevSong()) {
+      | Some(prevSongindex) =>
+        setPlayingState(prevState => {...prevState, hasPrev: true});
+        Some(() => playFromPlaylist(prevSongindex));
+      | None =>
+        setPlayingState(prevState => {...prevState, hasPrev: false});
+
+        None;
       }
     )
     |> MediaSession.setActionHandler(`previoustrack);
@@ -120,8 +129,22 @@ let make = (~children) => {
       updateMediaHandlers();
       None;
     },
-    (playingState, playlist),
+    (playingState.beatmapSetId, playlist),
   );
+
+    let playNext = () => {
+    switch (_canPlayNextSong()) {
+    | Some(nextSong) => playFromPlaylist(nextSong)
+    | None => ()
+    };
+  }
+
+    let playPrevious = () => {
+    switch (_canPlayPrevSong()) {
+    | Some(prevSong) => playFromPlaylist(prevSong)
+    | None => ()
+    };
+  }
 
   let setAudio =
       (
@@ -167,7 +190,7 @@ let make = (~children) => {
   };
 
   Audio.onended(audio, _e => {
-    switch (canPlayNextSong()) {
+    switch (_canPlayNextSong()) {
     | Some(nextSongindex) => playFromPlaylist(nextSongindex)
     | None => ()
     }
@@ -202,6 +225,8 @@ let make = (~children) => {
     togglePlayPause,
     setMuted,
     playlist,
+    playNext,
+    playPrevious,
   };
   <Provider value> children </Provider>;
 };

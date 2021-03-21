@@ -36,6 +36,7 @@ const useStyle = createUseStyles({
     alignItems: 'center',
   },
   arrrowRight: {
+    visibility: ({ hasNext }) => (hasNext ? 'visible' : 'hidden'),
     '& > svg': {
       transform: 'rotate(180deg)',
     },
@@ -44,6 +45,7 @@ const useStyle = createUseStyles({
     cursor: 'pointer',
   },
   arrrowLeft: {
+    visibility: ({ hasPrev }) => (hasPrev ? 'visible' : 'hidden'),
     width: '19px',
     height: '19px',
     cursor: 'pointer',
@@ -61,26 +63,34 @@ const useStyle = createUseStyles({
 });
 
 const PlayingSong = ({ expended }) => {
-  const classes = useStyle({ expended });
-  const { playingState, togglePlayPause } = useAudioPlayer();
+  const { playingState, togglePlayPause, playNext, playPrevious } = useAudioPlayer();
+  const classes = useStyle({ expended, hasNext: playingState.hasNext, hasPrev: playingState.hasPrev });
   const visible = playingState.beatmapSetId;
+
+  const handleNext = () => playNext();
+  const handlePrevious = () => playPrevious();
 
   if (!visible) return null;
   return (
-    <div className={classes.playingSongWrapper} onClick={togglePlayPause} role="tab">
+    <div className={classes.playingSongWrapper} role="tab">
       <div className={classes.expendedContentWrapper}>
         {expended && (
           <div className={classes.top}>
-            <div className={classes.arrrowLeft}>{renderIcons({ name: 'Arrow' })}</div>
+            <div className={classes.arrrowLeft} onClick={handlePrevious}>
+              {renderIcons({ name: 'Arrow' })}
+            </div>
 
             <div
+              onClick={togglePlayPause}
               className={classes.songImage}
               style={{ backgroundImage: `url(${getThumbUrl(playingState.beatmapSetId)})` }}
             />
-            <div className={classes.arrrowRight}>{renderIcons({ name: 'Arrow' })}</div>
+            <div className={classes.arrrowRight} onClick={handleNext}>
+              {renderIcons({ name: 'Arrow' })}
+            </div>
           </div>
         )}
-        <div className={classes.bottom}>
+        <div className={classes.bottom} onClick={togglePlayPause}>
           <div className={classes.icon}>
             {renderIcons({
               name: playingState.isPlaying ? 'playButton' : 'pauseButton',

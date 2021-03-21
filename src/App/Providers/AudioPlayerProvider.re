@@ -5,6 +5,8 @@ type playingState = {
   isPlaying: bool,
   volume: int,
   muted: bool,
+  hasNext: bool,
+  hasPrev: bool,
 };
 
 type song = {
@@ -38,6 +40,8 @@ type value = {
   pause: unit => unit,
   togglePlayPause: unit => unit,
   setMuted: bool => unit,
+  playNext: unit => unit,
+  playPrevious: unit => unit,
 };
 
 let initialState: playingState = {
@@ -47,6 +51,8 @@ let initialState: playingState = {
   beatmapSetId: 0,
   volume: 1,
   muted: false,
+  hasNext: false,
+  hasPrev: false,
 };
 
 module Provider = {
@@ -66,6 +72,8 @@ module Provider = {
     pause: () => (),
     togglePlayPause: () => (),
     setMuted: (muted: bool) => (),
+    playNext: () => (),
+    playPrevious: () => (),
   };
   let audioPlayerContext = React.createContext(value);
 
