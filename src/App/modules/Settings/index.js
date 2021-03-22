@@ -142,19 +142,19 @@ const Settings = ({ userPreferences }) => {
         },
       ],
       'Beatmaps location': [
+        { name: 'Select your Osu! folder', action: osuPathSetup, type: 'Button' },
         {
           name: osuPath || 'Osu! folder no selected',
           description:
             'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game',
           type: 'Text',
         },
-        { name: 'Select your Osu! folder', action: osuPathSetup, type: 'Button' },
+        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
         {
           name: osuSongsPath || 'No songs folder selected',
           description: 'By selecting your osu songs folder enable the Bulk import and scan option',
           type: 'Text',
         },
-        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
       ],
       'Beatmaps import method': [
         {
