@@ -1,5 +1,9 @@
 import _ from 'underscore';
 
-export const getVolume = state => _.get(state, ['settings', 'userPreferences', 'volume'], null);
+export const getUserPreference = state => _.get(state, ['settings', 'userPreferences'], null);
 
-export const getOsuSongPath = state => _.get(state, ['settings', 'userPreferences', 'osuSongsPath'], null);
+export const getVolume = state => _.get(getUserPreference(state), ['volume'], null);
+
+export const getOsuSongPath = state => _.get(getUserPreference(state), ['osuSongsPath'], null);
+
+export const getOsuPath = state => _.get(getUserPreference(state), ['osuPath'], null);
