@@ -45,7 +45,9 @@ export const useOsuDbScan = () => {
 
 export const useOsuDbAutoScan = () => {
   const osuDbScan = useOsuDbScan();
+  const osuSongsPath = useSelector(getOsuSongPath);
+  const osuPath = useSelector(getOsuPath);
   useEffect(() => {
-    osuDbScan();
+    if (osuPath && osuSongsPath !== '') osuDbScan();
   }, []);
 };
