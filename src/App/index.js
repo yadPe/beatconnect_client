@@ -33,6 +33,7 @@ const App = () => {
         <TitleBar height={config.display.titleBarHeight} />
         <div className={classes.appContentWrapper}>
           <Nav />
+          <div id="modal-root" />
         </div>
       </div>
     </>

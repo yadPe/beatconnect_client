@@ -1,47 +1,71 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import injectSheet from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 
-const styles = {
+import renderIcons from '../../helpers/renderIcons';
+
+const useStyle = createUseStyles({
   Modal: {
-    backgroundColor: 'rgba(42, 42, 42, 0.95)',
-    width: '100%',
+    backgroundColor: '#2A2A2A',
+    color: 'white',
+    width: 'fit-content',
+    '& header': {
+      display: 'flex',
+      padding: '15px',
+      backgroundColor: '#1D1D1D',
+      '& h3': {
+        margin: 0,
+        marginRight: '10px',
+      },
+      '& .closeButton': {
+        marginLeft: 'auto',
+      },
+    },
+    '& body': {
+      padding: '15px',
+      margin: 0,
+    },
   },
   ModalBg: {
     position: 'absolute',
-    //left: '50%',
-    //top: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: '0',
+    top: '0',
     height: '100%',
     width: '100%',
-    //transform: 'translate(-50%)',
-    // padding: '12px',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    // border: '1px solid grey',
     zIndex: 10,
   },
+});
+
+export const useDisclosure = (defaultIsOpen = false) => {
+  let [isOpen, setIsOpen] = useState(() => defaultIsOpen);
+
+  return {
+    isOpen: isOpen,
+    show: React.useCallback(() => setIsOpen(true)),
+    hide: React.useCallback(() => setIsOpen(false)),
+    toggle: React.useCallback(() => setIsOpen(isOpen => !isOpen)),
+  };
 };
 
-export const ToggleContent = ({ toggle, content }) => {
-  const [isShown, setIsShown] = useState(false);
-  const hide = () => setIsShown(false);
-  const show = () => setIsShown(true);
+export const Modal = ({ children, hide, title }) => {
+  const classes = useStyle();
 
-  return (
-    <>
-      {toggle(isShown, setIsShown)}
-      {isShown && content(hide)}
-    </>
-  );
-};
-
-const Modal = ({ children, close, classes }) =>
-  ReactDOM.createPortal(
-    <div className={classes.ModalBg} onClick={close}>
+  return ReactDOM.createPortal(
+    <div className={classes.ModalBg} onClick={() => hide()}>
       <div className={classes.Modal} onClick={e => e.stopPropagation()}>
-        {children}
+        <header>
+          {title && <h3>{title}</h3>}
+          <div className="closeButton" onClick={() => hide()}>
+            {renderIcons({ name: 'Cancel', heigh: '20px', width: '20px' })}
+          </div>
+        </header>
+        <body>{children}</body>
       </div>
     </div>,
     document.getElementById('modal-root'),
   );
-
-export default injectSheet(styles)(Modal);
+};
