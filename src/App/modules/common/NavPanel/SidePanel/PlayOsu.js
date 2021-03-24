@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
 import { ipcRenderer } from 'electron';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import renderIcons from '../../../../helpers/renderIcons';
 import config from '../../../../../shared/config';
+import { changeCurrentSection } from '../../../../app.actions';
+import { tFromJs as sections } from '../../../Sections.bs';
 
 const useStyle = createUseStyles({
   playOsuWrapper: {
-    visibility: ({ visible }) => (visible ? 'visible' : 'hidden'),
     margin: '0 0 0 0',
     display: 'flex',
     alignItems: 'center',
@@ -43,12 +44,21 @@ const useStyle = createUseStyles({
     transition: 'transform 0.1s ease-in 0s',
     userSelect: 'none',
   },
-  i: {
+  icon: {
     marginRight: '8px',
     height: '44px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    '&::after': {
+      visibility: ({ isOsuSet }) => (!isOsuSet ? 'visible' : 'hidden'),
+      content: "''",
+      position: 'absolute',
+      width: '23px',
+      height: '2px',
+      backgroundColor: 'white',
+      transform: 'rotate(-45deg)',
+    },
   },
   indicator: {
     position: 'absolute',
@@ -78,9 +88,10 @@ const useStyle = createUseStyles({
 });
 
 const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
-  const visible = osuGamePath && osuGamePath !== '';
+  const isOsuSet = osuGamePath && osuGamePath !== '';
   const theme = useTheme();
-  const classes = useStyle({ ...otherProps, theme, visible });
+  const dispatch = useDispatch();
+  const classes = useStyle({ ...otherProps, theme, isOsuSet });
   const [osuIsRunning, setOsuIsRunning] = useState(false);
   const listener = (_event, status) => {
     setOsuIsRunning(status);
@@ -98,10 +109,14 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   }, []);
 
   return (
-    <div className={classes.playOsuWrapper} onClick={launchOsu} role="tab">
+    <div
+      className={classes.playOsuWrapper}
+      onClick={isOsuSet ? launchOsu : () => dispatch(changeCurrentSection(sections('Settings')))}
+      role="tab"
+    >
       <span data-radium="true" className={classes.span}>
         <div className={`${classes.indicator} indicator`} />
-        <div data-radium="true" className={classes.i}>
+        <div data-radium="true" className={classes.icon}>
           {renderIcons({
             name: 'osu',
             color: osuIsRunning && theme.palette.primary.accent,
@@ -111,7 +126,8 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
           })}
         </div>
         <span data-radium="true" className={classes.title}>
-          {osuIsRunning ? 'Playing !' : 'Play !'}
+          {!isOsuSet && 'Osu! not set'}
+          {isOsuSet && (osuIsRunning ? 'Playing !' : 'Play !')}
         </span>
       </span>
     </div>

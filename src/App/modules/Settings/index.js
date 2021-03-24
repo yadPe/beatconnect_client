@@ -29,6 +29,47 @@ const Settings = ({ userPreferences }) => {
 
   const settings = {
     General: {
+      Osu: [
+        { name: 'Select your Osu! folder', action: osuPathSetup, type: 'Button' },
+        {
+          name: osuPath || 'Osu! folder no set',
+          description:
+            'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game',
+          type: 'Text',
+        },
+        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
+        {
+          name: osuSongsPath || 'No songs folder set',
+          description: 'By selecting your osu songs folder enable the Bulk import and scan option',
+          type: 'Text',
+        },
+      ],
+      'Beatmaps import method': [
+        {
+          name: 'Auto',
+          value: importMethod === config.settings.importMethod.auto,
+          action: () => handleImportMethodChange(config.settings.importMethod.auto),
+          description:
+            'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not currently running)',
+          type: 'CheckBox',
+        },
+        {
+          name: 'Bulk',
+          value: importMethod === config.settings.importMethod.bulk,
+          action: () => handleImportMethodChange(config.settings.importMethod.bulk),
+          description:
+            'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection',
+          disabled: !osuSongsPath || osuSongsPath === '',
+          type: 'CheckBox',
+        },
+        {
+          name: 'Manual',
+          value: importMethod === config.settings.importMethod.manual,
+          action: () => handleImportMethodChange(config.settings.importMethod.manual),
+          description: 'Beatmaps are save to your default download folder',
+          type: 'CheckBox',
+        },
+      ],
       theme: [
         {
           name: 'Accent color',
@@ -65,62 +106,21 @@ const Settings = ({ userPreferences }) => {
     },
     Downloads: {
       History: [
-        { name: 'Clear history', action: history.clear, type: 'Button' },
         {
-          name: 'Osu! beatmaps scan',
-          description:
-            'Scan your osu folder to import all your previously downloaded beatmaps to your Beatconnect history',
-          type: 'Text',
-        },
-        {
-          name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not selectedCategory',
+          name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not set',
           action: scanOsuSongs,
           description: lastScan
             ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toDateString()}`
             : '',
           type: 'Button',
         },
-      ],
-      'Beatmaps location': [
-        { name: 'Select your Osu! folder', action: osuPathSetup, type: 'Button' },
         {
-          name: osuPath || 'Osu! folder no selectedCategory',
+          name: 'Osu! beatmaps scan',
           description:
-            'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game',
+            'Scan your osu folder to import all your previously downloaded beatmaps to your Beatconnect history',
           type: 'Text',
         },
-        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
-        {
-          name: osuSongsPath || 'No songs folder selectedCategory',
-          description: 'By selecting your osu songs folder enable the Bulk import and scan option',
-          type: 'Text',
-        },
-      ],
-      'Beatmaps import method': [
-        {
-          name: 'Auto',
-          value: importMethod === config.settings.importMethod.auto,
-          action: () => handleImportMethodChange(config.settings.importMethod.auto),
-          description:
-            'Import beatmaps to osu! as soon as downloaded. (This will cause osu! to open if not currently running)',
-          type: 'CheckBox',
-        },
-        {
-          name: 'Bulk',
-          value: importMethod === config.settings.importMethod.bulk,
-          action: () => handleImportMethodChange(config.settings.importMethod.bulk),
-          description:
-            'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection',
-          disabled: !osuSongsPath || osuSongsPath === '',
-          type: 'CheckBox',
-        },
-        {
-          name: 'Manual',
-          value: importMethod === config.settings.importMethod.manual,
-          action: () => handleImportMethodChange(config.settings.importMethod.manual),
-          description: 'Beatmaps are save to your default download folder',
-          type: 'CheckBox',
-        },
+        { name: 'Clear history', action: history.clear, type: 'Button' },
       ],
     },
   };
