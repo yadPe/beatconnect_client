@@ -22,6 +22,7 @@ export const useDownloadMangerIPC = ({
   onDownloadManagerReady,
 }) => {
   useEffect(() => {
+    onDownloadManagerReady();
     registerListener(channels.downloadProgress, onDownloadProgress);
     registerListener(channels.downloadPaused, onDownloadPaused);
     registerListener(channels.downloadInterrupt, onDownloadInterupt);
