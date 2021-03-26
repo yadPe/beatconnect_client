@@ -138,7 +138,7 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   const isPaused = status === config.download.status.paused;
   const handleClick = () => {
     if (isDownloadMode) return;
-    if (isPackMode) push(item);
+    if (isPackMode && !isDownloading && !isDownloaded) push(item);
     if (isLibraryMode) playPreview();
   };
 
