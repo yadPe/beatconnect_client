@@ -5,7 +5,7 @@ import { useTheme, createUseStyles } from 'react-jss';
 import renderIcons from '../../../../helpers/renderIcons';
 import Volume from '../../../Settings/components/Volume';
 import config from '../../../../../shared/config';
-import { useAudioPlayer } from '../../../../Providers/AudioPlayerProvider.bs';
+import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { saveVolume } from '../../../Settings/reducer/actions';
 import { getVolume } from '../../../Settings/reducer/selectors';
 import store from '../../../../../shared/store';
