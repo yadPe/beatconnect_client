@@ -5,7 +5,7 @@ import config from '../../../../../shared/config';
 import reqImgAssets from '../../../../helpers/reqImgAssets';
 import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
-import { useAudioPlayer } from '../../../../Providers/AudioPlayerProvider.bs';
+import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
 
 const useStyle = createUseStyles({
@@ -84,7 +84,13 @@ const PlayingSong = ({ expended }) => {
             <div
               onClick={togglePlayPause}
               className={classes.songImage}
-              style={{ backgroundImage: `url(${getThumbUrl(playingState.beatmapSetId)}), url(${reqImgAssets(`./beatconnect_logo.png`)})`, backgroundSize : "auto, 75%", backgroundRepeat : "no-repeat" }}
+              style={{
+                backgroundImage: `url(${getThumbUrl(playingState.beatmapSetId)}), url(${reqImgAssets(
+                  `./beatconnect_logo.png`,
+                )})`,
+                backgroundSize: 'auto, 75%',
+                backgroundRepeat: 'no-repeat',
+              }}
             />
             <div className={classes.arrrowRight} onClick={handleNext}>
               {renderIcons({ name: 'Arrow' })}
