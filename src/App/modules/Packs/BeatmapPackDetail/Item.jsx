@@ -1,19 +1,16 @@
 import { shell } from 'electron';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { connect } from 'react-redux';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import reqImgAssets from '../../../helpers/reqImgAssets';
-import { useAudioPlayer } from '../../../Providers/AudioPlayerProvider.bs';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { useCurrentDownloadItem } from '../../../Providers/downloadManager/downloadManager.hook';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
-import { getOsuSongPath } from '../../Settings/reducer/selectors';
-import { getAudioFilePath } from './item.utils';
 import { getListCoverUrl, getThumbUrl } from '../../../../shared/PpyHelpers.bs';
+import useBeatmapSong from '../../../Providers/AudioPlayer/useBeatmapSong';
 
 const useStyle = createUseStyles({
   listItem: {
@@ -92,7 +89,7 @@ const useStyle = createUseStyles({
   },
 });
 
-const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
+const BeatmapListItem = ({ index, style, data }) => {
   const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library' } = data;
   const isPackMode = itemMode === 'pack';
   const isDownloadMode = itemMode === 'download';
@@ -101,33 +98,8 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   const { id, title, artist } = item;
 
   const history = useDownloadHistory();
-  const audioPlayer = useAudioPlayer();
   const { push, pauseResumeDownload, currentDownload, cancelDownload } = useDownloadQueue();
   const isDownloaded = history.contains(id);
-  const audioPath =
-    osuSongPath &&
-    isDownloaded &&
-    history.history[id].audioPath &&
-    getAudioFilePath(osuSongPath, history.history[id].audioPath);
-  const previewTime = audioPath && history.history[id].previewOffset / 1000;
-
-  const isSelected = audioPlayer.playingState.beatmapSetId === id;
-  const isPlaying = audioPlayer.playingState.isPlaying && isSelected;
-
-  const playPreview = () => {
-    if (isSelected) audioPlayer.togglePlayPause();
-    else if (isLibraryMode) {
-      audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined);
-      audioPlayer.setPlaylist(
-        items.map(({ id: mapId, title: mapTitle, artist: mapArtist }) => ({
-          id: mapId,
-          title: mapTitle,
-          artist: mapArtist,
-          path: getAudioFilePath(osuSongPath, history.history[mapId].audioPath),
-        })),
-      );
-    } else audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined, previewTime || undefined);
-  };
 
   const downloadProgress = useCurrentDownloadItem(id);
 
@@ -136,6 +108,9 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   const { status } = currentDownload || {};
   const isDownloading = downloadProgress >= 0;
   const isPaused = status === config.download.status.paused;
+
+  const { isPlaying, isSelected, playPreview } = useBeatmapSong({ id, title, artist }, itemMode, items);
+
   const handleClick = () => {
     if (isDownloadMode) return;
     if (isPackMode && !isDownloading && !isDownloaded) push(item);
@@ -202,7 +177,4 @@ const BeatmapListItem = ({ index, style, data, osuSongPath }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  osuSongPath: getOsuSongPath(state),
-});
-export default connect(mapStateToProps)(BeatmapListItem);
+export default BeatmapListItem;
