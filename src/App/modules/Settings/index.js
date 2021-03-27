@@ -110,7 +110,7 @@ const Settings = ({ userPreferences }) => {
           name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not set',
           action: scanOsuSongs,
           description: lastScan
-            ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toDateString()}`
+            ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toLocaleString()}`
             : '',
           type: 'Button',
         },

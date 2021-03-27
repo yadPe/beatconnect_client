@@ -30,7 +30,7 @@ export const useOsuDbScan = () => {
       if (args.err) error(`Error while scannings song: ${args.err}`);
       else {
         history.set(args);
-        setLastScan({ date: Date.now(), beatmaps: Object.keys(args).length });
+        setLastScan({ date: Date.now(), beatmaps: Object.keys(args.beatmaps).length });
       }
     });
     ipcRenderer.on('osuSongsScanError', (e, args) => {
