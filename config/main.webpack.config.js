@@ -32,7 +32,6 @@ module.exports = mode => {
           presets: [
               '@babel/preset-env'
           ],
-          plugins: ["transform-class-properties"]
         }
       },
       {
