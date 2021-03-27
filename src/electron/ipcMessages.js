@@ -1,9 +1,10 @@
 const log = require('electron-log');
+const { error } = require('electron-log');
 const { ipcMain, dialog, shell } = require('electron');
 const { join } = require('path');
 const { fork } = require('child_process');
 const { downloadAndSetWallpaper } = require('./wallpaper');
-const { error } = require('electron-log');
+const { readCollectionDB } = require('./helpers/osuCollections/collections.utils');
 
 ipcMain.on('osuSongsScan', (event, options) => {
   // TODO Replace with osu-db-parser module
@@ -48,6 +49,16 @@ ipcMain.once('start-pulling-osu-state', event => {
     event.reply('osu-is-running', !!msg);
   });
   osuIsRunningChecker.send('start');
+});
+
+ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
+  try {
+    const collection = await readCollectionDB(`${osuPath}/collection.db`);
+    return collection;
+  } catch (e) {
+    error(`[scan-osu-collections]: ${e.message}`);
+    return e;
+  }
 });
 
 // try {
