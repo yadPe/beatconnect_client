@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-underscore-dangle */
 /* Provides download history from {localUser}/Documents/Beatconnect/history.json */
 import React, { Component, useContext, createContext } from 'react';
@@ -5,6 +6,7 @@ import { remote } from 'electron';
 import { outputJSON, readJson } from 'fs-extra';
 import { join } from 'path';
 import { error, log } from 'electron-log';
+import { memoize } from 'underscore';
 
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
@@ -52,8 +54,10 @@ class HistoryProvider extends Component {
         overallUnplayedCount: 0,
         overallDuration: 0,
       },
+      ready: false,
       save: this.save,
       contains: this.contains,
+      containsMD5: this.containsMD5,
       clear: this.clear,
       set: this.set,
     };
@@ -66,6 +70,13 @@ class HistoryProvider extends Component {
   componentDidUpdate() {
     this._writeHistory();
   }
+
+  static getHistoryValuesList = memoize(
+    history => {
+      return Object.values(history);
+    },
+    input => Object.keys(input).length.toString(),
+  );
 
   set = ({ beatmaps, overallDuration, overallUnplayedCount }) => {
     this.setState({ history: beatmaps, stats: { overallDuration, overallUnplayedCount } });
@@ -81,6 +92,11 @@ class HistoryProvider extends Component {
   contains = id => {
     const { history } = this.state;
     return typeof history[id] !== 'undefined';
+  };
+
+  containsMD5 = md5 => {
+    const { history } = this.state;
+    return HistoryProvider.getHistoryValuesList(history).find(item => item.md5 === md5);
   };
 
   clear = () => {
@@ -104,11 +120,12 @@ class HistoryProvider extends Component {
         });
         console.log('_readHistory', { rawHistory, history });
 
-        this.setState({ history });
+        this.setState({ history }, this._setIsReady);
       })
       .catch(e => {
         error(e);
         this._createHistory(); // assume file does not exist
+        this._setIsReady();
       });
   };
 
@@ -127,6 +144,10 @@ class HistoryProvider extends Component {
       .then(() => log('History saved!'))
       .catch(console.error);
   };
+
+  _setIsReady() {
+    this.setState(oldState => ({ ...oldState, ready: true }));
+  }
 
   render() {
     const { children } = this.props;

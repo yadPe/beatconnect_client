@@ -1,65 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
-import { FixedSizeList as List } from 'react-window';
 import config from '../../../shared/config';
-import { useDownloadHistory } from '../../Providers/HistoryProvider';
-import BeatmapListItem from '../Packs/BeatmapPackDetail/Item';
-import Empty from './components/Empty';
-import Header from './components/Header';
+import AllBeatmapsCollection from './components/AllBeatmaps';
+import Collection from './components/Collection';
 
-const MyLibrary = ({ setHeaderContent, windowSize }) => {
-  const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
-  const listHeight = windowSize.height;
+const useStyle = createUseStyles({
+  myLibraryWrapper: {
+    paddingTop: `${config.display.topBarHeight}px`,
+    marginTop: '1rem',
+    marginBottom: '1rem',
+  },
+  collections: {
+    marginLeft: '4px',
+    display: 'grid',
+    gridGap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(235px, 0.1fr));',
+    justifyContent: 'space-around',
+  },
+});
 
-  const [filter, setFilter] = useState('');
-  const { history, stats } = useDownloadHistory();
-  let historyItems = Object.values(history);
-  useEffect(() => {
-    setHeaderContent(
-      <Header
-        setFilter={setFilter}
-        unplayedCount={stats.overallUnplayedCount}
-        overallDration={stats.overallDuration}
-        beatmapSetCount={historyItems.length}
-      />,
-    );
-    return () => setHeaderContent(null);
-  });
-
-  if (filter) {
-    const lowerCase = filter.toLowerCase();
-    historyItems = historyItems.filter(historyItem =>
-      [historyItem.id, historyItem.title, historyItem.artist, historyItem.creator].some(
-        property =>
-          property &&
-          String(property)
-            .toLowerCase()
-            .includes(lowerCase),
-      ),
-    );
-  }
-
-  const itemCount = historyItems.length;
+const MyLibrary = ({ setHeaderContent, collections }) => {
+  const classes = useStyle();
   return (
-    <div className="menuContainer Downloads" style={{ transition: 'background 0ms', overflow: 'hidden' }}>
-      {itemCount ? (
-        <List
-          height={listHeight}
-          itemCount={itemCount}
-          itemSize={50}
-          width={listWidth}
-          itemData={{ items: historyItems, itemMode: 'library' }}
-        >
-          {BeatmapListItem}
-        </List>
-      ) : (
-        <Empty />
-      )}
+    <div className={classes.myLibraryWrapper}>
+      <div className={classes.collections}>
+        <AllBeatmapsCollection />
+        {Object.entries(collections).map(([name, beatmapsHash]) => (
+          <Collection key={`${name}${beatmapsHash.length}`} name={name} beatmapsHash={beatmapsHash} />
+        ))}
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, library }) => ({
   windowSize: app.window,
+  collections: library.collections,
 });
 export default connect(mapStateToProps)(MyLibrary);
