@@ -5,10 +5,26 @@ import config from '../../../../shared/config';
 import store from '../../../../shared/store';
 import { setIsFetchingBeatmaps, onBeatmapSearchResult } from '../reducer/actions';
 
+const queryfyAdvancedSearch = advancedSearch =>
+  Object.entries(advancedSearch)
+    .map(([key, value]) => {
+      if (typeof value === 'string') {
+        return value != '' ? value : null;
+      }
+      return true;
+    })
+    .map(([key, value]) => {
+      if (typeof value === 'string') {
+        return `${key}=${value}`;
+      }
+      return `${key}>=${value.min} ${key}<=${value.max}`;
+    })
+    .join(' ');
+
 const askBeatconnect = (search, __, resetPage) => {
   const controller = new AbortController();
   let lastPage;
-  const { page, query, status, mode, hideDownloaded } = search;
+  const { page, query, status, mode, hideDownloaded, advancedSearch } = search;
   let { lastScroll } = search;
   if (resetPage && !page) lastScroll = 0;
   else lastScroll = undefined;
@@ -18,7 +34,12 @@ const askBeatconnect = (search, __, resetPage) => {
     fetchingBeatmaps.abort();
     setIsFetchingBeatmaps(false);
   }
-  const formatQuery = encodeURIComponent(query);
+
+  const advancedSearchQuery = advancedSearch ? queryfyAdvancedSearch(advancedSearch) : '';
+  const formatQuery = encodeURIComponent((query ? query + ' ' : '') + advancedSearchQuery);
+
+  console.log({ query, advancedSearchQuery, finalQuery: (query ? query + ' ' : '') + advancedSearchQuery });
+
   fetch(config.api.searchBeatmaps(formatQuery, page, status, mode), {
     signal: controller.signal,
   })

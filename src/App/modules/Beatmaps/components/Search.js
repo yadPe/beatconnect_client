@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { remote } from 'electron';
 import { ProgressCircle } from 'react-desktop/windows';
 import { zip, isEqual } from 'underscore';
@@ -7,6 +7,7 @@ import { useTheme, createUseStyles } from 'react-jss';
 import TextInput from '../../common/TextInput';
 import askBeatconnect from '../helpers/askBeatconnect';
 import DropDown from '../../common/DropDown';
+import { AdvancedSearch } from './AdvancedSearch';
 import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
@@ -38,8 +39,10 @@ const useStyle = createUseStyles({
 
 const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   const [search, setSearch] = useState(lastSearch);
+
   const theme = useTheme();
   const classes = useStyle();
+
   const execSearch = force => {
     if (!isEqual(lastSearch, search) || force) {
       askBeatconnect(search, undefined, true);
@@ -62,7 +65,8 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
       skeletonBeatmaps ||
       (lastSearch.status !== search.status ||
         lastSearch.mode !== search.mode ||
-        lastSearch.hideDownloaded !== search.hideDownloaded)
+        lastSearch.hideDownloaded !== search.hideDownloaded ||
+        lastSearch.advancedSearch !== search.advancedSearch)
     )
       execSearch(true);
   }, [search]);
@@ -70,7 +74,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   return (
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
-        <Button className="btn" color={theme.palette.primary.accent} onClick={execSearch}>
+        <Button className="btn" color={theme.palette.primary.accent} onClick={() => execSearch()}>
           {isBusy ? (
             <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
           ) : (
@@ -110,6 +114,14 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
         <div className={classes.right} />
         {renderIcons({ name: 'Verified', color: search.hideDownloaded && theme.palette.primary.accent })}
       </div>
+      <AdvancedSearch
+        onSubmit={advancedSearch => {
+          setSearch(search => {
+            return { ...search, advancedSearch };
+          });
+        }}
+        lastSearchValues={lastSearch.advancedSearch}
+      />
     </div>
   );
 };

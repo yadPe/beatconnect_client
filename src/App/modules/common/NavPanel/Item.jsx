@@ -55,13 +55,11 @@ const Item = ({ title, children, header }) => {
     <div className={classes.contentContainer}>
       {header && <Header title={title}>{headerContent}</Header>}
       <div className={classes.contentWrapper}>
-        <div id="modal-root" />
         {children(setHeaderContent)}
       </div>
     </div>
   ) : (
     <div className={classes.contentWrapper}>
-      <div id="modal-root" />
       {children(setHeaderContent)}
     </div>
   );
