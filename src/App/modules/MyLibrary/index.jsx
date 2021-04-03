@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../shared/config';
 import AllBeatmapsCollection from './components/AllBeatmaps';
 import Collection from './components/Collection';
+import CollectionDetails from './components/CollectionDetails';
 
 const useStyle = createUseStyles({
   myLibraryWrapper: {
@@ -21,13 +22,39 @@ const useStyle = createUseStyles({
 });
 
 const MyLibrary = ({ setHeaderContent, collections }) => {
+  const [selectedCollection, setSelected] = useState({ header: null, collection: null, collectionName: '' });
+  const setSelectedCollection = selection => setSelected({ ...selectedCollection, ...selection });
+
+  useEffect(() => {
+    if (selectedCollection.collection) {
+      if (selectedCollection.header) setHeaderContent(selectedCollection.header);
+    } else {
+      setHeaderContent(null);
+    }
+    return () => setHeaderContent(null);
+  }, [selectedCollection]);
   const classes = useStyle();
+
+  if (selectedCollection.collection) {
+    return (
+      <CollectionDetails
+        collection={selectedCollection.collection}
+        select={setSelectedCollection}
+        collectionName={selectedCollection.collectionName}
+      />
+    );
+  }
   return (
     <div className={classes.myLibraryWrapper}>
       <div className={classes.collections}>
         <AllBeatmapsCollection />
         {Object.entries(collections).map(([name, beatmapsHash]) => (
-          <Collection key={`${name}${beatmapsHash.length}`} name={name} beatmapsHash={beatmapsHash} />
+          <Collection
+            select={setSelectedCollection}
+            key={`${name}${beatmapsHash.length}`}
+            name={name}
+            beatmapsHash={beatmapsHash}
+          />
         ))}
       </div>
     </div>

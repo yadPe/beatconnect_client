@@ -39,7 +39,7 @@ const useStyle = createUseStyles({
   },
 });
 
-const Collection = ({ name, beatmapsHash }) => {
+const Collection = ({ name, beatmapsHash, select }) => {
   const { containsMD5, ready } = useDownloadHistory();
   const classes = useStyle();
   const osuSongPath = useSelector(getOsuSongPath);
@@ -86,8 +86,13 @@ const Collection = ({ name, beatmapsHash }) => {
     audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath));
   };
 
+  const handleClick = () => {
+    const beatmaps = getBeatmapsList();
+    select({ collection: beatmaps, collectionName: name });
+  };
+
   return (
-    <div className={classes.collectionWrapper}>
+    <div className={classes.collectionWrapper} onClick={handleClick}>
       <CollectionCover artWorks={artWorks} onPlay={handlePlay} />
       <p className={classes.title}>{name}</p>
       <p className={classes.beatmapCount}>{`${beatmapsHash.length} beatmaps`}</p>

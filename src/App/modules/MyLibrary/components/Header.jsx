@@ -1,21 +1,36 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import renderIcons from '../../../helpers/renderIcons';
 import TextInput from '../../common/TextInput';
+import useMouseButtons from '../../../helpers/hooks/useMouseButtons';
 
-const useStyle = createUseStyles({});
+const useStyle = createUseStyles({
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+  },
+  backButton: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+});
 
-const Header = ({ setFilter, unplayedCount, overallDration, beatmapSetCount }) => {
+const Header = ({ setFilter, quit, collectionName }) => {
   const classes = useStyle();
+  useMouseButtons({ back: quit });
   const handleInput = e => {
     setFilter(e.target.value);
   };
-  console.log({ unplayedCount, overallDration, beatmapSetCount });
+
   return (
     <div className={classes.wrapper}>
-      {beatmapSetCount}
-      {unplayedCount}
-      {overallDration}
-      <TextInput onChange={handleInput} placeHolder="id, artist, title, creator" />
+      <div title="Back" role="button" onClick={quit} className={classes.backButton}>
+        {renderIcons({ name: 'Back' })}
+      </div>
+      <span>{collectionName}</span>
+      <TextInput onChange={handleInput} placeholder="id, artist, title, creator" />
     </div>
   );
 };

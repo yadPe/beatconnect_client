@@ -4,6 +4,7 @@ import TextInput from '../../common/TextInput';
 import renderIcons from '../../../helpers/renderIcons';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
+import useMouseButtons from '../../../helpers/hooks/useMouseButtons';
 
 const styles = {
   wrapper: {
@@ -34,6 +35,7 @@ const styles = {
 const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: { filter, setFilter }, quit }) => {
   const history = useContext(HistoryContext);
   const [search, setSearch] = useState('');
+  useMouseButtons({ back: quit });
   if (search !== '') setFilter(search);
   const handleInputChange = e => setSearch(e.target.value);
   const beatmapsToDownload = beatmapsets.filter(beatmap => !history.contains(beatmap.id));
@@ -59,7 +61,7 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
         noStyle
         className={`${classes.downloadButton} clickable`}
       />
-      <TextInput onChange={handleInputChange} placeHolder="Search" />
+      <TextInput onChange={handleInputChange} placeholder="Search" />
     </div>
   );
 };
