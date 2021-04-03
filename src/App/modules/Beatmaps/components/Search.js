@@ -7,11 +7,11 @@ import { useTheme, createUseStyles } from 'react-jss';
 import TextInput from '../../common/TextInput';
 import askBeatconnect from '../helpers/askBeatconnect';
 import DropDown from '../../common/DropDown';
+import { AdvancedSearch } from './AdvancedSearch';
 import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
 import { getDragRegion } from '../../../helpers/css.utils';
-import { useDisclosure, Modal } from '../../common/Modal';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
@@ -35,147 +35,14 @@ const useStyle = createUseStyles({
   searchButtonWrapper: {
     margin: 8,
   },
-  AdvancedSearchModal: {
-    margin: '-5px 0',
-    '& p': {
-      margin: '5px 0',
-    },
-  },
 });
-
-const defaultValues = {
-  title: '',
-  artist: '',
-  creator: '',
-  tags: '',
-  title: '',
-  mapset: '',
-  difficulty: '',
-  cs: {
-    min: null,
-    max: null,
-  },
-  ar: {
-    min: null,
-    max: null,
-  },
-  hp: {
-    min: null,
-    max: null,
-  },
-  stars: {
-    min: null,
-    max: null,
-  },
-  bpm: {
-    min: null,
-    max: null,
-  },
-  length: {
-    min: null,
-    max: null,
-  },
-  drain: {
-    min: null,
-    max: null,
-  },
-  favcount: {
-    min: null,
-    max: null,
-  },
-};
-
-let formReducer = (state, action) => {
-  switch (action.type) {
-    case 'UPDATE_TEXT_FIELD':
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case 'UPDATE_RANGE_FIELD':
-      return {
-        ...state,
-        [action.field]: {
-          ...state[action.field],
-          [action.variant]: action.value,
-        },
-      };
-
-    default:
-      return state;
-  }
-};
-
-const AdvancedSearchModal = () => {
-  const modal = useDisclosure(true);
-  const classes = useStyle();
-  const theme = useTheme();
-
-  const [formState, dispatch] = useReducer(formReducer, defaultValues);
-
-  const handleTextFieldChange = e => {
-    dispatch({
-      type: 'UPDATE_TEXT_FIELD',
-      field: e.target.name,
-      value: e.target.value,
-    });
-  };
-
-  const handleRangeFieldChange = (e, variant) => {
-    dispatch({
-      type: 'UPDATE_RANGE_FIELD',
-      field: e.target.name,
-      variant: variant,
-      value: e.target.value,
-    });
-  };
-  console.log(Object.entries(formState));
-  return (
-    <>
-      <Button className="btn" color={theme.palette.primary.accent} onClick={() => modal.show()}>
-        {renderIcons({ name: 'Settings', style: theme.accentContrast })}
-      </Button>
-      {modal.isOpen && (
-        <Modal title="Advanced Search" hide={modal.hide}>
-          <form className={classes.AdvancedSearchModal} style={{ display: 'flex', flexDirection: 'column' }}>
-            {Object.entries(formState).map(([key, value]) => {
-              if (typeof value === 'string') {
-                return (
-                  <label>
-                    {key}:{' '}
-                    <input name={key} type="text" value={formState[key]} onChange={handleTextFieldChange}></input>
-                  </label>
-                );
-              }
-              return (
-                <label>
-                  {key}:{' '}
-                  <input
-                    name={key}
-                    type="number"
-                    value={formState[key].min}
-                    onChange={e => handleTextFieldChange(e, 'min')}
-                  ></input>{' '}
-                  <input
-                    name={key}
-                    type="number"
-                    value={formState[key].max}
-                    onChange={e => handleTextFieldChange(e, 'max')}
-                  ></input>
-                </label>
-              );
-            })}
-          </form>
-        </Modal>
-      )}
-    </>
-  );
-};
 
 const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   const [search, setSearch] = useState(lastSearch);
+
   const theme = useTheme();
   const classes = useStyle();
+
   const execSearch = force => {
     if (!isEqual(lastSearch, search) || force) {
       askBeatconnect(search, undefined, true);
@@ -198,7 +65,8 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
       skeletonBeatmaps ||
       (lastSearch.status !== search.status ||
         lastSearch.mode !== search.mode ||
-        lastSearch.hideDownloaded !== search.hideDownloaded)
+        lastSearch.hideDownloaded !== search.hideDownloaded ||
+        lastSearch.advancedSearch !== search.advancedSearch)
     )
       execSearch(true);
   }, [search]);
@@ -206,7 +74,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   return (
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
-        <Button className="btn" color={theme.palette.primary.accent} onClick={execSearch}>
+        <Button className="btn" color={theme.palette.primary.accent} onClick={() => execSearch()}>
           {isBusy ? (
             <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
           ) : (
@@ -246,7 +114,14 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
         <div className={classes.right} />
         {renderIcons({ name: 'Verified', color: search.hideDownloaded && theme.palette.primary.accent })}
       </div>
-      <AdvancedSearchModal />
+      <AdvancedSearch
+        onSubmit={advancedSearch => {
+          setSearch(search => {
+            return { ...search, advancedSearch };
+          });
+        }}
+        lastSearchValues={lastSearch.advancedSearch}
+      />
     </div>
   );
 };

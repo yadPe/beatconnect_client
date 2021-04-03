@@ -21,7 +21,7 @@ const useStyle = createUseStyles({
         marginLeft: 'auto',
       },
     },
-    '& body': {
+    '& .modalBody': {
       padding: '15px',
       margin: 0,
     },
@@ -63,7 +63,7 @@ export const Modal = ({ children, hide, title }) => {
             {renderIcons({ name: 'Cancel', heigh: '20px', width: '20px' })}
           </div>
         </header>
-        <body>{children}</body>
+        <div className="modalBody">{children}</div>
       </div>
     </div>,
     document.getElementById('modal-root'),
