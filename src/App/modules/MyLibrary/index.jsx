@@ -47,7 +47,7 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
   return (
     <div className={classes.myLibraryWrapper}>
       <div className={classes.collections}>
-        <AllBeatmapsCollection />
+        <AllBeatmapsCollection select={setSelectedCollection} />
         {Object.entries(collections).map(([name, beatmapsHash]) => (
           <Collection
             select={setSelectedCollection}

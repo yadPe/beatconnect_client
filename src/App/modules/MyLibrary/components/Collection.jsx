@@ -92,7 +92,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
   };
 
   return (
-    <div className={classes.collectionWrapper} onClick={handleClick}>
+    <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: beatmapsHash.length ? 0 : 1 }}>
       <CollectionCover artWorks={artWorks} onPlay={handlePlay} />
       <p className={classes.title}>{name}</p>
       <p className={classes.beatmapCount}>{`${beatmapsHash.length} beatmaps`}</p>

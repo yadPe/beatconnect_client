@@ -9,7 +9,7 @@ import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { useCollectionStyle } from './Collection';
 import CollectionCover from './CollectionCover';
 
-const AllBeatmapsCollection = () => {
+const AllBeatmapsCollection = ({ select }) => {
   const { ready, history } = useDownloadHistory();
   const classes = useCollectionStyle();
   const osuSongPath = useSelector(getOsuSongPath);
@@ -40,8 +40,13 @@ const AllBeatmapsCollection = () => {
     audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath));
   };
 
+  const handleClick = () => {
+    const beatmaps = Object.values(history);
+    select({ collection: beatmaps, collectionName: 'All' });
+  };
+
   return (
-    <div className={classes.collectionWrapper}>
+    <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: -1 }}>
       <CollectionCover artWorks={artWorks} onPlay={handlePlay} />
       <p className={classes.title}>All</p>
       <p className={classes.beatmapCount}>{`${beatmapsCount} beatmaps`}</p>

@@ -37,9 +37,13 @@ const useStyle = createUseStyles({
 
 const CollectionCover = ({ artWorks, onPlay }) => {
   const classes = useStyle();
+  const handlePlay = e => {
+    e.stopPropagation();
+    onPlay();
+  };
   return (
     <div className={`${classes.collectionCoverWrapper} collectionCoverWrapper`}>
-      <div className={`${classes.playIcon} playIcon`} onClick={onPlay} />
+      <div className={`${classes.playIcon} playIcon`} onClick={handlePlay} />
       {artWorks.map(artworkURL => (
         <div
           key={artworkURL}
