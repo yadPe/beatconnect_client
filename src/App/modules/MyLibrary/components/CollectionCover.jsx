@@ -1,5 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import pauseSvg from '../../../assets/img/pause-button.svg';
+import playSvg from '../../../assets/img/play-button.svg';
 
 const useStyle = createUseStyles({
   collectionCoverWrapper: {
@@ -20,7 +22,7 @@ const useStyle = createUseStyles({
     },
   },
   playIcon: {
-    backgroundImage: ({ isPlaying }) => (isPlaying ? 'url(/img/pause-button.svg)' : 'url(/img/play-button.svg)'),
+    backgroundImage: ({ isPlaying }) => (isPlaying ? `url(${pauseSvg})` : `url(${playSvg})`),
     height: '64px',
     width: '64px',
     backgroundPosition: 'center',

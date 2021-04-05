@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useState, memo } from 'react';
-import { Text } from 'react-desktop/windows';
 import { shell } from 'electron';
 import { createUseStyles, useTheme } from 'react-jss';
 import Cover from './Cover';
