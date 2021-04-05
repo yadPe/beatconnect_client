@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // transition duration for 100px in px/ms
 const baseScrollSpeed = 45 / 1000;
 
