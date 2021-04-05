@@ -40,6 +40,7 @@ const useStyle = createUseStyles({
   },
   title: {
     visibility: props => (props.expended ? 'visible' : 'hidden'),
+    whiteSpace: 'nowrap',
   },
 });
 

@@ -4,9 +4,10 @@ import settings from '../App/modules/Settings/reducer/reducer'; // TODO Dependen
 import beatmaps from '../App/modules/Beatmaps/reducer/reducer';
 import navigation from '../App/modules/reducer';
 import packs from '../App/modules/Packs/reducer/reducer';
+import library from '../App/modules/MyLibrary/reducer';
 import app from '../App/reducer';
 
-const rootReducer = combineReducers({ bot, settings, beatmaps, navigation, packs, app });
+const rootReducer = combineReducers({ bot, settings, beatmaps, navigation, packs, library, app });
 
 /* eslint-disable no-underscore-dangle */
 export default createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

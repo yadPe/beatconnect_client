@@ -6,6 +6,7 @@ import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { useTasks } from '../../../Providers/TaskProvider.bs';
 import { setLastScan } from '../reducer/actions';
 import { getOsuPath, getOsuSongPath } from '../reducer/selectors';
+import { scanOsuCollection } from './scanOsuCollections';
 
 export const useOsuDbScan = () => {
   const osuSongsPath = useSelector(getOsuSongPath);
@@ -48,6 +49,9 @@ export const useOsuDbAutoScan = () => {
   const osuSongsPath = useSelector(getOsuSongPath);
   const osuPath = useSelector(getOsuPath);
   useEffect(() => {
-    if (osuPath && osuSongsPath !== '') osuDbScan();
+    if (osuPath && osuSongsPath !== '') {
+      osuDbScan();
+      scanOsuCollection(osuPath).then(console.log);
+    }
   }, []);
 };
