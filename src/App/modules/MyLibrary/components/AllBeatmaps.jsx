@@ -16,11 +16,17 @@ const AllBeatmapsCollection = ({ select }) => {
   const osuSongPath = useSelector(getOsuSongPath);
   const audioPlayer = useAudioPlayer();
 
+  const getBeatmaps = () => {
+    const beatmaps = Object.values(history);
+    beatmaps.reverse();
+    return beatmaps;
+  };
+
   const [artWorks, setArtWorks] = useState([]);
   const [beatmapsCount, setBeatmapsCount] = useState(0);
 
   const getCoverArtworks = useCallback(() => {
-    const beatmaps = Object.values(history);
+    const beatmaps = getBeatmaps();
     setBeatmapsCount(() => beatmaps.length);
     const artworksLimit = Math.min(beatmaps.length >= 4 ? 4 : 1, beatmaps.length);
     return beatmaps.slice(0, artworksLimit).map(beatmap => getListCoverUrl(beatmap.id));
@@ -36,7 +42,7 @@ const AllBeatmapsCollection = ({ select }) => {
       audioPlayer.togglePlayPause();
       return;
     }
-    const beatmaps = Object.values(history);
+    const beatmaps = getBeatmaps();
     if (!beatmaps.length) return;
     audioPlayer.setAudio(
       { id: beatmaps[0].id, title: beatmaps[0].title, artist: beatmaps[0].artist },
@@ -47,7 +53,7 @@ const AllBeatmapsCollection = ({ select }) => {
   };
 
   const handleClick = () => {
-    const beatmaps = Object.values(history);
+    const beatmaps = getBeatmaps();
     select({ collection: beatmaps, collectionName: COLLECTION_NAME });
   };
 
@@ -55,7 +61,7 @@ const AllBeatmapsCollection = ({ select }) => {
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: -1 }}>
       <CollectionCover artWorks={artWorks} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>All</p>
-      <p className={classes.beatmapCount}>{`${beatmapsCount} beatmaps`}</p>
+      <p className={classes.beatmapCount}>{`${beatmapsCount} songs`}</p>
     </div>
   );
 };
