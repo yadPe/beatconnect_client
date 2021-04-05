@@ -41,6 +41,7 @@ let setVolume = Audio.setVolume(audio);
 let make = (~children) => {
   let (playingState, setPlayingState) = React.useState(() => initialState);
   let (playlist: playlist, setPlaylist) = React.useState(() => [||]);
+  let (playlistID: string, setPlaylistID) = React.useState(() => "");
 
   let _canPlay = (offset: int) =>
     if (playlist->Belt_Array.length > 0) {
@@ -61,13 +62,17 @@ let make = (~children) => {
   let _canPlayNextSong = () => _canPlay(1);
   let _canPlayPrevSong = () => _canPlay(-1);
 
-  let setPlaylist = (beatmapPlaylist: playlist) => {
+  let setPlaylist = (~beatmapPlaylist: playlist, ~playlistID=?, ()) => {
     setPlaylist(_ => beatmapPlaylist);
+    switch (playlistID) {
+    | Some(id) => setPlaylistID(_ => id)
+    | None => ()
+    };
   };
 
   let _stop = () => {
     pause();
-    setPlaylist([||]);
+    setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
   };
 
   React.useEffect0(() => {
@@ -95,7 +100,6 @@ let make = (~children) => {
         artist: nextSong.artist,
       }
     );
-    setPlaylist(playlist);
   };
 
   let updateMediaHandlers = () => {
@@ -132,19 +136,19 @@ let make = (~children) => {
     (playingState.beatmapSetId, playlist),
   );
 
-    let playNext = () => {
+  let playNext = () => {
     switch (_canPlayNextSong()) {
     | Some(nextSong) => playFromPlaylist(nextSong)
     | None => ()
     };
-  }
+  };
 
-    let playPrevious = () => {
+  let playPrevious = () => {
     switch (_canPlayPrevSong()) {
     | Some(prevSong) => playFromPlaylist(prevSong)
     | None => ()
     };
-  }
+  };
 
   let setAudio =
       (
@@ -161,7 +165,7 @@ let make = (~children) => {
       },
     );
 
-    setPlaylist([||]);
+    setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
     _updateMetadata(song);
 
     switch (audioFilePath, previewOffset) {
@@ -227,6 +231,7 @@ let make = (~children) => {
     playlist,
     playNext,
     playPrevious,
+    playlistID,
   };
   <Provider value> children </Provider>;
 };

@@ -15,28 +15,28 @@ const useStyle = createUseStyles({
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       backdropFilter: 'saturate(200%) blur(5px)',
       position: 'absolute',
-      opacity: 0,
+      opacity: ({ isPlaying }) => (isPlaying ? 1 : 0),
       transition: 'all .3s ease',
     },
   },
   playIcon: {
-    backgroundImage: 'url(/img/play-button.svg)',
+    backgroundImage: ({ isPlaying }) => (isPlaying ? 'url(/img/pause-button.svg)' : 'url(/img/play-button.svg)'),
     height: '64px',
     width: '64px',
     backgroundPosition: 'center',
     backgroundSize: 'contain',
     left: 'calc(50% - 32px)',
     position: 'absolute',
-    top: '50%',
-    opacity: 0,
+    top: ({ isPlaying }) => (isPlaying ? 'calc(50% - 32px)' : '50%'),
+    opacity: ({ isPlaying }) => (isPlaying ? 1 : 0),
     transition: 'all .3s ease',
     zIndex: 1,
     cursor: 'pointer',
   },
 });
 
-const CollectionCover = ({ artWorks, onPlay }) => {
-  const classes = useStyle();
+const CollectionCover = ({ artWorks, onPlay, isPlaying }) => {
+  const classes = useStyle({ isPlaying });
   const handlePlay = e => {
     e.stopPropagation();
     onPlay();

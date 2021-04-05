@@ -75,7 +75,12 @@ const Collection = ({ name, beatmapsHash, select }) => {
     setArtWorks(() => getCoverArtworks());
   }, [ready]);
 
+  const isPlaying = audioPlayer.playingState.isPlaying && audioPlayer.playlistID === name;
   const handlePlay = () => {
+    if (audioPlayer.playlistID === name) {
+      audioPlayer.togglePlayPause();
+      return;
+    }
     const beatmaps = getBeatmapsList();
     if (!beatmaps.length) return;
     audioPlayer.setAudio(
@@ -83,7 +88,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
       () => {},
       getAudioFilePath(osuSongPath, beatmaps[0].audioPath) || undefined,
     );
-    audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath));
+    audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath), name);
   };
 
   const handleClick = () => {
@@ -93,7 +98,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
 
   return (
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: beatmapsHash.length ? 0 : 1 }}>
-      <CollectionCover artWorks={artWorks} onPlay={handlePlay} />
+      <CollectionCover artWorks={artWorks} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>{name}</p>
       <p className={classes.beatmapCount}>{`${beatmapsHash.length} beatmaps`}</p>
     </div>

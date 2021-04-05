@@ -9,6 +9,7 @@ import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { useCollectionStyle } from './Collection';
 import CollectionCover from './CollectionCover';
 
+const COLLECTION_NAME = 'All';
 const AllBeatmapsCollection = ({ select }) => {
   const { ready, history } = useDownloadHistory();
   const classes = useCollectionStyle();
@@ -29,7 +30,12 @@ const AllBeatmapsCollection = ({ select }) => {
     setArtWorks(() => getCoverArtworks());
   }, [ready]);
 
+  const isPlaying = audioPlayer.playingState.isPlaying && audioPlayer.playlistID === COLLECTION_NAME;
   const handlePlay = () => {
+    if (audioPlayer.playlistID === COLLECTION_NAME) {
+      audioPlayer.togglePlayPause();
+      return;
+    }
     const beatmaps = Object.values(history);
     if (!beatmaps.length) return;
     audioPlayer.setAudio(
@@ -37,17 +43,17 @@ const AllBeatmapsCollection = ({ select }) => {
       () => {},
       getAudioFilePath(osuSongPath, beatmaps[0].audioPath) || undefined,
     );
-    audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath));
+    audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath), COLLECTION_NAME);
   };
 
   const handleClick = () => {
     const beatmaps = Object.values(history);
-    select({ collection: beatmaps, collectionName: 'All' });
+    select({ collection: beatmaps, collectionName: COLLECTION_NAME });
   };
 
   return (
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: -1 }}>
-      <CollectionCover artWorks={artWorks} onPlay={handlePlay} />
+      <CollectionCover artWorks={artWorks} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>All</p>
       <p className={classes.beatmapCount}>{`${beatmapsCount} beatmaps`}</p>
     </div>
