@@ -5,12 +5,10 @@ import VolumeControl from './VolumeControl';
 import TasksControl from './TasksControl';
 import PlayOsu from './PlayOsu';
 import config from '../../../../../shared/config';
-import { getDragRegion } from '../../../../helpers/css.utils';
 import MusicPlayer from './MusicPlayer';
 
 const styles = {
   SidePanel: {
-    ...getDragRegion(),
     cursor: 'default',
     userSelect: 'none',
     display: 'flex',
