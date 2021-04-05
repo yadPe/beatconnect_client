@@ -40,6 +40,7 @@ const useStyle = createUseStyles({
 });
 
 const Collection = ({ name, beatmapsHash, select }) => {
+  beatmapsHash.reverse();
   const { containsMD5, ready } = useDownloadHistory();
   const classes = useStyle();
   const osuSongPath = useSelector(getOsuSongPath);
@@ -49,7 +50,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
 
   const getBeatmapsList = useCallback(() => {
     const beatmapList = [];
-    for (let i = 0; i < beatmapsHash.length; i += 1) {
+    for (let i = beatmapsHash.length - 1; i >= 0; i -= 1) {
       const maybeItem = containsMD5(beatmapsHash[i]);
       if (typeof maybeItem === 'undefined') continue;
       if (beatmapList.some(beatmap => beatmap.id === maybeItem.id)) continue;
