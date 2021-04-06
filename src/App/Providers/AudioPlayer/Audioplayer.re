@@ -214,7 +214,6 @@ let make = (~children) => {
   Audio.onerror(
     audio,
     _e => {
-      Js.log(_e);
       setPlayingState(oldState => {...oldState, isPlaying: false});
       playNext();
     },
