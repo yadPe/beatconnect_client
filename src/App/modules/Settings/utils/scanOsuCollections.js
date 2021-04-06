@@ -2,6 +2,7 @@ import { ipcRenderer } from 'electron';
 import store from '../../../../shared/store';
 
 export const scanOsuCollection = async osuPath => {
+  if (!osuPath) return undefined;
   const maybeCollections = await ipcRenderer.invoke('scan-osu-collections', osuPath);
   if (maybeCollections instanceof Error) {
     // eslint-disable-next-line no-alert
