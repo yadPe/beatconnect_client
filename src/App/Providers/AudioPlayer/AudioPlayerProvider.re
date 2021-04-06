@@ -33,7 +33,6 @@ type value = {
   setAudio:
     (
       ~song: song,
-      ~setIsPlayable: bool => unit,
       ~audioFilePath: option(string),
       ~previewOffset: option(int)
     ) =>
@@ -66,7 +65,6 @@ module Provider = {
     setAudio:
       (
         ~song: song,
-        ~setIsPlayable: bool => unit,
         ~audioFilePath: option(string),
         ~previewOffset: option(int),
       ) =>

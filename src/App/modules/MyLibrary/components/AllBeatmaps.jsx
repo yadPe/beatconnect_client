@@ -46,7 +46,7 @@ const AllBeatmapsCollection = ({ select }) => {
     if (!beatmaps.length) return;
     audioPlayer.setAudio(
       { id: beatmaps[0].id, title: beatmaps[0].title, artist: beatmaps[0].artist },
-      () => {},
+
       getAudioFilePath(osuSongPath, beatmaps[0].audioPath) || undefined,
     );
     audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath), COLLECTION_NAME);

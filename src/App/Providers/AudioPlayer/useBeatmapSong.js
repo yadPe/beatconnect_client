@@ -25,9 +25,9 @@ const useBeatmapSong = ({ id, title, artist }, mode = '', items = []) => {
   const playPreview = () => {
     if (isSelected) audioPlayer.togglePlayPause();
     else if (isLibraryMode) {
-      audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined);
+      audioPlayer.setAudio({ id, title, artist }, audioPath || undefined);
       audioPlayer.setPlaylist(makePlaylist(items, osuSongPath, history.history));
-    } else audioPlayer.setAudio({ id, title, artist }, () => {}, audioPath || undefined, previewTime || undefined);
+    } else audioPlayer.setAudio({ id, title, artist }, audioPath || undefined, previewTime || undefined);
   };
 
   return {
