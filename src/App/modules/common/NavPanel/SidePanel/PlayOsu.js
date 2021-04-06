@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme, createUseStyles } from 'react-jss';
 import { ipcRenderer } from 'electron';
-import { connect, useDispatch } from 'react-redux';
+import { error } from 'electron-log';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import renderIcons from '../../../../helpers/renderIcons';
 import config from '../../../../../shared/config';
 import { changeCurrentSection } from '../../../../app.actions';
 import { tFromJs as sections } from '../../../Sections.bs';
+import { useOsuDbScan } from '../../../Settings/utils/useScanOsuSongs';
+import { scanOsuCollection } from '../../../Settings/utils/scanOsuCollections';
+import { getOsuPath } from '../../../Settings/reducer/selectors';
 
 const useStyle = createUseStyles({
   playOsuWrapper: {
@@ -93,6 +97,10 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   const dispatch = useDispatch();
   const classes = useStyle({ ...otherProps, theme, isOsuSet });
   const [osuIsRunning, setOsuIsRunning] = useState(false);
+  const isScanning = useRef(false);
+  const osuScan = useOsuDbScan();
+  const osuPath = useSelector(getOsuPath);
+
   const listener = (_event, status) => {
     setOsuIsRunning(status);
   };
@@ -107,6 +115,19 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
     ipcRenderer.on('osu-is-running', listener);
     return () => ipcRenderer.removeListener('osu-is-running', listener);
   }, []);
+
+  useEffect(() => {
+    if (!isOsuSet || isScanning.current) return;
+    isScanning.current = true;
+    osuScan();
+    scanOsuCollection(osuPath)
+      .catch(e => {
+        error(`[scanOsuCollection]: ${e}`);
+      })
+      .finally(() => {
+        isScanning.current = false;
+      });
+  }, [osuIsRunning, isOsuSet]);
 
   return (
     <div
