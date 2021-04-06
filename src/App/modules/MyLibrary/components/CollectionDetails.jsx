@@ -42,7 +42,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName }) =
           itemCount={itemCount}
           itemSize={50}
           width={listWidth}
-          itemData={{ items: displayedItems, itemMode: 'library' }}
+          itemData={{ items: displayedItems, itemMode: 'library', collectionName }}
         >
           {BeatmapListItem}
         </List>
