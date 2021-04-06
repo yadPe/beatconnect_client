@@ -90,7 +90,7 @@ const useStyle = createUseStyles({
 });
 
 const BeatmapListItem = ({ index, style, data }) => {
-  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library' } = data;
+  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library', collectionName } = data;
   const isPackMode = itemMode === 'pack';
   const isDownloadMode = itemMode === 'download';
   const isLibraryMode = itemMode === 'library';
@@ -109,7 +109,7 @@ const BeatmapListItem = ({ index, style, data }) => {
   const isDownloading = downloadProgress >= 0;
   const isPaused = status === config.download.status.paused;
 
-  const { isPlaying, isSelected, playPreview } = useBeatmapSong({ id, title, artist }, itemMode, items);
+  const { isPlaying, isSelected, playPreview } = useBeatmapSong({ id, title, artist, collectionName }, itemMode, items);
 
   const handleClick = () => {
     if (isDownloadMode) return;
