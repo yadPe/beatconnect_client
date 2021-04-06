@@ -100,24 +100,30 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   const isScanning = useRef(false);
   const osuScan = useOsuDbScan();
   const osuPath = useSelector(getOsuPath);
+  const invalidateNextOsuState = useRef(false);
 
-  const listener = (_event, status) => {
-    setOsuIsRunning(status);
-  };
   const launchOsu = () => {
     if (osuGamePath) {
       ipcRenderer.send('start-osu', osuGamePath);
       setOsuIsRunning(true);
+      invalidateNextOsuState.current = true;
     }
   };
   useEffect(() => {
+    const listener = (_event, status) => {
+      if (invalidateNextOsuState.current) {
+        invalidateNextOsuState.current = false;
+        return;
+      }
+      setOsuIsRunning(status);
+    };
     ipcRenderer.send('start-pulling-osu-state');
     ipcRenderer.on('osu-is-running', listener);
     return () => ipcRenderer.removeListener('osu-is-running', listener);
-  }, []);
+  }, [invalidateNextOsuState.current]);
 
   useEffect(() => {
-    if (!isOsuSet || isScanning.current) return;
+    if (!isOsuSet || isScanning.current || osuIsRunning) return;
     isScanning.current = true;
     osuScan();
     scanOsuCollection(osuPath)
