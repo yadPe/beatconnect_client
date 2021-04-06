@@ -153,18 +153,9 @@ let make = (~children) => {
   let setAudio =
       (
         ~song: song,
-        ~setIsPlayable: bool => unit,
         ~audioFilePath: option(string),
         ~previewOffset: option(int),
       ) => {
-    Audio.onerror(
-      audio,
-      _e => {
-        setIsPlayable(false);
-        setPlayingState(oldState => {...oldState, isPlaying: false});
-      },
-    );
-
     setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
     _updateMetadata(song);
 
@@ -219,6 +210,14 @@ let make = (~children) => {
   Audio.onvolumechange(audio, e => {
     setPlayingState(oldState => {...oldState, volume: e.target.volume})
   });
+
+  Audio.onerror(
+    audio,
+    _e => {
+      setPlayingState(oldState => {...oldState, isPlaying: false});
+      playNext();
+    },
+  );
 
   let value = {
     playingState,
