@@ -37,7 +37,6 @@ let togglePlayPause = () => Audio.paused(audio) ? _play() : pause();
 let setVolume = Audio.setVolume(audio);
 
 [@react.component]
-[@genType]
 let make = (~children) => {
   let (playingState, setPlayingState) = React.useState(() => initialState);
   let (playlist: playlist, setPlaylist) = React.useState(() => [||]);

@@ -47,13 +47,14 @@ module Provider = {
   let make = React.Context.provider(taskContext);
 
   let updateTaskAt = (index, tasks, task) =>
-    Relude.Array.updateAt(index, _ => task, tasks);
+    tasks->Belt.Array.mapWithIndex((i, currentTask) =>
+      i === index ? task : currentTask
+    );
 };
 
 let useTasks = () => React.useContext(Provider.taskContext);
 
 [@react.component]
-[@genType]
 let make = (~children) => {
   let (tasks, setTasks) = React.useState(() => [||]);
   let tasksRef = React.useRef(tasks);

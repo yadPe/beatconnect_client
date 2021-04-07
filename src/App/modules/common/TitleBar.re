@@ -27,7 +27,6 @@ let makeControlStyle = (~bgColor=?, ~spacer=false, ()) =>
   ]);
 
 [@react.component]
-[@genType]
 let make = (~height: int) => {
   let {AudioPlayerProvider.playingState} =
     AudioPlayerProvider.useAudioPlayer();
