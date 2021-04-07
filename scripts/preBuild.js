@@ -1,6 +1,5 @@
 const { join } = require('path')
 const { ensureDirSync, copySync } = require('fs-extra')
-const { copyFileSync } = require('fs');
 // Copy wallpaper binaries to public folder on build
 
 const sources = [
