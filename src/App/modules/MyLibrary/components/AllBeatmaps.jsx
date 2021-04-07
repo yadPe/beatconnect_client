@@ -18,7 +18,7 @@ const AllBeatmapsCollection = ({ select }) => {
 
   const getBeatmaps = () => {
     const beatmaps = Object.values(history);
-    beatmaps.reverse();
+    beatmaps.sort((ba, bb) => bb.date - ba.date);
     return beatmaps;
   };
 
