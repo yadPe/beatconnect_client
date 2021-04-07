@@ -75,13 +75,6 @@ let make = (~children) => {
     setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
   };
 
-  React.useEffect0(() => {
-    MediaSession.setActionHandler(`play, Some(_play));
-    MediaSession.setActionHandler(`pause, Some(pause));
-    MediaSession.setActionHandler(`stop, Some(_stop));
-    None;
-  });
-
   let playFromPlaylist = (playlistindex: int) => {
     let nextSong = playlist[playlistindex];
     Audio.setSrc(audio, nextSong.path);
@@ -102,40 +95,6 @@ let make = (~children) => {
     );
   };
 
-  let updateMediaHandlers = () => {
-    (
-      switch (_canPlayNextSong()) {
-      | Some(nextSongindex) =>
-        setPlayingState(prevState => {...prevState, hasNext: true});
-        Some(() => playFromPlaylist(nextSongindex));
-      | None =>
-        setPlayingState(prevState => {...prevState, hasNext: false});
-        None;
-      }
-    )
-    |> MediaSession.setActionHandler(`nexttrack);
-    (
-      switch (_canPlayPrevSong()) {
-      | Some(prevSongindex) =>
-        setPlayingState(prevState => {...prevState, hasPrev: true});
-        Some(() => playFromPlaylist(prevSongindex));
-      | None =>
-        setPlayingState(prevState => {...prevState, hasPrev: false});
-
-        None;
-      }
-    )
-    |> MediaSession.setActionHandler(`previoustrack);
-  };
-
-  React.useEffect2(
-    () => {
-      updateMediaHandlers();
-      None;
-    },
-    (playingState.beatmapSetId, playlist),
-  );
-
   let playNext = () => {
     switch (_canPlayNextSong()) {
     | Some(nextSong) => playFromPlaylist(nextSong)
@@ -149,6 +108,69 @@ let make = (~children) => {
     | None => ()
     };
   };
+
+  React.useEffect3(
+    () => {
+      IPCRenderer.send(
+        UPDATE_THUMB_BAR({
+          isPlaying: playingState.isPlaying,
+          canPlayNext: playingState.hasNext,
+          canPlayPrev: playingState.hasPrev,
+        }),
+      );
+      IPCRenderer.on("EXEC_PREV", playPrevious);
+      IPCRenderer.on("EXEC_NEXT", playNext);
+      Some(
+        () => {
+          IPCRenderer.removeListener("EXEC_PREV", playPrevious);
+          IPCRenderer.removeListener("EXEC_NEXT", playNext);
+        },
+      );
+    },
+    (playingState.isPlaying, playingState.hasNext, playingState.hasPrev),
+  );
+
+  React.useEffect0(() => {
+    MediaSession.setActionHandler(`play, Some(_play));
+    MediaSession.setActionHandler(`pause, Some(pause));
+    MediaSession.setActionHandler(`stop, Some(_stop));
+    IPCRenderer.on("EXEC_PLAY_PAUSE", togglePlayPause);
+    None;
+  });
+
+  let updateMediaHandlers = () => {
+    let next =
+      switch (_canPlayNextSong()) {
+      | Some(nextSongindex) =>
+        setPlayingState(prevState => {...prevState, hasNext: true});
+        Some(() => playFromPlaylist(nextSongindex));
+      | None =>
+        setPlayingState(prevState => {...prevState, hasNext: false});
+        None;
+      };
+
+    MediaSession.setActionHandler(`nexttrack, next);
+
+    let previous =
+      switch (_canPlayPrevSong()) {
+      | Some(prevSongindex) =>
+        setPlayingState(prevState => {...prevState, hasPrev: true});
+        Some(() => playFromPlaylist(prevSongindex));
+      | None =>
+        setPlayingState(prevState => {...prevState, hasPrev: false});
+        None;
+      };
+
+    MediaSession.setActionHandler(`previoustrack, previous);
+  };
+
+  React.useEffect2(
+    () => {
+      updateMediaHandlers();
+      None;
+    },
+    (playingState.beatmapSetId, playlist),
+  );
 
   let setAudio =
       (

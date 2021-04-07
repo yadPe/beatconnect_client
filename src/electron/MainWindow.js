@@ -4,6 +4,7 @@ const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
 const isDev = require('electron-is-dev');
 const beatmapDownloader = require('./BeatmapDownloader');
+const taskBar = require('./helpers/windowsTaskBar');
 
 const makeMainWindowSettings = () => {
   const mainWindowState = windowStateKeeper({
@@ -45,6 +46,7 @@ const makeMainWindow = ({ content, ...options }) => {
       mainWindow.show();
       beatmapDownloader.register(mainWindow);
       mainWindowState.manage(mainWindow);
+      taskBar.register(mainWindow);
       if (isDev) mainWindow.webContents.openDevTools();
     })
     .on('show', () => {
