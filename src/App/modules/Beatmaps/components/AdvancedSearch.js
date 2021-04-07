@@ -31,6 +31,8 @@ const useStyle = createUseStyles({
         width: '110%',
         display: 'flex',
         justifyContent: 'space-between',
+        lineHeight: '15px',
+        marginTop: '2px',
         marginLeft: '-0.32rem',
         '& p': {
           margin: 0,
@@ -44,7 +46,11 @@ const useStyle = createUseStyles({
       alignItems: 'center',
       justifyContent: 'space-between',
       '& input': {
-        width: '3rem',
+        width: '2.5rem',
+        '&::-webkit-inner-spin-button,  &::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0,
+        },
       },
     },
     '& button': {
@@ -96,7 +102,7 @@ let formReducer = (state, action) => {
 };
 
 export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
-  const modal = useDisclosure();
+  const modal = useDisclosure(true);
   const classes = useStyle();
   const theme = useTheme();
   const defaultValues = lastSearchValues || defaultFormValues;
@@ -106,21 +112,6 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
   const handleFieldChange = ({ field, value }) => {
     dispatch({
       type: 'UPDATE_FIELD',
-      field,
-      value,
-    });
-  };
-
-  const handleMinFieldChange = ({ field, value }) => {
-    dispatch({
-      type: 'UPDATE_MIN_FIELD',
-      field,
-      value,
-    });
-  };
-  const handleMaxFieldChange = ({ field, value }) => {
-    dispatch({
-      type: 'UPDATE_MAX_FIELD',
       field,
       value,
     });
@@ -154,8 +145,9 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
               if (fieldTypes.text.includes(field)) {
                 return (
                   <div className="fieldContainer" key={'advancedSearchField-' + field}>
-                    <label>{field}:</label>
+                    <label>{field} :</label>
                     <TextInput
+                      style={{ width: '130px' }}
                       placeholder={field}
                       name={field}
                       type="text"
@@ -168,7 +160,7 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
               if (fieldTypes.gameRange.includes(field)) {
                 return (
                   <div className="fieldContainer" key={'advancedSearchField-' + field}>
-                    <label>{field}:</label>
+                    <label>{field} :</label>
                     <div className="sliderContainer">
                       <TwoHandleRangeInput
                         value={[value.min ?? 0, value.max ?? 10]}
@@ -185,16 +177,16 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
               if (fieldTypes.f32Range.includes(field)) {
                 return (
                   <div className="fieldContainer" key={'advancedSearchField-' + field}>
-                    <label>{field}:</label>
+                    <label>{field} :</label>
                     <div className="minMaxInputContainer">
-                      <input
+                      <TextInput
                         placeholder="min"
                         type="number"
                         value={value.min ?? ''}
                         onChange={e => handleFieldChange({ field, value: { min: e.target.value, max: value.max } })}
                       />
                       <span> - </span>
-                      <input
+                      <TextInput
                         placeholder="max"
                         type="number"
                         value={value.max ?? ''}
@@ -206,9 +198,23 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
               }
               return undefined;
             })}
-            <Button type="submit" className="btn" color={theme.palette.primary.accent}>
-              Search
-            </Button>
+            <div style={{ justifySelf: 'flex-end' }}>
+              <Button
+                className="btn"
+                color={theme.palette.secondary}
+                onClick={() =>
+                  dispatch({
+                    type: 'RESET',
+                    value: defaultValues,
+                  })
+                }
+              >
+                Reset
+              </Button>
+              <Button type="submit" className="btn" color={theme.palette.primary.accent}>
+                Search
+              </Button>
+            </div>
           </form>
         </Modal>
       )}
