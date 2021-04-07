@@ -14,10 +14,10 @@ class WindowsTaskBar {
   constructor() {
     this.browserWindow = null;
     this.icons = {
-      next: nativeImage.createFromPath(path.join(__dirname, 'next.png')),
-      prev: nativeImage.createFromPath(path.join(__dirname, 'previous.png')),
-      play: nativeImage.createFromPath(path.join(__dirname, 'play.png')),
-      pause: nativeImage.createFromPath(path.join(__dirname, 'pause.png')),
+      next: nativeImage.createFromPath(path.join(__dirname, 'assets', 'next.png')),
+      prev: nativeImage.createFromPath(path.join(__dirname, 'assets', 'previous.png')),
+      play: nativeImage.createFromPath(path.join(__dirname, 'assets', 'play.png')),
+      pause: nativeImage.createFromPath(path.join(__dirname, 'assets', 'pause.png')),
     };
   }
 

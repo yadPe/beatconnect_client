@@ -37,5 +37,5 @@ src/Bot/conf.js
 log.txt
 \.idea/
 secrets
-/public/macos-wallpaper
+/public/assets
 /public/*.exe
