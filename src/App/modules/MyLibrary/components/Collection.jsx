@@ -40,7 +40,6 @@ const useStyle = createUseStyles({
 });
 
 const Collection = ({ name, beatmapsHash, select }) => {
-  beatmapsHash.reverse();
   const { containsMD5, ready } = useDownloadHistory();
   const classes = useStyle();
   const osuSongPath = useSelector(getOsuSongPath);
@@ -57,11 +56,11 @@ const Collection = ({ name, beatmapsHash, select }) => {
       beatmapList.push(maybeItem);
     }
     return beatmapList;
-  }, [ready]);
+  }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
   const getCoverArtworks = useCallback(() => {
     const artWorksUrls = [];
-    for (let i = 0; i < beatmapsHash.length; i += 1) {
+    for (let i = beatmapsHash.length - 1; i >= 0; i -= 1) {
       const maybeItem = containsMD5(beatmapsHash[i]);
       if (typeof maybeItem !== 'undefined') {
         const url = getListCoverUrl(maybeItem.id);
@@ -70,11 +69,11 @@ const Collection = ({ name, beatmapsHash, select }) => {
       if ((beatmapsHash.length < 4 && artWorksUrls.length >= 1) || artWorksUrls.length >= 4) break;
     }
     return artWorksUrls;
-  }, [ready]);
+  }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
   useEffect(() => {
     setArtWorks(() => getCoverArtworks());
-  }, [ready]);
+  }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
   const isPlaying = audioPlayer.playingState.isPlaying && audioPlayer.playlistID === name;
   const handlePlay = () => {
