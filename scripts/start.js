@@ -139,7 +139,7 @@ checkBrowsers(paths.appPath, isInteractive)
             if (isWsl){
               console.log(chalk.green("WSL does not support graphical program natively,"));
               console.log(chalk.green("Electron couldn't be launched,"));
-              console.log(chalk.green("Run 'npm run electron-dev' from either powershell or cmd."));
+              console.log(chalk.green("Run 'yarn electron-dev' from either powershell or cmd."));
             } else {
               console.log(chalk.yellow("Couldn't launch electron, try starting it manually"));
             }
