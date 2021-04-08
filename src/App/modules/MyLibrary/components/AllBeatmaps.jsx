@@ -9,7 +9,8 @@ import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { useCollectionStyle } from './Collection';
 import CollectionCover from './CollectionCover';
 
-const COLLECTION_NAME = 'All';
+export const COLLECTION_NAME = 'All';
+
 const AllBeatmapsCollection = ({ select }) => {
   const { ready, history } = useDownloadHistory();
   const classes = useCollectionStyle();
