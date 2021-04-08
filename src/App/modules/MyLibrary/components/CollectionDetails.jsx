@@ -5,6 +5,7 @@ import config from '../../../../shared/config';
 import BeatmapListItem from '../../Packs/BeatmapPackDetail/Item';
 import Empty from './Empty';
 import Header from './Header';
+import { COLLECTION_NAME as AllBeatmapsCollectionName } from './AllBeatmaps';
 
 const CollectionDetails = ({ windowSize, collection, select, collectionName }) => {
   const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
@@ -47,7 +48,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName }) =
           {BeatmapListItem}
         </List>
       ) : (
-        <Empty />
+        <Empty isCollection={collectionName !== AllBeatmapsCollectionName} />
       )}
     </div>
   );
