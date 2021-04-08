@@ -9,7 +9,7 @@ import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
-import { getListCoverUrl, getThumbUrl } from '../../../../shared/PpyHelpers.bs';
+import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
 import useBeatmapSong from '../../../Providers/AudioPlayer/useBeatmapSong';
 
 const useStyle = createUseStyles({
@@ -131,7 +131,7 @@ const BeatmapListItem = ({ index, style, data }) => {
         <div
           className={`${classes.thumbnail} thumbnail`}
           style={{
-            backgroundImage: `url(${getListCoverUrl(id)}), url(${getThumbUrl(id)})`,
+            backgroundImage: `url(${getListCoverUrl(id)})`,
           }}
         >
           <div
