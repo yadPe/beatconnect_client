@@ -66,9 +66,9 @@ const useStyles = createUseStyles({
     cursor: 'pointer',
   },
   description: {
-    fontWeight: 100,
-    fontSize: '0.8rem',
-    color: 'rgba(255, 255, 255, 0.75)',
+    fontWeight: '300 !important',
+    fontSize: '0.8rem !important',
+    color: 'rgba(255, 255, 255, 0.75) !important',
   },
 });
 
@@ -100,9 +100,7 @@ const Setting = ({ settingCategory }) => {
                     <div key={item.name} className={classes.Toggle}>
                       <div style={{ margin: 'auto auto auto 0' }}>
                         <p>{item.name}</p>
-                        <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>
-                          {item.description}
-                        </p>
+                        <p className={classes.description}>{item.description}</p>
                       </div>
                       <Toggle checked={item.value} onChange={e => item.action(e.target.checked)} />
                     </div>
@@ -127,9 +125,7 @@ const Setting = ({ settingCategory }) => {
                     >
                       <div style={{ margin: 'auto auto auto 0' }}>
                         <p>{item.name}</p>
-                        <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>
-                          {item.description}
-                        </p>
+                        <p className={classes.description}>{item.description}</p>
                       </div>
                     </div>
                   );
@@ -138,9 +134,7 @@ const Setting = ({ settingCategory }) => {
                     <div key={item.name} className={classes.Toggle}>
                       <div style={{ margin: 'auto auto auto 0' }}>
                         <p>{item.name}</p>
-                        <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>
-                          {item.description}
-                        </p>
+                        <p className={classes.description}>{item.description}</p>
                       </div>
                       <DropDown onSelect={item.action} options={item.options} onBlur={item.action} value={item.value} />
                     </div>
@@ -155,9 +149,7 @@ const Setting = ({ settingCategory }) => {
                     >
                       <div style={{ margin: 'auto auto auto 0' }}>
                         <p>{item.name}</p>
-                        <p style={{ fontWeight: 100, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.75)' }}>
-                          {item.description}
-                        </p>
+                        <p className={classes.description}>{item.description}</p>
                       </div>
                       <CheckBox
                         checked={item.value}
