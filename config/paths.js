@@ -85,7 +85,6 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   rendererWebpackConfig: resolveApp('config/renderer.webpack.config.js'),
-  osuSongsScan: resolveApp('./src/electron/processes/osuSongsScan.js'),
 };
 
 

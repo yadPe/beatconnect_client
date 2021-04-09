@@ -3873,7 +3873,6 @@ __metadata:
     redux: ^4.0.5
     resolve: 1.17.0
     semver: 6.0.0
-    string-replace-loader: ^2.3.0
     terser-webpack-plugin: 1.2.3
     ts-pnp: 1.1.2
     typescript: ^3.5.3
@@ -14601,18 +14600,6 @@ resolve@^2.0.0-next.3:
     char-regex: ^1.0.2
     strip-ansi: ^6.0.0
   checksum: e27dd1b5d759d734d7e4dd6ae0c56d1cad479799452bfeefb6565bb4785cd3d076dea71e9257edd49a051374f3b8492567eb495c306711ae7226ef971a0f1f81
-  languageName: node
-  linkType: hard
-
-"string-replace-loader@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "string-replace-loader@npm:2.3.0"
-  dependencies:
-    loader-utils: ^1.2.3
-    schema-utils: ^2.6.5
-  peerDependencies:
-    webpack: 1 || 2 || 3 || 4
-  checksum: bb6724dd38c4d7e67f562ee1f6b81eedeb4fc526b597e8cc4c816e2faa8b5f818058e9dfd76f34e06753c79d732f983081a904dd3b370eb69458912ced07e074
   languageName: node
   linkType: hard
 

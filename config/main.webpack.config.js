@@ -13,7 +13,6 @@ module.exports = mode => {
     context: path.resolve(__dirname, 'src'),
     entry: {
       main: paths.electronIndexJs,
-      osuSongsScan: paths.osuSongsScan,
     },
     output: {
       path: paths.appBuild,
@@ -34,18 +33,6 @@ module.exports = mode => {
           presets: [
               '@babel/preset-env'
           ],
-        }
-      },
-      {
-        test: /ipcMessages.js$/,
-        loader: 'string-replace-loader',
-        options:{
-          multiple: [
-            {
-              search: './processes/osuSongsScan.js',
-              replace: './osuSongsScan.bundle.js'
-            },
-          ]
         }
       }]
     },
