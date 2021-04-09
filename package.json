@@ -27,7 +27,9 @@
     "dist:win": "yarn install && yarn build && electron-builder build --win --x64",
     "dist:linux": "yarn install && yarn build && electron-builder build --linux --x64",
     "dist:mac": "yarn install && yarn build && electron-builder build --mac --x64",
-    "dist:gh-publish": "yarn install && yarn build && electron-builder build --win --linux --mac --ia32 --x64 -p always",
+    "dist:mac-publish": "electron-builder build --mac --x64 -p always",
+    "dist:win-linux-publish": "electron-builder build --win --linux --ia32 --x64 -p always",
+    "dist:gh-publish": "yarn install && yarn build && yarn dist:win-linux-publish && yarn dist:mac-publish",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3200 electron .",
     "electron:debug-analytics": "cross-env ELECTRON_START_URL=http://localhost:3200 DEBUG=universal-analytics electron .",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
