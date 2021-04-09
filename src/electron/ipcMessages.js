@@ -5,6 +5,7 @@ const { join } = require('path');
 const { fork } = require('child_process');
 const { downloadAndSetWallpaper } = require('./wallpaper');
 const { readCollectionDB } = require('./helpers/osuCollections/collections.utils');
+const startPullingOsuState = require('./threads/osuIsRunning');
 
 ipcMain.on('osuSongsScan', (event, options) => {
   // TODO Replace with osu-db-parser module
@@ -44,11 +45,10 @@ ipcMain.on('set-wallpaper', (event, bgUri) => {
 ipcMain.on('start-osu', (event, osuPath) => shell.openPath(join(osuPath, 'osu!.exe')).catch(error));
 
 ipcMain.once('start-pulling-osu-state', event => {
-  const osuIsRunningChecker = fork(join(__dirname, './processes/osuIsRunning.js'));
-  osuIsRunningChecker.on('message', msg => {
-    event.reply('osu-is-running', !!msg);
-  });
-  osuIsRunningChecker.send('start');
+  const osuStateHandler = isRunning => {
+    event.reply('osu-is-running', isRunning);
+  };
+  startPullingOsuState(osuStateHandler);
 });
 
 ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
