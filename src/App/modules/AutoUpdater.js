@@ -37,12 +37,12 @@ const AutoUpdater = () => {
               name: `Downloading update`,
               status: 'running',
               section: 'Settings',
-              description: `${info.percent}%`,
+              description: `${Math.ceil(info.percent)}%`,
             });
           } else {
             update({
               name: 'Downloading update',
-              description: `${info.percent}%`,
+              description: `${Math.ceil(info.percent)}%`,
             });
           }
           break;
