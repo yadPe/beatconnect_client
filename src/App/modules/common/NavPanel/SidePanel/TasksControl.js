@@ -98,6 +98,7 @@ const useStyle = createUseStyles({
     width: '80px',
     height: '1px',
     backgroundColor: 'rgba(255,255,255, 0.05)',
+    margin: '5px 0',
   },
 });
 
