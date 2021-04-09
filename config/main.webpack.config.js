@@ -1,3 +1,4 @@
+const path = require('path')
 const paths = require('./paths');
 const webpack = require('webpack');
 const getClientEnvironment = require('./env');
@@ -9,10 +10,10 @@ module.exports = mode => {
   return {
     target: "electron-main",
     mode,
+    context: path.resolve(__dirname, 'src'),
     entry: {
       main: paths.electronIndexJs,
       osuSongsScan: paths.osuSongsScan,
-      osuIsRunning: paths.osuIsRunning
     },
     output: {
       path: paths.appBuild,
@@ -20,7 +21,8 @@ module.exports = mode => {
       filename: '[name].bundle.js'
     },
     node: {
-      __dirname: false
+      __dirname: false,
+      __filename: true
     },
     module: {
       rules : [{
@@ -43,10 +45,6 @@ module.exports = mode => {
               search: './processes/osuSongsScan.js',
               replace: './osuSongsScan.bundle.js'
             },
-            {
-              search: './processes/osuIsRunning.js',
-              replace: './osuIsRunning.bundle.js'
-            }
           ]
         }
       }]
