@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/yadPe/beatconnect_client/compare/v0.3.0...v0.3.1) (2021-04-10)
+
+### Bug Fixes
+
+- **App:** Better error handling for config loader, missing songs and osu scan ([#400](https://github.com/yadPe/beatconnect_client/issues/400)) ([5540b44](https://github.com/yadPe/beatconnect_client/commit/5540b446b957943ad031f410a2481016c4406993))
+- **app:** Fix osu database and state scan ([#395](https://github.com/yadPe/beatconnect_client/pull/395))
+- **app:** Fix app update download progress displaying very long numbers ([#397](https://github.com/yadPe/beatconnect_client/pull/397))
+- **sidepnel:** Add margin between task and playing song ([bbac154](https://github.com/yadPe/beatconnect_client/commit/bbac15421dcb686fdf41b220c39d4c04ef03195f))
+
 # [0.3.0](https://github.com/yadPe/beatconnect_client/compare/v0.2.9...v0.3.0) (2021-04-08)
 
 ### Bug Fixes
