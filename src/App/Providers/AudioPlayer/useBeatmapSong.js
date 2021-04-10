@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux';
+import { remote } from 'electron';
 import { getOsuSongPath } from '../../modules/Settings/reducer/selectors';
 import { useDownloadHistory } from '../HistoryProvider';
 import { getAudioFilePath, makePlaylist } from './audioPlayer.helpers';
 import { useAudioPlayer } from './AudioPlayerProvider.bs';
+
+const { trackEvent } = remote.getGlobal('tracking');
 
 const useBeatmapSong = ({ id, title, artist, collectionName }, mode = '', items = []) => {
   const isLibraryMode = mode === 'library';
@@ -28,6 +31,7 @@ const useBeatmapSong = ({ id, title, artist, collectionName }, mode = '', items 
       audioPlayer.setAudio({ id, title, artist }, audioPath || undefined);
       audioPlayer.setPlaylist(makePlaylist(items, osuSongPath, history.history), collectionName);
     } else audioPlayer.setAudio({ id, title, artist }, audioPath || undefined, previewTime || undefined);
+    trackEvent('beatmapPreview', 'play', mode);
   };
 
   return {

@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
 import React, { useCallback, useEffect, useState } from 'react';
+import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
 import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
@@ -8,6 +9,8 @@ import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvid
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import CollectionCover from './CollectionCover';
+
+const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   collectionWrapper: {
@@ -89,6 +92,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
       getAudioFilePath(osuSongPath, beatmaps[0].audioPath) || undefined,
     );
     audioPlayer.setPlaylist(makePlaylist(beatmaps, osuSongPath), name);
+    trackEvent('collectionPlay', 'start');
   };
 
   const handleClick = () => {
