@@ -27,7 +27,6 @@ export const useOsuDbScan = () => {
     addTask({ name: 'Scanning beatmaps', status: 'running', description: '', section: 'Settings' });
     try {
       const result = await ipcRenderer.invoke('osuSongsScan', { osuPath });
-      console.log({ result });
       history.set(result);
       setLastScan({ date: Date.now(), beatmaps: Object.keys(result.beatmaps).length });
     } catch (e) {
@@ -48,7 +47,6 @@ export const useOsuDbAutoScan = () => {
   const osuPath = useSelector(getOsuPath);
   useEffect(() => {
     if (osuPath && osuSongsPath !== '') {
-      console.log('START SCANN');
       osuDbScan();
       scanOsuCollection(osuPath);
     }
