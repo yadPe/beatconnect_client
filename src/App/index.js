@@ -6,7 +6,6 @@ import TitleBar from './modules/common/TitleBar.bs';
 import config from '../shared/config';
 import { getAppear } from './helpers/css.utils';
 import AutoUpdater from './modules/AutoUpdater';
-import { useOsuDbAutoScan } from './modules/Settings/utils/useScanOsuSongs';
 
 const useStyles = createUseStyles({
   ...getAppear(),
@@ -26,7 +25,8 @@ const useStyles = createUseStyles({
 
 const App = () => {
   const classes = useStyles();
-  useOsuDbAutoScan();
+  // Already done by the PlayOsu component
+  // useOsuDbAutoScan();
 
   return (
     <>

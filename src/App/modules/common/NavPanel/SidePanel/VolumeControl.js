@@ -83,8 +83,9 @@ const useStyle = createUseStyles({
 
 const denounceSave = throttle(
   (vol, save) => {
+    const { settings } = store.getState();
     save(convertRange(vol, 0, 1, 0, 100));
-    ConfLoader.save();
+    ConfLoader.save(settings);
   },
   1000,
   { leading: false },

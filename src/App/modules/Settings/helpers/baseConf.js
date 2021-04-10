@@ -1,6 +1,6 @@
 import config from '../../../../shared/config';
 
-export default {
+export default Object.freeze({
   userPreferences: {
     volume: 50,
     targetServer: 'osuMain',
@@ -60,4 +60,4 @@ export default {
         'Request the bot to connect to the specified match (Bot must be added as match referee before with `!mp addref`).',
     },
   ],
-};
+});
