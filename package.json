@@ -11,8 +11,7 @@
     "dev": "node scripts/start.js",
     "start": "electron ./build/main.bundle.js",
     "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
-    "prebuild": "node scripts/preBuild.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/preBuild.js && node scripts/build.js && node scripts/postBuild.js",
     "test": "node scripts/test.js",
     "lint": "yarn lint:prettier && yarn lint:es",
     "lint:fix": "yarn lint:fix:prettier && yarn lint:fix:es",
@@ -46,6 +45,9 @@
   },
   "build": {
     "appId": "io.beatconnect.client",
+    "extraResources": [
+      "./extraResources/**"
+    ],
     "publish": [
       {
         "provider": "github",
@@ -166,6 +168,7 @@
     "react-dev-utils": "^9.0.1",
     "resolve": "1.17.0",
     "semver": "6.0.0",
+    "string-replace-loader": "^2.3.0",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
     "typescript": "^3.5.3",
