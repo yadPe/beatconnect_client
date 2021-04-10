@@ -25,15 +25,17 @@ export const useOsuDbScan = () => {
     }
     setIsScanning(true);
     addTask({ name: 'Scanning beatmaps', status: 'running', description: '', section: 'Settings' });
-    const result = await ipcRenderer.invoke('osuSongsScan', { osuPath });
-
-    terminate('Scanning beatmaps');
-    setIsScanning(false);
-    if (result.error) {
-      throw new Error(`Error while scannings song: ${result.error}`);
-    } else {
+    try {
+      const result = await ipcRenderer.invoke('osuSongsScan', { osuPath });
+      console.log({ result });
       history.set(result);
       setLastScan({ date: Date.now(), beatmaps: Object.keys(result.beatmaps).length });
+    } catch (e) {
+      error(`Error while scannings song: ${e.message}`);
+      alert(`Failed to scan beatmaps, please check your songs and osu! path in settings section\n ${e.message}`);
+    } finally {
+      terminate('Scanning beatmaps');
+      setIsScanning(false);
     }
   };
 
@@ -46,13 +48,9 @@ export const useOsuDbAutoScan = () => {
   const osuPath = useSelector(getOsuPath);
   useEffect(() => {
     if (osuPath && osuSongsPath !== '') {
-      osuDbScan()
-        .then(() => console.log('Osu db scan success!'))
-        .catch(err => {
-          error(`Error while scannings song: ${err.message}`);
-          alert('Failed to scan beatmaps, check your songs and osu! path in settings section');
-        });
-      scanOsuCollection(osuPath).then(() => console.log('Collection scan success!'));
+      console.log('START SCANN');
+      osuDbScan();
+      scanOsuCollection(osuPath);
     }
   }, []);
 };

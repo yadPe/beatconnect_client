@@ -1,29 +1,45 @@
-import { readJSONSync, writeJSON } from 'fs-extra';
+/* eslint-disable no-console */
+import { readJSONSync } from 'fs-extra';
+import fs from 'fs';
+import { join } from 'path';
+import { error, warn } from 'electron-log';
 import { remote } from 'electron';
 import baseConf from './baseConf';
-import store from '../../../../shared/store';
 
 class ConfLoader {
   constructor() {
-    this.path = remote.app.getPath('documents') + '/Beatconnect/config.json';
-    try {
-      this.conf = { ...baseConf, ...readJSONSync(this.path) };
-    } catch (err) {
-      // assume conf file does not exist
-      this.conf = baseConf;
-    }
-    console.log('confLoader', this.conf);
+    this.path = join(remote.app.getPath('documents'), 'Beatconnect', 'config.json');
+    this.conf = null;
   }
 
-  save = () => {
-    let { conf } = this;
-    const { settings } = store.getState();
-    conf = { ...conf, ...settings };
-    this.conf = conf;
-    writeJSON(this.path, this.conf, { EOL: '\n', spaces: 2 })
-      .then(console.log('config daved!'))
-      .catch(console.error);
-  };
+  get config() {
+    try {
+      const userConfig = readJSONSync(this.path);
+      this.conf = { ...this.conf, ...userConfig };
+      return this.conf;
+    } catch (err) {
+      warn('[Conf loader]: Failed to get user config creating a new one', err);
+      this.conf = baseConf;
+      return this.conf;
+    }
+  }
+
+  async save(userSettings) {
+    if (!this.conf) {
+      console.log('Didnt save config cause its falsy');
+      return;
+    }
+    this.conf = { ...this.conf, ...userSettings };
+    try {
+      const json = JSON.stringify(this.conf);
+      fs.writeFileSync(this.path, json, { flag: 'w' });
+      console.log('config daved!');
+    } catch (e) {
+      console.error('config ooofed!');
+      error('[config loader]: failed to write use config');
+    }
+  }
 }
 
-export default new ConfLoader();
+const configLoader = new ConfLoader();
+export default configLoader;

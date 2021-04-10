@@ -15,6 +15,7 @@ import useSettingsUtils from './utils/useSettingsUtils';
 import { useOsuDbScan } from './utils/useScanOsuSongs';
 import { clearCollections } from '../MyLibrary/actions';
 import { scanOsuCollection } from './utils/scanOsuCollections';
+import store from '../../../shared/store';
 
 const Settings = ({ userPreferences }) => {
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
@@ -36,7 +37,10 @@ const Settings = ({ userPreferences }) => {
   };
 
   useEffect(() => {
-    return ConfLoader.save;
+    return () => {
+      const { settings } = store.getState();
+      ConfLoader.save(settings);
+    };
   }, []);
 
   const settings = {

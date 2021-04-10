@@ -1,5 +1,7 @@
 open AudioPlayerProvider;
 
+[@bs.val] external alert: string => unit = "alert";
+
 let audio = Audio.make();
 
 let _play = () => {
@@ -38,6 +40,7 @@ let setVolume = Audio.setVolume(audio);
 
 [@react.component]
 let make = (~children) => {
+  let playlistErrorCount = React.useRef(0);
   let (playingState, setPlayingState) = React.useState(() => initialState);
   let (playlist: playlist, setPlaylist) = React.useState(() => [||]);
   let (playlistID: string, setPlaylistID) = React.useState(() => "");
@@ -236,7 +239,17 @@ let make = (~children) => {
     audio,
     _e => {
       setPlayingState(oldState => {...oldState, isPlaying: false});
-      playNext();
+      let skipCount = playlistErrorCount->React.Ref.current;
+      if (skipCount > 12 || skipCount >= playlist->Js_array.length - 1) {
+        playlistErrorCount->React.Ref.setCurrent(0);
+        setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
+        alert(
+          "Failed to play song from a playlist multiple times, please check your osu songs folder setting in the Settings section",
+        );
+      } else {
+        playNext();
+        playlistErrorCount->React.Ref.setCurrent(skipCount + 1);
+      };
     },
   );
 

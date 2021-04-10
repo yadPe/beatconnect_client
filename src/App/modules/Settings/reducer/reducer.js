@@ -1,6 +1,6 @@
-import ConfLoader from '../helpers/ConfLoader';
+import confLoader from '../helpers/ConfLoader';
 
-export default (settings = ConfLoader.conf, { type, payload }) => {
+export default (settings = confLoader.config, { type, payload }) => {
   let { userPreferences } = settings;
   switch (type) {
     case 'VOLUME':
