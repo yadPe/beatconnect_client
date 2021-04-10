@@ -1,5 +1,5 @@
 const { join } = require('path')
-const { copyFileSync, emptyDirSync } = require('fs-extra')
+const { moveSync, emptyDirSync } = require('fs-extra')
 const paths = require('../config/paths');
 // Copy wallpaper binaries to public folder on build
 
@@ -13,4 +13,4 @@ const sources = [
 const destFolder = join(__dirname, '..', 'extraResources');
 emptyDirSync(destFolder);
 
-sources.forEach(src => copyFileSync(join(__dirname,src), join(destFolder, src.split('/').pop())))
+sources.forEach(src => moveSync(join(__dirname,src), join(destFolder, src.split('/').pop())))
