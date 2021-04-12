@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../../../shared/config';
@@ -6,6 +7,8 @@ import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
+
+const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   playingSongWrapper: {
@@ -75,12 +78,20 @@ const PlayingSong = ({ expended }) => {
     image.onerror = () => setArtwork(DEFAULT_ARTWORK);
     image.onload = () => setArtwork(getThumbUrl(playingBeatmapSetId));
     image.src = getThumbUrl(playingBeatmapSetId);
+    if (playingBeatmapSetId) {
+      trackEvent(
+        'beatmapPreview',
+        'play',
+        playingState.hasNext || playingState.hasPrev ? 'full' : 'preview',
+        playingBeatmapSetId,
+      );
+    }
 
     return () => {
       image.onerror = null;
       image.onload = null;
     };
-  }, [playingBeatmapSetId]);
+  }, [playingBeatmapSetId, playingState.hasNext, playingState.hasPrev]);
 
   const handleNext = () => playNext();
   const handlePrevious = () => playPrevious();
