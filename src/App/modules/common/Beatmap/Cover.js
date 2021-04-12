@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import config from '../../../../shared/config';
 
-const Cover = ({ url, width, height, paddingBottom, noFade, canLoad = true }) => {
+const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad = true }) => {
   const [loaded, isLoaded] = useState(false);
   const coverRef = useRef();
   useEffect(() => {
@@ -21,6 +21,8 @@ const Cover = ({ url, width, height, paddingBottom, noFade, canLoad = true }) =>
     width: width || '100%',
     height: height || null,
     paddingBottom: paddingBottom ? '15%' : 0,
+    borderTopRightRadius: roundedTop ? '8px' : null,
+    borderTopLeftRadius: roundedTop ? '8px' : null,
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
