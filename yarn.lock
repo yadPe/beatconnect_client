@@ -3825,6 +3825,7 @@ __metadata:
     case-sensitive-paths-webpack-plugin: 2.3.0
     conventional-changelog-cli: ^2.1.1
     cross-env: ^7.0.3
+    dexie: ^3.0.3
     dotenv: 6.2.0
     dotenv-expand: 5.1.0
     electron: ^11.1.1
@@ -5939,6 +5940,13 @@ __metadata:
     detect: ./bin/detect-port
     detect-port: ./bin/detect-port
   checksum: 246570e7557d54b9c8e125e338a351546cd9007d11802e89205c6970c05c5ce7be28f5b47124d2d535eb5295c25e0c503275bb518a1f57564edbb9f5a690de3c
+  languageName: node
+  linkType: hard
+
+"dexie@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "dexie@npm:3.0.3"
+  checksum: f2fcb5df163e221121e5e37f1cc25465261de28e1a18dcfba5da7e2870d0791d8f8b693b57f99e5377c29fdc25e358b4eb8cd97320d34b3c6c3715c9acb3607c
   languageName: node
   linkType: hard
 

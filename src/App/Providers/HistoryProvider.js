@@ -7,6 +7,7 @@ import { outputJSON, readJson } from 'fs-extra';
 import { join } from 'path';
 import { error, log } from 'electron-log';
 import { memoize } from 'underscore';
+import { db, populateWithExistingHistory } from "./historyIndexedDb"
 
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
@@ -121,28 +122,29 @@ class HistoryProvider extends Component {
         console.log('_readHistory', { rawHistory, history });
 
         this.setState({ history }, this._setIsReady);
+        //populateWithExistingHistory(history);
       })
       .catch(e => {
         error(e);
         this._createHistory(); // assume file does not exist
         this._setIsReady();
       });
-  };
+    };
 
-  _createHistory = () => {
-    const { history } = this.state;
-    outputJSON(this.path, history)
-      .then(() => log('History Created!'))
-      .catch(console.error);
-  };
-
-  _writeHistory = () => {
-    const { history } = this.state;
-    const rawHistory = Object.fromEntries(Object.values(history).map(HistoryProvider.historyFileMapper));
-    console.log('_writeHistory', { history, rawHistory });
-    outputJSON(this.path, rawHistory)
-      .then(() => log('History saved!'))
-      .catch(console.error);
+    _createHistory = () => {
+      const { history } = this.state;
+      outputJSON(this.path, history)
+        .then(() => log('History Created!'))
+        .catch(console.error);
+    };
+  
+    _writeHistory = () => {
+      const { history } = this.state;
+      const rawHistory = Object.fromEntries(Object.values(history).map(HistoryProvider.historyFileMapper));
+      console.log('_writeHistory', { history, rawHistory });
+      outputJSON(this.path, rawHistory)
+        .then(() => log('History saved!'))
+        .catch(console.error);
   };
 
   _setIsReady() {
