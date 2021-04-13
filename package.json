@@ -138,7 +138,7 @@
     "bs-css": "^11.0.0",
     "bs-platform": "8.4.2",
     "camelcase": "^5.2.0",
-    "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "case-sensitive-paths-webpack-plugin": "2.4.0",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "6.2.0",
