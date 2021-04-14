@@ -4,7 +4,6 @@ const { createString, readString } = require('../osudb');
 const readCollectionDB = path =>
   new Promise((resolve, reject) => {
     fs.readFile(path, (err, buf) => {
-      console.log({ buf, c: err || !buf });
       if (err || !buf) return reject(new Error('Failed to open collection.db'));
 
       const collections = {};

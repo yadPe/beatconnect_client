@@ -3,11 +3,12 @@ const { app, protocol } = require('electron');
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const { join } = require('path');
+const { join, resolve } = require('path');
 const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
+const { warn } = require('electron-log');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -23,6 +24,13 @@ const installExtensions = async extensions => {
   );
 };
 
+const CUSTOM_PROTOCOL = 'beatconnect';
+const getBeatconnectProtocolParams = (argv = ['']) => {
+  const protocolString = `${CUSTOM_PROTOCOL}://`;
+  return argv.find(arg => arg.startsWith(protocolString))?.slice(protocolString.length);
+};
+
+let mainWindow = null;
 const main = async () => {
   if (isDev) {
     // Makes local file access work when using dev server
@@ -36,7 +44,6 @@ const main = async () => {
     console.log('Waiting for dev server to show up');
   }
 
-  let mainWindow = null;
   mainWindow = makeMainWindow({
     content: join(__dirname, 'index.html'),
   });
@@ -86,8 +93,44 @@ const main = async () => {
   });
 };
 
-app.on('ready', main);
+const isMainInstance = app.requestSingleInstanceLock();
 
-app.on('window-all-closed', () => {
+if (isMainInstance) {
+  const protocolArgs = getBeatconnectProtocolParams(process.argv);
+  console.log({ protocolArgs }); // Send data to renderer
+
+  app.on('open-url', (event, data) => {
+    event.preventDefault();
+    console.log('Protocol called:', data);
+  });
+
+  app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
+
+  // If we are running a non-packaged version of the app && on windows
+  if (isDev && process.platform === 'win32') {
+    // Set the path of electron.exe and the app.
+    // These two additional parameters are only available on windows.
+    const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL, process.execPath, [resolve(__filename)]);
+    if (!ok) warn('Failed to set default protocol: beatconnect');
+  } else {
+    const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL);
+    if (!ok) warn('Failed to set default protocol: beatconnect');
+  }
+
+  app.on('second-instance', (event, argv) => {
+    const protocolParams = getBeatconnectProtocolParams(argv);
+    console.log('second-instance', { protocolParams }); // Send data to renderer
+    // Someone tried to run a second instance, we should focus the main window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+
+  app.on('ready', main);
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
+} else {
   app.quit();
-});
+}

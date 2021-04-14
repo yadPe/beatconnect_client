@@ -48,6 +48,12 @@
     "extraResources": [
       "./extraResources/**"
     ],
+    "protocols": {
+      "name": "beatconnect-protocol",
+      "schemes": [
+        "beatconnect"
+      ]
+    },
     "publish": [
       {
         "provider": "github",
