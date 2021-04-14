@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const { app, protocol } = require('electron');
 const log = require('electron-log');
+const { warn } = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const { join, resolve } = require('path');
@@ -8,7 +9,6 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
-const { warn } = require('electron-log');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -97,10 +97,12 @@ const isMainInstance = app.requestSingleInstanceLock();
 
 if (isMainInstance) {
   const protocolArgs = getBeatconnectProtocolParams(process.argv);
-  console.log({ protocolArgs }); // Send data to renderer
+  console.log({ protocolArgs }); // TODO: Send data to renderer
 
   app.on('open-url', (event, data) => {
     event.preventDefault();
+    // TODO: handle osx and linux ?
+    // TODO: Send data to renderer
     console.log('Protocol called:', data);
   });
 
@@ -119,7 +121,7 @@ if (isMainInstance) {
 
   app.on('second-instance', (event, argv) => {
     const protocolParams = getBeatconnectProtocolParams(argv);
-    console.log('second-instance', { protocolParams }); // Send data to renderer
+    console.log('second-instance', { protocolParams }); // TODO: Send data to renderer
     // Someone tried to run a second instance, we should focus the main window.
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore();
