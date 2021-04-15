@@ -9,6 +9,7 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
+const { getBeatconnectProtocolParams } = require('./helpers');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -25,10 +26,6 @@ const installExtensions = async extensions => {
 };
 
 const CUSTOM_PROTOCOL = 'beatconnect';
-const getBeatconnectProtocolParams = (argv = ['']) => {
-  const protocolString = `${CUSTOM_PROTOCOL}://`;
-  return argv.find(arg => arg.startsWith(protocolString))?.slice(protocolString.length);
-};
 
 let mainWindow = null;
 const main = async () => {
@@ -96,13 +93,11 @@ const main = async () => {
 const isMainInstance = app.requestSingleInstanceLock();
 
 if (isMainInstance) {
-  const protocolArgs = getBeatconnectProtocolParams(process.argv);
-  console.log({ protocolArgs }); // TODO: Send data to renderer
-
   app.on('open-url', (event, data) => {
     event.preventDefault();
     // TODO: handle osx and linux ?
     // TODO: Send data to renderer
+    // mainWindow.webContents.send('beatconnect-open', data)
     console.log('Protocol called:', data);
   });
 
@@ -120,8 +115,8 @@ if (isMainInstance) {
   }
 
   app.on('second-instance', (event, argv) => {
-    const protocolParams = getBeatconnectProtocolParams(argv);
-    console.log('second-instance', { protocolParams }); // TODO: Send data to renderer
+    const protocolArgs = getBeatconnectProtocolParams(argv, CUSTOM_PROTOCOL);
+    if (protocolArgs) mainWindow.webContents.send('beatconnect-open', protocolArgs);
     // Someone tried to run a second instance, we should focus the main window.
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore();
