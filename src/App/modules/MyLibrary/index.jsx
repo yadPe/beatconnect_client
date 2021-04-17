@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../shared/config';
+import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 import AllBeatmapsCollection from './components/AllBeatmaps';
 import Collection from './components/Collection';
 import CollectionDetails from './components/CollectionDetails';
 
 const useStyle = createUseStyles({
+  ...getFadeIn(),
   myLibraryWrapper: {
+    ...sectionSwitchAnimation(),
     paddingTop: `${config.display.topBarHeight}px`,
     marginTop: '1rem',
     marginBottom: '1rem',
