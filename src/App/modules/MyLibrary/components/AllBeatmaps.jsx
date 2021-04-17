@@ -1,7 +1,8 @@
 /* eslint-disable no-continue */
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
+import { getActiveSectionParams } from '../../../app.selectors';
 import { makePlaylist, getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
@@ -15,6 +16,7 @@ const AllBeatmapsCollection = ({ select }) => {
   const { ready, history } = useDownloadHistory();
   const classes = useCollectionStyle();
   const osuSongPath = useSelector(getOsuSongPath);
+  const deepLink = useSelector(getActiveSectionParams);
   const audioPlayer = useAudioPlayer();
 
   const getBeatmaps = () => {
@@ -57,6 +59,10 @@ const AllBeatmapsCollection = ({ select }) => {
     const beatmaps = getBeatmaps();
     select({ collection: beatmaps, collectionName: COLLECTION_NAME });
   };
+
+  useEffect(() => {
+    if (deepLink.beatmapsetId) handleClick();
+  }, [deepLink.beatmapsetId]);
 
   return (
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: -1 }}>

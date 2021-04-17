@@ -12,11 +12,12 @@ import NavPanelItem from './common/NavPanel/Item';
 import store from '../../shared/store';
 import config from '../../shared/config';
 import MyLibrary from './MyLibrary';
+import { changeCurrentSection } from '../app.actions';
 
 const { trackNavigation } = remote.getGlobal('tracking');
 
 const switchSectionTo = section => {
-  store.dispatch({ type: 'UPDATEACTIVESECTION', payload: section });
+  store.dispatch(changeCurrentSection(section));
 };
 
 const Nav = ({ connected, instance: botInstance, sidePanelExpended, activeSection, packsDisabled }) => {

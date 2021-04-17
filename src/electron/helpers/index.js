@@ -9,7 +9,13 @@ const readableBits = (bytes, decimals) => {
 
 const makeDownloadUrl = ({ beatmapSetId, uniqId }) => `https://beatconnect.io/b/${beatmapSetId}/${uniqId}/?nocf=1`;
 
+const getBeatconnectProtocolParams = (argv = [''], protocol) => {
+  const protocolString = `${protocol}://`;
+  return argv.find(arg => arg.startsWith(protocolString))?.slice(protocolString.length);
+};
+
 module.exports = {
   readableBits,
   makeDownloadUrl,
+  getBeatconnectProtocolParams,
 };

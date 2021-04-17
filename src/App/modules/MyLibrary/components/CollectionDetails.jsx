@@ -1,15 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { FixedSizeList as List } from 'react-window';
 import config from '../../../../shared/config';
 import BeatmapListItem from '../../Packs/BeatmapPackDetail/Item';
 import Empty from './Empty';
 import Header from './Header';
 import { COLLECTION_NAME as AllBeatmapsCollectionName } from './AllBeatmaps';
+import { getActiveSectionParams } from '../../../app.selectors';
+import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
+import { getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
+import { getOsuSongPath } from '../../Settings/reducer/selectors';
+import { clearSectionParams } from '../../../app.actions';
 
-const CollectionDetails = ({ windowSize, collection, select, collectionName }) => {
+const CollectionDetails = ({ windowSize, collection, select, collectionName, deepLink, osuSongPath }) => {
+  const dispatch = useDispatch();
+  const audioPlayer = useAudioPlayer();
+
   const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
   const listHeight = windowSize.height;
+  const listItemSize = 50;
+
+  const deepLinkedItemIndex =
+    deepLink.beatmapsetId && collection.findIndex(item => item.id === parseInt(deepLink.beatmapsetId, 10));
+  const scrollOffset =
+    deepLinkedItemIndex !== undefined && deepLinkedItemIndex !== -1 ? deepLinkedItemIndex * listItemSize : 0;
+  useEffect(() => {
+    if (deepLinkedItemIndex !== undefined && deepLinkedItemIndex !== -1) {
+      const { id, title, artist, audioPath } = collection[deepLinkedItemIndex];
+      audioPlayer.setAudio({ id, title, artist }, getAudioFilePath(osuSongPath, audioPath));
+      dispatch(clearSectionParams());
+    }
+  }, [deepLinkedItemIndex]);
 
   const [filter, setFilter] = useState('');
   useEffect(() => {
@@ -41,8 +62,9 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName }) =
         <List
           height={listHeight}
           itemCount={itemCount}
-          itemSize={50}
+          itemSize={listItemSize}
           width={listWidth}
+          initialScrollOffset={scrollOffset}
           itemData={{ items: displayedItems, itemMode: 'library', collectionName }}
         >
           {BeatmapListItem}
@@ -54,7 +76,9 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName }) =
   );
 };
 
-const mapStateToProps = ({ app }) => ({
-  windowSize: app.window,
+const mapStateToProps = state => ({
+  windowSize: state.app.window,
+  deepLink: getActiveSectionParams(state),
+  osuSongPath: getOsuSongPath(state),
 });
 export default connect(mapStateToProps)(CollectionDetails);

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const { app, protocol } = require('electron');
 const log = require('electron-log');
+const { warn } = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
@@ -8,6 +9,7 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
+const { getBeatconnectProtocolParams } = require('./helpers');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -23,6 +25,9 @@ const installExtensions = async extensions => {
   );
 };
 
+const CUSTOM_PROTOCOL = 'beatconnect';
+
+let mainWindow = null;
 const main = async () => {
   if (isDev) {
     // Makes local file access work when using dev server
@@ -36,7 +41,6 @@ const main = async () => {
     console.log('Waiting for dev server to show up');
   }
 
-  let mainWindow = null;
   mainWindow = makeMainWindow({
     content: join(__dirname, 'index.html'),
   });
@@ -86,8 +90,37 @@ const main = async () => {
   });
 };
 
-app.on('ready', main);
+const isMainInstance = app.requestSingleInstanceLock();
 
-app.on('window-all-closed', () => {
+if (isMainInstance || isDev) {
+  app.on('open-url', (event, data) => {
+    event.preventDefault();
+    // TODO: handle osx and linux ?
+    // TODO: Send data to renderer
+    // mainWindow.webContents.send('beatconnect-open', data)
+    console.log('Protocol called:', data);
+  });
+
+  if (!isDev) {
+    app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
+    const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL);
+    if (!ok) warn('Failed to set default protocol: beatconnect');
+  }
+
+  app.on('second-instance', (event, argv) => {
+    const protocolArgs = getBeatconnectProtocolParams(argv, CUSTOM_PROTOCOL);
+    if (protocolArgs) mainWindow.webContents.send('beatconnect-open', protocolArgs);
+    // Someone tried to run a second instance, we should focus the main window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+
+  app.on('ready', main);
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
+} else {
   app.quit();
-});
+}

@@ -11,6 +11,7 @@ import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
 import { getDragRegion } from '../../../helpers/css.utils';
+import { getActiveSectionParams } from '../../../app.selectors';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
@@ -36,15 +37,22 @@ const useStyle = createUseStyles({
   },
 });
 
-const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
+const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps, deepLinkSearch }) => {
   const [search, setSearch] = useState(lastSearch);
   const theme = useTheme();
   const classes = useStyle();
   const execSearch = force => {
-    if (!isEqual(lastSearch, search) || force) {
+    if (force || !isEqual(lastSearch, search)) {
       askBeatconnect(search, undefined, true);
     }
   };
+  useEffect(() => {
+    if (deepLinkSearch.beatmapsetId) {
+      const s = { query: deepLinkSearch.beatmapsetId, status: 'all', mode: 'all' };
+      setSearch(s);
+      askBeatconnect(s, undefined, true);
+    }
+  }, [deepLinkSearch.beatmapsetId]);
   const searchOnEnter = e => {
     if (e.keyCode === 13) {
       execSearch();
@@ -60,9 +68,9 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
     if (
       beatmapCount === 0 ||
       skeletonBeatmaps ||
-      (lastSearch.status !== search.status ||
-        lastSearch.mode !== search.mode ||
-        lastSearch.hideDownloaded !== search.hideDownloaded)
+      lastSearch.status !== search.status ||
+      lastSearch.mode !== search.mode ||
+      lastSearch.hideDownloaded !== search.hideDownloaded
     )
       execSearch(true);
   }, [search]);
@@ -114,10 +122,11 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   );
 };
 
-const mapStateToProps = ({ beatmaps }) => ({
-  lastSearch: beatmaps.searchResults.search,
-  beatmapCount: beatmaps.searchResults.beatmaps.length,
-  skeletonBeatmaps: beatmaps.searchResults.beatmaps[0] === 0,
-  isBusy: beatmaps.fetchingBeatmaps.isFetching,
+const mapStateToProps = state => ({
+  lastSearch: state.beatmaps.searchResults.search,
+  beatmapCount: state.beatmaps.searchResults.beatmaps.length,
+  skeletonBeatmaps: state.beatmaps.searchResults.beatmaps[0] === 0,
+  isBusy: state.beatmaps.fetchingBeatmaps.isFetching,
+  deepLinkSearch: getActiveSectionParams(state),
 });
 export default connect(mapStateToProps)(Search);

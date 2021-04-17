@@ -9,6 +9,7 @@ module.exports = mode => {
   return {
     target: 'electron-main',
     mode,
+    context: path.resolve(__dirname, 'src'),
     entry: {
       main: paths.electronIndexJs,
       osuSongsScan: paths.osuSongsScan,
@@ -21,6 +22,7 @@ module.exports = mode => {
     },
     node: {
       __dirname: false,
+      __filename: true,
     },
     module: {
       rules: [
