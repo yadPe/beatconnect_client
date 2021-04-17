@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ProgressCircle } from 'react-desktop/windows';
+import  ProgressCircle  from '../ProgressCircle';
 import InjectSheet, { useTheme } from 'react-jss';
 import Button from '../Button';
 import renderIcons from '../../../helpers/renderIcons';
@@ -47,7 +47,7 @@ const DownloadBeatmapBtn = ({ classes, beatmapSet, autoDl, noStyle, pack, classN
   const renderContent = () => {
     if (!noStyle && isDownloading && currentDownload.progressPercent)
       return <ProgressRing radius={13.5} stroke={2} progress={currentDownload.progressPercent} />;
-    if (isDownloading || isInQueue) return <ProgressCircle className="ProgressCircle" color="#fff" size={17} />;
+    if (isDownloading || isInQueue) return <ProgressCircle />;
     return alreadydownloaded ? renderIcons({ name: 'Checked' }) : renderIcons({ name: 'Download' });
   };
 

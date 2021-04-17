@@ -112,7 +112,6 @@
     "osu-db-parser": "git+https://github.com/yadPe/osu-db-parser.git#6cc783f3a9270f730cd5038d03ada4a78634cd65",
     "ps-node": "^0.1.6",
     "react": "^17.0.2",
-    "react-desktop": "^0.3.9",
     "react-dom": "^17.0.2",
     "react-jss": "^10.6.0",
     "react-redux": "^7.2.3",
