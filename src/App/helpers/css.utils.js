@@ -25,6 +25,7 @@ export const getAppear = () => ({
 export const sectionSwitchAnimation = () => ({
   opacity: 0,
   animation: '140ms ease-in forwards $fadeIn',
+  animationDelay: '56ms',
 });
 
 export const getDragRegion = (override, header) => ({
