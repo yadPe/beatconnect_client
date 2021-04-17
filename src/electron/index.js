@@ -4,7 +4,7 @@ const log = require('electron-log');
 const { warn } = require('electron-log');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
-const { join, resolve } = require('path');
+const { join } = require('path');
 const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
 const makeMainWindow = require('./MainWindow');
@@ -92,7 +92,7 @@ const main = async () => {
 
 const isMainInstance = app.requestSingleInstanceLock();
 
-if (isMainInstance) {
+if (isMainInstance || isDev) {
   app.on('open-url', (event, data) => {
     event.preventDefault();
     // TODO: handle osx and linux ?
@@ -101,15 +101,8 @@ if (isMainInstance) {
     console.log('Protocol called:', data);
   });
 
-  app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
-
-  // If we are running a non-packaged version of the app && on windows
-  if (isDev && process.platform === 'win32') {
-    // Set the path of electron.exe and the app.
-    // These two additional parameters are only available on windows.
-    const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL, process.execPath, [resolve(__filename)]);
-    if (!ok) warn('Failed to set default protocol: beatconnect');
-  } else {
+  if (!isDev) {
+    app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
     const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL);
     if (!ok) warn('Failed to set default protocol: beatconnect');
   }

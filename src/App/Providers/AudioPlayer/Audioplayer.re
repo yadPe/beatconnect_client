@@ -244,7 +244,7 @@ let make = (~children) => {
         playlistErrorCount->React.Ref.setCurrent(0);
         setPlaylist(~beatmapPlaylist=[||], ~playlistID="", ());
         alert(
-          "Failed to play song from a playlist multiple times, please check your osu songs folder setting in the Settings section",
+          "Failed to play a song one or multiple times, please check your osu songs folder setting in the Settings section",
         );
       } else {
         playNext();
