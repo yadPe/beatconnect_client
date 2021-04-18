@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { remote } from 'electron';
-import { ProgressCircle } from 'react-desktop/windows';
+import ProgressCircle from '../../common/ProgressCircle';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
 import { useTheme, createUseStyles } from 'react-jss';
@@ -80,7 +80,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps, deepLinkSe
       <div className={classes.searchButtonWrapper}>
         <Button className="btn" color={theme.palette.primary.accent} onClick={execSearch}>
           {isBusy ? (
-            <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
+            <ProgressCircle />
           ) : (
             renderIcons({ name: 'Search', style: theme.accentContrast })
           )}

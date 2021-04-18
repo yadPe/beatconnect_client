@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { useTheme } from 'react-jss';
+import { createUseStyles, useTheme }  from 'react-jss';
 import { connect } from 'react-redux';
-import { Text } from 'react-desktop/windows';
 import TextInput from '../../common/TextInput';
 import Button from '../../common/Button';
+
+const useStyles = createUseStyles({
+  text :{
+    color:"white",
+    margin:0
+  }
+});
 
 const AddMatch = ({ bot, errors, ircUsername, connected }) => {
   const [reqMatchId, setReqMatchId] = useState('');
   const theme = useTheme();
+  const classes = useStyles();
   const error = errors.filter(id => id === reqMatchId).length === 1;
 
   return (
@@ -19,7 +26,7 @@ const AddMatch = ({ bot, errors, ircUsername, connected }) => {
         hidden={!connected || connected === 'connecting'}
         onClick={() => bot.joinMatch(reqMatchId)}
       >
-        <Text color="fff">Join</Text>
+        <p className={classes.text}>Join</p>
       </Button>
       {error ? (
         <>

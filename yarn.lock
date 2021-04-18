@@ -3244,13 +3244,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array-find@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "array-find@npm:1.0.0"
-  checksum: 1f6f5270a3e4a02324815e732a66ef962becaf69d064e45d8377c023a29cec5abd7236e2fe00036fdf622c0ce178649d78fd83452464644f78c346d6336c1d6c
-  languageName: node
-  linkType: hard
-
 "array-flatten@npm:1.1.1":
   version: 1.1.1
   resolution: "array-flatten@npm:1.1.1"
@@ -3854,7 +3847,6 @@ __metadata:
     prettier: ^1.18.2
     ps-node: ^0.1.6
     react: ^17.0.2
-    react-desktop: ^0.3.9
     react-dev-utils: ^9.0.1
     react-dom: ^17.0.2
     react-jss: ^10.6.0
@@ -3987,13 +3979,6 @@ __metadata:
   version: 3.0.3
   resolution: "boolean@npm:3.0.3"
   checksum: bc4516629b2a8d3953b786da2b52bf73b60520d31eefda590cbfa914f307789101dedafd9e27f135ae8da108f620b9809379597a1526fb4bb6abf4c87c1f4356
-  languageName: node
-  linkType: hard
-
-"bowser@npm:^1.0.0":
-  version: 1.9.4
-  resolution: "bowser@npm:1.9.4"
-  checksum: 6550d42547b878da87c6d2c1b0a0e4aeed894c914fd7052e950a03c78d6d97bc62d4e9d98a8073150ed7723eccf5499a24640d5a79828d48011df08b8c0237bd
   languageName: node
   linkType: hard
 
@@ -7036,13 +7021,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"exenv@npm:^1.2.1":
-  version: 1.2.2
-  resolution: "exenv@npm:1.2.2"
-  checksum: 09fd080c0478739f0154916b73dea07f30f97972e1b3be3368d2b96d282d889b509f05e163d830e323c9ab1e94b0a293a9947b410651325df467c404f37f32f1
-  languageName: node
-  linkType: hard
-
 "exit@npm:^0.1.2":
   version: 0.1.2
   resolution: "exit@npm:0.1.2"
@@ -8481,7 +8459,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"hyphenate-style-name@npm:^1.0.1, hyphenate-style-name@npm:^1.0.3":
+"hyphenate-style-name@npm:^1.0.3":
   version: 1.0.4
   resolution: "hyphenate-style-name@npm:1.0.4"
   checksum: 4cfeb47e98eab9c25e6dece20da772cc914a9f8e5ee794cf8db105b0649dd64a61d8ee8ff32acf23ae0ac181db8fcbe4a6abb2f7de48ae52b42a85bbf1aacb86
@@ -8689,16 +8667,6 @@ fsevents@^1.2.7:
   version: 1.3.8
   resolution: "ini@npm:1.3.8"
   checksum: 62189ce7ea44c5778e757e4232c581212e838f3c39e79d931bb9152fd4b9275f09fb20b96afdd60ba9f5d7996b92486cad6cc617fcb84ff4beedd1b33b86221e
-  languageName: node
-  linkType: hard
-
-"inline-style-prefixer@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "inline-style-prefixer@npm:2.0.5"
-  dependencies:
-    bowser: ^1.0.0
-    hyphenate-style-name: ^1.0.1
-  checksum: 98e6786210a71048494a9a198bfc6e9878b2413c368301e9fee0649c0e4f8d5d953c7aa2148e3e790f9e8adf5081c38e94b78b56e4c256f38f1fd785f61661b5
   languageName: node
   linkType: hard
 
@@ -12743,20 +12711,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"radium@npm:=0.19.6":
-  version: 0.19.6
-  resolution: "radium@npm:0.19.6"
-  dependencies:
-    array-find: ^1.0.0
-    exenv: ^1.2.1
-    inline-style-prefixer: ^2.0.5
-    prop-types: ^15.5.8
-  peerDependencies:
-    react: ^15.3.0 || ^16.0.0
-  checksum: 0ef9ee83fe499b981d2647129d5e6cdbf37ea9c54467241f988f6e05d17ae98f7c0646a726e0b061e22032f7d7064ead3ba3108e39e407bfed804e339ba0ceb2
-  languageName: node
-  linkType: hard
-
 "randombytes@npm:^2.0.0, randombytes@npm:^2.0.1, randombytes@npm:^2.0.5, randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
@@ -12806,19 +12760,6 @@ fsevents@^1.2.7:
   bin:
     rc: ./cli.js
   checksum: ea2b7f7cee201a67923a2240de594a5d9b59bd312b814b06536d3d609a416dfd6fb9b85ea2abfd3b8a4eb5ed33eaff946ee75a8f2b7fb10941073c5cfee6b7a5
-  languageName: node
-  linkType: hard
-
-"react-desktop@npm:^0.3.9":
-  version: 0.3.9
-  resolution: "react-desktop@npm:0.3.9"
-  dependencies:
-    radium: =0.19.6
-  peerDependencies:
-    prop-types: ^15.0 || ^16.0
-    react: ^15.0 || ^16.0
-    react-dom: ^15.0 || ^16.0
-  checksum: fd702d4632e7f34a7b116ee6722c2bb70466349090e4083088c6a57967074544fd5c02f4d5bf06a7282fbc00afbb92b00cf89c0ddd3f24625b07e181a91a6b04
   languageName: node
   linkType: hard
 
