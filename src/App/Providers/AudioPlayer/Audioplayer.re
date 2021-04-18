@@ -211,7 +211,7 @@ let make = (~children) => {
   Audio.onended(audio, _e => {
     switch (_canPlayNextSong()) {
     | Some(nextSongindex) => playFromPlaylist(nextSongindex)
-    | None => ()
+    | None => DiscordRPC.clearActivity()
     }
   });
 

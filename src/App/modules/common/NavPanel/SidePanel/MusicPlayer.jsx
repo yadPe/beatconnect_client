@@ -7,6 +7,7 @@ import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
+import { setPlayingSongPresence } from '../../../../helpers/discordRPC';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
@@ -85,6 +86,7 @@ const PlayingSong = ({ expended }) => {
         playingState.hasNext || playingState.hasPrev ? 'full' : 'preview',
         playingBeatmapSetId,
       );
+      setPlayingSongPresence(playingState.title, playingState.artist, playingState.beatmapSetId);
     }
 
     return () => {
