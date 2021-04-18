@@ -11,6 +11,16 @@ import { memoize } from 'underscore';
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
 
+let memoizeCacheTimeMs = 0;
+const hashFn = () => {
+  const now = Date.now();
+  const deltaT = now - memoizeCacheTimeMs < 5000;
+  if (deltaT === false) {
+    memoizeCacheTimeMs = now;
+  }
+  return String(memoizeCacheTimeMs);
+};
+
 class HistoryProvider extends Component {
   static historyFileMapper(beatmapSet) {
     if (Array.isArray(beatmapSet)) {
@@ -22,7 +32,7 @@ class HistoryProvider extends Component {
         artist: beatmapsSetData[2],
         creator: beatmapsSetData[3],
         isUnplayed: beatmapsSetData[4],
-        md5: beatmapsSetData[5],
+        mapsMd5: beatmapsSetData[5],
         audioPath: beatmapsSetData[6],
         previewOffset: beatmapsSetData[7],
       };
@@ -36,7 +46,7 @@ class HistoryProvider extends Component {
           beatmapSet.artist,
           beatmapSet.creator,
           beatmapSet.isUnplayed,
-          beatmapSet.md5,
+          beatmapSet.mapsMd5,
           beatmapSet.audioPath,
           beatmapSet.previewOffset,
         ],
@@ -71,12 +81,19 @@ class HistoryProvider extends Component {
     this._writeHistory();
   }
 
-  static getHistoryValuesList = memoize(
-    history => {
-      return Object.values(history);
-    },
-    input => Object.keys(input).length.toString(),
-  );
+  static getHistoryValuesList = memoize(history => {
+    return Object.values(history);
+  }, hashFn);
+
+  static getMD5BeatmapsetMap = memoize(history => {
+    const historyValues = HistoryProvider.getHistoryValuesList(history);
+    return historyValues.reduce((acc, item) => {
+      item.mapsMd5.forEach(mapMd5 => {
+        acc[mapMd5] = item.id;
+      });
+      return acc;
+    }, {});
+  }, hashFn);
 
   set = ({ beatmaps, overallDuration, overallUnplayedCount }) => {
     this.setState({ history: beatmaps, stats: { overallDuration, overallUnplayedCount } });
@@ -96,7 +113,8 @@ class HistoryProvider extends Component {
 
   containsMD5 = md5 => {
     const { history } = this.state;
-    return HistoryProvider.getHistoryValuesList(history).find(item => item.md5 === md5);
+    const md5toId = HistoryProvider.getMD5BeatmapsetMap(history);
+    return history[md5toId[md5]];
   };
 
   clear = () => {

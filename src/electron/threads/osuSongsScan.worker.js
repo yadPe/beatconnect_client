@@ -11,7 +11,10 @@ parentPort.on('message', osuDbPath => {
       let overallUnplayedCount = 0;
       re.beatmaps.forEach(beatmap => {
         if (beatmap.beatmapset_id === -1) return;
-        if (beatmaps[beatmap.beatmapset_id]) return;
+        if (beatmaps[beatmap.beatmapset_id]) {
+          beatmaps[beatmap.beatmapset_id].mapsMd5.push(beatmap.md5);
+          return;
+        }
         if (beatmap.unplayed) overallUnplayedCount += 1;
         overallDuration += beatmap.total_time;
         beatmaps[beatmap.beatmapset_id] = {
@@ -21,7 +24,7 @@ parentPort.on('message', osuDbPath => {
           artist: beatmap.artist_name,
           creator: beatmap.creator_name,
           isUnplayed: beatmap.unplayed,
-          md5: beatmap.md5,
+          mapsMd5: [beatmap.md5],
           audioPath: join(beatmap.folder_name, beatmap.audio_file_name),
           previewOffset: beatmap.preview_offset,
         };
