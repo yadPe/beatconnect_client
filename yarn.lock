@@ -3811,6 +3811,7 @@ __metadata:
     case-sensitive-paths-webpack-plugin: 2.3.0
     conventional-changelog-cli: ^2.1.1
     cross-env: ^7.0.3
+    discord-rpc: ^3.2.0
     dotenv: 6.2.0
     dotenv-expand: 5.1.0
     electron: ^11.1.1
@@ -5957,6 +5958,18 @@ __metadata:
     arrify: ^1.0.1
     path-type: ^3.0.0
   checksum: e826e4aa5a5f0fb2f75d7ba534481dc0bdf3179fd4c34ddc15f34ee88fb60e5ad6fba095b23aa26ffc3386fa3d94e409a4603ff889391dad33bbc6e5d85e3920
+  languageName: node
+  linkType: hard
+
+"discord-rpc@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "discord-rpc@npm:3.2.0"
+  dependencies:
+    node-fetch: ^2.6.1
+    ws: ^7.3.1
+  peerDependencies:
+    register-scheme: "*"
+  checksum: 40b07dab1801c46cc5b29c153f20aa3c7b41f681169abb9069f5692078dd877c84dc8721bf6650c3a699fad67a523aa415b9b376372c7e78a0075a39b6501617
   languageName: node
   linkType: hard
 
@@ -11449,6 +11462,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "node-fetch@npm:2.6.1"
+  checksum: cbb171635e538162b977eac5dfe7a1e07a9a02e991924377a6435502291e2f823d306b95aabc455caebf4a118ccf836868462bc70ccc3095af02bb9da61fda37
+  languageName: node
+  linkType: hard
+
 "node-forge@npm:^0.10.0":
   version: 0.10.0
   resolution: "node-forge@npm:0.10.0"
@@ -16254,6 +16274,21 @@ typescript@^3.5.3:
   dependencies:
     async-limiter: ~1.0.0
   checksum: 35d32b09e28f799f04708c3a7bd9eff469ae63e60543d7e18335f28689228a42ee21210f48de680aad6e5317df76b5b1183d1a1ea4b4d14cb6e0943528f40e76
+  languageName: node
+  linkType: hard
+
+"ws@npm:^7.3.1":
+  version: 7.4.5
+  resolution: "ws@npm:7.4.5"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 20731aa1075336b94677f6741b674469c3c7fce9b70115bb535827c7c108a9d714f0b38ce39289b63c652870f9801afaf096f8aab32da96be62d919e80e4ed32
   languageName: node
   linkType: hard
 

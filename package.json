@@ -107,6 +107,7 @@
     }
   },
   "dependencies": {
+    "discord-rpc": "^3.2.0",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^4.3.4",
     "electron-updater": "^4.3.8",
