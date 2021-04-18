@@ -2,17 +2,58 @@ import DiscordRPC from 'discord-rpc';
 import { error } from 'electron-log';
 
 DiscordRPC.register(process.env.BEATCONNECT_DISCORD_APP_ID);
-const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+let rpc = null;
 let isReady = false;
 
-export const setPlayingSongPresence = (title, artist, beatmapsetId) => {
+const login = async () => {
+  try {
+    rpc.login({ clientId: process.env.BEATCONNECT_CLIENT_DISCORD_APP_ID });
+  } catch (err) {
+    error('[Discord RPC Login]:', err);
+  }
+};
+
+const startRPC = async () => {
+  rpc = new DiscordRPC.Client({ transport: 'ipc' });
+  rpc.on('ready', () => {
+    isReady = true;
+  });
+
+  await login();
+};
+
+export const clearActivity = async () => {
+  try {
+    await rpc.clearActivity();
+  } catch (err) {
+    error('[Discord RPC clearActivity]:', err);
+  }
+};
+
+const stopRPC = async () => {
+  isReady = false;
+  await clearActivity();
+  await rpc.destroy();
+  rpc = null;
+};
+
+const restartRPC = async () => {
+  try {
+    await stopRPC();
+    await startRPC();
+  } catch (e) {
+    error('[restartRPC]: ', e);
+  }
+};
+
+export const setPlayingSongPresence = async (title, artist, beatmapsetId) => {
   if (!isReady) {
     console.log('skipped discord rpc update', { rpc, isReady });
     return;
   }
   try {
     const displayTitle = `${artist} - ${title}`;
-    rpc.setActivity({
+    await rpc.setActivity({
       state: displayTitle,
       details: 'Listening to',
       largeImageKey: 'play',
@@ -24,17 +65,8 @@ export const setPlayingSongPresence = (title, artist, beatmapsetId) => {
     });
   } catch (e) {
     error('[Set disord activity]', e);
+    await restartRPC();
   }
 };
 
-export const clearActivity = () => {
-  rpc.clearActivity();
-};
-
-rpc.on('ready', () => {
-  isReady = true;
-});
-
-rpc.login({ clientId: process.env.BEATCONNECT_CLIENT_DISCORD_APP_ID }).catch(err => {
-  error('[Discord RPC Login]:', err, process.env.BEATCONNECT_CLIENT_DISCORD_APP_ID);
-});
+startRPC();
