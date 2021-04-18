@@ -9,7 +9,7 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
-const { getBeatconnectProtocolParams } = require('./helpers');
+const { getBeatconnectProtocolParams, removeProtocolPrefix } = require('./helpers');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -47,6 +47,11 @@ const main = async () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+
+  app.on('open-url', (event, data) => {
+    event.preventDefault();
+    if (data) mainWindow.webContents.send('beatconnect-open', removeProtocolPrefix(data, `${CUSTOM_PROTOCOL}://`));
   });
 
   // init ga tracking and set tracking methods on global
@@ -93,14 +98,6 @@ const main = async () => {
 const isMainInstance = app.requestSingleInstanceLock();
 
 if (isMainInstance || isDev) {
-  app.on('open-url', (event, data) => {
-    event.preventDefault();
-    // TODO: handle osx and linux ?
-    // TODO: Send data to renderer
-    // mainWindow.webContents.send('beatconnect-open', data)
-    console.log('Protocol called:', data);
-  });
-
   if (!isDev) {
     app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
     const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL);
