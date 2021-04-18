@@ -9,7 +9,7 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
-const { getBeatconnectProtocolParams } = require('./helpers');
+const { getBeatconnectProtocolParams, removeProtocolPrefix } = require('./helpers');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
@@ -95,10 +95,7 @@ const isMainInstance = app.requestSingleInstanceLock();
 if (isMainInstance || isDev) {
   app.on('open-url', (event, data) => {
     event.preventDefault();
-    // TODO: handle osx and linux ?
-    // TODO: Send data to renderer
-    // mainWindow.webContents.send('beatconnect-open', data)
-    console.log('Protocol called:', data);
+    if (data) mainWindow.webContents.send('beatconnect-open', removeProtocolPrefix(data, `${CUSTOM_PROTOCOL}://`));
   });
 
   if (!isDev) {
