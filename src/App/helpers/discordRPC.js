@@ -59,7 +59,7 @@ export const setPlayingSongPresence = async (title, artist, beatmapsetId) => {
       largeImageKey: 'play',
       largeImageText: displayTitle,
       smallImageKey: 'bc_icon',
-      buttons: [{ label: 'Show in Beatconnect', url: `beatconnect://preview/?setId=${beatmapsetId}` }],
+      buttons: [{ label: 'Show in Beatconnect client', url: `beatconnect://preview/?setId=${beatmapsetId}` }],
       smallImageText: 'Beatconnect client',
       instance: false,
     });
