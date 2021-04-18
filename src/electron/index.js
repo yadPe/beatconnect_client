@@ -49,6 +49,11 @@ const main = async () => {
     mainWindow = null;
   });
 
+  app.on('open-url', (event, data) => {
+    event.preventDefault();
+    if (data) mainWindow.webContents.send('beatconnect-open', removeProtocolPrefix(data, `${CUSTOM_PROTOCOL}://`));
+  });
+
   // init ga tracking and set tracking methods on global
   const { trackEvent, trackNavigation } = makeTracker(mainWindow.webContents.session.getUserAgent());
   global.tracking = { trackEvent, trackNavigation };
@@ -93,11 +98,6 @@ const main = async () => {
 const isMainInstance = app.requestSingleInstanceLock();
 
 if (isMainInstance || isDev) {
-  app.on('open-url', (event, data) => {
-    event.preventDefault();
-    if (data) mainWindow.webContents.send('beatconnect-open', removeProtocolPrefix(data, `${CUSTOM_PROTOCOL}://`));
-  });
-
   if (!isDev) {
     app.removeAsDefaultProtocolClient(CUSTOM_PROTOCOL);
     const ok = app.setAsDefaultProtocolClient(CUSTOM_PROTOCOL);
