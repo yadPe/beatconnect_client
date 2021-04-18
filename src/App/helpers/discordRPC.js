@@ -18,7 +18,7 @@ export const setPlayingSongPresence = (title, artist, beatmapsetId) => {
       largeImageKey: 'play',
       largeImageText: displayTitle,
       smallImageKey: 'bc_icon',
-      buttons: [{ label: 'Open in Beatconnect', url: `beatconnect://preview/?setId=${beatmapsetId}` }],
+      buttons: [{ label: 'Show in Beatconnect', url: `beatconnect://preview/?setId=${beatmapsetId}` }],
       smallImageText: 'Beatconnect client',
       instance: false,
     });
