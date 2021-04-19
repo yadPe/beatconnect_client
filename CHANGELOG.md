@@ -1,3 +1,22 @@
+## [0.3.2](https://github.com/yadPe/beatconnect_client/compare/v0.3.1...v0.3.2) (2021-04-19)
+
+
+### Bug Fixes
+
+* **App:** removed react-desktop + fixed ellipsis in packs ([#431](https://github.com/yadPe/beatconnect_client/issues/431)) ([3b51374](https://github.com/yadPe/beatconnect_client/commit/3b5137457e94146e8d36229e8007866d78c56987))
+* **Search:** Rounded beatmap card top ([#414](https://github.com/yadPe/beatconnect_client/issues/414)) ([db0aef7](https://github.com/yadPe/beatconnect_client/commit/db0aef7e8c8a0299f58b0482e64aa93f7576c6fb))
+
+
+### Features
+
+* **app:** Register beatconnect protocol and handle preview deep link ([#425](https://github.com/yadPe/beatconnect_client/issues/425)) ([9b4c38c](https://github.com/yadPe/beatconnect_client/commit/9b4c38cc5af40067c4be79a467c628bbf05d95e4))
+* **App:** Handle protocol logic on OSX ([#434](https://github.com/yadPe/beatconnect_client/issues/434)) ([fee04f3](https://github.com/yadPe/beatconnect_client/commit/fee04f3c73d7b736bb9109c9f0109fbb74ad7c5d))
+* **App:** Update discord activity with music play ([#433](https://github.com/yadPe/beatconnect_client/issues/433)) ([5cfac65](https://github.com/yadPe/beatconnect_client/commit/5cfac6531f6bdd6ecc8298bbdc9e567b3b2b2d8b))
+* **My Library:** Add fade in animation ([#430](https://github.com/yadPe/beatconnect_client/issues/430)) ([200bd8c](https://github.com/yadPe/beatconnect_client/commit/200bd8c72b2e1031a403a4f74beb4f233e0fbf80))
+* **My Library:** Handle all beatmap md5 ([#432](https://github.com/yadPe/beatconnect_client/issues/432)) ([eab8b4f](https://github.com/yadPe/beatconnect_client/commit/eab8b4f5dd3c53530afbb90085ab75cbaf63b7dd))
+
+
+
 ## [0.3.1](https://github.com/yadPe/beatconnect_client/compare/v0.3.0...v0.3.1) (2021-04-10)
 
 ### Bug Fixes
