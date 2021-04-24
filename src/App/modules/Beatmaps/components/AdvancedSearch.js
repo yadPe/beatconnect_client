@@ -198,10 +198,11 @@ export const AdvancedSearch = ({ onSubmit, lastSearchValues }) => {
               }
               return undefined;
             })}
-            <div style={{ justifySelf: 'flex-end' }}>
+            <div style={{ marginLeft: 'auto' }}>
               <Button
                 className="btn"
-                color={theme.palette.secondary}
+                color={theme.palette.primary.accent}
+                style={{ marginRight: '10px' }}
                 onClick={() =>
                   dispatch({
                     type: 'RESET',
