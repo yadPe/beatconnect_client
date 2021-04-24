@@ -27,11 +27,12 @@ type playlist = array(playlistItem);
 type value = {
   playingState,
   playlist,
-  setPlaylist: playlist => unit,
+  playlistID: string,
+  setPlaylist:
+    (~beatmapPlaylist: playlist, ~playlistID: string=?, unit) => unit,
   setAudio:
     (
       ~song: song,
-      ~setIsPlayable: bool => unit,
       ~audioFilePath: option(string),
       ~previewOffset: option(int)
     ) =>
@@ -59,11 +60,11 @@ module Provider = {
   let value = {
     playingState: initialState,
     playlist: [||],
-    setPlaylist: playlist => (),
+    playlistID: "",
+    setPlaylist: (~beatmapPlaylist: playlist, ~playlistID=?, unit) => unit,
     setAudio:
       (
         ~song: song,
-        ~setIsPlayable: bool => unit,
         ~audioFilePath: option(string),
         ~previewOffset: option(int),
       ) =>

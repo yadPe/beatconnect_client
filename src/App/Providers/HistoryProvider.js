@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-underscore-dangle */
 /* Provides download history from {localUser}/Documents/Beatconnect/history.json */
 import React, { Component, useContext, createContext } from 'react';
@@ -5,9 +6,20 @@ import { remote } from 'electron';
 import { outputJSON, readJson } from 'fs-extra';
 import { join } from 'path';
 import { error, log } from 'electron-log';
+import { memoize } from 'underscore';
 
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
+
+let memoizeCacheTimeMs = 0;
+const hashFn = () => {
+  const now = Date.now();
+  const deltaT = now - memoizeCacheTimeMs < 5000;
+  if (deltaT === false) {
+    memoizeCacheTimeMs = now;
+  }
+  return String(memoizeCacheTimeMs);
+};
 
 class HistoryProvider extends Component {
   static historyFileMapper(beatmapSet) {
@@ -20,7 +32,7 @@ class HistoryProvider extends Component {
         artist: beatmapsSetData[2],
         creator: beatmapsSetData[3],
         isUnplayed: beatmapsSetData[4],
-        md5: beatmapsSetData[5],
+        mapsMd5: beatmapsSetData[5],
         audioPath: beatmapsSetData[6],
         previewOffset: beatmapsSetData[7],
       };
@@ -34,7 +46,7 @@ class HistoryProvider extends Component {
           beatmapSet.artist,
           beatmapSet.creator,
           beatmapSet.isUnplayed,
-          beatmapSet.md5,
+          beatmapSet.mapsMd5,
           beatmapSet.audioPath,
           beatmapSet.previewOffset,
         ],
@@ -52,8 +64,10 @@ class HistoryProvider extends Component {
         overallUnplayedCount: 0,
         overallDuration: 0,
       },
+      ready: false,
       save: this.save,
       contains: this.contains,
+      containsMD5: this.containsMD5,
       clear: this.clear,
       set: this.set,
     };
@@ -66,6 +80,20 @@ class HistoryProvider extends Component {
   componentDidUpdate() {
     this._writeHistory();
   }
+
+  static getHistoryValuesList = memoize(history => {
+    return Object.values(history);
+  }, hashFn);
+
+  static getMD5BeatmapsetMap = memoize(history => {
+    const historyValues = HistoryProvider.getHistoryValuesList(history);
+    return historyValues.reduce((acc, item) => {
+      item.mapsMd5.forEach(mapMd5 => {
+        acc[mapMd5] = item.id;
+      });
+      return acc;
+    }, {});
+  }, hashFn);
 
   set = ({ beatmaps, overallDuration, overallUnplayedCount }) => {
     this.setState({ history: beatmaps, stats: { overallDuration, overallUnplayedCount } });
@@ -81,6 +109,12 @@ class HistoryProvider extends Component {
   contains = id => {
     const { history } = this.state;
     return typeof history[id] !== 'undefined';
+  };
+
+  containsMD5 = md5 => {
+    const { history } = this.state;
+    const md5toId = HistoryProvider.getMD5BeatmapsetMap(history);
+    return history[md5toId[md5]];
   };
 
   clear = () => {
@@ -104,11 +138,12 @@ class HistoryProvider extends Component {
         });
         console.log('_readHistory', { rawHistory, history });
 
-        this.setState({ history });
+        this.setState({ history }, this._setIsReady);
       })
       .catch(e => {
         error(e);
         this._createHistory(); // assume file does not exist
+        this._setIsReady();
       });
   };
 
@@ -127,6 +162,10 @@ class HistoryProvider extends Component {
       .then(() => log('History saved!'))
       .catch(console.error);
   };
+
+  _setIsReady() {
+    this.setState(oldState => ({ ...oldState, ready: true }));
+  }
 
   render() {
     const { children } = this.props;

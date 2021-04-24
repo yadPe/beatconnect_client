@@ -4,6 +4,7 @@ import { useTheme, createUseStyles } from 'react-jss';
 import renderIcons from '../../../../helpers/renderIcons';
 import store from '../../../../../shared/store';
 import { useTasks } from '../../../../Providers/TaskProvider.bs';
+import { changeCurrentSection } from '../../../../app.actions';
 
 const useStyle = createUseStyles({
   '@keyframes spin': {
@@ -98,6 +99,7 @@ const useStyle = createUseStyles({
     width: '80px',
     height: '1px',
     backgroundColor: 'rgba(255,255,255, 0.05)',
+    margin: '5px 0',
   },
 });
 
@@ -111,11 +113,7 @@ const TasksControl = ({ onSelect, ...otherProps }) => {
       return (
         <>
           {tasks.map(task => (
-            <div
-              className="task"
-              role="button"
-              onClick={() => store.dispatch({ type: 'UPDATEACTIVESECTION', payload: task.section })}
-            >
+            <div className="task" role="button" onClick={() => store.dispatch(changeCurrentSection(task.section))}>
               <div className={classes.divider} />
               <div style={{ fontSize: '1rem' }}>{task.name}</div>
               <div style={{ fontSize: '0.8rem' }}>

@@ -1,7 +1,7 @@
 {
   "name": "beatconnect_client",
   "productName": "Beatconnect Client",
-  "version": "0.2.9",
+  "version": "0.3.2",
   "description": "Beatconnect power for osu irc",
   "author": "yadpe <petitot.py@gmail.com>",
   "license": "GPL-3.0",
@@ -11,11 +11,10 @@
     "dev": "node scripts/start.js",
     "start": "electron ./build/main.bundle.js",
     "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
-    "prebuild": "node scripts/preBuild.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/preBuild.js && node scripts/build.js && node scripts/postBuild.js",
     "test": "node scripts/test.js",
-    "lint": "npm run lint:prettier && npm run lint:es",
-    "lint:fix": "npm run lint:fix:prettier && npm run lint:fix:es",
+    "lint": "yarn lint:prettier && yarn lint:es",
+    "lint:fix": "yarn lint:fix:prettier && yarn lint:fix:es",
     "lint:prettier": "prettier --check '**/*.{json,jsx,tsx,mjs,js,ts}'",
     "lint:fix:prettier": "prettier --write '**/*.{json,jsx,tsx,mjs,js,ts}'",
     "lint:es": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
@@ -23,11 +22,13 @@
     "bsb": "bsb -make-world",
     "bsb:watch": "bsb -make-world -w",
     "bsb:clean": "bsb -clean-world",
-    "dist": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64",
-    "dist:win": "npm i && npm run build && electron-builder build --win --x64",
-    "dist:linux": "npm i && npm run build && electron-builder build --linux --x64",
-    "dist:mac": "npm i && npm run build && electron-builder build --mac --x64",
-    "dist:gh-publish": "npm i && npm run build && electron-builder build --win --linux --mac --ia32 --x64 -p always",
+    "dist": "yarn install && yarn build && electron-builder build --win --linux --mac --ia32 --x64",
+    "dist:win": "yarn install && yarn build && electron-builder build --win --x64",
+    "dist:linux": "yarn install && yarn build && electron-builder build --linux --x64",
+    "dist:mac": "yarn install && yarn build && electron-builder build --mac --x64",
+    "dist:mac-publish": "electron-builder build --mac --x64 -p always",
+    "dist:win-linux-publish": "electron-builder build --win --linux --ia32 --x64 -p always",
+    "dist:gh-publish": "yarn install && yarn build && yarn dist:win-linux-publish && yarn dist:mac-publish",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3200 electron .",
     "electron:debug-analytics": "cross-env ELECTRON_START_URL=http://localhost:3200 DEBUG=universal-analytics electron .",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
@@ -44,6 +45,15 @@
   },
   "build": {
     "appId": "io.beatconnect.client",
+    "extraResources": [
+      "./extraResources/**"
+    ],
+    "protocols": {
+      "name": "beatconnect-protocol",
+      "schemes": [
+        "beatconnect"
+      ]
+    },
     "publish": [
       {
         "provider": "github",
@@ -53,7 +63,8 @@
     ],
     "files": [
       "build/**/*",
-      "node_modules/**/*"
+      "!**/node_modules/**",
+      "!package.json"
     ],
     "directories": {
       "buildResources": "assets"
@@ -96,31 +107,26 @@
     }
   },
   "dependencies": {
-    "bs-bastet": "^1.2.5",
+    "discord-rpc": "^3.2.0",
     "electron-is-dev": "^1.1.0",
-    "electron-log": "^4.3.1",
-    "electron-updater": "^4.3.5",
+    "electron-log": "^4.3.4",
+    "electron-updater": "^4.3.8",
     "electron-window-state": "^5.0.3",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "irc": "git+https://github.com/yadPe/node-irc.git",
     "long": "^4.0.0",
     "node-machine-id": "^1.1.12",
     "osu-db-parser": "git+https://github.com/yadPe/osu-db-parser.git#6cc783f3a9270f730cd5038d03ada4a78634cd65",
-    "prop-types": "^15.7.2",
     "ps-node": "^0.1.6",
     "rc-slider": "9.7.2",
-    "react": "^16.13.1",
-    "react-app-polyfill": "^1.0.1",
-    "react-desktop": "^0.3.9",
-    "react-dom": "^16.13.1",
-    "react-jss": "^10.5.0",
-    "react-redux": "^7.1.0",
-    "react-window": "^1.8.5",
-    "reason-react": "^0.7.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-jss": "^10.6.0",
+    "react-redux": "^7.2.3",
+    "react-window": "^1.8.6",
     "redux": "^4.0.5",
-    "relude": "^0.65.0",
     "uleb128": "^1.0.1",
-    "underscore": "^1.12.0",
+    "underscore": "^1.13.0",
     "universal-analytics": "^0.4.23"
   },
   "devDependencies": {
@@ -134,10 +140,11 @@
     "babel-plugin-named-asset-import": "^0.3.7",
     "babel-preset-react-app": "^10.0.0",
     "bs-css": "^11.0.0",
-    "bs-platform": "^8.2.0",
+    "bs-platform": "8.4.2",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
-    "cross-env": "^6.0.3",
+    "conventional-changelog-cli": "^2.1.1",
+    "cross-env": "^7.0.3",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
     "electron": "^11.1.1",
@@ -154,7 +161,6 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "3.0.1",
-    "gentype": "^3.42.0",
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
@@ -165,6 +171,7 @@
     "pnp-webpack-plugin": "1.2.1",
     "prettier": "^1.18.2",
     "react-dev-utils": "^9.0.1",
+    "reason-react": "^0.7.1",
     "resolve": "1.17.0",
     "semver": "6.0.0",
     "string-replace-loader": "^2.3.0",

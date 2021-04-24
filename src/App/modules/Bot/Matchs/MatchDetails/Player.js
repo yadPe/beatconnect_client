@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-desktop/windows';
 import { createUseStyles, useTheme } from 'react-jss';
 import config from '../../../../../shared/config';
 import Button from '../../../common/Button';
@@ -25,6 +24,10 @@ const useStyles = createUseStyles({
     fontSize: '62%',
     margin: '1vmin',
   },
+  text :{
+    color:"white",
+    margin:0
+  }
 });
 
 const Player = ({ playerInfos, match }) => {
@@ -42,12 +45,12 @@ const Player = ({ playerInfos, match }) => {
           onClick={() => match.makeHost(playerInfos)}
           hidden={match.host === playerInfos}
         >
-          <Text color="fff">Host</Text>
+          <p className={classes.text}>Host</p>
         </Button>
       </li>
       <li>
         <Button className="btn" push color={theme.palette.primary.accent} onClick={() => match.kick(playerInfos)}>
-          <Text color="fff">Kick</Text>
+          <p className={classes.text}>Kick</p>
         </Button>
       </li>
     </ul>

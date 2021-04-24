@@ -4,6 +4,8 @@ const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
 const isDev = require('electron-is-dev');
 const beatmapDownloader = require('./BeatmapDownloader');
+const taskBar = require('./helpers/windowsTaskBar');
+const { getBeatconnectProtocolParams } = require('./helpers');
 
 const makeMainWindowSettings = () => {
   const mainWindowState = windowStateKeeper({
@@ -45,7 +47,12 @@ const makeMainWindow = ({ content, ...options }) => {
       mainWindow.show();
       beatmapDownloader.register(mainWindow);
       mainWindowState.manage(mainWindow);
+      taskBar.register(mainWindow);
       if (isDev) mainWindow.webContents.openDevTools();
+      {
+        const protocolArgs = getBeatconnectProtocolParams(process.argv, 'beatconnect');
+        if (protocolArgs) mainWindow.webContents.send('beatconnect-open', protocolArgs);
+      }
     })
     .on('show', () => {
       setTimeout(() => {

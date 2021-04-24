@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { remote } from 'electron';
-import { ProgressCircle } from 'react-desktop/windows';
+import ProgressCircle from '../../common/ProgressCircle';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
 import { useTheme, createUseStyles } from 'react-jss';
@@ -12,6 +12,7 @@ import renderIcons from '../../../helpers/renderIcons';
 import config from '../../../../shared/config';
 import Button from '../../common/Button';
 import { getDragRegion } from '../../../helpers/css.utils';
+import { getActiveSectionParams } from '../../../app.selectors';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
@@ -37,17 +38,24 @@ const useStyle = createUseStyles({
   },
 });
 
-const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
+const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps, deepLinkSearch }) => {
   const [search, setSearch] = useState(lastSearch);
 
   const theme = useTheme();
   const classes = useStyle();
 
   const execSearch = force => {
-    if (!isEqual(lastSearch, search) || force) {
+    if (force || !isEqual(lastSearch, search)) {
       askBeatconnect(search, undefined, true);
     }
   };
+  useEffect(() => {
+    if (deepLinkSearch.beatmapsetId) {
+      const s = { query: deepLinkSearch.beatmapsetId, status: 'all', mode: 'all' };
+      setSearch(s);
+      askBeatconnect(s, undefined, true);
+    }
+  }, [deepLinkSearch.beatmapsetId]);
   const searchOnEnter = e => {
     if (e.keyCode === 13) {
       execSearch();
@@ -63,10 +71,10 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
     if (
       beatmapCount === 0 ||
       skeletonBeatmaps ||
-      (lastSearch.status !== search.status ||
+      lastSearch.status !== search.status ||
         lastSearch.mode !== search.mode ||
         lastSearch.hideDownloaded !== search.hideDownloaded ||
-        lastSearch.advancedSearch !== search.advancedSearch)
+        lastSearch.advancedSearch !== search.advancedSearch
     )
       execSearch(true);
   }, [search]);
@@ -75,11 +83,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
         <Button className="btn" color={theme.palette.primary.accent} onClick={() => execSearch()}>
-          {isBusy ? (
-            <ProgressCircle className="ProgressCircle" color="#fff" size={17} />
-          ) : (
-            renderIcons({ name: 'Search', style: theme.accentContrast })
-          )}
+          {isBusy ? <ProgressCircle /> : renderIcons({ name: 'Search', style: theme.accentContrast })}
         </Button>
       </div>
       <DropDown
@@ -126,10 +130,11 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps }) => {
   );
 };
 
-const mapStateToProps = ({ beatmaps }) => ({
-  lastSearch: beatmaps.searchResults.search,
-  beatmapCount: beatmaps.searchResults.beatmaps.length,
-  skeletonBeatmaps: beatmaps.searchResults.beatmaps[0] === 0,
-  isBusy: beatmaps.fetchingBeatmaps.isFetching,
+const mapStateToProps = state => ({
+  lastSearch: state.beatmaps.searchResults.search,
+  beatmapCount: state.beatmaps.searchResults.beatmaps.length,
+  skeletonBeatmaps: state.beatmaps.searchResults.beatmaps[0] === 0,
+  isBusy: state.beatmaps.fetchingBeatmaps.isFetching,
+  deepLinkSearch: getActiveSectionParams(state),
 });
 export default connect(mapStateToProps)(Search);

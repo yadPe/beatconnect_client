@@ -1,7 +1,7 @@
 import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
 import { remote, shell } from 'electron';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { error } from 'electron-log';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix } from './reducer/actions';
 import ConfLoader from './helpers/ConfLoader';
@@ -13,18 +13,34 @@ import ColorPicker from '../common/ColorPicker';
 import config from '../../../shared/config';
 import useSettingsUtils from './utils/useSettingsUtils';
 import { useOsuDbScan } from './utils/useScanOsuSongs';
+import { clearCollections } from '../MyLibrary/actions';
+import { scanOsuCollection } from './utils/scanOsuCollections';
+import store from '../../../shared/store';
 
 const Settings = ({ userPreferences }) => {
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
   const [selectedCategory, setSelectedCategory] = useState('General');
   const theme = useTheme();
   const history = useDownloadHistory();
+  const dispatch = useDispatch();
 
   const { handleAccentColorSelect, handleImportMethodChange, osuPathSetup } = useSettingsUtils(userPreferences);
   const scanOsuSongs = useOsuDbScan();
+  const scanOsu = () => {
+    scanOsuSongs();
+    scanOsuCollection(osuPath);
+  };
+
+  const clearHistory = () => {
+    history.clear();
+    dispatch(clearCollections());
+  };
 
   useEffect(() => {
-    return ConfLoader.save;
+    return () => {
+      const { settings } = store.getState();
+      ConfLoader.save(settings);
+    };
   }, []);
 
   const settings = {
@@ -108,7 +124,7 @@ const Settings = ({ userPreferences }) => {
       History: [
         {
           name: osuSongsPath ? 'Scan Osu! songs' : 'Osu! folder not set',
-          action: scanOsuSongs,
+          action: scanOsu,
           description: lastScan
             ? `${lastScan.beatmaps} beatmap sets found - Last scan ${new Date(lastScan.date).toLocaleString()}`
             : '',
@@ -120,7 +136,7 @@ const Settings = ({ userPreferences }) => {
             'Scan your osu folder to import all your previously downloaded beatmaps to your Beatconnect history',
           type: 'Text',
         },
-        { name: 'Clear history', action: history.clear, type: 'Button' },
+        { name: 'Clear history', action: clearHistory, type: 'Button' },
       ],
     },
   };

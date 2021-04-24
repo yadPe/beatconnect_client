@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../../../shared/config';
-import reqImgAssets from '../../../../helpers/reqImgAssets';
 import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
+import { setPlayingSongPresence } from '../../../../helpers/discordRPC';
+
+const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   playingSongWrapper: {
@@ -63,15 +66,39 @@ const useStyle = createUseStyles({
   },
 });
 
+const DEFAULT_ARTWORK = '/img/play-button.svg';
 const PlayingSong = ({ expended }) => {
   const { playingState, togglePlayPause, playNext, playPrevious } = useAudioPlayer();
   const classes = useStyle({ expended, hasNext: playingState.hasNext, hasPrev: playingState.hasPrev });
-  const visible = playingState.beatmapSetId;
+  const playingBeatmapSetId = playingState.beatmapSetId;
+  const [artWork, setArtwork] = useState(DEFAULT_ARTWORK);
+  const isDefaultArtwork = artWork === DEFAULT_ARTWORK;
+
+  useEffect(() => {
+    const image = new Image();
+    image.onerror = () => setArtwork(DEFAULT_ARTWORK);
+    image.onload = () => setArtwork(getThumbUrl(playingBeatmapSetId));
+    image.src = getThumbUrl(playingBeatmapSetId);
+    if (playingBeatmapSetId) {
+      trackEvent(
+        'beatmapPreview',
+        'play',
+        playingState.hasNext || playingState.hasPrev ? 'full' : 'preview',
+        playingBeatmapSetId,
+      );
+      setPlayingSongPresence(playingState.title, playingState.artist, playingState.beatmapSetId);
+    }
+
+    return () => {
+      image.onerror = null;
+      image.onload = null;
+    };
+  }, [playingBeatmapSetId, playingState.hasNext, playingState.hasPrev]);
 
   const handleNext = () => playNext();
   const handlePrevious = () => playPrevious();
 
-  if (!visible) return null;
+  if (!playingBeatmapSetId) return null;
   return (
     <div className={classes.playingSongWrapper} role="tab">
       <div className={classes.expendedContentWrapper}>
@@ -85,10 +112,8 @@ const PlayingSong = ({ expended }) => {
               onClick={togglePlayPause}
               className={classes.songImage}
               style={{
-                backgroundImage: `url(${getThumbUrl(playingState.beatmapSetId)}), url(${reqImgAssets(
-                  `./beatconnect_logo.png`,
-                )})`,
-                backgroundSize: 'auto, 75%',
+                backgroundImage: `url(${artWork})`,
+                backgroundSize: isDefaultArtwork ? '50%' : 'cover',
                 backgroundRepeat: 'no-repeat',
               }}
             />

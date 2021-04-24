@@ -631,8 +631,6 @@ export default function({ name, color, width, height, style, secColor }) {
     case 'Creator':
       return (
         <svg
-          x="0px"
-          y="0px"
           width={width || '15px'}
           height={height || '15px'}
           aria-hidden="true"
@@ -646,14 +644,12 @@ export default function({ name, color, width, height, style, secColor }) {
           <path
             fill={fill}
             d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z"
-          ></path>
+          />
         </svg>
       );
     case 'Metronome':
       return (
         <svg
-          x="0px"
-          y="0px"
           width={width || '15px'}
           height={height || '15px'}
           version="1.1"
@@ -668,6 +664,19 @@ export default function({ name, color, width, height, style, secColor }) {
             <path fill={fill} d="M15,8h2c0.6,0,1-0.4,1-1s-0.4-1-1-1h-2c-0.6,0-1,0.4-1,1S14.4,8,15,8z" />
             <path fill={fill} d="M15,11h2c0.6,0,1-0.4,1-1s-0.4-1-1-1h-2c-0.6,0-1,0.4-1,1S14.4,11,15,11z" />
             <path fill={fill} d="M15,14h2c0.6,0,1-0.4,1-1s-0.4-1-1-1h-2c-0.6,0-1,0.4-1,1S14.4,14,15,14z" />
+          </g>
+        </svg>
+      );
+    case 'My Library':
+      return (
+        <svg width={width || '15px'} height={height || '15px'} viewBox="0 0 512 512">
+          <g>
+            <path fill={fill} d="m0 309v139h512v-139zm143 90h-52v-30h52zm278 0h-248v-30h248z" />
+            <circle fill={fill} cx="256" cy="242" r="35" />
+            <path
+              fill={fill}
+              d="m434 242c0 12.69-1.33 25.07-3.86 37h-120.73c7.31-10.51 11.59-23.26 11.59-37 0-35.84-29.16-65-65-65s-65 29.16-65 65c0 13.74 4.28 26.49 11.59 37h-120.74c-2.52-11.94-3.85-24.32-3.85-37 0-98.31 79.69-178 178-178s178 79.69 178 178z"
+            />
           </g>
         </svg>
       );

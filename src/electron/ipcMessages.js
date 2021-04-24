@@ -1,27 +1,21 @@
 const log = require('electron-log');
-const { ipcMain, dialog, shell } = require('electron');
-const { join } = require('path');
-const { fork } = require('child_process');
-const { downloadAndSetWallpaper } = require('./wallpaper');
 const { error } = require('electron-log');
+const { ipcMain, dialog, shell } = require('electron');
+const fs = require('fs').promises;
+const { join } = require('path');
+const { downloadAndSetWallpaper } = require('./wallpaper');
+const { readCollectionDB } = require('./helpers/osuCollections/collections.utils');
+const startPullingOsuState = require('./threads/osuIsRunning');
+const scanOsuDb = require('./threads/osuSongsScan');
 
-ipcMain.on('osuSongsScan', (event, options) => {
-  // TODO Replace with osu-db-parser module
-  const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'), null, { silent: true });
-  osuSongsScanProcess.stdout.pipe(process.stdout);
-  osuSongsScanProcess.send(JSON.stringify({ msg: 'start', ...options }));
-  osuSongsScanProcess.on('message', msg => {
-    const { results, status, err, overallDuration, overallUnplayedCount } = JSON.parse(msg);
-    if (results) {
-      event.reply('osuSongsScanResults', { beatmaps: results, overallDuration, overallUnplayedCount });
-      osuSongsScanProcess.kill('SIGTERM');
-    }
-    if (status) event.reply('osuSongsScanStatus', status);
-    if (err) {
-      event.reply('osuSongsScanError', err);
-      osuSongsScanProcess.kill('SIGTERM');
-    }
-  });
+ipcMain.handle('osuSongsScan', async (event, { osuPath }) => {
+  try {
+    const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(`${osuPath}/osu!.db`);
+    return { beatmaps, overallDuration, overallUnplayedCount };
+  } catch (e) {
+    error(`[scan-osu-songs]: ${e.message}`);
+    throw e;
+  }
 });
 
 ipcMain.on('set-wallpaper', (event, bgUri) => {
@@ -43,16 +37,27 @@ ipcMain.on('set-wallpaper', (event, bgUri) => {
 ipcMain.on('start-osu', (event, osuPath) => shell.openPath(join(osuPath, 'osu!.exe')).catch(error));
 
 ipcMain.once('start-pulling-osu-state', event => {
-  const osuIsRunningChecker = fork(join(__dirname, './processes/osuIsRunning.js'));
-  osuIsRunningChecker.on('message', msg => {
-    event.reply('osu-is-running', !!msg);
-  });
-  osuIsRunningChecker.send('start');
+  const osuStateHandler = isRunning => {
+    event.reply('osu-is-running', isRunning);
+  };
+  startPullingOsuState(osuStateHandler);
 });
 
-// try {
-//   const osuSongsScanProcess = fork(join(__dirname, './processes/osuSongsScan.js'));
-//   osuSongsScanProcess.stdout.pipe(process.stdout);
-// } catch (e) {
-//   console.error(e);
-// }
+ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
+  try {
+    const collection = await readCollectionDB(`${osuPath}/collection.db`);
+    return collection;
+  } catch (e) {
+    error(`[scan-osu-collections]: ${e.message}`);
+    throw e;
+  }
+});
+
+ipcMain.handle('validate-osu-path', async (event, osuPath) => {
+  try {
+    const isPathValid = await fs.stat(`${osuPath}/osu!.db`);
+    return isPathValid.isFile();
+  } catch {
+    return false;
+  }
+});

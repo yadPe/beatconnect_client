@@ -9,7 +9,7 @@ import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
-import { getListCoverUrl, getThumbUrl } from '../../../../shared/PpyHelpers.bs';
+import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
 import useBeatmapSong from '../../../Providers/AudioPlayer/useBeatmapSong';
 
 const useStyle = createUseStyles({
@@ -59,24 +59,20 @@ const useStyle = createUseStyles({
     },
   },
   title: {
+    minWidth: 0,
     display: 'flex',
     flex: '6 1 0',
     justifyContent: 'space-between',
-    overflow: 'hidden',
     fontSize: '15pt',
     alignItems: 'center',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     paddingRight: '10px',
   },
   artist: {
+    minWidth: 0,
     flex: '9 1 0',
     display: 'flex',
-    overflow: 'hidden',
     alignItems: 'center',
     color: '#aaa',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     fontSize: '13pt',
   },
   downloadButton: {
@@ -87,10 +83,11 @@ const useStyle = createUseStyles({
     marginLeft: '15px',
     display: 'flex',
   },
+  ellipsis: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', margin:0, },
 });
 
 const BeatmapListItem = ({ index, style, data }) => {
-  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library' } = data;
+  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library', collectionName } = data;
   const isPackMode = itemMode === 'pack';
   const isDownloadMode = itemMode === 'download';
   const isLibraryMode = itemMode === 'library';
@@ -109,7 +106,7 @@ const BeatmapListItem = ({ index, style, data }) => {
   const isDownloading = downloadProgress >= 0;
   const isPaused = status === config.download.status.paused;
 
-  const { isPlaying, isSelected, playPreview } = useBeatmapSong({ id, title, artist }, itemMode, items);
+  const { isPlaying, isSelected, playPreview } = useBeatmapSong({ id, title, artist, collectionName }, itemMode, items);
 
   const handleClick = () => {
     if (isDownloadMode) return;
@@ -131,7 +128,7 @@ const BeatmapListItem = ({ index, style, data }) => {
         <div
           className={`${classes.thumbnail} thumbnail`}
           style={{
-            backgroundImage: `url(${getListCoverUrl(id)}), url(${getThumbUrl(id)})`,
+            backgroundImage: `url(${getListCoverUrl(id)})`,
           }}
         >
           <div
@@ -143,8 +140,12 @@ const BeatmapListItem = ({ index, style, data }) => {
             }}
           />
         </div>
-        <div className={classes.title}>{title}</div>
-        <div className={classes.artist}>{artist}</div>
+        <div className={classes.title}>
+          <p title={title} className={classes.ellipsis}>{title}</p>
+        </div>
+        <div className={classes.artist}>
+          <p title={artist} className={classes.ellipsis}>{artist}</p>
+        </div>
         {isDownloadMode && isDownloading && (
           <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
         )}

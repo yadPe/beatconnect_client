@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useState, memo } from 'react';
-import { Text } from 'react-desktop/windows';
 import { shell } from 'electron';
 import { createUseStyles, useTheme } from 'react-jss';
 import Cover from './Cover';
@@ -115,6 +114,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
             url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`}
             height={130}
             noFade={noFade}
+            roundedTop
           />
           <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%' }}>
             <p className={classes.Row}>
