@@ -9,6 +9,9 @@ parentPort.on('message', osuDbPath => {
       const beatmaps = {};
       let overallDuration = 0;
       let overallUnplayedCount = 0;
+      if (!re.beatmaps || !Array.isArray(re.beatmaps)) {
+        throw new Error('Could not get beatmaps from osu db');
+      }
       re.beatmaps.forEach(beatmap => {
         if (beatmap.beatmapset_id === -1) return;
         if (beatmaps[beatmap.beatmapset_id]) {
