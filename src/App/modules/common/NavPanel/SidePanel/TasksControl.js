@@ -42,11 +42,11 @@ const useStyle = createUseStyles({
       height: props => (props.selected ? '48px' : '24px'),
     },
     '&:hover .tooltiptext': {
-      visibility: props => (props.expended ? 'none' : 'visible'),
+      display: props => (props.expended ? 'block' : 'none'),
       opacity: props => (props.expended ? '0' : '1'),
     },
     '&:active .tooltiptext': {
-      visibility: props => (props.expended ? 'none' : 'visible'),
+      display: props => (props.expended ? 'block' : 'none'),
       opacity: props => (props.expended ? '0' : '1'),
     },
   },
@@ -79,7 +79,7 @@ const useStyle = createUseStyles({
     backgroundColor: ({ theme }) => theme.palette.primary.accent,
   },
   title: {
-    visibility: props => (props.expended ? 'visible' : 'hidden'),
+    display: props => (props.expended ? 'block' : 'none'),
     opacity: props => (props.expended ? '1' : '0'),
   },
   tooltiptext: {
@@ -92,7 +92,7 @@ const useStyle = createUseStyles({
     zIndex: 1,
     textAlign: 'left',
     padding: '0 0.6rem',
-    visibility: props => (props.pop ? 'visible' : 'hidden'),
+    display: props => (props.expended ? 'block' : 'none'),
     opacity: props => (props.pop ? '1' : '0'),
   },
   divider: {

@@ -32,10 +32,10 @@ const useStyle = createUseStyles({
       height: props => (props.selected ? '48px' : '24px'),
     },
     '&:hover .tooltiptext': {
-      visibility: props => (props.expended ? 'hidden' : 'visible'),
+      display: props => (props.expended ? 'block' : 'none'),
     },
     '&:active .tooltiptext': {
-      visibility: props => (props.expended ? 'hidden' : 'visible'),
+      display: props => (props.expended ? 'block' : 'none'),
     },
   },
   span: {
@@ -74,11 +74,11 @@ const useStyle = createUseStyles({
     transition: `height ${config.display.defaultTransitionDuration}`,
   },
   title: {
-    visibility: props => (props.expended ? 'visible' : 'hidden'),
+    display: props => (props.expended ? 'block' : 'none'),
     whiteSpace: 'nowrap',
   },
   tooltiptext: {
-    visibility: 'hidden',
+    display: 'none',
     width: '120px',
     backgroundColor: ({ theme }) => theme.palette.primary.main,
     color: '#fff',
