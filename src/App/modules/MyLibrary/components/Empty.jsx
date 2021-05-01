@@ -14,16 +14,13 @@ const useStyle = createUseStyles({
   },
 });
 
-const Empty = ({ isCollection }) => {
+const Empty = () => {
   const classes = useStyle();
   return (
     <div className={classes.wrapper}>
       {renderIcons({ name: 'Download', height: '50px', width: '50px' })}
       <p>It&apos;s empty in here..</p>
       <p>To sync your osu! library go to the Settings section and register you song folder</p>
-      {isCollection && (
-        <p>Please note that if you added single difficulties to a collection, the related songs might not appear.</p>
-      )}
     </div>
   );
 };
