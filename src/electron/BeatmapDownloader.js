@@ -115,6 +115,7 @@ class BeatmapDownloader {
 
   pushManytoQueue(items) {
     if (!this.savePath) throw new Error('noSavePath');
+    if (!items || !Array.isArray(items)) throw new Error('Not valid items to add to queue');
     items.forEach(item => this.addToQueue(item, true));
     this.sendToWin('queue-updated', { queue: Array.from(this.queue) });
     this.executeQueue();

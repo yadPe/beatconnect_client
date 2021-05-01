@@ -88,9 +88,11 @@ class HistoryProvider extends Component {
   static getMD5BeatmapsetMap = memoize(history => {
     const historyValues = HistoryProvider.getHistoryValuesList(history);
     return historyValues.reduce((acc, item) => {
-      item.mapsMd5.forEach(mapMd5 => {
-        acc[mapMd5] = item.id;
-      });
+      if (Array.isArray(item?.mapsMd5)) {
+        item.mapsMd5.forEach(mapMd5 => {
+          acc[mapMd5] = item.id;
+        });
+      }
       return acc;
     }, {});
   }, hashFn);
