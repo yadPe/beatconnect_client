@@ -70,7 +70,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
           {BeatmapListItem}
         </List>
       ) : (
-        <Empty isCollection={collectionName !== AllBeatmapsCollectionName} />
+        <Empty />
       )}
     </div>
   );
