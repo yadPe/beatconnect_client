@@ -51,25 +51,58 @@ These instructions will get you a copy of the project up and running on your loc
 
 - NodeJs v14 or higher and yarn
 
-### Installing
+### Installing for development
+
+**Note:** Before running beatconnect yourself you will need a [.env](#Env-file) file and a Beatconnect token.
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/yadPe/beatconnect_client.git
+git clone https://github.com/yadPe/beatconnect_client.git
 
 # Go into the repository
-$ cd beatconnect_client
+cd beatconnect_client
 
 # Install dependencies
-$ yarn
+yarn
 
 # Start the dev server and launch the app
-$ yarn dev
+yarn dev
 
 # (if you're running WSL you will have to start electron from within Windows with "yarn electron-dev")
 ```
 
-## Download
+### Building for production
+
+**Given node 14 or superiour and yarn are installed**
+
+You can run `yarn dist:` followed by one of `win`, `linux` or `mac`. It will build beatconnect for x64 platform only by default but if prefixed by `-ia32` builder will also output x86 version.
+Build artifacts will by located inside the `dist` folder
+
+**Note:** Before building beatconnect yourself you will need a [.env](#Env-file) file and a Beatconnect token.
+
+Example
+
+```bash
+# Build beatconnect as nsis-web installer for Windows x64
+yarn dist:win
+
+# Build beatconnect as dmg and mac for OSX x64
+yarn dist:mac
+
+# Build beatconnect as AppImage and deb for linux x64 and x86
+yarn dist:linux --ia32
+```
+
+### Env file
+
+The `.env` file must be located at the root of the project
+
+```
+BEATCONNECT_CLIENT_TOKEN=your-beatconnect-token
+BEATCONNECT_HOST_URL=https://beatconnect.io/
+```
+
+## Download test
 
 - Latest release available [here](https://github.com/yadPe/beatconnect_client/releases/latest)
 
