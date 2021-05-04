@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
-import { setPlayingSongPresence } from '../../../../helpers/discordRPC';
+import { setPlayingSongPresence, clearActivity } from '../../../../helpers/discordRPC';
 
 const { trackEvent } = remote.getGlobal('tracking');
 
@@ -73,13 +73,22 @@ const PlayingSong = ({ expended }) => {
   const playingBeatmapSetId = playingState.beatmapSetId;
   const [artWork, setArtwork] = useState(DEFAULT_ARTWORK);
   const isDefaultArtwork = artWork === DEFAULT_ARTWORK;
+  const timeoutIdRef = useRef();
 
   useEffect(() => {
     const image = new Image();
     image.onerror = () => setArtwork(DEFAULT_ARTWORK);
     image.onload = () => setArtwork(getThumbUrl(playingBeatmapSetId));
     image.src = getThumbUrl(playingBeatmapSetId);
-    if (playingBeatmapSetId) {
+
+    return () => {
+      image.onerror = null;
+      image.onload = null;
+    };
+  }, [playingBeatmapSetId]);
+
+  useEffect(() => {
+    if (playingBeatmapSetId && playingState.isPlaying) {
       trackEvent(
         'beatmapPreview',
         'play',
@@ -88,12 +97,14 @@ const PlayingSong = ({ expended }) => {
       );
       setPlayingSongPresence(playingState.title, playingState.artist, playingState.beatmapSetId);
     }
+  }, [playingBeatmapSetId, playingState.hasNext, playingState.hasPrev, playingState.isPlaying]);
 
-    return () => {
-      image.onerror = null;
-      image.onload = null;
-    };
-  }, [playingBeatmapSetId, playingState.hasNext, playingState.hasPrev]);
+  useEffect(() => {
+    if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
+    if (playingState.isPlaying === false) {
+      timeoutIdRef.current = setTimeout(() => clearActivity(), 5000);
+    }
+  }, [playingState.isPlaying, timeoutIdRef]);
 
   const handleNext = () => playNext();
   const handlePrevious = () => playPrevious();
