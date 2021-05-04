@@ -56,9 +56,11 @@ const makeMainWindow = ({ content, ...options }) => {
       }
     })
     .on('show', () => {
-      setTimeout(() => {
-        autoUpdater.checkForUpdatesAndNotify();
-      }, 5000);
+      if (process.platform !== 'darwin') {
+        setTimeout(() => {
+          autoUpdater.checkForUpdatesAndNotify();
+        }, 5000);
+      }
     });
 
   if (process.env.ELECTRON_START_URL) mainWindow.loadURL(process.env.ELECTRON_START_URL);
