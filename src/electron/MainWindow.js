@@ -1,4 +1,4 @@
-const { BrowserWindow } = require('electron');
+const { BrowserWindow, nativeTheme } = require('electron');
 const windowStateKeeper = require('electron-window-state');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
@@ -40,6 +40,7 @@ const makeMainWindowSettings = () => {
 };
 
 const makeMainWindow = ({ content, ...options }) => {
+  nativeTheme.themeSource = 'dark';
   const [mainWindowState, defaultOptions] = makeMainWindowSettings();
   const mainWindow = new BrowserWindow({ ...defaultOptions, ...options });
   mainWindow
