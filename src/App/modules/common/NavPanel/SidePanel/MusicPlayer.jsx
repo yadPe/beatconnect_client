@@ -104,7 +104,7 @@ const PlayingSong = ({ expended }) => {
     if (playingState.isPlaying === false) {
       timeoutIdRef.current = setTimeout(() => clearActivity(), 5000);
     }
-  }, [playingState.isPlaying, timeoutIdRef]);
+  }, [playingState.isPlaying, timeoutIdRef.current]);
 
   const handleNext = () => playNext();
   const handlePrevious = () => playPrevious();
