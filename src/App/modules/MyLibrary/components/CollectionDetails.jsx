@@ -5,7 +5,6 @@ import config from '../../../../shared/config';
 import BeatmapListItem from '../../Packs/BeatmapPackDetail/Item';
 import Empty from './Empty';
 import Header from './Header';
-import { COLLECTION_NAME as AllBeatmapsCollectionName } from './AllBeatmaps';
 import { getActiveSectionParams } from '../../../app.selectors';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
@@ -22,8 +21,18 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
 
   const deepLinkedItemIndex =
     deepLink.beatmapsetId && collection.findIndex(item => item.id === parseInt(deepLink.beatmapsetId, 10));
-  const scrollOffset =
-    deepLinkedItemIndex !== undefined && deepLinkedItemIndex !== -1 ? deepLinkedItemIndex * listItemSize : 0;
+  const hasDeeplink = deepLinkedItemIndex !== undefined && deepLinkedItemIndex !== -1;
+  const currentSongIndex =
+    audioPlayer.playingState.beatmapSetId &&
+    audioPlayer.playlistID === collectionName &&
+    collection.findIndex(item => item.id === audioPlayer.playingState.beatmapSetId);
+  const hasCurrentSong = currentSongIndex !== undefined && currentSongIndex !== -1;
+  // eslint-disable-next-line no-nested-ternary
+  const scrollOffset = hasDeeplink
+    ? deepLinkedItemIndex * listItemSize
+    : 0 || hasCurrentSong
+    ? currentSongIndex * listItemSize
+    : 0;
   useEffect(() => {
     if (deepLinkedItemIndex !== undefined && deepLinkedItemIndex !== -1) {
       const { id, title, artist, audioPath } = collection[deepLinkedItemIndex];
