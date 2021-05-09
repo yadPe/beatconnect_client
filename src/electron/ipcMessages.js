@@ -56,7 +56,6 @@ ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
 ipcMain.handle('validate-osu-path', async (event, osuPath) => {
   try {
     const isPathValid = await fs.stat(`${osuPath}/osu!.db`);
-    isPathValid.isDirectory();
     return isPathValid.isFile();
   } catch {
     return false;
