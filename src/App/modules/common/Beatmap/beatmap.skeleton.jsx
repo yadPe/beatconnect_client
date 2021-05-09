@@ -20,7 +20,7 @@ const useStyle = createUseStyles({
   buttons: {
     margin: '15px auto 0 auto',
     height: '30px',
-    width: '25%',
+    width: '213px',
   },
 });
 

@@ -2,6 +2,7 @@ import { remote, ipcRenderer } from 'electron';
 import { error } from 'electron-log';
 import { join } from 'path';
 import { useSelector } from 'react-redux';
+import config from '../../../../shared/config';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 import { useSetTheme } from '../../../Providers/ThemeProvider';
 import { saveThemeAccentColor, setImportMethod, setOsuSongsPath, setOsuPath } from '../reducer/actions';
@@ -15,6 +16,15 @@ const checkOsuPath = async path => {
     // eslint-disable-next-line no-alert
     alert(`An error occured while setting the osu folder, please try again.`);
     error('[osuPathSetup]: ', e);
+    return false;
+  }
+};
+
+const isDirectory = async path => {
+  try {
+    const isDir = await ipcRenderer.invoke('is-dir', path);
+    return !!isDir;
+  } catch (e) {
     return false;
   }
 };
@@ -41,7 +51,11 @@ const useSettingsUtils = ({ osuSongsPath, importMethod }) => {
         }
         setOsuPath(filePaths[0]);
         if (!currentOsuSongsPath) {
-          setOsuSongsPath(join(filePaths[0], 'Songs'));
+          const songsPath = join(filePaths[0], 'Songs');
+          if (await isDirectory(songsPath)) {
+            setOsuSongsPath(join(filePaths[0], 'Songs'));
+            setImportMethod(config.settings.importMethod.bulk);
+          }
         }
       }
     }

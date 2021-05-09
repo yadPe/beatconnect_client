@@ -61,3 +61,12 @@ ipcMain.handle('validate-osu-path', async (event, osuPath) => {
     return false;
   }
 });
+
+ipcMain.handle('is-dir', async (event, path) => {
+  try {
+    const isPathValid = await fs.stat(path);
+    return isPathValid.isDirectory();
+  } catch {
+    return false;
+  }
+});
