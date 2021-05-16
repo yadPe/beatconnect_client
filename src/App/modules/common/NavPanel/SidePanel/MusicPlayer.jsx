@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../../../shared/config';
-import { getThumbUrl } from '../../../../../shared/PpyHelpers.bs';
+import { resolveThumbURL } from '../../../../../shared/PpyHelpers.bs';
 import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
@@ -76,15 +76,7 @@ const PlayingSong = ({ expended }) => {
   const timeoutIdRef = useRef();
 
   useEffect(() => {
-    const image = new Image();
-    image.onerror = () => setArtwork(DEFAULT_ARTWORK);
-    image.onload = () => setArtwork(getThumbUrl(playingBeatmapSetId));
-    image.src = getThumbUrl(playingBeatmapSetId);
-
-    return () => {
-      image.onerror = null;
-      image.onload = null;
-    };
+    resolveThumbURL(playingBeatmapSetId).then(setArtwork);
   }, [playingBeatmapSetId]);
 
   useEffect(() => {
