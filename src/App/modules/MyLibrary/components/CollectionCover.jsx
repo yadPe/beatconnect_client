@@ -45,7 +45,7 @@ const CollectionCover = ({ artWorksIds = [], onPlay, isPlaying }) => {
   const osuPath = useSelector(getOsuPath);
   useEffect(() => {
     Promise.all(artWorksIds.map(artworkId => resolveThumbURL(artworkId, osuPath))).then(setArtWorks);
-  }, [artWorksIds.length]);
+  }, [artWorksIds.join('')]);
   const classes = useStyle({ isPlaying });
   const handlePlay = e => {
     e.stopPropagation();
