@@ -1,3 +1,23 @@
+## [0.3.3](https://github.com/yadPe/beatconnect_client/compare/v0.3.2...v0.3.3) (2021-05-16)
+
+
+### Bug Fixes
+
+* **discord rpc:** Clear activity when song is paused ([#444](https://github.com/yadPe/beatconnect_client/issues/444)) ([6294e43](https://github.com/yadPe/beatconnect_client/commit/6294e43bb5f945eadb08ce4a4281ff679ed83c78))
+* **My library:** crash after a map is downloaded but not imported ([#440](https://github.com/yadPe/beatconnect_client/issues/440)) ([501ed6a](https://github.com/yadPe/beatconnect_client/commit/501ed6a9117f08d520b51e1da9c619068066d1f0))
+* **My Library:** Remove warning about missing map ([#443](https://github.com/yadPe/beatconnect_client/issues/443)) ([37e1c07](https://github.com/yadPe/beatconnect_client/commit/37e1c072719a63ff471f61e0d30f59667e53b6c7))
+* **side panel:** expending if cursor is close but not on ([#442](https://github.com/yadPe/beatconnect_client/issues/442)) ([fbef953](https://github.com/yadPe/beatconnect_client/commit/fbef953764cb0b17fdc2b664f9428de1e475eeec))
+
+
+### Features
+
+* **App:** load beatmaps thumbnails from local drive first ([#449](https://github.com/yadPe/beatconnect_client/issues/449)) ([1fdc75e](https://github.com/yadPe/beatconnect_client/commit/1fdc75e79e6c99fcb2bf1484ee35d367af1a7ddc))
+* **App:** Set bulk import as default after osu dir setup ([#448](https://github.com/yadPe/beatconnect_client/issues/448)) ([c01f692](https://github.com/yadPe/beatconnect_client/commit/c01f692095c01b3c8368276f187383894baa262d))
+* **My Library:** Scroll to collection playing song ([#447](https://github.com/yadPe/beatconnect_client/issues/447)) ([0948254](https://github.com/yadPe/beatconnect_client/commit/09482544769d3dfd8069e5b1549f5869e4c7a692))
+* **update:** Disable auto update on OSX ([#446](https://github.com/yadPe/beatconnect_client/issues/446)) ([2a73cb4](https://github.com/yadPe/beatconnect_client/commit/2a73cb40a6fc997b2d1c0bbc8b0fccefa5b8a30c))
+
+
+
 ## [0.3.2](https://github.com/yadPe/beatconnect_client/compare/v0.3.1...v0.3.2) (2021-04-19)
 
 
