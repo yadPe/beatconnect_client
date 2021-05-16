@@ -1,7 +1,6 @@
 /* eslint-disable no-continue */
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
+import { useSelector } from 'react-redux';
 import { getActiveSectionParams } from '../../../app.selectors';
 import { makePlaylist, getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
@@ -25,18 +24,18 @@ const AllBeatmapsCollection = ({ select }) => {
     return beatmaps;
   };
 
-  const [artWorks, setArtWorks] = useState([]);
+  const [artWorksIds, setArtWorksIds] = useState([]);
   const [beatmapsCount, setBeatmapsCount] = useState(0);
 
-  const getCoverArtworks = useCallback(() => {
+  const getCoverArtworksIds = useCallback(() => {
     const beatmaps = getBeatmaps();
     setBeatmapsCount(() => beatmaps.length);
     const artworksLimit = Math.min(beatmaps.length >= 4 ? 4 : 1, beatmaps.length);
-    return beatmaps.slice(0, artworksLimit).map(beatmap => getListCoverUrl(beatmap.id));
+    return beatmaps.slice(0, artworksLimit).map(beatmap => beatmap.id);
   }, [ready]);
 
   useEffect(() => {
-    setArtWorks(() => getCoverArtworks());
+    setArtWorksIds(() => getCoverArtworksIds());
   }, [ready]);
 
   const isPlaying = audioPlayer.playingState.isPlaying && audioPlayer.playlistID === COLLECTION_NAME;
@@ -66,7 +65,7 @@ const AllBeatmapsCollection = ({ select }) => {
 
   return (
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: -1 }}>
-      <CollectionCover artWorks={artWorks} onPlay={handlePlay} isPlaying={isPlaying} />
+      <CollectionCover artWorksIds={artWorksIds} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>All</p>
       <p className={classes.beatmapCount}>{`${beatmapsCount} songs`}</p>
     </div>

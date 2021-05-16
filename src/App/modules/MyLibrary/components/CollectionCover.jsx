@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
+import { useSelector } from 'react-redux';
+import { resolveThumbURL } from '../../../../shared/PpyHelpers.bs';
 import pauseSvg from '../../../assets/img/pause-button.svg';
 import playSvg from '../../../assets/img/play-button.svg';
+import { getOsuPath } from '../../Settings/reducer/selectors';
 
 const useStyle = createUseStyles({
   collectionCoverWrapper: {
@@ -37,7 +40,12 @@ const useStyle = createUseStyles({
   },
 });
 
-const CollectionCover = ({ artWorks, onPlay, isPlaying }) => {
+const CollectionCover = ({ artWorksIds = [], onPlay, isPlaying }) => {
+  const [artWorks, setArtWorks] = useState([]);
+  const osuPath = useSelector(getOsuPath);
+  useEffect(() => {
+    Promise.all(artWorksIds.map(artworkId => resolveThumbURL(artworkId, osuPath))).then(setArtWorks);
+  }, [artWorksIds.length]);
   const classes = useStyle({ isPlaying });
   const handlePlay = e => {
     e.stopPropagation();

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
-import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
 import { makePlaylist, getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
@@ -48,7 +47,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
   const osuSongPath = useSelector(getOsuSongPath);
   const audioPlayer = useAudioPlayer();
 
-  const [artWorks, setArtWorks] = useState([]);
+  const [artWorksIds, setArtWorksIds] = useState([]);
 
   const getBeatmapsList = useCallback(() => {
     const beatmapList = [];
@@ -61,21 +60,20 @@ const Collection = ({ name, beatmapsHash, select }) => {
     return beatmapList;
   }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
-  const getCoverArtworks = useCallback(() => {
-    const artWorksUrls = [];
+  const getCoverArtworksIds = useCallback(() => {
+    const artWorksIds = [];
     for (let i = beatmapsHash.length - 1; i >= 0; i -= 1) {
       const maybeItem = containsMD5(beatmapsHash[i]);
       if (typeof maybeItem !== 'undefined') {
-        const url = getListCoverUrl(maybeItem.id);
-        if (!artWorksUrls.includes(url)) artWorksUrls.push(url);
+        if (!artWorksIds.includes(maybeItem.id)) artWorksIds.push(maybeItem.id);
       }
-      if ((beatmapsHash.length < 4 && artWorksUrls.length >= 1) || artWorksUrls.length >= 4) break;
+      if ((beatmapsHash.length < 4 && artWorksIds.length >= 1) || artWorksIds.length >= 4) break;
     }
-    return artWorksUrls;
+    return artWorksIds;
   }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
   useEffect(() => {
-    setArtWorks(() => getCoverArtworks());
+    setArtWorksIds(() => getCoverArtworksIds());
   }, [ready, beatmapsHash.length, beatmapsHash[beatmapsHash.length - 1]]);
 
   const isPlaying = audioPlayer.playingState.isPlaying && audioPlayer.playlistID === name;
@@ -102,7 +100,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
 
   return (
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: beatmapsHash.length ? 0 : 1 }}>
-      <CollectionCover artWorks={artWorks} onPlay={handlePlay} isPlaying={isPlaying} />
+      <CollectionCover artWorksIds={artWorksIds} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>{name}</p>
       <p className={classes.beatmapCount}>{`${beatmapsHash.length} beatmaps`}</p>
     </div>

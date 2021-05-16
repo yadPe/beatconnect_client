@@ -1,5 +1,6 @@
 import { shell } from 'electron';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
 import reqImgAssets from '../../../helpers/reqImgAssets';
@@ -9,8 +10,9 @@ import { useDownloadQueue } from '../../../Providers/downloadManager';
 import NewButton from '../../common/newButton';
 import config from '../../../../shared/config';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
-import { getListCoverUrl } from '../../../../shared/PpyHelpers.bs';
+import { resolveThumbURL } from '../../../../shared/PpyHelpers.bs';
 import useBeatmapSong from '../../../Providers/AudioPlayer/useBeatmapSong';
+import { getOsuPath } from '../../Settings/reducer/selectors';
 
 const useStyle = createUseStyles({
   listItem: {
@@ -83,7 +85,7 @@ const useStyle = createUseStyles({
     marginLeft: '15px',
     display: 'flex',
   },
-  ellipsis: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', margin:0, },
+  ellipsis: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', margin: 0 },
 });
 
 const BeatmapListItem = ({ index, style, data }) => {
@@ -93,6 +95,12 @@ const BeatmapListItem = ({ index, style, data }) => {
   const isLibraryMode = itemMode === 'library';
   const item = items[index];
   const { id, title, artist } = item;
+
+  const osuPath = useSelector(getOsuPath);
+  const [artworkURL, setArtWorkURL] = useState('');
+  useEffect(() => {
+    resolveThumbURL(id, osuPath).then(setArtWorkURL);
+  }, []);
 
   const history = useDownloadHistory();
   const { push, pauseResumeDownload, currentDownload, cancelDownload } = useDownloadQueue();
@@ -128,7 +136,7 @@ const BeatmapListItem = ({ index, style, data }) => {
         <div
           className={`${classes.thumbnail} thumbnail`}
           style={{
-            backgroundImage: `url(${getListCoverUrl(id)})`,
+            backgroundImage: `url(${artworkURL})`,
           }}
         >
           <div
@@ -141,10 +149,14 @@ const BeatmapListItem = ({ index, style, data }) => {
           />
         </div>
         <div className={classes.title}>
-          <p title={title} className={classes.ellipsis}>{title}</p>
+          <p title={title} className={classes.ellipsis}>
+            {title}
+          </p>
         </div>
         <div className={classes.artist}>
-          <p title={artist} className={classes.ellipsis}>{artist}</p>
+          <p title={artist} className={classes.ellipsis}>
+            {artist}
+          </p>
         </div>
         {isDownloadMode && isDownloading && (
           <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
