@@ -31,6 +31,7 @@ const makeMainWindowSettings = () => {
       backgroundColor: '#000',
       webPreferences: {
         nodeIntegration: true,
+        contextIsolation: false,
         webSecurity: false,
         // FIXME: When migrating to electron 13
         enableRemoteModule: true,

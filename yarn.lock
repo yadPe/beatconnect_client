@@ -2486,10 +2486,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^12.0.12":
-  version: 12.20.7
-  resolution: "@types/node@npm:12.20.7"
-  checksum: 0c12d32c14bfc3c91431592d1063c31d0267c14471bba6fa0907dd618eedf50acd7f3ff16ee441a53807058819c09354d9343798f710a975b447792e39c3b940
+"@types/node@npm:^14.6.2":
+  version: 14.17.2
+  resolution: "@types/node@npm:14.17.2"
+  checksum: 7a2e90989ce2948d3cdfc1d15fb5f0439ea53971d81a466ad049922bb23ef38252f6639271ae5899670ab93d48ed62542ad687767e45ffa6fe902ce59f518e5b
   languageName: node
   linkType: hard
 
@@ -3814,7 +3814,7 @@ __metadata:
     discord-rpc: ^3.2.0
     dotenv: 6.2.0
     dotenv-expand: 5.1.0
-    electron: ^11.1.1
+    electron: ^13.1.0
     electron-builder: ^22.9.1
     electron-devtools-installer: ^3.1.1
     electron-is-dev: ^1.1.0
@@ -6333,16 +6333,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:^11.1.1":
-  version: 11.4.2
-  resolution: "electron@npm:11.4.2"
+"electron@npm:^13.1.0":
+  version: 13.1.1
+  resolution: "electron@npm:13.1.1"
   dependencies:
     "@electron/get": ^1.0.1
-    "@types/node": ^12.0.12
+    "@types/node": ^14.6.2
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: ff7acad3fbae129b8f14c7b1e9cc4be03d2589ac60759cd312505336b7c0b2c35f0f7fac969781c000bebf6f9f70265420001ffa5bac18054d0407d4fe26e569
+  checksum: 21875e8cb04f992c93b06cd47cc94b89bb14d144e4d5eda0fbdba214d0d6d307c87efe93a57fdc0c7160a8cf49460656d50c7532e2c16d57e04fa69bf2cbfabf
   languageName: node
   linkType: hard
 
