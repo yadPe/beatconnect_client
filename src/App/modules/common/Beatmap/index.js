@@ -109,12 +109,13 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
     <div className={classes.Beatmap}>
       {beatmap && (
         <>
-          {beatmap.status && <Badge style={{ position: 'absolute', top: '4%', right: '1%' }} status={beatmap.status} />}
+          {/* {beatmap.status && <Badge style={{ position: 'absolute', top: '4%', right: '1%' }} status={beatmap.status} />} */}
           <Cover
             url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`}
             height={130}
             noFade={noFade}
             roundedTop
+            beatmapSet={beatmap}
           />
           <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%' }}>
             <p className={classes.Row}>

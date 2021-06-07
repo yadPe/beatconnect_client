@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import config from '../../../../shared/config';
+import BeatmapDetails from './BeatmapDetails';
 
-const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad = true }) => {
+const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad = true, beatmapSet }) => {
   const [loaded, isLoaded] = useState(false);
   const coverRef = useRef();
   useEffect(() => {
@@ -29,7 +30,11 @@ const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad 
     backgroundImage: loaded && `url('${url}')`,
     backgroundColor: 'rgba(255, 255, 255, 0.02)',
   };
-  return <div className="cover" style={style} />;
+  return (
+    <div className="cover" style={style}>
+      <BeatmapDetails beatmapSet={beatmapSet} />
+    </div>
+  );
 };
 
 export default Cover;
