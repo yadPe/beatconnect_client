@@ -2,7 +2,7 @@ import apiConstant from './apiConstant';
 
 export default {
   osu: 'https://osu.ppy.sh',
-  beatconnect: 'https://beatconnect.io',
+  beatconnect: 'https://beatconnect.io/api',
   api: {
     ...apiConstant,
   },
