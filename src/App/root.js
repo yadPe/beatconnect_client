@@ -12,7 +12,8 @@ import { make as AudioPlayerProvider } from './Providers/AudioPlayer/Audioplayer
 import dispatchOnResize from './resize';
 import { makeServer } from '../mirage';
 
-if (process.env.BEATCONNECT_CLIENT_MIRAGE) {
+console.log('BEATCONNECT_CLIENT_MIRAGE', process.env.BEATCONNECT_CLIENT_MIRAGE);
+if (process.env.BEATCONNECT_CLIENT_MIRAGE === '1') {
   makeServer({ environment: 'development' });
 }
 
