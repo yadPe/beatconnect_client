@@ -1,0 +1,846 @@
+[
+  {
+    "id": 595,
+    "name": "Weekly Pack 2021 #13 (Std)",
+    "description": "Weekly beatmap packs for the week 13 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-29T00:00:00",
+    "date_to": "2021-04-04T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      { "id": 1362119, "artist": "SawanoHiroyuki[nZk]:ReoNa", "title": "time (TV Size)", "unique_id": "fzG613LX" },
+      { "id": 1361718, "artist": "serial TV drama", "title": "Tougenkyou Alien (TV Size)", "unique_id": "Zm3AnwP2" },
+      { "id": 1373779, "artist": "Hashimoto Miyuki", "title": "SHINY MOON", "unique_id": "L5JU97Qi" },
+      { "id": 1418152, "artist": "Pendulum", "title": "The Fountain (feat. Steven Wilson)", "unique_id": "Qm7ByTsK" },
+      { "id": 1030093, "artist": "Thaehan", "title": "Ohayou !", "unique_id": "kZTzYgHx" },
+      { "id": 1097046, "artist": "Hanasakuya", "title": "Hyakka wa Gekka ni Chirinuru o", "unique_id": "extZFavk" },
+      {
+        "id": 1355438,
+        "artist": "OSTER project feat. Sister MAYO",
+        "title": "Mamama*Magical",
+        "unique_id": "1shsPqsG"
+      },
+      { "id": 1360831, "artist": "Unlucky Morpheus", "title": "Angreifer", "unique_id": "ijD3yrDU" },
+      { "id": 1358634, "artist": "HoneyWorks feat. Hanon x Kotoha", "title": "Sis x Love", "unique_id": "TEtRWmra" },
+      { "id": 1353578, "artist": "Ohara Yuiko", "title": "Only (TV Size)", "unique_id": "i1wVPBAs" },
+      { "id": 1231251, "artist": "Narumi", "title": "Streaming Heart", "unique_id": "JrwfR4fi" },
+      { "id": 1274027, "artist": "Team Grimoire vs. Laur", "title": "Grievous Lady", "unique_id": "DaPxv8Mm" },
+      { "id": 1349870, "artist": "sweet ARMS", "title": "Blade of Hope (TV Size)", "unique_id": "N0spA5Cf" },
+      { "id": 1190470, "artist": "factal", "title": "Flux", "unique_id": "E4Jx8E8k" },
+      { "id": 1395240, "artist": "Uru", "title": "remember", "unique_id": "84VkETR4" },
+      { "id": 1370243, "artist": "Camellia", "title": "Nacreous Snowmelt", "unique_id": "G9cHTJja" },
+      { "id": 1242330, "artist": "Nanako", "title": "CIRCUS U CRIC", "unique_id": "99MAYstY" },
+      { "id": 939512, "artist": "Nakiri Ayame", "title": "Kaishin no Ichigeki!", "unique_id": "gDbHxM08" },
+      { "id": 69763, "artist": "xi", "title": "Halcyon", "unique_id": "AKLMxQyA" },
+      { "id": 1374903, "artist": "UNDEAD", "title": "Valentine Eve's Nightmare", "unique_id": "InLUZ6VW" },
+      { "id": 1376431, "artist": "Porter Robinson", "title": "Sad Machine (Lexurus Remix)", "unique_id": "wIl84MKa" },
+      { "id": 972025, "artist": "Three feat. Kagamine Len", "title": "Telecaster B-boy", "unique_id": "YyEfb0bd" },
+      { "id": 1418244, "artist": "Vintage", "title": "Roman (Cut Ver.)", "unique_id": "kPOL7Mty" },
+      { "id": 1288315, "artist": "THE ORAL CIGARETTES", "title": "S-LOW (Cut Ver.)", "unique_id": "FD2lBD6N" },
+      { "id": 1398874, "artist": "love solfege", "title": "La Fatalite", "unique_id": "MWJDIGj4" },
+      { "id": 1017972, "artist": "Junky Infinity ChouCho", "title": "Kagaribi", "unique_id": "re7WWn7k" },
+      {
+        "id": 528572,
+        "artist": "Maeda Jun x yanaginagi",
+        "title": "Hifukiyama no Mahoutsukai",
+        "unique_id": "ofYg3544"
+      },
+      { "id": 1358032, "artist": "The Herb Shop", "title": "Sage", "unique_id": "F5m775hQ" },
+      { "id": 1400828, "artist": "Yamazaki Moe", "title": "Kotodama Tsumugu Mirai", "unique_id": "OrMEIKGB" },
+      { "id": 1234080, "artist": "HO-KAGO TEA TIME", "title": "Kira Kira Days", "unique_id": "j7Al2TpY" },
+      { "id": 1270156, "artist": "Tenjin Kotone", "title": "Darling Dance", "unique_id": "IJGozBpK" },
+      { "id": 1405040, "artist": "Sakamoto Maaya", "title": "Yakudou", "unique_id": "3Rqll4mi" },
+      { "id": 1198905, "artist": "Rameses B", "title": "Stardew", "unique_id": "ewavDi0c" },
+      { "id": 1396532, "artist": "Asriel", "title": "Shiroi Yoru Hamon o Utsusu Yami", "unique_id": "sJgiR1xe" },
+      { "id": 1280204, "artist": "technoplanet", "title": "Juvenile", "unique_id": "U1WDX3Jy" },
+      { "id": 1081579, "artist": "Kamex + Brotad", "title": "Great Canyon Remix", "unique_id": "MTc6c6IT" },
+      { "id": 1348040, "artist": "Duca", "title": "Koiiro Sekai", "unique_id": "IEF3b9xj" },
+      { "id": 1177853, "artist": "TUYU", "title": "Namikare", "unique_id": "mdidsfAk" },
+      { "id": 1390855, "artist": "Hatena", "title": "Koe? (TV Size)", "unique_id": "pREOMFao" },
+      { "id": 1280657, "artist": "Vansire", "title": "Every Time Around", "unique_id": "yzNLbIy5" },
+      { "id": 1354017, "artist": "PolyphonicBranch", "title": "Aru Shoujo no Senzai Ishiki", "unique_id": "MTQGX9Gb" },
+      { "id": 1121781, "artist": "Aimer", "title": "Ref:rain (TV Size)", "unique_id": "yeEtwt9i" },
+      { "id": 1410727, "artist": "YUZUKINGDOM", "title": "Roskill Lavender", "unique_id": "oWNfZ8JQ" }
+    ]
+  },
+  {
+    "id": 597,
+    "name": "Weekly Pack 2021 #13 (Mania)",
+    "description": "Weekly beatmap packs for the week 13 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-29T00:00:00",
+    "date_to": "2021-04-04T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      {
+        "id": 1329899,
+        "artist": "BlackY",
+        "title": "AlphaOmega (Evolutionary Extended ver.)",
+        "unique_id": "9sjP6br1"
+      },
+      { "id": 1224402, "artist": "Street", "title": "Sakura Fubuki", "unique_id": "qLjp1MUG" },
+      {
+        "id": 989247,
+        "artist": "Nanamori-chu * Goraku-bu",
+        "title": "100% Chu~Gakusei (TV Size)",
+        "unique_id": "A4zo792v"
+      },
+      { "id": 1101599, "artist": "Hachito", "title": "Floating", "unique_id": "RirOvrrD" },
+      { "id": 1274961, "artist": "Ueda Reina", "title": "Literature (TV Size)", "unique_id": "bByUObar" },
+      { "id": 1193846, "artist": "BlackYooh vs. siromaru", "title": "BLACK or WHITE?", "unique_id": "phdZSvAD" }
+    ]
+  },
+  {
+    "id": 599,
+    "name": "Weekly Pack 2021 #13 (Ctb)",
+    "description": "Weekly beatmap packs for the week 13 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-29T00:00:00",
+    "date_to": "2021-04-04T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      { "id": 1334111, "artist": "Igorrr", "title": "Pavor Nocturnus", "unique_id": "NBepIU46" },
+      { "id": 1393068, "artist": "Zekk", "title": "SUMMER", "unique_id": "k9Sem5Aq" },
+      { "id": 1183643, "artist": "BABYMETAL", "title": "Road of Resistance", "unique_id": "jIrBGZwa" },
+      { "id": 1295206, "artist": "Risshuu feat. Choko", "title": "Take", "unique_id": "EkJJRn1j" },
+      { "id": 1202469, "artist": "SPYAIR", "title": "Imagination (TV Size)", "unique_id": "3ZpDsh9a" }
+    ]
+  },
+  {
+    "id": 601,
+    "name": "Weekly Pack 2021 #13 (Taiko)",
+    "description": "Weekly beatmap packs for the week 13 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-29T00:00:00",
+    "date_to": "2021-04-04T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 1405692, "artist": "Tsunomaki Watame", "title": "Watame no Komoriuta", "unique_id": "5nKU39Um" },
+      {
+        "id": 1398744,
+        "artist": "TryHardNinja",
+        "title": "Revenge (feat. CaptainSparklez) (ReeK's \"Dude, What's A Genre?\" Remix)",
+        "unique_id": "gl4cFpxO"
+      },
+      { "id": 1346268, "artist": "Akiyama Uni feat. JUN", "title": "Chitei ni Saku Bara", "unique_id": "alQJh85Q" },
+      { "id": 1404267, "artist": "Porter Robinson", "title": "Divinity (feat. Amy Millan)", "unique_id": "5lHKhq6J" },
+      { "id": 1320779, "artist": "Lucrezia (CV: kurokumo)", "title": "Kaede", "unique_id": "zThpD3Bg" },
+      { "id": 1391235, "artist": "fhana", "title": "Kimi to Iu Tokuiten [singular you]", "unique_id": "UYU38rfx" },
+      { "id": 1410712, "artist": "C418", "title": "Danny (Cut Ver.)", "unique_id": "OV8n5m2W" },
+      { "id": 1336669, "artist": "cute girls doing cute things", "title": "Let's Go!", "unique_id": "s7688zHe" },
+      {
+        "id": 1396458,
+        "artist": "tiku sens",
+        "title": "fly a rocket to the center of your heart",
+        "unique_id": "s4tPP3Pi"
+      },
+      { "id": 569172, "artist": "witch's slave", "title": "artefatto vita", "unique_id": "nMycTIfW" },
+      { "id": 1289196, "artist": "Nekrogoblikon", "title": "Powercore", "unique_id": "iZYW0BLj" }
+    ]
+  },
+  {
+    "id": 581,
+    "name": "Weekly Pack 2021 #12 (Std)",
+    "description": "Weekly beatmap packs for the week 12 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-22T00:00:00",
+    "date_to": "2021-03-28T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      { "id": 1376110, "artist": "yuki", "title": "Yoake no Katasumi de", "unique_id": "U6JjIhcl" },
+      { "id": 1213183, "artist": "IV OF SPADES", "title": "Mundo", "unique_id": "9UXAo0XE" },
+      { "id": 1338846, "artist": "Yousei Teikoku", "title": "Dea x Crisis", "unique_id": "gWiSafW5" },
+      { "id": 1283252, "artist": "IOSYS", "title": "Doutei Korose (Cut Ver.)", "unique_id": "lRhxQ6Uw" },
+      { "id": 1333508, "artist": "TUYU", "title": "Loser Girl", "unique_id": "Nd9rsjZe" },
+      { "id": 1258675, "artist": "SOUND HOLIC vs. dj TAKA feat. YURiCa", "title": "TIEFSEE", "unique_id": "PYhi0Wvp" },
+      { "id": 1325579, "artist": "Jun Kuroda", "title": "Cybernetics", "unique_id": "4nDjYwvP" },
+      { "id": 1319384, "artist": "Amidst & OHEY", "title": "Need U (Cut Ver.)", "unique_id": "Ixsf0ysE" },
+      { "id": 1411068, "artist": "Hanatan", "title": "CLAP HIP CHERRY", "unique_id": "u8JPD16k" },
+      { "id": 1371662, "artist": "Mics!!", "title": "PAINT IT!!", "unique_id": "KgC2x9a3" },
+      { "id": 902055, "artist": "Aitsuki Nakuru", "title": "Qualia no Rinkaku", "unique_id": "PJ6eD9zF" },
+      { "id": 1267439, "artist": "Hayami Saori", "title": "Yasashii Kibou (TV Size)", "unique_id": "DYDR3Q2a" },
+      { "id": 1363372, "artist": "Ayumi. (Astilbe x arendsii)", "title": "blooming symphony", "unique_id": "ICbC9RMu" },
+      {
+        "id": 1181454,
+        "artist": "Tomita Miyu, Onishi Saori, Ohzora Naomi, Hanazawa Kana",
+        "title": "Hallelujah*Essaim",
+        "unique_id": "yzErN9N2"
+      },
+      { "id": 1363677, "artist": "ClariS", "title": "Connect -Orchestra ver.- (Short Ver.)", "unique_id": "jMHRCMJq" },
+      { "id": 1400312, "artist": "MIMI", "title": "Shijima ni Saku (Cut Ver.)", "unique_id": "4ldE5sKA" },
+      { "id": 1358359, "artist": "Hiromi Sato", "title": "Jiyuu no Hane", "unique_id": "C0iDOLJN" },
+      { "id": 1086343, "artist": "MYTH & ROID", "title": "TIT FOR TAT (TV Size)", "unique_id": "mNgSP7JK" },
+      { "id": 1361484, "artist": "MY FIRST STORY", "title": "LEADER (TV Size)", "unique_id": "b3HjPuhi" },
+      {
+        "id": 1386826,
+        "artist": "Nekomata Master feat. ATSUMI UEDA",
+        "title": "Anelis (Long Ver.)",
+        "unique_id": "qO5EPZdW"
+      },
+      {
+        "id": 981728,
+        "artist": "Andrea Boma Boccarusso",
+        "title": "Iconic Metal Riff Compilation",
+        "unique_id": "xp3VnA3c"
+      },
+      { "id": 1289177, "artist": "ZAQ", "title": "JOURNEY", "unique_id": "zwhotKyN" },
+      { "id": 1340043, "artist": "Archspire", "title": "A Dark Horizontal", "unique_id": "9nFsKT6u" },
+      { "id": 1293728, "artist": "Ayane", "title": "Kamisama no Syndrome", "unique_id": "R3JFtkwN" },
+      { "id": 1337432, "artist": "SECONDWALL", "title": "Beautiful Lie", "unique_id": "xpCULoW9" },
+      { "id": 1394375, "artist": "Okazaki Taiiku feat. Beverly", "title": "Koko", "unique_id": "pK8MNuQo" },
+      { "id": 1320797, "artist": "Nanahira", "title": "Petals", "unique_id": "HQE4MwO3" },
+      {
+        "id": 1274068,
+        "artist": "Mifune Shioriko (CV: Koizumi Moeka)",
+        "title": "Ketsui no Hikari",
+        "unique_id": "Xhfce53w"
+      },
+      { "id": 1402367, "artist": "Mimori Suzuko", "title": "Univer Page", "unique_id": "OPjmeHch" },
+      { "id": 1221791, "artist": "LeaF", "title": "Monkey Business -Satire mix-", "unique_id": "x2BLQfZS" },
+      { "id": 1373879, "artist": "Ogura Yui", "title": "Clear Morning", "unique_id": "WiaZeelV" },
+      {
+        "id": 1376769,
+        "artist": "Yu_Asahina feat. charmaco",
+        "title": "Daini Wakusei Keikaku ~2nd Planet o.p.~",
+        "unique_id": "t23iOnRz"
+      },
+      { "id": 1319816, "artist": "Aimer", "title": "Kyou kara Omoide Evergreen ver.", "unique_id": "lA5BDwbP" },
+      { "id": 1344390, "artist": "YOASOBI", "title": "Kaibutsu (TV Size)", "unique_id": "a7jpkN9D" },
+      {
+        "id": 1195197,
+        "artist": "Chitanda Eru (CV: Satou Satomi), Ibara Mayaka (CV: Kayano Ai)",
+        "title": "Kimi ni Matsuwaru Mystery (TV Size)",
+        "unique_id": "VLdWOIzK"
+      },
+      { "id": 1341769, "artist": "Unknown Artist", "title": "PROJECT X ZONE (US Opening)", "unique_id": "LCoATXUV" },
+      { "id": 1381386, "artist": "Shinomiya Kaguya (CV: Koga Aoi)", "title": "Kotae Awase", "unique_id": "eFiQlsjP" },
+      { "id": 1318186, "artist": "Isekai Joucho", "title": "Tomedonaki Hakujou", "unique_id": "u1ieGX1j" },
+      { "id": 1312114, "artist": "Asaka", "title": "Eternal Star", "unique_id": "DXDkOebj" },
+      { "id": 1145949, "artist": "LiSA", "title": "Shirushi (TV Size)", "unique_id": "cuOciwwf" },
+      { "id": 1242304, "artist": "Camellia feat. Luschel", "title": "Night Fog", "unique_id": "2SSFoyIX" },
+      { "id": 1325736, "artist": "eyelis", "title": "Kizuna ni Nosete", "unique_id": "JceTRmyB" },
+      { "id": 1365872, "artist": "yuki", "title": "Tsumetai Kabe no Mukou ni", "unique_id": "wSgA3vJx" },
+      { "id": 1359649, "artist": "Ohara Yuiko", "title": "Only (TV Size)", "unique_id": "e9IIbMEe" },
+      { "id": 1404084, "artist": "Serena (CV: Makiguchi Mayuki)", "title": "Dori Dori", "unique_id": "omdxpGNK" },
+      { "id": 1351876, "artist": "Maison book girl", "title": "snow irony_", "unique_id": "by4quarU" },
+      { "id": 1355629, "artist": "Laura Shigihara", "title": "Don't Forget", "unique_id": "V9k0PV1t" },
+      { "id": 1383336, "artist": "YURiKA", "title": "Kyoumen no Nami", "unique_id": "KALlAKEz" },
+      { "id": 1250654, "artist": "ClariS", "title": "Connect", "unique_id": "2sAf0Zkw" }
+    ]
+  },
+  {
+    "id": 585,
+    "name": "Weekly Pack 2021 #12 (Mania)",
+    "description": "Weekly beatmap packs for the week 12 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-22T00:00:00",
+    "date_to": "2021-03-28T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      { "id": 1207984, "artist": "Poppin'Party", "title": "final phase", "unique_id": "SXp90XL7" },
+      { "id": 1262843, "artist": "CaraCORE/Brank", "title": "Thunderstorm Catastrophe", "unique_id": "pNkKDoPC" },
+      { "id": 1264866, "artist": "Kawada Mami", "title": "INITIATIVE", "unique_id": "bk6kOIIF" },
+      {
+        "id": 1348758,
+        "artist": "Infected Mushroom & BLiSS",
+        "title": "Ani Mevushal (Cut Ver.)",
+        "unique_id": "9ZVW5aN6"
+      },
+      { "id": 1111192, "artist": "CHUBAY", "title": "Itadaki", "unique_id": "Gp51SvE7" },
+      {
+        "id": 1161543,
+        "artist": "t+pazolite",
+        "title": "Satisfiction (Massive New Krew Remix)",
+        "unique_id": "jJd6ELUb"
+      }
+    ]
+  },
+  {
+    "id": 589,
+    "name": "Weekly Pack 2021 #12 (Ctb)",
+    "description": "Weekly beatmap packs for the week 12 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-22T00:00:00",
+    "date_to": "2021-03-28T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      { "id": 1333640, "artist": "D-51", "title": "BRAND NEW WORLD (TV Size)", "unique_id": "crS3F0bQ" },
+      { "id": 1379745, "artist": "GYZE", "title": "HONESTY", "unique_id": "L4y1sIPm" },
+      { "id": 1262361, "artist": "Neru", "title": "Byoumei wa Ai Datta", "unique_id": "xZuqJ3F3" },
+      { "id": 1356311, "artist": "TRUE", "title": "From (TV Size)", "unique_id": "Gwjild2q" },
+      { "id": 1361523, "artist": "Fuki", "title": "Bloody Rain", "unique_id": "PfNMvZxo" },
+      { "id": 1408937, "artist": "suzie", "title": "Chug Jug With You (Short Ver.)", "unique_id": "4qdVqkRy" },
+      { "id": 1350712, "artist": "Laur", "title": "Vindication", "unique_id": "gNmdmENG" },
+      { "id": 1383242, "artist": "solfa feat. Ceui", "title": "primal", "unique_id": "MLM5VcMj" }
+    ]
+  },
+  {
+    "id": 593,
+    "name": "Weekly Pack 2021 #12 (Taiko)",
+    "description": "Weekly beatmap packs for the week 12 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-22T00:00:00",
+    "date_to": "2021-03-28T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 1207984, "artist": "Poppin'Party", "title": "final phase", "unique_id": "SXp90XL7" },
+      {
+        "id": 1340739,
+        "artist": "Unlucky Morpheus",
+        "title": "Sono Tamashii ni Yasuragi o ~ Dignity of Spirit",
+        "unique_id": "GppxSFKs"
+      },
+      { "id": 1265617, "artist": "Yasui Yousuke", "title": "YO-KAI Disco", "unique_id": "EOYMgDX7" },
+      { "id": 1286973, "artist": "Eyemedia", "title": "Bloody Purity", "unique_id": "Ijyq3nNS" },
+      { "id": 1351254, "artist": "Suzuyu", "title": "Euphorium (Lemon beads Remix)", "unique_id": "cmJPXBia" },
+      { "id": 1292111, "artist": "Sugimori Masakazu", "title": "Tsuikyuu ~ Oitsumerarete", "unique_id": "r2hCnTTR" },
+      { "id": 869714, "artist": "Kobaryo", "title": "northern_limit [feat. Sennzai]", "unique_id": "OJURyVxu" },
+      { "id": 1403609, "artist": "suzie", "title": "Chug Jug With You (Short Ver.)", "unique_id": "RrOgdERd" },
+      { "id": 1306203, "artist": "Hayakore Tatsumi", "title": "Wedding of the Goodbye", "unique_id": "GPG5oajO" },
+      { "id": 1331964, "artist": "Poppin'Party", "title": "Mirai Train", "unique_id": "eE7gP8k1" },
+      {
+        "id": 1336533,
+        "artist": "Houshou Marine with Holoism Fantasy",
+        "title": "Hoihoi*Gensou Holoism",
+        "unique_id": "aTtbNdfk"
+      },
+      {
+        "id": 1343323,
+        "artist": "Diao Ye Zong feat. Meramipop",
+        "title": "Karakurenai no Kage",
+        "unique_id": "wb0NXoS1"
+      }
+    ]
+  },
+  {
+    "id": 580,
+    "name": "Weekly Pack 2021 #11 (Std)",
+    "description": "Weekly beatmap packs for the week 11 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-15T00:00:00",
+    "date_to": "2021-03-21T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      { "id": 1381715, "artist": "zts", "title": "Touhou Suimusou ~phantasmagoria~", "unique_id": "BJEVvAp0" },
+      { "id": 1266506, "artist": "HIMEHINA", "title": "Utakata yo Ikanaide", "unique_id": "FDvysuPC" },
+      { "id": 1280262, "artist": "Coalamode.", "title": "Nanairo Symphony (TV Size)", "unique_id": "J6JqyKSQ" },
+      { "id": 1379890, "artist": "Suara", "title": "Koiyume", "unique_id": "arChRYoW" },
+      { "id": 1301789, "artist": "Shaun Martin", "title": "Madiba", "unique_id": "Y7im2hYq" },
+      { "id": 1379378, "artist": "Isekai Joucho", "title": "Hydrangea", "unique_id": "VAZ6kGwV" },
+      {
+        "id": 879877,
+        "artist": "CHiCO with HoneyWorks meets Nakagawa Shoko",
+        "title": "Mr. Darling (Cut Ver.)",
+        "unique_id": "huMXW8S3"
+      },
+      { "id": 1342280, "artist": "Minagu feat. Aitsuki Nakuru", "title": "Theater Endroll", "unique_id": "bitBsyg2" },
+      { "id": 1195222, "artist": "An", "title": "Amrita feat. Baru", "unique_id": "T5CowMuQ" },
+      { "id": 140944, "artist": "Demetori", "title": "Higan Kikou ~ View of The River Styx", "unique_id": "oXw3l5rM" },
+      { "id": 1235169, "artist": "Morohoshi Sumire", "title": "Masshiro (TV Size)", "unique_id": "Yio3DKzq" },
+      { "id": 1343575, "artist": "Asaka", "title": "Seize The Day (TV Size)", "unique_id": "vPOXDUQM" },
+      { "id": 1384962, "artist": "No:R", "title": "Kurenai no Yaiba", "unique_id": "vvZhsDcU" },
+      { "id": 1349621, "artist": "LiSA", "title": "dawn (TV Size)", "unique_id": "962xtiI3" },
+      { "id": 1282289, "artist": "mary", "title": "Alice in Reitouko", "unique_id": "yoU6UM8B" },
+      { "id": 1336633, "artist": "Falcom Sound Team jdk", "title": "A-TO-Z", "unique_id": "ttoXp9hc" },
+      {
+        "id": 1341393,
+        "artist": "At the Garret x Kekkan Orgel",
+        "title": "A rumor of Black Theater",
+        "unique_id": "QRatZ4BG"
+      },
+      { "id": 1240660, "artist": "Parry Gripp", "title": "Ben 10: Omniverse", "unique_id": "gPjoj6uj" },
+      { "id": 1228487, "artist": "LiSA", "title": "confidence driver (Cut Ver.)", "unique_id": "ah3wH3zw" },
+      { "id": 1348446, "artist": "glaive", "title": "life is pain", "unique_id": "IbsnoUNF" },
+      {
+        "id": 1362028,
+        "artist": "Kara's Walk Home",
+        "title": "Weekend! Party with your Friends!!!",
+        "unique_id": "zR9BadGE"
+      },
+      { "id": 1391589, "artist": "SEBii", "title": "Play Poker Remix (w/Maple) (Cut Ver.)", "unique_id": "J3aGh4XY" },
+      {
+        "id": 1291267,
+        "artist": "Diao Ye Zong feat. Meramipop",
+        "title": "Eiya 'Imperishable Challengers'",
+        "unique_id": "WvXUWZ6q"
+      },
+      {
+        "id": 1280590,
+        "artist": "Camellia",
+        "title": "Compute It With Some Devilish Alcoholic Steampunk Engines",
+        "unique_id": "oMPS8dj4"
+      },
+      { "id": 1328534, "artist": "Ikimonogakari", "title": "Blue Bird (TV Size)", "unique_id": "VdPSpFWS" },
+      { "id": 836980, "artist": "kors k", "title": "Love Is Eternity", "unique_id": "0c2oWLZq" },
+      { "id": 1283652, "artist": "Detox Unit", "title": "Expand", "unique_id": "r3rZWggo" },
+      {
+        "id": 1351335,
+        "artist": "Kasokaso (Prismagic) feat. Sennzai",
+        "title": "Watashi wa Yume to Kimi no Tame ni",
+        "unique_id": "HNJw9Ih4"
+      },
+      { "id": 1378712, "artist": "Tsumugi Wenders (CV: Iwai Emiri)", "title": "Golden Hours", "unique_id": "GhnNHfYT" },
+      { "id": 1388520, "artist": "Oreore-Usagi", "title": "Reset My Refrain", "unique_id": "wWbKSFIw" },
+      {
+        "id": 1101757,
+        "artist": "HMNK feat. TechniKen",
+        "title": "Greatest Memories (Full Version)",
+        "unique_id": "1nXTFq5X"
+      },
+      { "id": 1359944, "artist": "Amidst", "title": "Fate", "unique_id": "ZdGwb6zY" },
+      { "id": 1032915, "artist": "Ryu*", "title": "AGEHA", "unique_id": "eIwtI6nY" },
+      { "id": 1343602, "artist": "Fireflight", "title": "Unbreakable (Sped Up & Cut Ver.)", "unique_id": "aExznQi7" },
+      { "id": 1376812, "artist": "Nekomata Master vs. HuMeR", "title": "BUZRA", "unique_id": "owH9MOVK" },
+      { "id": 1398260, "artist": "Tinashe", "title": "Throw A Fit", "unique_id": "NwaDVzu8" },
+      { "id": 1392533, "artist": "LiSA", "title": "ID", "unique_id": "XmzsfZET" },
+      { "id": 1327294, "artist": "KANAN", "title": "God knows...", "unique_id": "pSvGeoBI" },
+      { "id": 974362, "artist": "Giga feat. Reol", "title": "BRING IT ON", "unique_id": "6RJ73vBe" },
+      { "id": 1307361, "artist": "Kusunoki Tomori", "title": "Romanron", "unique_id": "XPl36SrZ" },
+      { "id": 1199131, "artist": "Prague", "title": "Light Infection (TV Size)", "unique_id": "QLCtPjFA" },
+      { "id": 1384602, "artist": "Kankaku Piero", "title": "Rakugaki Page (TV Size)", "unique_id": "zJO3u87O" },
+      { "id": 1395456, "artist": "Tim Henson", "title": "Blood Moon", "unique_id": "Prc6zZxY" }
+    ]
+  },
+  {
+    "id": 584,
+    "name": "Weekly Pack 2021 #11 (Mania)",
+    "description": "Weekly beatmap packs for the week 11 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-15T00:00:00",
+    "date_to": "2021-03-21T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      { "id": 1212192, "artist": "brz1128 vs. M-UE", "title": "Bloody Marquis", "unique_id": "kLPpiPOY" },
+      { "id": 1276702, "artist": "Eve", "title": "Kaikai Kitan (TV Size)", "unique_id": "itWbRShu" },
+      {
+        "id": 1278929,
+        "artist": "Petit Rabbit's",
+        "title": "Tenkuu Cafeteria (Rabbit House Bootleg Remix)",
+        "unique_id": "S7Cqc3h3"
+      },
+      { "id": 1111387, "artist": "Beach House", "title": "Space Song", "unique_id": "dJesj54e" },
+      { "id": 995007, "artist": "Afterglow", "title": "Pride Kakumei", "unique_id": "R9JbLbbF" },
+      { "id": 1305627, "artist": "Frums", "title": "Star of the COME ON!!", "unique_id": "DyMj2RNK" },
+      { "id": 1286752, "artist": "Morimori Atsushi", "title": "Paradigm Shift (Extended Mix)", "unique_id": "dk1YMqrQ" }
+    ]
+  },
+  {
+    "id": 588,
+    "name": "Weekly Pack 2021 #11 (Ctb)",
+    "description": "Weekly beatmap packs for the week 11 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-15T00:00:00",
+    "date_to": "2021-03-21T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      { "id": 1374094, "artist": "Studio Spot", "title": "Dzien Dobry TVN (TV Size)", "unique_id": "iQ2XnK8d" },
+      {
+        "id": 990553,
+        "artist": "Ne Obliviscaris",
+        "title": "And Plague Flowers The Kaleidoscope",
+        "unique_id": "wANswQih"
+      },
+      { "id": 1400205, "artist": "m108", "title": "XIII Charlotte", "unique_id": "gOEm70bA" },
+      { "id": 1213743, "artist": "Lindsey Stirling", "title": "Master of Tides", "unique_id": "OZlY29Yq" },
+      {
+        "id": 1376932,
+        "artist": "Hanasaka Yui (CV: M.A.O)",
+        "title": "Aozora Morning Glory (TV Size)",
+        "unique_id": "P0er1gNz"
+      }
+    ]
+  },
+  {
+    "id": 592,
+    "name": "Weekly Pack 2021 #11 (Taiko)",
+    "description": "Weekly beatmap packs for the week 11 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-15T00:00:00",
+    "date_to": "2021-03-21T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 1347043, "artist": "Camellia", "title": "SCREW // owo // SCREW", "unique_id": "0YhWzB75" },
+      { "id": 1163878, "artist": "DJ Sharpnel", "title": "Back to the gate", "unique_id": "kBz3JK7c" },
+      { "id": 1384944, "artist": "Hoshino Ongaku Koubou", "title": "pique", "unique_id": "C1ck6dxh" },
+      { "id": 1397782, "artist": "Reku Mochizuki", "title": "Yorixiro", "unique_id": "DD0lPJLw" },
+      { "id": 1071458, "artist": "goreshit", "title": "waste", "unique_id": "aT0cCA2T" },
+      { "id": 1358344, "artist": "Camellia", "title": "DARK THUNDER", "unique_id": "sU9EyNfe" },
+      {
+        "id": 1384070,
+        "artist": "Sawada Maria",
+        "title": "Mirai Kurukuru Yume Kururu! (Ray_Oh dnb Bootleg)",
+        "unique_id": "jswUYP59"
+      },
+      { "id": 1384748, "artist": "toby fox", "title": "sans.", "unique_id": "sSNdwWK6" },
+      { "id": 1336420, "artist": "Pocket Mirror Sound Team", "title": "Reminiscence", "unique_id": "BXpk198Q" },
+      { "id": 1363181, "artist": "TUYU", "title": "Territory Battle", "unique_id": "8wWNCWut" },
+      { "id": 1391246, "artist": "Frums", "title": "XNOR XNOR XNOR", "unique_id": "HHjxvRLC" }
+    ]
+  },
+  {
+    "id": 579,
+    "name": "Weekly Pack 2021 #10 (Std)",
+    "description": "Weekly beatmap packs for the week 10 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-08T00:00:00",
+    "date_to": "2021-03-14T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      {
+        "id": 1349452,
+        "artist": "Mifune Shioriko (CV: Koizumi Moeka)",
+        "title": "Ketsui no Hikari",
+        "unique_id": "h5hpHhRY"
+      },
+      {
+        "id": 1212541,
+        "artist": "Cartoon",
+        "title": "Howling (feat. Asena) (Andromedik Remix)",
+        "unique_id": "alOhjffY"
+      },
+      {
+        "id": 1292131,
+        "artist": "Rita",
+        "title": "Little Busters! ~TV animation ver.~ (TV Size)",
+        "unique_id": "orshRG3a"
+      },
+      { "id": 1332346, "artist": "KOAN Sound & Asa", "title": "Starlite", "unique_id": "AMGQ3SGZ" },
+      { "id": 1345265, "artist": "Karaage Sisters", "title": "1 - 2 - 3 (TV Size)", "unique_id": "rEbFjhx7" },
+      { "id": 1370492, "artist": "SawanoHiroyuki[nZk]:ReoNa", "title": "time (TV Size)", "unique_id": "LN9yHdt4" },
+      { "id": 1293131, "artist": "Yorushika", "title": "Ano Natsu ni Sake", "unique_id": "B6wYf7fR" },
+      { "id": 1127355, "artist": "Asaka", "title": "SHINY DAYS (TV Size)", "unique_id": "8y3bkBmV" },
+      { "id": 1347368, "artist": "96neko", "title": "Uso no Hibana", "unique_id": "oImUxlHH" },
+      { "id": 1338539, "artist": "Post Malone", "title": "Wow.", "unique_id": "cjKqujS7" },
+      { "id": 845013, "artist": "Umeboshi Chazuke", "title": "Panic! Pop'n! Picnic!", "unique_id": "VYpFTJRi" },
+      { "id": 1084605, "artist": "PSYQUI", "title": "Hype feat. Such", "unique_id": "D75hvIix" },
+      { "id": 1396156, "artist": "Origami Angel", "title": "The Title Track", "unique_id": "ZkAA5mVO" },
+      {
+        "id": 1339503,
+        "artist": "glass beach",
+        "title": "classic j dies and goes to hell part 1",
+        "unique_id": "m5iXDuyW"
+      },
+      { "id": 1353084, "artist": "Shimotsuki Haruka", "title": "Kaisetsu no Yomi", "unique_id": "Wb7IteXw" },
+      { "id": 1316097, "artist": "Kaede To Kyo Aki Ame Kuzu", "title": "Q", "unique_id": "RBq72H2r" },
+      { "id": 591816, "artist": "Ayane", "title": "Azurite no Hitsugi", "unique_id": "QAtKnyOF" },
+      { "id": 1080899, "artist": "oesterreich", "title": "Munou (TV Size)", "unique_id": "qinfkLI5" },
+      { "id": 1386045, "artist": "TRUE", "title": "Another colony (TV Size)", "unique_id": "6eW0kYMf" },
+      { "id": 1389904, "artist": "Camellia", "title": "Racemization", "unique_id": "cyeWSlA6" },
+      { "id": 1276352, "artist": "ZUN", "title": "Desire Drive", "unique_id": "ewpttlcz" },
+      {
+        "id": 1197597,
+        "artist": "Toromaru",
+        "title": "Shounen wa Sora o Tadoru Prog Piano Remix",
+        "unique_id": "pmwcwyLc"
+      },
+      { "id": 1387277, "artist": "tokiwa", "title": "Syuou Sange", "unique_id": "N8b8QxTY" },
+      {
+        "id": 600977,
+        "artist": "Kugimiya Rie & Shiraishi Ryoko",
+        "title": "Karakoi ~Dakara Shoujo wa Koi o Suru~ (TV Size)",
+        "unique_id": "JIP1h5WY"
+      },
+      { "id": 1230500, "artist": "POLKADOT STINGRAY", "title": "ICHIDAIJI", "unique_id": "5IqnAJ4v" },
+      { "id": 1169658, "artist": "ChamJam", "title": "Clover wish (TV Size)", "unique_id": "TpTPzTJ5" },
+      { "id": 1302630, "artist": "Soutaiseiriron", "title": "Genesis SOS", "unique_id": "pSqtas8a" },
+      { "id": 1146727, "artist": "Kotone", "title": "Kagome", "unique_id": "28OsRCBF" },
+      { "id": 1378026, "artist": "Polyphia", "title": "O.D.", "unique_id": "rngs0Mtx" },
+      { "id": 1373933, "artist": "gi(a)rlish number", "title": "Bloom", "unique_id": "YrXOj1My" },
+      {
+        "id": 1274508,
+        "artist": "Ne Obliviscaris",
+        "title": "Devour Me, Colossus (Part I): Blackholes",
+        "unique_id": "xvjF5OpX"
+      },
+      { "id": 1320499, "artist": "Amidst", "title": "Digital", "unique_id": "x0HUVQgi" },
+      {
+        "id": 1345858,
+        "artist": "Iris December Uncry (CV: Hanazono Mei), Noel the Nextseason (CV: Ameba Tsukasa)",
+        "title": "Crying Heart",
+        "unique_id": "wf4x7DXR"
+      },
+      { "id": 1378030, "artist": "nonoc", "title": "Believe in you (TV Size)", "unique_id": "TznBeCRT" },
+      { "id": 1134453, "artist": "sakuzyo", "title": "After Altale", "unique_id": "cKgiMUMG" },
+      { "id": 1317603, "artist": "TRUE", "title": "Sincerely", "unique_id": "vzBShV72" }
+    ]
+  },
+  {
+    "id": 583,
+    "name": "Weekly Pack 2021 #10 (Mania)",
+    "description": "Weekly beatmap packs for the week 10 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-08T00:00:00",
+    "date_to": "2021-03-14T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      { "id": 1378372, "artist": "KASHIWA Daisuke", "title": "Aqua Regia", "unique_id": "5PgZBag5" },
+      { "id": 1395277, "artist": "Pastel*Palettes", "title": "Q&A Recital!", "unique_id": "1b76on5Q" },
+      {
+        "id": 1285818,
+        "artist": "Houshou Marine",
+        "title": "Ahoy!! Warera Houshou Kaizokudan*",
+        "unique_id": "bNyoDBFY"
+      },
+      { "id": 634232, "artist": "BlackY", "title": "Babylon", "unique_id": "pWVPmi47" },
+      { "id": 1169658, "artist": "ChamJam", "title": "Clover wish (TV Size)", "unique_id": "TpTPzTJ5" },
+      { "id": 1202872, "artist": "a crowd of rebellion", "title": "Alone//Dite", "unique_id": "7Y9ImeQw" },
+      {
+        "id": 1185393,
+        "artist": "Camellia",
+        "title": "Proluvies (\"abyssum oblivionis\" Long ver.)",
+        "unique_id": "fL0Dx4Ls"
+      }
+    ]
+  },
+  {
+    "id": 587,
+    "name": "Weekly Pack 2021 #10 (Ctb)",
+    "description": "Weekly beatmap packs for the week 10 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-08T00:00:00",
+    "date_to": "2021-03-14T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      { "id": 1387192, "artist": "YOASOBI", "title": "Encore", "unique_id": "RC9hcBNm" },
+      { "id": 1340010, "artist": "Lime", "title": "8bit Voyager", "unique_id": "kp3UqgOp" },
+      {
+        "id": 1197924,
+        "artist": "Camellia feat. Nanahira",
+        "title": "Looking For A New Adventure",
+        "unique_id": "jj5ErWk2"
+      },
+      { "id": 1276397, "artist": "PELICAN FANCLUB", "title": "Desire (TV Size)", "unique_id": "y9EiImx3" },
+      { "id": 1385279, "artist": "Zekk", "title": "Freefall", "unique_id": "UISnGit3" },
+      {
+        "id": 1264818,
+        "artist": "Umeboshi Chazuke",
+        "title": "Panic! Pop'n! Picnic! (2019 REMASTER)",
+        "unique_id": "kzG2OqrT"
+      },
+      { "id": 1169658, "artist": "ChamJam", "title": "Clover wish (TV Size)", "unique_id": "TpTPzTJ5" },
+      { "id": 1302763, "artist": "Nekomata Master", "title": "Scars of FAUNA", "unique_id": "S67UXOAK" }
+    ]
+  },
+  {
+    "id": 591,
+    "name": "Weekly Pack 2021 #10 (Taiko)",
+    "description": "Weekly beatmap packs for the week 10 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-08T00:00:00",
+    "date_to": "2021-03-14T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 1337389, "artist": "cute girls doing cute things", "title": "Main Heroine", "unique_id": "pVUWe8XU" },
+      { "id": 1323774, "artist": "URBANGARDE", "title": "BAERUNA", "unique_id": "5diSFyNB" },
+      { "id": 1110326, "artist": "Camellia", "title": "Tornado", "unique_id": "c68MtIsL" },
+      {
+        "id": 1236400,
+        "artist": "Momo Belia Deviluke (CV: Toyosaki Aki)",
+        "title": "MORE & MORE",
+        "unique_id": "y9EEcCco"
+      },
+      { "id": 1169658, "artist": "ChamJam", "title": "Clover wish (TV Size)", "unique_id": "TpTPzTJ5" },
+      { "id": 1320872, "artist": "MYUKKE.", "title": "The 89's Momentum", "unique_id": "KddYHdT8" }
+    ]
+  },
+  {
+    "id": 578,
+    "name": "Weekly Pack 2021 #09 (Std)",
+    "description": "Weekly beatmap packs for the week 09 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-01T00:00:00",
+    "date_to": "2021-03-07T00:00:00",
+    "mode": "std",
+    "beatmapsets": [
+      { "id": 1296266, "artist": "GigaP", "title": "LUVORATORRRRRY! ver Reol feat. nqrse", "unique_id": "PhBXsG0k" },
+      { "id": 1388260, "artist": "Tokoyami Towa", "title": "Palette", "unique_id": "l19DuZjf" },
+      { "id": 1167000, "artist": "Mazare & Philip Strand", "title": "Battlecry", "unique_id": "rDPmIRJ1" },
+      {
+        "id": 1361717,
+        "artist": "Empty Peperoncino",
+        "title": "End Roll Empty Peperoncino ver. (Cut Ver.)",
+        "unique_id": "QkCSIDY4"
+      },
+      { "id": 1008155, "artist": "TRUE", "title": "Soundscape", "unique_id": "IVIZxAsf" },
+      { "id": 1385670, "artist": "Empty Peperoncino", "title": "Ame ni Utaeba", "unique_id": "Mx90uD5a" },
+      { "id": 950606, "artist": "xi", "title": "d e a t h p i a n o ~for four pianos~", "unique_id": "cqBa1CJN" },
+      { "id": 1279136, "artist": "Flux Pavilion", "title": "Pull The Trigger (Maduk Remix)", "unique_id": "JSU3KSy5" },
+      {
+        "id": 1125370,
+        "artist": "Sheena Ringo",
+        "title": "Marunouchi Sadistic (neetskills remix)",
+        "unique_id": "o9hvlJ7l"
+      },
+      { "id": 1197802, "artist": "Aoi Eir", "title": "MEMORIA (TV Size)", "unique_id": "PySNq5Wz" },
+      { "id": 1282080, "artist": "tomatoism", "title": "Someone Special", "unique_id": "SIbq4IDO" },
+      { "id": 1344552, "artist": "milet", "title": "Prover", "unique_id": "ejkYrywh" },
+      { "id": 1113378, "artist": "KyoKa", "title": "Kirameki*Chocolaterie", "unique_id": "LYmZpLcv" },
+      { "id": 1340905, "artist": "TrySail", "title": "Utsuroi (Short Ver.)", "unique_id": "NUy3KxYp" },
+      { "id": 1330252, "artist": "URBANGARDE", "title": "BAERUNA", "unique_id": "cTxnGGr7" },
+      {
+        "id": 1362755,
+        "artist": "Annabel, Shimotsuki Haruka",
+        "title": "Izanai no Minasoko ~Iriya mie Lip-Aura~",
+        "unique_id": "5Z8wfpsS"
+      },
+      { "id": 1055241, "artist": "Aphex Twin", "title": "Alberto Balsam", "unique_id": "9Gehb2lJ" },
+      {
+        "id": 1303143,
+        "artist": "REDALiCE feat. Usada Pekora & Sakura Miko",
+        "title": "Peko Miko Daisensou!!",
+        "unique_id": "ndssj74W"
+      },
+      { "id": 1321967, "artist": "ViViD", "title": "BLUE (TV Size)", "unique_id": "BXolTFVT" },
+      { "id": 1339688, "artist": "FROZEN QUALIA", "title": "Graffiti", "unique_id": "nbxYhLdm" },
+      { "id": 1370434, "artist": "Duca", "title": "Clover (Short Ver.)", "unique_id": "ZhiFHeeK" },
+      { "id": 1268824, "artist": "THE BINARY mido", "title": "Ego mo Id mo Tanjun ni", "unique_id": "hvuWcI0E" },
+      { "id": 1371373, "artist": "LeaF", "title": "Kyouki Ranbu (extended ver.)", "unique_id": "XxCGQFUz" },
+      { "id": 1203098, "artist": "PUP", "title": "DVP", "unique_id": "BWwlWAeF" },
+      { "id": 1378720, "artist": "Tanchiky", "title": "Bridge", "unique_id": "LkrFvQPC" },
+      { "id": 1361999, "artist": "Yasuda Rei", "title": "Kimi no Uta (TV Size)", "unique_id": "8mruos4P" },
+      { "id": 1179243, "artist": "Windbell", "title": "Flow of Life (TSAR / Tu Zi ST Remix)", "unique_id": "74lG65ny" },
+      { "id": 1332592, "artist": "PUP", "title": "Scorpion Hill", "unique_id": "g04uvRy0" },
+      { "id": 1375519, "artist": "Tristam", "title": "Children in the Dark", "unique_id": "OxA7EqN3" },
+      { "id": 1386486, "artist": "Selphius", "title": "Blade of Hope (Another Version)", "unique_id": "K2ocpXYV" },
+      { "id": 1385639, "artist": "SawanoHiroyuki[nZk]:ReoNa", "title": "time", "unique_id": "SOfIIhKg" },
+      { "id": 1383986, "artist": "Yoshitani Ayako", "title": "Koi no Orchestra (TV Size)", "unique_id": "AJlD7CCf" },
+      {
+        "id": 1326967,
+        "artist": "Shakira",
+        "title": "Can't Remember to Forget You feat. Rihanna",
+        "unique_id": "fSVoqsO3"
+      },
+      { "id": 1364215, "artist": "Tanchiky & Street", "title": "Empty flow", "unique_id": "ZXooLMID" },
+      { "id": 1349352, "artist": "Yorushika", "title": "Spring Thief", "unique_id": "mMUazPxw" },
+      { "id": 1325799, "artist": "Matsushita", "title": "Kuuchuu Bunkai", "unique_id": "iRUsxSGo" },
+      { "id": 1384619, "artist": "HO-KAGO TEA TIME", "title": "Kira Kira Days (Cut Ver.)", "unique_id": "NsSljUUX" },
+      { "id": 1059169, "artist": "Eve", "title": "We're Still Underground", "unique_id": "GI2WtgZA" },
+      {
+        "id": 897723,
+        "artist": "Dance Gavin Dance",
+        "title": "Open Your Eyes and Look North",
+        "unique_id": "HEAweyyM"
+      },
+      { "id": 627593, "artist": "Camellia feat. Nanahira", "title": "Tsukitourou", "unique_id": "fIwffy7G" },
+      { "id": 1352739, "artist": "Hijirime Laeria", "title": "stlaeria", "unique_id": "JVtGzAi7" },
+      { "id": 1318877, "artist": "Diao Ye Zong feat. Meramipop", "title": "Take no Hana", "unique_id": "Ub88tt37" },
+      { "id": 1366529, "artist": "Sangatsu no Phantasia", "title": "Koi wa Kirai da", "unique_id": "lu09N30X" },
+      { "id": 1379586, "artist": "Shimotsuki Haruka", "title": "Utakata", "unique_id": "h7f7yWTl" },
+      { "id": 1309477, "artist": "Fujikawa Chiai", "title": "Bakemono to Yobarete (TV Size)", "unique_id": "7jCn7zRd" },
+      { "id": 1369270, "artist": "Ryokuoushoku Shakai", "title": "Kesshou", "unique_id": "AOgEbpeq" },
+      {
+        "id": 1257490,
+        "artist": "Alice Schach and the Magic Orchestra",
+        "title": "Give Me a Nightmare",
+        "unique_id": "DBZlIpH4"
+      },
+      { "id": 1380176, "artist": "Snow Man", "title": "Grandeur (TV Size)", "unique_id": "CcZ0QODK" },
+      { "id": 1370601, "artist": "UNIDOTS", "title": "Oboreta Sakana", "unique_id": "5GKNoiWy" },
+      { "id": 1276343, "artist": "Rigel Theatre", "title": "Maple Town Memories", "unique_id": "J6vCRfS7" },
+      { "id": 1385550, "artist": "glaive", "title": "dnd", "unique_id": "ilLac9nN" },
+      {
+        "id": 1383665,
+        "artist": "Tamaki Mari (CV: Minase Inori)",
+        "title": "Koko kara, Koko kara (Solo ver.)",
+        "unique_id": "pLZYyjXL"
+      },
+      { "id": 1385396, "artist": "Nijisanji", "title": "Wonder NeverLand", "unique_id": "tUI1ZtVQ" },
+      { "id": 879615, "artist": "Franchouchou", "title": "Adabana Necromancy (TV Size)", "unique_id": "h1495ozh" },
+      {
+        "id": 981837,
+        "artist": "Hanazawa Kana",
+        "title": "Xin Sheng Qi Mian, Shan E Nan Bian",
+        "unique_id": "jXdx4WyU"
+      },
+      { "id": 1264300, "artist": "Paramore", "title": "Still Into You (Cut Ver.)", "unique_id": "z1B4C3BX" },
+      { "id": 1151696, "artist": "Xanthochroid", "title": "Of Aching Empty Pain", "unique_id": "hM07rvkL" },
+      {
+        "id": 1378997,
+        "artist": "Hua Ling / Miao*Jiang / Yan Ning / kinsen",
+        "title": "Let the Wind Tell You",
+        "unique_id": "GMT5TVCe"
+      }
+    ]
+  },
+  {
+    "id": 582,
+    "name": "Weekly Pack 2021 #09 (Mania)",
+    "description": "Weekly beatmap packs for the week 09 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-01T00:00:00",
+    "date_to": "2021-03-07T00:00:00",
+    "mode": "mania",
+    "beatmapsets": [
+      { "id": 1356026, "artist": "himmel feat. YooSanHyakurei", "title": "Maple Wind", "unique_id": "sdMd8Xku" },
+      { "id": 1103239, "artist": "Shimoji Shino", "title": "God Save The Girls (TV Size)", "unique_id": "5m6Ntfru" },
+      { "id": 1278216, "artist": "Hanatan", "title": "Jishou Mushoku", "unique_id": "aSv26vIz" },
+      {
+        "id": 1297440,
+        "artist": "Kizuna AI",
+        "title": "Hello, Morning (Pa's Lam System Remix)",
+        "unique_id": "BkcYlm23"
+      },
+      {
+        "id": 1231682,
+        "artist": "Mizukara o Enshutsu Suru Otome no Kai",
+        "title": "Girlish Lover (TV Size)",
+        "unique_id": "KgdqFU0Z"
+      }
+    ]
+  },
+  {
+    "id": 586,
+    "name": "Weekly Pack 2021 #09 (Ctb)",
+    "description": "Weekly beatmap packs for the week 09 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-01T00:00:00",
+    "date_to": "2021-03-07T00:00:00",
+    "mode": "ctb",
+    "beatmapsets": [
+      { "id": 1368447, "artist": "Umeboshi Chazuke", "title": "Bison Charge", "unique_id": "PoBIniUi" },
+      {
+        "id": 1330448,
+        "artist": "Daniel Olsen, Jonathan Eng",
+        "title": "Wild Hearts Never Die (feat. Linnea Olsson)",
+        "unique_id": "Vd3r8x2x"
+      },
+      { "id": 1326566, "artist": "nana(Sevencolors)", "title": "chameleon", "unique_id": "9ROKNSj6" },
+      { "id": 1319986, "artist": "Luna", "title": "Shinsekai no Alpha", "unique_id": "3nztmKbG" },
+      { "id": 1366169, "artist": "Yu-Peng Chen @HOYO-MiX", "title": "Qilin's Prance", "unique_id": "kjQKbMUG" },
+      { "id": 1370955, "artist": "REDALiCE", "title": "Pekorap Tropical House Remix", "unique_id": "TWjLMkb7" },
+      {
+        "id": 1297355,
+        "artist": "Syalis Hime (CV: Minase Inori)",
+        "title": "Kaimin! Anmin! Syalist Seikatsu (TV Size)",
+        "unique_id": "Hi7pOai4"
+      }
+    ]
+  },
+  {
+    "id": 590,
+    "name": "Weekly Pack 2021 #09 (Taiko)",
+    "description": "Weekly beatmap packs for the week 09 of the year 2021",
+    "type": "weekly",
+    "date_from": "2021-03-01T00:00:00",
+    "date_to": "2021-03-07T00:00:00",
+    "mode": "taiko",
+    "beatmapsets": [
+      { "id": 1167103, "artist": "Shimomura Yoko", "title": "Atarashii Bouken e!", "unique_id": "nAiNoN6d" },
+      { "id": 1048173, "artist": "red glasses", "title": "\"Schall\" we step?", "unique_id": "D6gLocwa" },
+      { "id": 1329682, "artist": "Murasaki Shion", "title": "KING", "unique_id": "LSAAzf6L" },
+      { "id": 1361550, "artist": "Jake Kaufman", "title": "The Spin Controller", "unique_id": "1Z2kWNVN" },
+      {
+        "id": 1366582,
+        "artist": "Chito (CV: Minase Inori), Yuuri (CV: Kubo Yurika)",
+        "title": "Ugoku, Ugoku",
+        "unique_id": "rQCPD1nT"
+      },
+      { "id": 1371469, "artist": "glaive", "title": "astrid", "unique_id": "TLTJqSq0" },
+      { "id": 1341053, "artist": "Uematsu Nobuo", "title": "One-Winged Angel", "unique_id": "iaJeoBMn" },
+      { "id": 1246314, "artist": "Celldweller", "title": "A Matter of Time", "unique_id": "lTfUGZZm" },
+      { "id": 1235239, "artist": "Rin", "title": "Moriya set 14 ReEdit ~ Native Faith", "unique_id": "fprojqVp" },
+      { "id": 1276230, "artist": "Triodust", "title": "FINALE", "unique_id": "aSQOmdg6" },
+      { "id": 1079752, "artist": "Eve", "title": "Last Dance", "unique_id": "k5auys5x" }
+    ]
+  }
+]
