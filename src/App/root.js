@@ -10,6 +10,11 @@ import { make as TasksProvider } from './Providers/TaskProvider.bs';
 import ThemeProvider from './Providers/ThemeProvider';
 import { make as AudioPlayerProvider } from './Providers/AudioPlayer/Audioplayer.bs';
 import dispatchOnResize from './resize';
+import { makeServer } from '../mirage';
+
+if (process.env.BEATCONNECT_CLIENT_MIRAGE === '1') {
+  makeServer({ environment: 'development' });
+}
 
 dispatchOnResize();
 document.body.style.margin = 0;

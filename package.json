@@ -8,7 +8,7 @@
   "main": "./src/electron/index.js",
   "homepage": "./",
   "scripts": {
-    "dev": "node scripts/start.js",
+    "dev": "BEATCONNECT_CLIENT_MIRAGE=1 node scripts/start.js",
     "start": "electron ./build/main.bundle.js",
     "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
     "build": "node scripts/preBuild.js && node scripts/build.js && node scripts/postBuild.js",
@@ -167,6 +167,7 @@
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "26.4.0",
     "jest-watch-typeahead": "0.5.0",
+    "miragejs": "^0.1.41",
     "pnp-webpack-plugin": "1.2.1",
     "prettier": "^1.18.2",
     "react-dev-utils": "^9.0.1",
