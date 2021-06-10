@@ -1,5 +1,4 @@
-import { transitionDuration } from 'bs-css/src/Css.bs';
-import React from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
 const colorByDifficulty = difficulty => {
@@ -23,13 +22,16 @@ const useStyle = createUseStyles({
     bottom: 0,
     display: 'flex',
     width: '100%',
-    height: '8px',
+    height: '25px',
     '&:hover': {
-      '&, & > .diff': {
-        height: '15px',
+      '& > .diff': {
+        height: '12px',
       },
     },
     transition: 'height 200ms',
+    '& .prev': {
+      height: '18px !important',
+    },
   },
   difficulty: {
     height: '4px',
@@ -38,41 +40,48 @@ const useStyle = createUseStyles({
     alignSelf: 'flex-end',
     flexShrink: '2',
     '& > .version': {
-      visibility: 'hidden',
-      transitionDelay: '200ms',
-      transitionDuration: '100ms',
-      transitionProperty: 'opacity',
+      opacity: '0',
+      pointerEvents: 'none',
       overflow: 'hidden',
-      width: 0,
     },
     '&:hover': {
-      // borderRight: '1px solid rgba(0,0,0,.4)',
-      // borderLeft: '1px solid rgba(0,0,0,.4)',
-      // flexBasis: '10000px',
+      '& + .diff': {
+        height: '18px',
+      },
       flexShrink: '1',
-
       height: '22px !important',
       '& > .version': {
-        visibility: 'visible',
-        width: 'auto',
+        transitionDelay: '160ms',
+        transitionDuration: '100ms',
+        transitionProperty: 'opacity',
+        opacity: '1',
       },
     },
-    transition: 'all 200ms',
+    transition: 'all 160ms',
   },
 });
 
 const DifficultiesSelector = ({ beatmaps }) => {
+  const [selectedDiff, setSelectedDiff] = useState(-1);
   const classes = useStyle();
   return (
     <div className={classes.wrapper}>
-      {beatmaps.map(beatmap => (
-        <div
-          className={`${classes.difficulty} diff`}
-          style={{ backgroundColor: colorByDifficulty(beatmap.difficulty) }}
-        >
-          <div className="version">{beatmap.version}</div>
-        </div>
-      ))}
+      {beatmaps
+        .sort((a, b) => a.difficulty - b.difficulty)
+        .map((beatmap, i) => (
+          <div
+            onMouseLeave={() => {
+              setSelectedDiff(-1);
+            }}
+            className={`${classes.difficulty} diff ${i === selectedDiff - 1 ? 'prev' : ''}`}
+            style={{ backgroundColor: colorByDifficulty(beatmap.difficulty) }}
+            onMouseEnter={() => {
+              setSelectedDiff(i);
+            }}
+          >
+            <div className="version">{beatmap.version}</div>
+          </div>
+        ))}
     </div>
   );
 };
