@@ -39,6 +39,7 @@ const useStyle = createUseStyles({
     boxSizing: 'border-box',
     alignSelf: 'flex-end',
     flexShrink: '2',
+    minWidth: 0,
     '& > .version': {
       opacity: '0',
       pointerEvents: 'none',
