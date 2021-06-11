@@ -41,9 +41,10 @@ const useStyle = createUseStyles({
     flexShrink: '2',
     minWidth: 0,
     '& > .version': {
-      opacity: '0',
       pointerEvents: 'none',
       overflow: 'hidden',
+      height: '100%',
+      color: 'transparent',
     },
     '&:hover': {
       '& + .diff': {
@@ -54,8 +55,9 @@ const useStyle = createUseStyles({
       '& > .version': {
         transitionDelay: '160ms',
         transitionDuration: '100ms',
-        transitionProperty: 'opacity',
-        opacity: '1',
+        transitionProperty: 'color',
+        color: 'white',
+        backdropFilter: 'brightness(0.9)',
       },
     },
     transition: 'all 160ms',
