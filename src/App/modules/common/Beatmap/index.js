@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useRef } from 'react';
 import { shell } from 'electron';
 import { createUseStyles, useTheme } from 'react-jss';
 import Cover from './Cover';
@@ -7,10 +7,9 @@ import DownloadBeatmapBtn from './DownloadBeatmapBtn';
 import PreviewBeatmapBtn from './PreviewBeatmapBtn';
 import renderIcons from '../../../helpers/renderIcons';
 import getBeatmapInfosUrl from '../../../helpers/getBeatmapInfosUrl';
-import { make as Badge } from '../Badge.bs';
-import reqImgAssets from '../../../helpers/reqImgAssets';
 import Button from '../Button';
 import SetWallpaperButton from './SetWallpaperButton';
+import Modes from './Modes';
 
 const bpmToBps = bpm => 60 / bpm;
 
@@ -90,32 +89,24 @@ const useStyles = createUseStyles({
 export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/${id}/${unique_id}`;
 
 const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
+  const ref = useRef();
   const theme = useTheme();
   const [isPlaying, setIsPLaying] = useState(false);
   const { beatmapset_id, id, title, artist, creator, version, bpm, beatconnectDlLink, beatmaps } = beatmap;
   const wallpaperBeatmapId = beatmaps[Math.max(beatmaps.length - 2, 0)].id;
 
-  const modePillsStyle = mode => ({
-    width: 20,
-    height: 20,
-    margin: '3px',
-    backgroundSize: 'contain',
-    filter: 'brightness(0.85)',
-    content: `url(${reqImgAssets(`./${mode}.png`)})`,
-  });
-
   const classes = useStyles({ width, theme, isPlaying, bpm: beatmap.bpm, ...otherProps });
   return (
-    <div className={classes.Beatmap}>
+    <div className={classes.Beatmap} ref={ref}>
       {beatmap && (
         <>
-          {/* {beatmap.status && <Badge style={{ position: 'absolute', top: '4%', right: '1%' }} status={beatmap.status} />} */}
           <Cover
             url={`https://assets.ppy.sh/beatmaps/${beatmapset_id || id}/covers/cover.jpg`}
             height={130}
             noFade={noFade}
             roundedTop
             beatmapSet={beatmap}
+            parentRef={ref}
           />
           <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%' }}>
             <p className={classes.Row}>
@@ -154,25 +145,7 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
             {renderIcons({ name: 'Search', style: theme.accentContrast })}
           </Button>
           <SetWallpaperButton beatmapSetId={beatmapset_id || id} beatmapId={wallpaperBeatmapId} />
-          <div
-            className="rightContainer"
-            style={{ position: 'absolute', right: '1%', bottom: '4%', display: 'inline-flex', margin: '0.2vw' }}
-          >
-            <div className="availableModes" style={{ padding: '0 3px', display: 'inline-flex' }}>
-              {beatmap.mode_std && (
-                <img alt="std" title="Standard" className="pill std" style={modePillsStyle('std')} />
-              )}
-              {beatmap.mode_mania && (
-                <img alt="mania" title="Mania" className="pill mania" style={modePillsStyle('mania')} />
-              )}
-              {beatmap.mode_taiko && (
-                <img alt="taiko" title="Taiko" className="pill taiko" style={modePillsStyle('taiko')} />
-              )}
-              {beatmap.mode_ctb && (
-                <img alt="ctb" title="Catch The Beat" className="pill ctb" style={modePillsStyle('ctb')} />
-              )}
-            </div>
-          </div>
+          <Modes ctb={beatmap.mode_ctb} std={beatmap.mode_std} mania={beatmap.mode_mania} taiko={beatmap.mode_taiko} />
         </>
       )}
     </div>

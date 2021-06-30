@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import config from '../../../../shared/config';
 import BeatmapDetails from './BeatmapDetails';
 
-const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad = true, beatmapSet }) => {
+const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad = true, beatmapSet, parentRef }) => {
   const [loaded, isLoaded] = useState(false);
   const coverRef = useRef();
   useEffect(() => {
@@ -32,7 +32,7 @@ const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad 
   };
   return (
     <div className="cover" style={style}>
-      <BeatmapDetails beatmapSet={beatmapSet} />
+      <BeatmapDetails beatmapSet={beatmapSet} cardRef={parentRef} />
     </div>
   );
 };

@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { createUseStyles } from 'react-jss';
+import { debounce } from 'underscore';
+import { getBeatmapDifficultyColorHex } from '../../../../shared/PpyHelpers.bs';
 
-const colorByDifficulty = difficulty => {
-  const map = {
-    0: '#88b300',
-    2: '#66ccff',
-    2.7: '#ffcc22',
-    4: '#ff66aa',
-    5.3: '#8866ee',
-    6.5: '#000',
-  };
-  const thresholds = Object.keys(map).sort((a, b) => b - a);
-  const color = map[thresholds.find(threshold => threshold < difficulty)];
-  console.log({ thresholds, color, difficulty });
-  return color;
-};
+const DIFFICULTY_TRANSITION_DURATION = 160;
+const VERSION_TRANSITION_DURATION = 100;
 
 const useStyle = createUseStyles({
   wrapper: {
@@ -53,19 +43,24 @@ const useStyle = createUseStyles({
       flexShrink: '1',
       height: '22px !important',
       '& > .version': {
-        transitionDelay: '160ms',
-        transitionDuration: '100ms',
+        transitionDelay: `${DIFFICULTY_TRANSITION_DURATION}ms`,
+        transitionDuration: `${VERSION_TRANSITION_DURATION}ms`,
         transitionProperty: 'color',
         color: 'white',
         backdropFilter: 'brightness(0.9)',
       },
     },
-    transition: 'all 160ms',
+    transition: `all ${DIFFICULTY_TRANSITION_DURATION}ms`,
   },
 });
 
-const DifficultiesSelector = ({ beatmaps }) => {
+const DifficultiesSelector = ({ beatmaps, onSelect }) => {
   const [selectedDiff, setSelectedDiff] = useState(-1);
+  const debounceOnSelect = useCallback(debounce(onSelect, DIFFICULTY_TRANSITION_DURATION), []);
+  useEffect(() => {
+    if (selectedDiff > -1) debounceOnSelect(selectedDiff);
+    else debounceOnSelect.cancel();
+  }, [selectedDiff]);
   const classes = useStyle();
   return (
     <div className={classes.wrapper}>
@@ -77,7 +72,7 @@ const DifficultiesSelector = ({ beatmaps }) => {
               setSelectedDiff(-1);
             }}
             className={`${classes.difficulty} diff ${i === selectedDiff - 1 ? 'prev' : ''}`}
-            style={{ backgroundColor: colorByDifficulty(beatmap.difficulty) }}
+            style={{ backgroundColor: getBeatmapDifficultyColorHex(beatmap.difficulty) }}
             onMouseEnter={() => {
               setSelectedDiff(i);
             }}
