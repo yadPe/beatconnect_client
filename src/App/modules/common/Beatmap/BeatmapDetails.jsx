@@ -22,10 +22,12 @@ const useStyle = createUseStyles({
     height: '100%',
     opacity: ({ isCardhovered }) => (isCardhovered ? 1 : 0),
     transition: 'opacity 150ms',
+    borderTopLeftRadius: '5px',
+    borderTopRightRadius: '5px',
   },
   topContainer: {
     display: 'inline-flex',
-    width: ' 97%',
+    width: '-webkit-fill-available',
     justifyContent: 'space-between',
     alignItems: 'baseline',
     gap: '0.5rem',
@@ -42,6 +44,7 @@ const useStyle = createUseStyles({
     display: 'inline-flex',
     flexDirection: 'column',
     textAlign: 'left',
+    opacity: ({ isCardhovered }) => (isCardhovered ? 1 : 0),
   },
   rightContainer: {
     position: 'absolute',
@@ -50,7 +53,7 @@ const useStyle = createUseStyles({
     display: 'inline-flex',
     flexDirection: 'column',
     textAlign: 'right',
-    visibility: ({ noDiffSelectd }) => (noDiffSelectd ? 'hidden' : 'visible'),
+    opacity: ({ noDiffSelectd }) => (noDiffSelectd ? 0 : 1),
   },
   versionTitle: {
     fontWeight: 600,
@@ -69,28 +72,29 @@ const useStyle = createUseStyles({
     transitionProperty: 'opacity',
   },
   two: {
-    transitionDelay: '40ms',
+    transitionDelay: '50ms',
     transitionDuration: '200ms',
     transitionProperty: 'opacity',
   },
   three: {
-    transitionDelay: '60ms',
+    transitionDelay: '100ms',
     transitionDuration: '200ms',
     transitionProperty: 'opacity',
   },
   foor: {
-    transitionDelay: '80ms',
+    transitionDelay: '150ms',
     transitionDuration: '200ms',
     transitionProperty: 'opacity',
+  },
+  bold: {
+    fontWeight: 600,
   },
 });
 
 const BeatmapDetails = ({ beatmapSet, cardRef }) => {
   const [selectedDiff, setSelectedDiff] = useState('none');
   const [isCardhovered, setIsCardhovered] = useState(false);
-  console.log({ selectedDiff });
   const noDiffSelectd = selectedDiff === 'none';
-  console.log({ noDiffSelectd });
   const classes = useStyle({ noDiffSelectd, isCardhovered });
   const onDiffSelect = useCallback(diffIndex => setSelectedDiff(beatmapSet.beatmaps[diffIndex] ?? 'none'), []);
   useEffect(() => {
@@ -107,9 +111,7 @@ const BeatmapDetails = ({ beatmapSet, cardRef }) => {
     }
   }, [cardRef.current]);
   useLayoutEffect(() => {
-    console.log('useLayoutEffect');
     if (cardRef.current && selectedDiff !== 'none') {
-      console.log(`img.pill.${modes(selectedDiff.mode)}`);
       const matchingModePill = cardRef.current.querySelector(`img.pill.${modes(selectedDiff.mode)}`);
       matchingModePill.classList.add('highlight');
       cardRef.current.querySelector('div.availableModes').classList.add('hasHighlight');
@@ -154,41 +156,41 @@ const BeatmapDetails = ({ beatmapSet, cardRef }) => {
           <span>{secToMinSec(selectedDiff.total_length ?? beatmapSet.average_length)}</span>
         </p>
       </div>
-      <div className={classes.leftContainer}>
+      <div className={`${classes.leftContainer} ${classes.one}`}>
         <p title={new Date(beatmapSet.submitted_date).toLocaleString()}>
           <span>Submited </span>
-          <span style={{ fontWeight: 600 }}>{timeSince(new Date(beatmapSet.submitted_date))}</span>
+          <span className={classes.bold}>{timeSince(new Date(beatmapSet.submitted_date))}</span>
         </p>
         <p title={new Date(beatmapSet.ranked_date).toLocaleString()}>
           <span>Ranked </span>
-          <span style={{ fontWeight: 600 }}>{timeSince(new Date(beatmapSet.ranked_date))}</span>
+          <span className={classes.bold}>{timeSince(new Date(beatmapSet.ranked_date))}</span>
         </p>
         <p>
           <span>Play count </span>
-          <span style={{ fontWeight: 600 }}>
+          <span className={classes.bold}>
             {noDiffSelectd ? totalPlayCount(beatmapSet.beatmaps) : selectedDiff.playcount}
           </span>
         </p>
         <p>
           <span>Favorite count </span>
-          <span style={{ fontWeight: 600 }}>{beatmapSet.favourite_count}</span>
+          <span className={classes.bold}>{beatmapSet.favourite_count}</span>
         </p>
       </div>
-      <div className={classes.rightContainer}>
+      <div className={`${classes.rightContainer} ${classes.two}`}>
         <p>
-          <span style={{ fontWeight: 600 }}>CS: </span>
+          <span className={classes.bold}>CS: </span>
           <span>{selectedDiff.cs}</span>
         </p>
         <p>
-          <span style={{ fontWeight: 600 }}>AR: </span>
+          <span className={classes.bold}>AR: </span>
           <span>{selectedDiff.ar}</span>
         </p>
         <p>
-          <span style={{ fontWeight: 600 }}>Drain: </span>
+          <span className={classes.bold}>Drain: </span>
           <span>{selectedDiff.drain}</span>
         </p>
         <p>
-          <span style={{ fontWeight: 600 }}>Acc: </span>
+          <span className={classes.bold}>Acc: </span>
           <span>{selectedDiff.accuracy}</span>
         </p>
       </div>
