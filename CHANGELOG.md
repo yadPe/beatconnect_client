@@ -1,3 +1,12 @@
+## [0.3.4](https://github.com/yadPe/beatconnect_client/compare/v0.3.3...v0.3.4) (2021-07-03)
+
+
+### Features
+
+* **Beatmaps:** Add more info on beatmap card about each difficulty ([#455](https://github.com/yadPe/beatconnect_client/issues/455)) ([550cdd8](https://github.com/yadPe/beatconnect_client/commit/550cdd842818f4c0d342bd78c9a47d370da59925))
+
+
+
 ## [0.3.3](https://github.com/yadPe/beatconnect_client/compare/v0.3.2...v0.3.3) (2021-05-16)
 
 
