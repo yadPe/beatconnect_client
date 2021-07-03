@@ -1,10 +1,10 @@
 version: 2
 
 step-install: &step-install
-  run: npm i
+  run: yarn install
 
 step-build: &step-build
-  run: npm run build
+  run: yarn build
 
 filter-tag: &filter-tag
   tags:
@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - *step-install
-      - run: npm run lint
+      - run: yarn lint
   build-win-linux:
     environment:
       GH_TOKEN: $GH_TOKEN
@@ -33,7 +33,7 @@ jobs:
       - checkout
       - *step-install
       - *step-build
-      - run: npx electron-builder --win --linux --x64 --ia32 -p always
+      - run: yarn dist:win-linux-publish
 
 workflows:
   version: 2
