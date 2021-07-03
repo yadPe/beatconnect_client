@@ -145,7 +145,7 @@
       "beatmaps": [
         {
           "id": 1650657,
-          "mode": "osu",
+          "mode": "fruits",
           "mode_int": 0,
           "difficulty": 5.04,
           "version": "Mofu Loli",
@@ -201,7 +201,7 @@
         },
         {
           "id": 1808794,
-          "mode": "osu",
+          "mode": "mania",
           "mode_int": 0,
           "difficulty": 2.32,
           "version": "Fresh Normal",
@@ -229,7 +229,7 @@
         },
         {
           "id": 2977441,
-          "mode": "osu",
+          "mode": "taiko",
           "mode_int": 0,
           "difficulty": 2.05,
           "version": "Fresh Easy",
@@ -306,10 +306,10 @@
       "hype_required": null,
       "last_updated": "2021-06-02T16:45:11+00:00",
       "legacy_thread_url": "https://osu.ppy.sh/community/forums/topics/750701",
-      "mode_ctb": false,
-      "mode_mania": false,
+      "mode_ctb": true,
+      "mode_mania": true,
       "mode_std": true,
-      "mode_taiko": false,
+      "mode_taiko": true,
       "nominations_current": null,
       "nominations_required": null,
       "preview_url": "//b.ppy.sh/preview/786320.mp3",
