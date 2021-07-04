@@ -10,7 +10,6 @@
   "scripts": {
     "dev": "BEATCONNECT_CLIENT_MIRAGE=1 node scripts/start.js",
     "start": "electron ./build/main.bundle.js",
-    "dev:win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/start.ps1",
     "build": "node scripts/preBuild.js && node scripts/build.js && node scripts/postBuild.js",
     "test": "node scripts/test.js",
     "lint": "yarn lint:prettier && yarn lint:es",
@@ -29,7 +28,7 @@
     "dist:mac-publish": "electron-builder build --mac --x64 -p always",
     "dist:linux-publish": "electron-builder build --linux --x64 --ia32 -p always",
     "dist:win-publish": "electron-builder build --win --ia32 --x64 -p always",
-    "dist:gh-publish": "yarn install && yarn build && yarn dist:win-linux-publish && yarn dist:mac-publish",
+    "dist:all-publish": "yarn install && yarn build && yarn dist:win-publish && dist:linux-publish && yarn dist:mac-publish",
     "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3200 electron .",
     "electron:debug-analytics": "cross-env ELECTRON_START_URL=http://localhost:3200 DEBUG=universal-analytics electron .",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
@@ -59,7 +58,8 @@
       {
         "provider": "github",
         "owner": "yadPe",
-        "repo": "beatconnect_client"
+        "repo": "beatconnect_client",
+        "releaseType": "release"
       }
     ],
     "files": [

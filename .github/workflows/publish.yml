@@ -9,8 +9,11 @@ jobs:
     environment: Publish
     runs-on: macos-10.15
 
+    strategy:
+      matrix:
+        platform: [win, linux, mac]
+
     steps:
-      - run: echo $GH_TOKEN
       - uses: actions/checkout@v2
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2
@@ -21,7 +24,11 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-      - name: Package and publish
-        run: yarn dist:gh-publish
+      - name: Package and publish ${{ matrix.platform }}
+        run: yarn dist:${{ matrix.platform }}-publish
         env:
+          EP_RELEASE: true
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          BEATCONNECT_CLIENT_DISCORD_APP_ID: ${{secrets.BEATCONNECT_CLIENT_DISCORD_APP_ID}}
+          BEATCONNECT_CLIENT_GA_TRACKING_ID: ${{secrets.BEATCONNECT_CLIENT_GA_TRACKING_ID}}
+          BEATCONNECT_CLIENT_TOKEN: ${{secrets.BEATCONNECT_CLIENT_TOKEN}}
