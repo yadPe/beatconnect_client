@@ -103,8 +103,7 @@
     },
     "win": {
       "target": "nsis-web",
-      "icon": "favicon.ico",
-      "publish": "github"
+      "icon": "favicon.ico"
     }
   },
   "dependencies": {
