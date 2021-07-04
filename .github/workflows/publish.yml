@@ -24,11 +24,12 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
+        env:
+          BEATCONNECT_CLIENT_DISCORD_APP_ID: ${{secrets.BEATCONNECT_CLIENT_DISCORD_APP_ID}}
+          BEATCONNECT_CLIENT_GA_TRACKING_ID: ${{secrets.BEATCONNECT_CLIENT_GA_TRACKING_ID}}
+          BEATCONNECT_CLIENT_TOKEN: ${{secrets.BEATCONNECT_CLIENT_TOKEN}}
       - name: Package and publish ${{ matrix.platform }}
         run: yarn dist:${{ matrix.platform }}-publish
         env:
           EP_RELEASE: true
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          BEATCONNECT_CLIENT_DISCORD_APP_ID: ${{secrets.BEATCONNECT_CLIENT_DISCORD_APP_ID}}
-          BEATCONNECT_CLIENT_GA_TRACKING_ID: ${{secrets.BEATCONNECT_CLIENT_GA_TRACKING_ID}}
-          BEATCONNECT_CLIENT_TOKEN: ${{secrets.BEATCONNECT_CLIENT_TOKEN}}
