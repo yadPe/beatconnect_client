@@ -17,7 +17,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
 
   const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
   const listHeight = windowSize.height;
-  const listItemSize = 50;
+  const listItemSize = 56;
 
   const deepLinkedItemIndex =
     deepLink.beatmapsetId && collection.findIndex(item => item.id === parseInt(deepLink.beatmapsetId, 10));

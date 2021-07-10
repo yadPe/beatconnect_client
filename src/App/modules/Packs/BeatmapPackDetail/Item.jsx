@@ -13,6 +13,7 @@ import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { resolveThumbURL } from '../../../../shared/PpyHelpers.bs';
 import useBeatmapSong from '../../../Providers/AudioPlayer/useBeatmapSong';
 import { getOsuPath } from '../../Settings/reducer/selectors';
+import { secToMinSec } from '../../../helpers/timeSince';
 
 const useStyle = createUseStyles({
   listItem: {
@@ -20,7 +21,13 @@ const useStyle = createUseStyles({
     flex: '1',
     display: 'flex',
     overflow: 'hidden',
-    boxShadow: '0px 24px 1px -24px rgba(255, 255, 255, .3)',
+    marginLeft: 'calc(1rem + 8px)',
+    width: 'calc(100% - 3rem)',
+    borderRadius: '5px',
+    paddingRight: '10px',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.1)',
+    },
     '&::before': {
       content: "''",
       position: 'absolute',
@@ -43,7 +50,7 @@ const useStyle = createUseStyles({
     backgroundPosition: 'center',
     width: '50px',
     height: '40px',
-    margin: '5px 15px 5px 35px',
+    margin: '5px 15px 5px 10px',
     position: 'relative',
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     '& .playIco': {
@@ -60,11 +67,13 @@ const useStyle = createUseStyles({
       backgroundSize: '20px',
     },
   },
-  title: {
-    minWidth: 0,
+  titleArtist: {
     display: 'flex',
-    flex: '6 1 0',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    flex: '7 0 200px',
+  },
+  title: {
+    display: 'flex',
     fontSize: '15pt',
     alignItems: 'center',
     paddingRight: '10px',
@@ -77,6 +86,7 @@ const useStyle = createUseStyles({
     color: '#aaa',
     fontSize: '13pt',
   },
+  duration: { color: '#aaa', fontSize: '13pt', display: 'flex', alignItems: 'center' },
   downloadButton: {
     display: 'flex',
   },
@@ -94,7 +104,7 @@ const BeatmapListItem = ({ index, style, data }) => {
   const isDownloadMode = itemMode === 'download';
   const isLibraryMode = itemMode === 'library';
   const item = items[index];
-  const { id, title, artist } = item;
+  const { id, title, artist, creator, songDuration } = item;
 
   const osuPath = useSelector(getOsuPath);
   const [artworkURL, setArtWorkURL] = useState('');
@@ -133,6 +143,15 @@ const BeatmapListItem = ({ index, style, data }) => {
   return (
     <div style={{ ...style, top: `${parseFloat(style.top) + 50}px` }} key={id} onClick={handleClick}>
       <div className={classes.listItem} style={wrapperStyle}>
+        <NewButton
+          iconName="Search"
+          onClick={e => {
+            e.stopPropagation();
+            shell.openExternal(getBeatmapInfosUrl(item));
+          }}
+          title="See beatmap page"
+          borderless
+        />
         <div
           className={`${classes.thumbnail} thumbnail`}
           style={{
@@ -148,16 +167,30 @@ const BeatmapListItem = ({ index, style, data }) => {
             }}
           />
         </div>
-        <div className={classes.title}>
-          <p title={title} className={classes.ellipsis}>
-            {title}
-          </p>
+        <div className={classes.titleArtist}>
+          <div className={classes.title}>
+            <p title={title} className={classes.ellipsis}>
+              {title}
+            </p>
+          </div>
+          <div style={{ color: '#aaa', fontSize: '13pt', display: 'flex' }}>
+            <p title={artist} className={classes.ellipsis}>
+              {artist}
+            </p>
+          </div>
         </div>
         <div className={classes.artist}>
-          <p title={artist} className={classes.ellipsis}>
-            {artist}
+          <p title={creator} className={classes.ellipsis}>
+            {creator}
           </p>
         </div>
+        {songDuration && (
+          <div className={classes.duration}>
+            <p title={songDuration} className={classes.ellipsis}>
+              {secToMinSec(songDuration)}
+            </p>
+          </div>
+        )}
         {isDownloadMode && isDownloading && (
           <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
         )}
@@ -176,15 +209,6 @@ const BeatmapListItem = ({ index, style, data }) => {
             className={`${classes.downloadButton} clickable`}
           />
         )}
-        <NewButton
-          iconName="Search"
-          onClick={e => {
-            e.stopPropagation();
-            shell.openExternal(getBeatmapInfosUrl(item));
-          }}
-          title="See beatmap page"
-          borderless
-        />
       </div>
     </div>
   );
