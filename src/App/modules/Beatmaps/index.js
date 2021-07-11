@@ -53,10 +53,8 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     if (!store.getState().beatmaps.fetchingBeatmaps.isFetching) askBeatconnect({ ...search, page: (page += 1) });
   };
   if (beatmaps.length < 50 && hideDownloaded && canLoadMore) loadMore();
-  const newItemsRendered = ({ overscanRowStopIndex, overscanColumnStopIndex }) => {
-    const visibleStopIndex = displayGrid ? overscanRowStopIndex * overscanColumnStopIndex : overscanRowStopIndex;
-
-    if (visibleStopIndex >= rowCount - 3 && canLoadMore) {
+  const newItemsRendered = ({ overscanRowStopIndex }) => {
+    if (overscanRowStopIndex >= rowCount - (columnCount + 1) && canLoadMore) {
       loadMore();
     }
   };
@@ -68,13 +66,14 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
 
   useEffect(() => saveLastScrollPosition(lastScrollPosition.current), []);
 
-  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / columnCount - 9 : gridWidth - 18), [
+  // Some magic number are being invoked here please don't pay attention
+  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / columnCount - 4 : gridWidth - 8), [
     displayGrid,
     gridWidth,
+    columnCount,
   ]);
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
-    if (rowIndex === 0) return <div style={{ height: `${config.display.topBarHeight}px` }} />;
     const beatmap = displayGrid ? beatmaps[rowIndex * columnCount + columnIndex - columnCount] : beatmaps[rowIndex - 1];
     if (beatmap === 0) return <BeatmapSkeleton style={style} rowIndex={rowIndex} />;
     if (!beatmap) return <div style={style} className="NoBeatmap" />;
@@ -82,7 +81,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
       <div style={style}>
         <Beatmap
           noFade
-          width="90%"
+          width="95%"
           autoDl={autoDl && hideDownloaded}
           beatmap={beatmap}
           key={`beatmap${beatmap.beatmapset_id || beatmap.id}`}
