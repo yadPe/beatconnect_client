@@ -8,6 +8,7 @@ import useMouseButtons from '../../../helpers/hooks/useMouseButtons';
 
 const styles = {
   wrapper: {
+    gap: '1rem',
     display: 'inline-flex',
     width: '100%',
     '& > *': {
@@ -23,9 +24,7 @@ const styles = {
       display: 'block',
     },
   },
-  name: {
-    flexGrow: 1,
-  },
+  name: {},
   downloadButton: {
     cursor: 'pointer',
     margin: 'auto 10px auto 5px',
@@ -54,14 +53,16 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
         {renderIcons({ name: 'Back' })}
       </div>
       <p className={classes.name}>{name}</p>
-      {!packCompleted && <p title={downloadTitle}>{filteredBeatmapsets.length}</p>}
-      <DownloadBeatmapBtn
-        pack={filteredBeatmapsets}
-        title={downloadTitle}
-        noStyle
-        className={`${classes.downloadButton} clickable`}
-      />
       <TextInput onChange={handleInputChange} placeholder="Search" />
+      <div style={{ display: 'flex' }}>
+        {!packCompleted && <p title={downloadTitle}>{filteredBeatmapsets.length}</p>}
+        <DownloadBeatmapBtn
+          pack={filteredBeatmapsets}
+          title={downloadTitle}
+          noStyle
+          className={`${classes.downloadButton} clickable`}
+        />
+      </div>
     </div>
   );
 };

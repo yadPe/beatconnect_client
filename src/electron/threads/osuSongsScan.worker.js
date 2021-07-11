@@ -30,6 +30,7 @@ parentPort.on('message', osuDbPath => {
           mapsMd5: [beatmap.md5],
           audioPath: join(beatmap.folder_name, beatmap.audio_file_name),
           previewOffset: beatmap.preview_offset,
+          songDuration: Math.ceil(beatmap.total_time / 1000),
         };
       });
       parentPort.postMessage(['result', [beatmaps, overallDuration, overallUnplayedCount]]);
