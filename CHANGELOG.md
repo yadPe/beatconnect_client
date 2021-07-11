@@ -1,3 +1,18 @@
+## [0.3.5](https://github.com/yadPe/beatconnect_client/compare/v0.3.3...v0.3.5) (2021-07-11)
+
+
+### Bug Fixes
+
+* **Beatmaps:** fix infinite loader and tweak style ([89610ac](https://github.com/yadPe/beatconnect_client/commit/89610ac2d05235594ad22b1b79b981e108ea38e3))
+
+
+### Features
+
+* **beatmap list:** Rework style to display more info ([#460](https://github.com/yadPe/beatconnect_client/issues/460)) ([9a60a25](https://github.com/yadPe/beatconnect_client/commit/9a60a255fd1a3d776262838ad11d1a4de38fd189))
+* **Beatmaps:** Grid columns count depending on window width ([#461](https://github.com/yadPe/beatconnect_client/issues/461)) ([7b4a511](https://github.com/yadPe/beatconnect_client/commit/7b4a5116f582112a3f5cbf37f047066104ba4b34))
+
+
+
 ## [0.3.4](https://github.com/yadPe/beatconnect_client/compare/v0.3.3...v0.3.4) (2021-07-03)
 
 
