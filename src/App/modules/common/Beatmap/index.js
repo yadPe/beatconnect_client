@@ -108,12 +108,14 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
             beatmapSet={beatmap}
             parentRef={ref}
           />
-          <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%' }}>
-            <p className={classes.Row}>
+          <div className="leftContainer" style={{ position: 'absolute', left: '2%', bottom: '3%', maxWidth: '25%' }}>
+            <p className={classes.Row} title={creator}>
               {renderIcons({ name: 'Creator', color: 'white' })}
-              <span style={{ marginLeft: '2px' }}>{creator}</span>
+              <span style={{ marginLeft: '2px' }} className={classes.TextElipsis}>
+                {creator}
+              </span>
             </p>
-            <p className={classes.Row} style={{ marginLeft: '-2px' }}>
+            <p className={classes.Row} style={{ marginLeft: '-2px' }} title={bpm}>
               {renderIcons({ name: 'Metronome', color: 'white' })}
               <span color="white" style={{ marginLeft: '3px' }}>
                 {bpm}

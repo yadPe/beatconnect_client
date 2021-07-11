@@ -60,6 +60,12 @@ const useStyle = createUseStyles({
     fontSize: 'medium',
     opacity: ({ noDiffSelectd }) => (noDiffSelectd ? 0 : 1),
   },
+  textElipsis: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '100%',
+  },
   details: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -132,7 +138,12 @@ const BeatmapDetails = ({ beatmapSet, cardRef }) => {
           difficulty={selectedDiff.difficulty}
           difficultyText={selectedDiff.difficulty && `☆ ${selectedDiff.difficulty}`}
         />
-        <p className={`${classes.versionTitle} ${classes.two}`}>{selectedDiff.version ?? 'Version'}</p>
+        <p
+          className={`${classes.versionTitle} ${classes.two} ${classes.textElipsis}`}
+          title={selectedDiff.version ?? 'Version'}
+        >
+          {selectedDiff.version ?? 'Version'}
+        </p>
         <p style={{ flexGrow: 1 }} />
 
         <p className={`${classes.details} ${classes.foor}`} title="Circle count">

@@ -8,6 +8,7 @@ let makeBaseStyle = () =>
     padding3(~top=rem(0.1), ~h=rem(0.45), ~bottom=rem(0.2)),
     display(inlineFlex),
     alignItems(center),
+    whiteSpace(nowrap),
   ]);
 
 let makeStatusStyle = (status, difficulty) =>

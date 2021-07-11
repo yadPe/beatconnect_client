@@ -39,10 +39,12 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     lastSearch.current = search;
     if (gridContainer.current) gridContainer.current.childNodes[0].scrollTop = lastScrollPosition.current;
   }
-  const gridWidth = window.width - config.display.sidePanelCompactedLength - 1;
-  const gridHeight = window.height - 1;
+  const minItemWidth = 500;
+  const gridWidth = window.width - config.display.sidePanelCompactedLength;
+  const gridHeight = window.height;
   const displayGrid = gridWidth >= 1000;
-  const rowCount = (displayGrid ? Math.ceil(beatmaps.length / 2) : beatmaps.length) + 1; // Add one for the invisible top placeholder
+  const columnCount = Math.floor(window.width / minItemWidth);
+  const rowCount = (displayGrid ? Math.ceil(beatmaps.length / columnCount) : beatmaps.length) + 1; // Add one for the invisible top placeholder
   const canLoadMore = hideDownloaded ? !lastPage : beatmaps.length % 50 === 0;
   const onScroll = ({ scrollTop }) => {
     lastScrollPosition.current = scrollTop;
@@ -64,18 +66,16 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     return () => setHeaderContent(null);
   }, [setHeaderContent, theme]);
 
-  useEffect(() => {
-    return () => saveLastScrollPosition(lastScrollPosition.current);
-  }, []);
+  useEffect(() => saveLastScrollPosition(lastScrollPosition.current), []);
 
-  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / 2 - 9 : gridWidth - 18), [
+  const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / columnCount - 9 : gridWidth - 18), [
     displayGrid,
     gridWidth,
   ]);
 
   const renderBeatmaps = ({ columnIndex, rowIndex, style }) => {
     if (rowIndex === 0) return <div style={{ height: `${config.display.topBarHeight}px` }} />;
-    const beatmap = displayGrid ? beatmaps[rowIndex * 2 + columnIndex - 2] : beatmaps[rowIndex - 1];
+    const beatmap = displayGrid ? beatmaps[rowIndex * columnCount + columnIndex - columnCount] : beatmaps[rowIndex - 1];
     if (beatmap === 0) return <BeatmapSkeleton style={style} rowIndex={rowIndex} />;
     if (!beatmap) return <div style={style} className="NoBeatmap" />;
     return (
@@ -100,7 +100,7 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
       ref={gridContainer}
     >
       <VariableSizeGrid
-        columnCount={displayGrid ? 2 : 1}
+        columnCount={displayGrid ? columnCount : 1}
         columnWidth={getColumnWidth}
         estimatedColumnWidth={getColumnWidth()}
         estimatedRowHeight={250}
@@ -124,7 +124,4 @@ const mapStateToProps = ({ app, beatmaps }) => ({
   searchResults: beatmaps.searchResults,
   window: app.window,
 });
-export default compose(
-  connect(mapStateToProps),
-  injectSheet(styles),
-)(Beatmaps);
+export default compose(connect(mapStateToProps), injectSheet(styles))(Beatmaps);
