@@ -3966,7 +3966,7 @@ __metadata:
     dotenv-expand: 5.1.0
     electron: 13.5.1
     electron-builder: 22.13.1
-    electron-devtools-installer: ^3.1.1
+    electron-devtools-installer: 3.2.0
     electron-is-dev: ^1.1.0
     electron-log: ^4.3.4
     electron-updater: ^4.3.8
@@ -6434,14 +6434,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-devtools-installer@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "electron-devtools-installer@npm:3.1.1"
+"electron-devtools-installer@npm:3.2.0":
+  version: 3.2.0
+  resolution: "electron-devtools-installer@npm:3.2.0"
   dependencies:
     rimraf: ^3.0.2
     semver: ^7.2.1
+    tslib: ^2.1.0
     unzip-crx-3: ^0.2.0
-  checksum: 02aae416013a06b202ed907d7948f316ddf22f58fb7a9d38638958cd2f11e845d3b25d4a39ffada79dc4e57056bb15031d384b43b69991c3dc5a2edb02ec9a43
+  checksum: 71b31b48233244ea04f35532b98b543213befd1da389a7d8176eeaf6272b7123b468fb5190487206043c23ad04c8fbb7ceebfe336acab895ce93a11acffeaaad
   languageName: node
   linkType: hard
 
@@ -15680,6 +15681,13 @@ resolve@^2.0.0-next.3:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.1.0":
+  version: 2.3.1
+  resolution: "tslib@npm:2.3.1"
+  checksum: 5ae2f209c5127bad284974c78916f02c72082615f65889a7ed0c7ca6d5f935c30338a0ee7310e1d9652dabc7b7507fd2905035487446d09d45fc1f19de71cf05
   languageName: node
   linkType: hard
 
