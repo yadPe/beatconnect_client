@@ -10,6 +10,7 @@ The official client for [Beatconnect](https://beatconnect.io) which is a mirror 
 - [Technology](#technology)
 - [Documentation](#documentation)
 - [Development](#development)
+- [Release](#release)
 - [Download](#download)
 - [License](#license)
 
@@ -101,6 +102,18 @@ The `.env` file must be located at the root of the project
 BEATCONNECT_CLIENT_TOKEN=your-beatconnect-token
 BEATCONNECT_HOST_URL=https://beatconnect.io/
 ```
+
+## Release
+
+1. Create a branch named `vX.X.X` from latest `master` branch
+2. Manually bump the version in `package.json`
+3. Run `yarn changelog`
+4. Commit and push
+5. Open a pull request
+6. Once the pull request is merged publish a [new release on Github](https://github.com/yadPe/beatconnect_client/releases/new)
+7. A [workflow](https://github.com/yadPe/beatconnect_client/actions/workflows/publish.yml) should have been created and needs to be approved by an admin before run
+8. Once the worflow is approved it will build the binaries artifacts for macos, windows and linux then it will upload them to the release you created
+9. Voila! Users will now receive the new release via the auto update system
 
 ## Download test
 
