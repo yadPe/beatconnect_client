@@ -1,3 +1,7 @@
+## [0.3.6](https://github.com/yadPe/beatconnect_client/compare/v0.3.5...v0.3.6) (2021-11-08)
+
+
+
 ## [0.3.5](https://github.com/yadPe/beatconnect_client/compare/v0.3.3...v0.3.5) (2021-07-11)
 
 
