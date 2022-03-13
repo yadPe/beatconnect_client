@@ -3,7 +3,7 @@
 # Table of Contents
 1. [Setup](#setup)
 2. [Connect to a match](#connect-to-multiplayer-match)
-3. [Commands](#third-example)
+3. [Commands](#commands)
 
 ## Setup
 
