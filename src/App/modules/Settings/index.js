@@ -116,7 +116,6 @@ const Settings = ({ userPreferences }) => {
         { name: 'Password', value: irc.password, action: setIrcPass, type: String, pass: true },
       ],
       Misc: [
-       
         { name: 'Osu api key (optional)', value: osuApi.key, action: setOSUApiKey, type: String, pass: true },
         { name: 'Bot prefix', value: prefix, action: setPrefix, type: String },
       ],
