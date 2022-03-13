@@ -21,7 +21,7 @@ export default Object.freeze({
       isBotAccount: false,
     },
     osuApi: {
-      key: process.env.API_KEY_V1,
+      key: "",
     },
   },
   beatconnectAPI: {
