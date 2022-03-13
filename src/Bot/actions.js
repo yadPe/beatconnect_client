@@ -13,7 +13,7 @@ export const updateMatchsList = newMatchs => {
   trackEvent('bot', 'matchs', 'connectedMatchsCount', newMatchs.length || 0);
 };
 export const updateSingleMatch = matchUpdate => {
-  const newMatchs = store.getState().bot.mpMatchs.map(match => (match.id === matchUpdate.id ? matchUpdate : match));
-  store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatchs });
-  trackEvent('bot', 'matchs', 'connectedMatchsCount', newMatchs.length || 0);
+  const matchCount = store.getState().bot.mpMatchs.length
+  store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch:matchUpdate });
+  trackEvent('bot', 'matchs', 'connectedMatchsCount', matchCount || 0);
 };

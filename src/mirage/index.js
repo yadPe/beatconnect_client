@@ -25,6 +25,8 @@ export function makeServer() {
 
         return mock;
       });
+
+      this.passthrough('https://osu.ppy.sh/api/**');
     },
   });
 }

@@ -32,7 +32,8 @@ const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad 
   };
   return (
     <div className="cover" style={style}>
-      <BeatmapDetails beatmapSet={beatmapSet} cardRef={parentRef} />
+      {beatmapSet && parentRef && beatmapSet.beatmaps &&
+      <BeatmapDetails beatmapSet={beatmapSet} cardRef={parentRef} />}
     </div>
   );
 };
