@@ -30,9 +30,10 @@ const Cover = ({ url, width, height, paddingBottom, roundedTop, noFade, canLoad 
     backgroundImage: loaded && `url('${url}')`,
     backgroundColor: 'rgba(255, 255, 255, 0.02)',
   };
-  return (
+  return ( 
     <div className="cover" style={style}>
-      <BeatmapDetails beatmapSet={beatmapSet} cardRef={parentRef} />
+      {beatmapSet && parentRef && beatmapSet.beatmaps &&
+      <BeatmapDetails beatmapSet={beatmapSet} cardRef={parentRef} />}
     </div>
   );
 };

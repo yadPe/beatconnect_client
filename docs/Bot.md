@@ -10,7 +10,7 @@
 ### Requirement 
 
 - Your Osu! IRC credentials user and password these are not the same as your Osu! account credentials (Get them at https://osu.ppy.sh/p/irc)
-- An Osu! API key, it will be used to fetch infos about beatmaps and matchs (Get it at https://osu.ppy.sh/p/api)
+- A Osu! API key V1 (V2 api is not compatible), it will be used to fetch infos about beatmaps and matchs (Get it at https://osu.ppy.sh/p/api)
 
 ### Setup process 
 

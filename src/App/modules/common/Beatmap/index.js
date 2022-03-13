@@ -93,7 +93,8 @@ const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
   const theme = useTheme();
   const [isPlaying, setIsPLaying] = useState(false);
   const { beatmapset_id, id, title, artist, creator, version, bpm, beatconnectDlLink, beatmaps } = beatmap;
-  const wallpaperBeatmapId = beatmaps[Math.max(beatmaps.length - 2, 0)].id;
+  // beatmap.beatmap_id only when beatmap comes from mpMatch (for bot displays)
+  const wallpaperBeatmapId = beatmaps ? beatmaps[Math.max(beatmaps.length - 2, 0)].id : beatmap.beatmap_id;
 
   const classes = useStyles({ width, theme, isPlaying, bpm: beatmap.bpm, ...otherProps });
   return (

@@ -3,7 +3,7 @@ import store from '../../shared/store';
 import { updateSingleMatch } from '../actions';
 
 export default function(msg) {
-  const osuApi = store.getState().main.bot.osuApi;
+  const osuApi = store.getState().bot.instance.osuApi;
 
   let msgDatas = msg.split(',').map(data => data.split(/:(?!\/)/g));
   //msgDatas =  msgDatas
