@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import start from '../../../../Bot';
 import Toggle from '../../common/Toggle';
+import { getOsuApiKey } from '../../Settings/reducer/selectors'
 
 const styles = {
   Start: {
@@ -24,15 +25,15 @@ const Start = ({ classes, connected, irc, osuApi }) => {
       <p>{connected ? (connected === 'connecting' ? 'Connecting to Bancho via IRC..' : 'Online') : 'Offline'}</p>
       {notReady ? (
         <p style={{ margin: 'auto 10px' }}>
-          Warning: no irc credential or osu API key found. Please go to settings section
+          Warning: no irc credential found. Please go to settings section
         </p>
       ) : null}
     </div>
   );
 };
 
-const mapStateToProps = ({ settings }) => ({
-  irc: settings.userPreferences.irc,
-  osuApi: settings.userPreferences.osuApi.key,
+const mapStateToProps = (state) => ({
+  irc: state.settings.userPreferences.irc,
+  osuApi: getOsuApiKey(state),
 });
 export default connect(mapStateToProps)(injectSheet(styles)(Start));
