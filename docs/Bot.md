@@ -10,11 +10,10 @@
 ### Requirement 
 
 - Your Osu! IRC credentials user and password these are not the same as your Osu! account credentials (Get them at https://osu.ppy.sh/p/irc)
-- A Osu! API key V1 (V2 api is not compatible), it will be used to fetch infos about beatmaps and matchs (Get it at https://osu.ppy.sh/p/api)
 
 ### Setup process 
 
-1. Go to the settings section of Beatconnect Client then select the sub section Bot, enter your IRC credentials and api key and tweak other settings if needed.
+1. Go to the settings section of Beatconnect Client then select the sub section Bot, enter your IRC credentials and tweak other settings if needed.
 2. Now go to the Bot main section and start the bot with the toggle on top of the screen, the bot should now connect to IRC and the Osu! account linked to your IRC credentials should appear online in-game.
 
 ## Connect to multiplayer match
