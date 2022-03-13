@@ -1,3 +1,17 @@
+## [0.3.7](https://github.com/yadPe/beatconnect_client/compare/v0.3.6...v0.3.7) (2022-03-13)
+
+
+### Bug Fixes
+
+* **Bot:** fixed crashes + env api key v1 ([#468](https://github.com/yadPe/beatconnect_client/issues/468)) ([c4c6e1b](https://github.com/yadPe/beatconnect_client/commit/c4c6e1bcd867eefb073851b806698df16f9f0062))
+
+
+### Performance Improvements
+
+* **memory:** Reduce usage when switching sections ([#466](https://github.com/yadPe/beatconnect_client/issues/466)) ([bc9fcf9](https://github.com/yadPe/beatconnect_client/commit/bc9fcf9e9d864c21faf2d73b0fc17ef1780ae58d))
+
+
+
 ## [0.3.6](https://github.com/yadPe/beatconnect_client/compare/v0.3.5...v0.3.6) (2021-11-08)
 
 
