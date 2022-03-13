@@ -1,3 +1,12 @@
+## [0.3.8](https://github.com/yadPe/beatconnect_client/compare/v0.3.7...v0.3.8) (2022-03-13)
+
+
+### Bug Fixes
+
+* **Config:** v1 api key optional ([#470](https://github.com/yadPe/beatconnect_client/issues/470)) ([44cd092](https://github.com/yadPe/beatconnect_client/commit/44cd092d334c9773860f3295c8dffb7cfe0592fd))
+
+
+
 ## [0.3.7](https://github.com/yadPe/beatconnect_client/compare/v0.3.6...v0.3.7) (2022-03-13)
 
 
