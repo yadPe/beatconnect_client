@@ -55,8 +55,8 @@ const main = async () => {
   });
 
   // init ga tracking and set tracking methods on global
-  const { trackEvent, trackNavigation } = makeTracker(mainWindow.webContents.session.getUserAgent());
-  global.tracking = { trackEvent, trackNavigation };
+  const { trackEvent, trackNavigation, visitor } = makeTracker(mainWindow.webContents.session.getUserAgent());
+  global.tracking = { trackEvent, trackNavigation, visitor };
 
   autoUpdater.on('checking-for-update', () => {
     try {

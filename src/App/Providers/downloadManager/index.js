@@ -4,6 +4,7 @@
 import React, { useContext, createContext, useState, useRef } from 'react';
 import { remote } from 'electron';
 import { connect } from 'react-redux';
+import ElectronLog from 'electron-log';
 
 import { useDownloadHistory } from '../HistoryProvider';
 import { downloadMany, download, setSavePath, cancel, cancelCurrent, pause, pauseResume, clearQueue } from './ipc/send';
@@ -22,6 +23,8 @@ const DownloadManagerProvider = props => {
     queue: [],
     currentDownload: { beatmapSetId: null, progressPercent: null, downloadSpeed: null, status: null },
     overallProgress: 0,
+    failedDownloads: [],
+    failedIds: [],
   });
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -53,6 +56,10 @@ const DownloadManagerProvider = props => {
       taskManager.add({ name: 'download', status: 'running', description: 'initializing', section: 'Downloads' });
     }
 
+    const failedItems = stateRef.current.beatmapSetsInQueue
+      .filter(item => stateRef.current.failedIds.includes(item.id))
+      .map(item => ({ ...item, failed: true }));
+
     const beatmapSetsInQueue = stateRef.current.beatmapSetsInQueue.filter(item =>
       queue.some(itm => itm.beatmapSetId === item.id),
     );
@@ -68,7 +75,13 @@ const DownloadManagerProvider = props => {
       beatmapSetsInQueue.push(...missingItems);
     }
 
-    setState(prevState => ({ ...prevState, queue, beatmapSetsInQueue }));
+    setState(prevState => ({
+      ...prevState,
+      queue,
+      beatmapSetsInQueue,
+      failedIds: [],
+      failedDownloads: [...stateRef.current.failedDownloads, ...failedItems],
+    }));
   };
 
   const updateCurrentDowload = item => {
@@ -132,12 +145,36 @@ const DownloadManagerProvider = props => {
     );
   };
 
+  const discardFailedDownload = beatmapSetId => {
+    setState(oldState => ({
+      ...oldState,
+      failedDownloads: oldState.failedDownloads.filter(failedItm => failedItm.id !== beatmapSetId),
+    }));
+  };
+
+  const downloadFail = ({ beatmapSetId }) => {
+    ElectronLog.error('Download manager: download failed for beatmapsset = ', beatmapSetId);
+    setState(oldState => ({
+      ...oldState,
+      failedIds: [...oldState.failedIds, beatmapSetId],
+    }));
+  };
+
+  const clear = () => {
+    clearQueue();
+    setState(oldState => ({
+      ...oldState,
+      failedDownloads: [],
+    }));
+  };
+
   useDownloadMangerIPC({
     onDownloadManagerReady: initSaveLocation,
     onDownloadProgress: updateCurrentDowload,
     onDownloadPaused: downloadPaused,
     onQueueUpdate: updateQueue,
     onDownloadSucceed: downloadSucceeded,
+    onDownloadFail: downloadFail,
   });
 
   const value = {
@@ -146,10 +183,11 @@ const DownloadManagerProvider = props => {
     pauseResumeDownload: pauseResume,
     cancelDownload: cancelCurrent,
     removeItemfromQueue: cancel,
-    clear: clearQueue,
+    clear,
     push,
     pushMany,
     setPath,
+    discardFailedDownload,
   };
   const { children } = props;
 

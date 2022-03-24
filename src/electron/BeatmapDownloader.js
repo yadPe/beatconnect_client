@@ -104,11 +104,8 @@ class BeatmapDownloader {
     this.currentDownload.item = item;
   }
 
-  clearCurrentDownload(skip) {
-    const downloadState = this.currentDownload.item && this.currentDownload.item.getState();
-    if ((downloadState === 'progressing' || downloadState === 'interrupted') && !skip) {
-      throw new Error('downloadNotStopped');
-    }
+  clearCurrentDownload() {
+    this.currentDownload.item.cancel();
     this.deleteFromQueue(this.currentDownload.beatmapSetInfos);
     this.currentDownload = { item: null, beatmapSetInfos: { beatmapSetId: null, uniqId: null, beatmapSetInfos: null } };
   }
@@ -192,7 +189,7 @@ class BeatmapDownloader {
           this.onCancel(item, beatmapSetId);
           break;
         default:
-          this.onFailed(state, beatmapSetId);
+          this.onFailed(undefined, state, beatmapSetId);
           warn(`unhandled download item state ${state}`);
           break;
       }
@@ -278,6 +275,8 @@ class BeatmapDownloader {
   onFailed(_item, _state, beatmapSetId) {
     error('Download manager onFailed ', _item, _state, beatmapSetId);
     this.sendToWin('download-failed', { beatmapSetId });
+    global.tracking.visitor.exception('Beatmap download failed');
+    this.trackEvent('beatmapDownload', 'failed', this.currentDownload.beatmapSetInfos.beatmapSetId);
     this.clearCurrentDownload();
     this.executeQueue();
   }

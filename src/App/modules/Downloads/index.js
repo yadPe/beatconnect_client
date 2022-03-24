@@ -8,7 +8,9 @@ import Header from './components/Header';
 import Empty from './components/Empty';
 
 const Downloads = ({ setHeaderContent, windowSize }) => {
-  const { removeItemfromQueue, beatmapSetsInQueue } = useDownloadQueue();
+  const { removeItemfromQueue, beatmapSetsInQueue, failedDownloads, discardFailedDownload } = useDownloadQueue();
+
+  const items = [...beatmapSetsInQueue, ...failedDownloads];
 
   useEffect(() => {
     setHeaderContent(<Header />);
@@ -19,13 +21,18 @@ const Downloads = ({ setHeaderContent, windowSize }) => {
   const listHeight = windowSize.height;
   return (
     <div className="menuContainer Downloads" style={{ transition: 'background 0ms', overflow: 'hidden' }}>
-      {beatmapSetsInQueue.length ? (
+      {items.length ? (
         <List
           height={listHeight}
-          itemCount={beatmapSetsInQueue.length}
+          itemCount={items.length}
           itemSize={50}
           width={listWidth}
-          itemData={{ items: beatmapSetsInQueue, downloadSection: true, removeItemfromQueue }}
+          itemData={{
+            items,
+            itemMode: 'download',
+            removeItemfromQueue,
+            discardFailedDownload,
+          }}
         >
           {BeatmapListItem}
         </List>
