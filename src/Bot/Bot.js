@@ -176,11 +176,11 @@ class Bot {
 
     switch (command) {
       case this.commandsList[2]: // get
-        if (!parseInt(params[0])) {
+        if (!parseInt(params[0], 10)) {
           this.irc.pm(fromMp || from, `${fromMp ? from : ''} You need to specify a beatmapSet id`);
           break;
         }
-        this.sendMapById(params[0], from);
+        this.sendMapById(params[0], fromMp || from);
         break;
       case this.commandsList[5]: // infos
         this.irc.pm(
