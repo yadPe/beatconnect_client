@@ -27,6 +27,7 @@ export function makeServer() {
       });
 
       this.passthrough('https://osu.ppy.sh/api/**');
+      this.passthrough('https://beatconnect.io/api/beatmap/**');
     },
   });
 }

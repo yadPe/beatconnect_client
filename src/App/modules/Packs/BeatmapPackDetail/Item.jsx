@@ -25,6 +25,7 @@ const useStyle = createUseStyles({
     width: 'calc(100% - 3rem)',
     borderRadius: '5px',
     paddingRight: '10px',
+    backgroundColor: ({failed}) => failed ? 'rgba(255, 0,0,.2)' : 'none',
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,0.1)',
     },
@@ -99,12 +100,12 @@ const useStyle = createUseStyles({
 });
 
 const BeatmapListItem = ({ index, style, data }) => {
-  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library', collectionName } = data;
+  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library', collectionName, discardFailedDownload = () => {} } = data;
   const isPackMode = itemMode === 'pack';
   const isDownloadMode = itemMode === 'download';
   const isLibraryMode = itemMode === 'library';
   const item = items[index];
-  const { id, title, artist, creator, songDuration } = item;
+  const { id, title, artist, creator, songDuration, failed } = item;
 
   const osuPath = useSelector(getOsuPath);
   const [artworkURL, setArtWorkURL] = useState('');
@@ -118,7 +119,7 @@ const BeatmapListItem = ({ index, style, data }) => {
 
   const downloadProgress = useCurrentDownloadItem(id);
 
-  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !isDownloadMode ? 0.5 : downloadProgress });
+  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !isDownloadMode ? 0.5 : downloadProgress, failed });
 
   const { status } = currentDownload || {};
   const isDownloading = downloadProgress >= 0;
@@ -131,6 +132,12 @@ const BeatmapListItem = ({ index, style, data }) => {
     if (isPackMode && !isDownloading && !isDownloaded) push(item);
     if (isLibraryMode) playPreview();
   };
+
+  const handleCancel = () => {
+    if (isDownloading) cancelDownload()
+    else if (failed) discardFailedDownload(items[index].id)
+    else removeItemfromQueue(items[index].id)
+  }
 
   const wrapperStyle = {
     backgroundColor: isSelected && 'rgba(255,255,255,.05)',
@@ -197,7 +204,7 @@ const BeatmapListItem = ({ index, style, data }) => {
         {isDownloadMode && (
           <NewButton
             iconName="Cancel"
-            onClick={() => (isDownloading ? cancelDownload() : removeItemfromQueue(items[index].id))}
+            onClick={handleCancel}
             borderless
           />
         )}
