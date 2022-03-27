@@ -1,3 +1,4 @@
+import ElectronLog from 'electron-log';
 import { getDlLink } from '../BeatconnectApi';
 import mpSettingsMessage from '../msg/mpSettings';
 import { updateSingleMatch } from '../actions';
@@ -24,6 +25,8 @@ class MpMatch {
     this.creatorJoined = false;
     this.startTime = Date.now();
     this.mpSettingsMessage = mpSettingsMessage.bind(this);
+    this.logger = ElectronLog.scope(`Bot-mp-match-${id}`);
+    this.logger.log('Init');
     if (this.creator) {
       this.invitePlayer(this.creator);
       this.matchType = 'tournament';
@@ -31,6 +34,7 @@ class MpMatch {
       this.welcome('existingMatch');
       this.matchType = 'standard';
     }
+    this.logger.log('match type = ', this.matchType);
   }
 
   updateBeatmap(beatmap) {
@@ -79,24 +83,31 @@ class MpMatch {
       this.welcome('newMatch');
     } else if (this.players.length === 0) this.makeHost(player);
     this.players.push(player);
-    console.log(this.matchName + ' players: ' + this.players);
+    this.logger.info(`new player (${player}) joined!`);
+    this.logger.debug(`playerlist = `, this.players);
   }
 
   playerLeave(player) {
+    this.logger.info(`player (${player}) left!`);
     this.players = this.players.filter(p => p !== player);
     if (this.players.length > 0 && this.host === player) {
+      this.logger.info(`host left, transfering host to `, this.players[0]);
       this.makeHost(this.players[0]);
-    } else {
+    } else if (this.players.length === 0) {
+      this.logger.info('no player left');
       if (this.matchType === 'tournament' && !this.timeout) {
+        this.logger.info('match will be close');
+
         this.timeout = setTimeout(() => {
           this.ircClient.pm(this.ircRoom, '!mp close');
           this.destroy(this.id);
         }, 60000 * 0.3);
       } else {
+        this.logger.info('disconnecting from match');
         this.destroy(this.id);
       }
     }
-    console.log(this.matchName + ' players: ' + this.players);
+    this.logger.debug(`playerlist = `, this.players);
   }
 
   start() {

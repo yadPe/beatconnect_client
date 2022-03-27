@@ -109,7 +109,7 @@
   "dependencies": {
     "discord-rpc": "^3.2.0",
     "electron-is-dev": "^1.1.0",
-    "electron-log": "^4.3.4",
+    "electron-log": "^4.4.6",
     "electron-updater": "^4.3.8",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^9.1.0",

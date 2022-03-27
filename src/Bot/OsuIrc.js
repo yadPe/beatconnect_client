@@ -1,8 +1,11 @@
+import ElectronLog from 'electron-log';
+import { EventEmitter } from 'events';
 import { remote } from 'electron';
+import irc from 'irc';
 import store from '../shared/store';
 
-const irc = require('irc');
-const EventEmitter = require('events').EventEmitter;
+const logger = ElectronLog.scope('bot-irc-client');
+
 class OsuIrc {
   constructor(onMessage, onMpMessage, np, endMatch, config) {
     this.onMpMessage = onMpMessage;
@@ -40,11 +43,12 @@ class OsuIrc {
     });
     this.onError = err => {
       // this.eventEmitter.emit('ircError', err); // wtf
-      console.error(`IRC Client error: ${err}`);
+      logger.error(`IRC Client error: ${err}`);
+      logger.error(err);
     };
     this.client.on('error', this.onError);
     this.client.addListener('message', (from, channel, text, rawMsg) => {
-      console.log(rawMsg);
+      logger.log(`new message: ${rawMsg}`);
       onMessage(from, channel, text, rawMsg);
       this.previousMessage = rawMsg;
     });
@@ -59,7 +63,7 @@ class OsuIrc {
             this.client.disconnect();
             store.dispatch({ type: 'DISCONNECT' });
           }
-          console.error('RECEIVED ERROR FROM IRC SERVER: ', msg.args);
+          logger.error('RECEIVED ERROR FROM IRC SERVER: ', msg.args);
         }
         if (msg.command === 'rpl_welcome') {
           store.dispatch({ type: 'CONNECTED' });
@@ -75,7 +79,7 @@ class OsuIrc {
             .split(' ')
             .filter(player => !(player.startsWith('@') || player.startsWith('+') || player === ''));
           const matchId = args[2].split('_').pop();
-          console.log(playerList, matchId, 'ICI');
+          logger.log(playerList, matchId, 'ICI');
           this.eventEmitter.emit('namreply', { matchId, playerList });
         }
         if (msg.command === 'PART') {
@@ -85,10 +89,10 @@ class OsuIrc {
           }
         }
         if (msg.args[1]) {
-          console.log(msg.args[1]);
+          logger.log(msg.args[1]);
           if (msg.args[1].includes('ACTION is listening to')) {
             const beatmapId = /.*?(\d+)/i.exec(msg.args[1])[1];
-            console.log(beatmapId);
+            logger.log(beatmapId);
             this.np(beatmapId, msg.args[0].includes('mp') ? msg.args[0] : msg.nick);
           }
         }
@@ -102,10 +106,10 @@ class OsuIrc {
     if (rawCommand === 'MODE' && args[1] === '+v' && args[0].includes('mp'))
       this.eventEmitter.emit('newMatchCreated', rawMsg);
     if (rawCommand === 'PRIVMSG' && args[1].includes('Created the tournament match')) {
-      const matchId = this.regExps[0].exec(args[1])[1];
-      const matchName = args[1].split(' ').pop();
-      const matchRoom = `#mp_${matchId}`;
-      //this.eventEmitter.emit('newMatchCreated', { matchId, matchName, matchRoom });
+      // const matchId = this.regExps[0].exec(args[1])[1];
+      // const matchName = args[1].split(' ').pop();
+      // const matchRoom = `#mp_${matchId}`;
+      // this.eventEmitter.emit('newMatchCreated', { matchId, matchName, matchRoom });
     } else if (rawCommand === 'PRIVMSG' && args[0].includes('mp')) {
       const matchId = args[0].split('_').pop();
       this.onMpMessage(matchId, { rawMsg, from, channel, text });
@@ -119,7 +123,7 @@ class OsuIrc {
   joinMatch(match_Id) {
     return new Promise((resolve, reject) => {
       const onError = err => {
-        console.log(err.command);
+        logger.error(err.command);
         if (err.command === 'err_nosuchchannel') {
           reject('No such channel');
         }
@@ -140,6 +144,7 @@ class OsuIrc {
   // TODO Don't work when called again before previous call is resolved - Need Fix //
   makeMatch(name, creator) {
     return new Promise((resolve, reject) => {
+      let timeout = 0;
       const onNewMatch = msg => {
         const { args } = msg;
         clearTimeout(timeout);
@@ -148,9 +153,9 @@ class OsuIrc {
         const matchId = args[0].split('_').pop();
         resolve({ matchId, name, matchRoom, creator });
       };
-      const timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
         this.eventEmitter.removeListener('newMatchCreated', onNewMatch);
-        reject('Timed out');
+        reject(new Error('Timed out'));
       }, 5000);
       this.client.say('banchobot', `!mp make ${name}`);
       this.eventEmitter.on('newMatchCreated', onNewMatch);

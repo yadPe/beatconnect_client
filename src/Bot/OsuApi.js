@@ -16,10 +16,7 @@ class OsuApi {
   }
 
   getSetId(beatmapId) {
-    return this.request('get_beatmaps', [{ param: 'b', value: beatmapId }]).then(res => {
-      console.log(res[0].beatmapset_id);
-      return res[0];
-    });
+    return this.request('get_beatmaps', [{ param: 'b', value: beatmapId }]).then(res => res[0]);
   }
 }
 

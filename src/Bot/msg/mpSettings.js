@@ -1,18 +1,27 @@
 /* eslint-disable array-callback-return */
+import ElectronLog from 'electron-log';
 import store from '../../shared/store';
 import { updateSingleMatch } from '../actions';
+
+const logger = ElectronLog.scope('bot-mp-settings');
 
 export default function(msg) {
   const osuApi = store.getState().bot.instance.osuApi;
 
   let msgDatas = msg.split(',').map(data => data.split(/:(?!\/)/g));
   //msgDatas =  msgDatas
-  console.log(msgDatas);
+  logger.log(msgDatas);
   const mpData = {};
   // Players infos
   if (msgDatas[0].length === 1) {
     const player = {};
-    const indexes = [[7, 'slot'], [17, 'readyState'], [46, 'userProfileUrl'], [62, 'userName'], [69, 'isHost']];
+    const indexes = [
+      [7, 'slot'],
+      [17, 'readyState'],
+      [46, 'userProfileUrl'],
+      [62, 'userName'],
+      [69, 'isHost'],
+    ];
     indexes.map((index, i) => {
       player[index[1]] = msgDatas[0][0].slice(i > 0 ? indexes[i - 1][0] : 0, index[0]).replace(/\s/g, '');
     });
@@ -20,7 +29,7 @@ export default function(msg) {
       mpData.player = [];
     }
     mpData.player.push(player);
-    console.log(player);
+    logger.log(player);
     if (player.isHost === '[Host]') {
       this.host = player.userName;
       updateSingleMatch(this);
@@ -37,14 +46,14 @@ export default function(msg) {
       d.includes('https://osu.ppy.sh/b/') ? /.*?(\d+)/i.exec(d.split(' ')[1])[1] : d.replace(/\s/g, ''),
     );
     mpData[data[0]] = data[1];
-    console.log(mpData);
+    logger.log(mpData);
     if (data[0] === 'Beatmap') {
-      console.log('osuApi', data[1]);
+      logger.log('osuApi', data[1]);
       osuApi.getSetId(data[1]).then(beatmap => {
         this.beatmapset_id = beatmap.beatmapset_id;
         this.fullBeatmapData = beatmap;
         updateSingleMatch(this);
-        console.log('osuapi', beatmap);
+        logger.log('osuapi', beatmap);
       });
     }
     return mpData;
