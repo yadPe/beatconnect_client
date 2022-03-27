@@ -14,6 +14,7 @@ require('./ipcMessages');
 
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
+log.catchErrors();
 
 const installExtensions = async extensions => {
   return Promise.all(
