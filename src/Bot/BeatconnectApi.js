@@ -24,7 +24,7 @@ class BeatconnectApi {
     logger.log('getBeatmapById', beatmapId);
     return fetch(config.api.getBeatmapById(beatmapId), { mode: 'cors' })
       .then(res => res.json())
-      .catch(logger.error));
+      .catch(logger.error);
   }
 
   searchBeatmap(rawQuery, page) {
@@ -50,7 +50,7 @@ class BeatconnectApi {
           }`
         );
       })
-      .catch(err => ElectronLog.error());
+      .catch(ElectronLog.error);
   }
 }
 
