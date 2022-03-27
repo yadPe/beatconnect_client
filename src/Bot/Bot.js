@@ -1,10 +1,12 @@
+import ElectronLog from 'electron-log';
 import OsuIrc from './OsuIrc';
 import OsuApi from './OsuApi';
 import MpMatch from './multiplayer/mpMatch';
 import store from '../shared/store';
 import { updateMatchsList } from './actions';
+import { BeatconnectApi, getDlLink } from './BeatconnectApi';
 
-const { BeatconnectApi, getDlLink } = require('./BeatconnectApi');
+const botLogger = ElectronLog.scope('Bot');
 
 class Bot {
   constructor(configFile) {
@@ -47,18 +49,18 @@ class Bot {
       .then(response => getDlLink(response, true, extra))
       .then(link => this.irc.pm(to, link))
       .catch(err => {
-        console.error(err);
+        botLogger.error('sendMapById failed ', err);
         this.irc.pm(to, 'oops ! Cannot get beatmap');
       });
   }
 
   newMatch(id, matchName, ircRoom, creator, playerList) {
-    console.log(`New match created : ${id} ${matchName} ${ircRoom} ${creator}`);
+    botLogger.info(`Creating new match : ${id} ${matchName} ${ircRoom} ${creator}`);
     let alreadyExist = false;
     this.matchs.forEach(match => {
       if (match.id === id) alreadyExist = true;
     });
-    if (alreadyExist) return;
+    if (alreadyExist) return botLogger.info(`Match with id ${id} already exist! Doing nothing..`);
     const newMatch = new MpMatch(
       id,
       matchName,
@@ -73,41 +75,45 @@ class Bot {
       newMatch.players = playerList;
     }
     this.matchs.push(newMatch);
-    //this.web.matchs = this.matchs;
     updateMatchsList(this.matchs);
-    console.log(this.matchs);
+    botLogger.info('New match created, current matchs : ', this.matchs);
   }
 
   endMatch(matchId) {
     this.matchs = this.matchs.filter(match => match.id !== matchId);
     updateMatchsList(this);
-    console.log(`Current matchs : ${this.matchs}`);
+    botLogger.info(`Match ${matchId} ended`);
+    botLogger.debug('Current matchs :', this.matchs);
   }
 
   newBeatmap(beatmapId, matchId) {
+    botLogger.info(`Beatmap changed ${beatmapId} for match ${matchId}!`);
     this.osuApi
       .getSetId(beatmapId)
       .then(beatmap =>
         this.matchs.forEach(match => {
           if (match.id === matchId) {
-            this.beatconnect.getBeatmapById(beatmap.beatmapset_id).then(response => {
-              console.log('Beatconnect', response);
-              beatmap = { ...beatmap, ...response };
-              match.updateBeatmap(beatmap).then(() => updateMatchsList(this.matchs));
-              console.log('osu', beatmap, this.matchs);
-              return;
-            });
+            this.beatconnect
+              .getBeatmapById(beatmap.beatmapset_id)
+              .then(response => {
+                botLogger.log('Beatconnect', response);
+                beatmap = { ...beatmap, ...response };
+                match.updateBeatmap(beatmap).then(() => updateMatchsList(this.matchs));
+                botLogger.log('osu', beatmap, this.matchs);
+                return;
+              })
+              .catch(botLogger.error);
           }
         }),
       )
-      .catch(err => console.error(err));
+      .catch(botLogger.error);
   }
 
   np(beatmapId, from) {
     this.osuApi
       .getSetId(beatmapId)
       .then(res => this.sendMapById(res.beatmapset_id, from))
-      .catch(err => console.error(err));
+      .catch(botLogger.error);
   }
 
   joinMatch(reqMatchId, from) {
@@ -115,7 +121,7 @@ class Bot {
       .joinMatch(reqMatchId)
       .then(({ matchId, playerList }) => this.newMatch(matchId, null, `#mp_${matchId}`, null, playerList))
       .catch(err => {
-        console.error(err);
+        botLogger.error(err);
         if (from) this.irc.pm(from, 'Cannot find this room');
         store.dispatch({ type: 'ERROR', payload: reqMatchId });
       });
@@ -146,7 +152,7 @@ class Bot {
             const player = args[1].split(' ').shift();
             match.host = player;
             updateMatchsList(this.matchs);
-            console.log(`Host for ${match.matchName} is now ${player}`);
+            botLogger.info(`Host for ${match.matchName} is now ${player}`);
           } else if (
             args[1].includes('Room name: ') ||
             args[1].includes('Room name: ') ||
@@ -195,7 +201,7 @@ class Bot {
           .makeMatch(params[0], from)
           .then(({ matchId, name, matchRoom, creator }) => this.newMatch(matchId, name, matchRoom, creator))
           .catch(err => {
-            console.error(err);
+            botLogger.error(err);
             this.irc.pm(from, 'Unable to create the match, maybe you already have too many matchs currently open');
           });
         break;
@@ -203,7 +209,7 @@ class Bot {
         this.beatconnect
           .searchBeatmap(params)
           .then(result => this.irc.pm(fromMp || from, result))
-          .catch(err => console.error(err));
+          .catch(err => botLogger.error(err));
         break;
       case this.commandsList[4]: // beat
         if (!fromMp) {
