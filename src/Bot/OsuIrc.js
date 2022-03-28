@@ -43,7 +43,15 @@ class OsuIrc {
     });
     this.onError = err => {
       // this.eventEmitter.emit('ircError', err); // wtf
-      logger.error(`IRC Client error: ${err}`);
+      logger.error('IRC Client error', err);
+      switch (err.command) {
+        case 'err_nosuchchannel': {
+          remote.dialog.showErrorBox('Invalid match Id', `Details:\n${err.args.join('\n')}`);
+          break;
+        }
+        default:
+          break;
+      }
       logger.error(err);
     };
     this.client.on('error', this.onError);
