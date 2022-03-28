@@ -48,7 +48,7 @@ class OsuIrc {
     };
     this.client.on('error', this.onError);
     this.client.addListener('message', (from, channel, text, rawMsg) => {
-      logger.log(`new message: ${rawMsg}`);
+      logger.log(`new message: \n${text}`, rawMsg);
       onMessage(from, channel, text, rawMsg);
       this.previousMessage = rawMsg;
     });
