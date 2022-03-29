@@ -1,6 +1,9 @@
+import ElectronLog from 'electron-log';
 import Bot from './Bot';
 import store from '../shared/store';
 import { getOsuApiKey } from '../App/modules/Settings/reducer/selectors';
+
+const logger = ElectronLog.scope('bot');
 
 export default () => {
   const state = store.getState();
@@ -14,15 +17,15 @@ export default () => {
   };
 
   const { connected, instance } = bot;
-  
+
   if (!instance.connect) {
-    console.log('connecting using new Bot');
+    logger.log('connecting using new Bot');
     store.dispatch({ type: 'CONNECT', payload: { status: 'connecting', instance: new Bot(botSettings) } });
   } else if (connected) {
-    console.log('disconnecting');
+    logger.log('disconnecting');
     instance.disconnect();
   } else {
-    console.log('connecting using existing Bot');
+    logger.log('connecting using existing Bot');
     store.dispatch({ type: 'CONNECT', payload: { status: 'connecting' } });
     instance.connect();
   }

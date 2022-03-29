@@ -1,30 +1,35 @@
+import ElectronLog from 'electron-log';
 import config from '../shared/config';
+
+const logger = ElectronLog.scope('bot-beatconnect-api');
+
+const BeatmapStatus = Object.freeze({
+  '4': 'Loved',
+  '3': 'Qualified',
+  '2': 'Approved',
+  '1': 'Ranked',
+  '0': 'Pending',
+  '-1': 'WIP',
+  '-2': 'Graveyard',
+});
 
 class BeatconnectApi {
   constructor(key) {
     this.key = key;
     this.url = 'https://beatconnect.io/api';
-    this.status = {
-      '4': 'Loved',
-      '3': 'Qualified',
-      '2': 'Approved',
-      '1': 'Ranked',
-      '0': 'Pending',
-      '-1': 'WIP',
-      '-2': 'Graveyard',
-    };
+    this.status = BeatmapStatus;
   }
 
   getBeatmapById(beatmapId) {
-    console.log(beatmapId);
+    logger.log('getBeatmapById', beatmapId);
     return fetch(config.api.getBeatmapById(beatmapId), { mode: 'cors' })
       .then(res => res.json())
-      .catch(err => console.error(err));
+      .catch(logger.error);
   }
 
-  searchBeatmap(query, page) {
-    query = query.join('%20');
-    console.log('searching ' + query);
+  searchBeatmap(rawQuery, page) {
+    logger.log('searching ' + query);
+    const query = encodeURI(rawQuery);
     return fetch(config.api.searchBeatmaps(query, page))
       .then(res => res.json())
       .then(results => {
@@ -45,26 +50,17 @@ class BeatconnectApi {
           }`
         );
       })
-      .catch(err => console.error(err));
+      .catch(ElectronLog.error);
   }
 }
 
 const getDlLink = (beatmapInfos, pretty, extra) => {
-  console.log('getdlLimk', beatmapInfos);
   if (beatmapInfos.error) throw new Error(beatmapInfos.error); // Need Test
   const { id, artist, title, unique_id } = beatmapInfos;
-  const status = {
-    '4': 'Loved',
-    '3': 'Qualified',
-    '2': 'Approved',
-    '1': 'Ranked',
-    '0': 'Pending',
-    '-1': 'WIP',
-    '-2': 'Graveyard',
-  };
+
   if (extra) {
     const { creator, approved, version, creator_id, bpm, max_combo, diff_approach } = extra;
-    return `[${status[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title ||
+    return `[${BeatmapStatus[approved] || ''}] [https://beatconnect.io/b/${id}/${unique_id} ${artist || ''} - ${title ||
       ''}  [${version || ''}]] by [https://osu.ppy.sh/u/${creator_id} ${creator || 'peppy'}] | BPM ${bpm ||
       0} | AR ${diff_approach || 0} ${max_combo ? '| Max combo: ' + max_combo : ''}`;
   }
