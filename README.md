@@ -101,6 +101,9 @@ The `.env` file must be located at the root of the project
 ```
 BEATCONNECT_CLIENT_TOKEN=your-beatconnect-token
 BEATCONNECT_HOST_URL=https://beatconnect.io/
+BEATCONNECT_CLIENT_GA_TRACKING_ID=ga-tracking-id
+BEATCONNECT_CLIENT_API_KEY_V1=osu-api-key
+BEATCONNECT_CLIENT_DISCORD_APP_ID=discord-app-id
 ```
 
 ## Release
