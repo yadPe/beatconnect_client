@@ -1,3 +1,13 @@
+## [0.3.9](https://github.com/yadPe/beatconnect_client/compare/v0.3.8...v0.3.9) (2022-03-30)
+
+
+### Bug Fixes
+
+* **bot:** get command reply in mp channel ([#475](https://github.com/yadPe/beatconnect_client/issues/475)) ([9e8fa6d](https://github.com/yadPe/beatconnect_client/commit/9e8fa6d8eebd2325618ede4d3fbd670c98b53023))
+* **download:** show failed downloads + don't crash when one dl fails ([#474](https://github.com/yadPe/beatconnect_client/issues/474)) ([f7c0bde](https://github.com/yadPe/beatconnect_client/commit/f7c0bde69e757be3f86529b97f506c3a1a96d8c2))
+
+
+
 ## [0.3.8](https://github.com/yadPe/beatconnect_client/compare/v0.3.7...v0.3.8) (2022-03-13)
 
 
