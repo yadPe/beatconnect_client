@@ -3,7 +3,7 @@ const { ensureDirSync, copySync } = require('fs-extra')
 // Copy wallpaper binaries to public folder on build
 
 const sources = [
-  '../src/electron/helpers/wallpaper/assets',
+  '../src/electron/helpers/wallpaper/bin',
   '../src/electron/helpers/assets',
 ]
 
