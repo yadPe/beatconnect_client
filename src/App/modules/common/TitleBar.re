@@ -36,14 +36,18 @@ let make = (~height: int) => {
   let title =
     playingState.isPlaying
       ? {j|Beatconnect \u23F5 $songTitle|j} : "Beatconnect";
-  let window = Remote.getCurrentWindow(Remote.remote);
-  window->BrowserWindow.setTitle(title);
+  // let window = Remote.getCurrentWindow(Remote.remote);
+  // window->BrowserWindow.setTitle(title);
 
-  let onMinimizeClick = _e => BrowserWindow.minimize(window);
-  let onCloseClick = _e => BrowserWindow.close(window);
-  let onMaximizeClick = _e =>
-    BrowserWindow.isMaximized(window)
-      ? BrowserWindow.unmaximize(window) : BrowserWindow.maximize(window);
+  // let onMinimizeClick = _e => BrowserWindow.minimize(window);
+  // let onCloseClick = _e => BrowserWindow.close(window);
+  // let onMaximizeClick = _e =>
+  //   BrowserWindow.isMaximized(window)
+  //     ? BrowserWindow.unmaximize(window) : BrowserWindow.maximize(window);
+
+  let onMinimizeClick = _ => ();
+  let onCloseClick = _ => ();
+  let onMaximizeClick = _ => ();
 
   <div className={makeWrapperStyle()}>
     <div

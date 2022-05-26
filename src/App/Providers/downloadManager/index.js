@@ -2,7 +2,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unused-state */
 import React, { useContext, createContext, useState, useRef } from 'react';
-import { remote } from 'electron';
 import { connect } from 'react-redux';
 import ElectronLog from 'electron-log';
 
@@ -11,11 +10,10 @@ import { downloadMany, download, setSavePath, cancel, cancelCurrent, pause, paus
 import config from '../../../shared/config';
 import { useTasks } from '../TaskProvider.bs';
 import { useDownloadMangerIPC } from './ipc/listeners';
+import { getOsPath } from '../../helpers/path';
 
 export const DownloadManagerContext = createContext();
 export const useDownloadQueue = () => useContext(DownloadManagerContext);
-
-const { app } = remote;
 
 const DownloadManagerProvider = props => {
   const [state, setState] = useState({
@@ -35,8 +33,7 @@ const DownloadManagerProvider = props => {
   const setPath = (importMethod, osuSongsPath) => {
     console.log('setPath', { importMethod, osuSongsPath });
     setSavePath({
-      path:
-        importMethod === config.settings.importMethod.bulk && osuSongsPath ? osuSongsPath : app.getPath('downloads'),
+      path: importMethod === config.settings.importMethod.bulk && osuSongsPath ? osuSongsPath : getOsPath('downloads'),
       importMethod,
     });
   };

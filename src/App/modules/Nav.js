@@ -1,6 +1,5 @@
 import React, { cloneElement, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { remote } from 'electron';
 import Bot from './Bot';
 import Beatmaps from './Beatmaps';
 import Packs from './Packs';
@@ -13,8 +12,7 @@ import store from '../../shared/store';
 import config from '../../shared/config';
 import MyLibrary from './MyLibrary';
 import { changeCurrentSection } from '../app.actions';
-
-const { trackNavigation } = remote.getGlobal('tracking');
+import { trackNavigation } from '../helpers/tracking';
 
 const switchSectionTo = section => {
   store.dispatch(changeCurrentSection(section));

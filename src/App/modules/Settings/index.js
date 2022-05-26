@@ -16,6 +16,7 @@ import { useOsuDbScan } from './utils/useScanOsuSongs';
 import { clearCollections } from '../MyLibrary/actions';
 import { scanOsuCollection } from './utils/scanOsuCollections';
 import store from '../../../shared/store';
+import { getVersion } from '../../helpers/path';
 
 const Settings = ({ userPreferences }) => {
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
@@ -141,7 +142,7 @@ const Settings = ({ userPreferences }) => {
     },
   };
 
-  const appVersion = remote.app.getVersion();
+  const appVersion = getVersion();
   settings[appVersion] = {
     version: [{ name: `Thanks for using Beatconnect! - v${appVersion}` }],
   };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { remote } from 'electron';
 import ProgressCircle from '../../common/ProgressCircle';
 import { zip, isEqual } from 'underscore';
 import { connect } from 'react-redux';
@@ -12,8 +11,7 @@ import config from '../../../../shared/config';
 import Button from '../../common/Button';
 import { getDragRegion } from '../../../helpers/css.utils';
 import { getActiveSectionParams } from '../../../app.selectors';
-
-const { trackEvent } = remote.getGlobal('tracking');
+import { trackEvent } from '../../../helpers/tracking';
 
 const useStyle = createUseStyles({
   Search: {
@@ -79,11 +77,7 @@ const Search = ({ lastSearch, isBusy, beatmapCount, skeletonBeatmaps, deepLinkSe
     <div className={classes.Search}>
       <div className={classes.searchButtonWrapper}>
         <Button className="btn" color={theme.palette.primary.accent} onClick={execSearch}>
-          {isBusy ? (
-            <ProgressCircle />
-          ) : (
-            renderIcons({ name: 'Search', style: theme.accentContrast })
-          )}
+          {isBusy ? <ProgressCircle /> : renderIcons({ name: 'Search', style: theme.accentContrast })}
         </Button>
       </div>
       <DropDown
