@@ -51,24 +51,23 @@ type beatmap = {
   visual_override: bool,
   last_modification_time_2: float,
   mania_scroll_speed: int,
-};
+}
 type osuDBData = {
-  beatmaps: list(beatmap),
+  beatmaps: list<beatmap>,
   userperms: int,
   isLocked: bool,
-};
-type t;
-[@bs.deriving {jsConverter: newType}]
-type osuDatabase = [ | `osudb | `collection];
+}
+type t
+@deriving({jsConverter: newType})
+type osuDatabase = [#osudb | #collection]
 type osuDbParserInstance = {
-  .
-  [@bs.meth] "getOsuDBData": unit => osuDBData,
-  [@bs.meth] "setBuffer": (abs_osuDatabase, Buffer.t) => unit,
-};
-[@bs.new] [@bs.module]
-external make: unit => osuDbParserInstance = "osu-db-parser";
-let parser = make();
+  getOsuDBData: unit => osuDBData,
+  setBuffer: (abs_osuDatabase, Buffer.t) => unit,
+}
+@new @module
+external make: unit => osuDbParserInstance = "osu-db-parser"
+let parser = make()
 let read = (buffer: Buffer.t) => {
-  parser##setBuffer(osuDatabaseToJs(`osudb), buffer);
-  parser##getOsuDBData();
-};
+  parser.setBuffer(osuDatabaseToJs(#osudb), buffer)
+  parser.getOsuDBData()
+}

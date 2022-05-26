@@ -51,15 +51,15 @@ const config = configFactory('production');
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => new Promise((resolve, reject) => {
-    const bsb = exec('npm run bsb',
+    const res = exec('npm run res',
       (err) => {
         if (err) {
-          console.log("Couldn't build reason using bsb");
+          console.log("Couldn't build rescript using res");
           reject(err)
         }
       });
-    bsb.stdout.pipe(process.stdout)
-    bsb.on('exit', resolve)
+      res.stdout.pipe(process.stdout)
+      res.on('exit', resolve)
   }))
   .then(() => {
     // First, read the current file sizes in build directory.

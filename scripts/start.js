@@ -64,15 +64,15 @@ if (process.env.HOST) {
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => new Promise((resolve, reject) => {
-    const bsb = exec('npm run bsb',
+    const res = exec('npm run res',
       (err) => {
         if (err) {
-          console.log("Couldn't build reason using bsb");
+          console.log("Couldn't build rescript using rescript");
           reject(err)
         }
       });
-    bsb.stdout.pipe(process.stdout)
-    bsb.on('exit', resolve)
+    res.stdout.pipe(process.stdout)
+    res.on('exit', resolve)
   }))
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to
