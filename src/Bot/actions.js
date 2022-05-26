@@ -1,7 +1,5 @@
-import { remote } from 'electron';
+import { trackEvent } from '../App/helpers/tracking';
 import store from '../shared/store';
-
-const { trackEvent } = remote.getGlobal('tracking');
 
 export const connectBot = instance => {
   store.dispatch({ type: 'CONNECT', status: 'connecting', instance });
@@ -13,7 +11,7 @@ export const updateMatchsList = newMatchs => {
   trackEvent('bot', 'matchs', 'connectedMatchsCount', newMatchs.length || 0);
 };
 export const updateSingleMatch = matchUpdate => {
-  const matchCount = store.getState().bot.mpMatchs.length
-  store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch:matchUpdate });
+  const matchCount = store.getState().bot.mpMatchs.length;
+  store.dispatch({ type: 'UPDATE_SINGLE_MATCH', newMatch: matchUpdate });
   trackEvent('bot', 'matchs', 'connectedMatchsCount', matchCount || 0);
 };

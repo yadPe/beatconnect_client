@@ -1,15 +1,13 @@
 /* eslint-disable no-continue */
 import React, { useCallback, useEffect, useState } from 'react';
-import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { useSelector } from 'react-redux';
+import { trackEvent } from '../../../helpers/tracking';
 import { makePlaylist, getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { useDownloadHistory } from '../../../Providers/HistoryProvider';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import CollectionCover from './CollectionCover';
-
-const { trackEvent } = remote.getGlobal('tracking');
 
 const useStyle = createUseStyles({
   collectionWrapper: {

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { remote } from 'electron';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import config from '../../../../../shared/config';
@@ -8,8 +7,7 @@ import renderIcons from '../../../../helpers/renderIcons';
 import { useAudioPlayer } from '../../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import ScrollingText from '../../ScrollingText';
 import { setPlayingSongPresence, clearActivity } from '../../../../helpers/discordRPC';
-
-const { trackEvent } = remote.getGlobal('tracking');
+import { trackEvent } from '../../../../helpers/tracking';
 
 const useStyle = createUseStyles({
   playingSongWrapper: {

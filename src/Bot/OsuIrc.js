@@ -1,6 +1,5 @@
 import ElectronLog from 'electron-log';
 import { EventEmitter } from 'events';
-import { remote } from 'electron';
 import irc from 'irc';
 import store from '../shared/store';
 
@@ -46,7 +45,7 @@ class OsuIrc {
       logger.error('IRC Client error', err);
       switch (err.command) {
         case 'err_nosuchchannel': {
-          remote.dialog.showErrorBox('Invalid match Id', `Details:\n${err.args.join('\n')}`);
+          alert('Invalid match Id', `Details:\n${err.args.join('\n')}`);
           break;
         }
         default:
@@ -67,7 +66,7 @@ class OsuIrc {
         if (msg.commandType === 'error') {
           // Bad auth infos
           if (msg.command === 'err_passwdmismatch') {
-            remote.dialog.showMessageBox({ title: 'IRC', message: 'Bad IRC username or password', type: 'error' });
+            alert({ title: 'IRC', message: 'Bad IRC username or password', type: 'error' });
             this.client.disconnect();
             store.dispatch({ type: 'DISCONNECT' });
           }

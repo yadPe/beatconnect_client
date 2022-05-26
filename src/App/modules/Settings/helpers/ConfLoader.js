@@ -3,12 +3,12 @@ import { readJSONSync } from 'fs-extra';
 import fs from 'fs';
 import { join } from 'path';
 import { error, warn } from 'electron-log';
-import { remote } from 'electron';
 import baseConf from './baseConf';
+import { getOsPath } from '../../../helpers/path';
 
 class ConfLoader {
   constructor() {
-    this.path = join(remote.app.getPath('documents'), 'Beatconnect', 'config.json');
+    this.path = join(getOsPath('documents'), 'Beatconnect', 'config.json');
     this.conf = null;
   }
 

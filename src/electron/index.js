@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { app, protocol } = require('electron');
+const { app, protocol, ipcMain } = require('electron');
 const log = require('electron-log');
 const { warn } = require('electron-log');
 const isDev = require('electron-is-dev');
@@ -58,6 +58,14 @@ const main = async () => {
   // init ga tracking and set tracking methods on global
   const { trackEvent, trackNavigation, visitor } = makeTracker(mainWindow.webContents.session.getUserAgent());
   global.tracking = { trackEvent, trackNavigation, visitor };
+
+  ipcMain.handle('trackEvent', (category, action, label, value) => trackEvent(category, action, label, value));
+  ipcMain.handle('trackNavigation', sectionName => trackNavigation(sectionName));
+
+  ipcMain.on('get-os-path', (event, name) => {
+    // eslint-disable-next-line no-param-reassign
+    event.returnValue = app.getPath(name);
+  });
 
   autoUpdater.on('checking-for-update', () => {
     try {

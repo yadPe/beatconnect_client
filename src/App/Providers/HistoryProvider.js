@@ -2,11 +2,11 @@
 /* eslint-disable no-underscore-dangle */
 /* Provides download history from {localUser}/Documents/Beatconnect/history.json */
 import React, { Component, useContext, createContext } from 'react';
-import { remote } from 'electron';
 import { outputJSON, readJson } from 'fs-extra';
 import { join } from 'path';
 import { error, log } from 'electron-log';
 import { memoize } from 'underscore';
+import { getOsPath } from '../helpers/path';
 
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
@@ -57,7 +57,7 @@ class HistoryProvider extends Component {
 
   constructor(props) {
     super(props);
-    this.path = join(remote.app.getPath('documents'), '/Beatconnect/history.json');
+    this.path = join(getOsPath('documents'), '/Beatconnect/history.json');
     this.state = {
       history: {},
       stats: {
