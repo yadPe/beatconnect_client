@@ -67,6 +67,11 @@ const main = async () => {
     event.returnValue = app.getPath(name);
   });
 
+  ipcMain.on('get-version', event => {
+    // eslint-disable-next-line no-param-reassign
+    event.returnValue = app.getVersion();
+  });
+
   autoUpdater.on('checking-for-update', () => {
     try {
       mainWindow.webContents.send('autoUpdater', { status: 'checkingUpdate' });
