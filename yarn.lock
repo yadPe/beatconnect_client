@@ -3968,7 +3968,7 @@ __metadata:
     electron-builder: 22.13.1
     electron-devtools-installer: 3.2.0
     electron-is-dev: ^1.1.0
-    electron-log: ^4.3.4
+    electron-log: ^4.4.6
     electron-updater: ^4.3.8
     electron-window-state: ^5.0.3
     eslint: ^7.30.0
@@ -6453,10 +6453,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-log@npm:^4.3.4":
-  version: 4.3.4
-  resolution: "electron-log@npm:4.3.4"
-  checksum: 93d53f52aa3f93542deeea831a2a3398b7b53920b87f7ec61f78938b60d8abd7d202abbb7577920544c9b5de1db31330d3460eaa29275a2fca1ffbc91c37b2c5
+"electron-log@npm:^4.4.6":
+  version: 4.4.6
+  resolution: "electron-log@npm:4.4.6"
+  checksum: 5794a2881973573ce02512809eac3c5e0cd866ddda44e3e8b5f630874a9ab7f62aa3c038f47d1d0ea9cdf953919965a25f9805596f29e1c3433864f1934b347f
   languageName: node
   linkType: hard
 
