@@ -6,7 +6,7 @@ const readCollectionDB = path =>
     fs.readFile(path, (err, buf) => {
       if (err || !buf) return reject(new Error('Failed to open collection.db'));
 
-      const collections = {};
+      const collections = [];
 
       // eslint-disable-next-line no-underscore-dangle, no-unused-vars
       const _version = buf.readInt32LE(0);
@@ -15,7 +15,8 @@ const readCollectionDB = path =>
       for (let i = 0; i < collectionCount; i++) {
         const name = readString(buf, offset);
         offset += name.length;
-        collections[name.str] = [];
+
+        collections[i] = [name.str, []];
 
         const beatmapCount = buf.readInt32LE(offset);
         offset += 4;
@@ -23,9 +24,12 @@ const readCollectionDB = path =>
         for (let j = 0; j < beatmapCount; j++) {
           const md5 = readString(buf, offset);
           offset += md5.length;
-          collections[name.str].push(md5.str);
+          collections[i][1].push(md5.str);
         }
       }
+
+      console.log('collections');
+      console.log(collections);
 
       return resolve(collections);
     });
@@ -36,19 +40,19 @@ const writeCollectionDB = (path, collections) =>
     let buf = Buffer.alloc(8);
 
     buf.writeInt32LE(20160212);
-    buf.writeInt32LE(Object.keys(collections).length, 4);
+    buf.writeInt32LE(collections.length, 4);
 
-    const collectionNames = Object.keys(collections);
+    // const collectionNames = Object.keys(collections);
 
-    collectionNames.forEach(name => {
+    collections.forEach(([name, beatmapsMd5]) => {
       buf = Buffer.concat([buf, createString(name)]);
 
       const beatmapCountBuf = Buffer.alloc(4);
-      beatmapCountBuf.writeInt32LE(collections[name].length);
+      beatmapCountBuf.writeInt32LE(beatmapsMd5.length);
       buf = Buffer.concat([buf, beatmapCountBuf]);
 
-      for (let j = 0; j < collections[name].length; j++) {
-        buf = Buffer.concat([buf, createString(collections[name][j])]);
+      for (let j = 0; j < beatmapsMd5.length; j++) {
+        buf = Buffer.concat([buf, createString(beatmapsMd5[j])]);
       }
     });
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
 import { remote, shell } from 'electron';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { error } from 'electron-log';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix } from './reducer/actions';
 import ConfLoader from './helpers/ConfLoader';
@@ -17,6 +17,7 @@ import { clearCollections } from '../MyLibrary/actions';
 import { scanOsuCollection } from './utils/scanOsuCollections';
 import store from '../../../shared/store';
 import { getVersion } from '../../helpers/path';
+import { getIsLazer } from './reducer/selectors';
 
 const Settings = ({ userPreferences }) => {
   const { irc, osuApi, prefix, osuSongsPath, osuPath, lastScan, importMethod } = userPreferences;
@@ -24,11 +25,12 @@ const Settings = ({ userPreferences }) => {
   const theme = useTheme();
   const history = useDownloadHistory();
   const dispatch = useDispatch();
+  const isLazer = useSelector(getIsLazer);
 
   const { handleAccentColorSelect, handleImportMethodChange, osuPathSetup } = useSettingsUtils(userPreferences);
   const scanOsuSongs = useOsuDbScan();
   const scanOsu = () => {
-    scanOsuSongs();
+    scanOsuSongs(isLazer);
     scanOsuCollection(osuPath);
   };
 
@@ -54,7 +56,12 @@ const Settings = ({ userPreferences }) => {
             'Giving access to the osu! folder allow osu!.db and collection.db read, enabling Beatconnect to auto sync on startup with your game',
           type: 'Text',
         },
-        { name: 'Select your Osu! Songs folder', action: () => osuPathSetup('song'), type: 'Button' },
+        {
+          name: 'Select your Osu! Songs folder',
+          action: () => osuPathSetup('song'),
+          type: 'Button',
+          disabled: isLazer,
+        },
         {
           name: osuSongsPath || 'No songs folder set',
           description: 'By selecting your osu songs folder enable the Bulk import and scan option',
@@ -75,8 +82,8 @@ const Settings = ({ userPreferences }) => {
           value: importMethod === config.settings.importMethod.bulk,
           action: () => handleImportMethodChange(config.settings.importMethod.bulk),
           description:
-            'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection',
-          disabled: !osuSongsPath || osuSongsPath === '',
+            'Beatmaps are placed in you songs folder after downloading and osu! will import them after reload of the beatmaps selection. Not supported for Osu!Lazer',
+          disabled: !osuSongsPath || osuSongsPath === '' || isLazer,
           type: 'CheckBox',
         },
         {

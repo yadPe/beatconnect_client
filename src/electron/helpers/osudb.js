@@ -5,6 +5,7 @@
 const fs = require('fs');
 const uleb128 = require('uleb128');
 const Long = require('long');
+const { open } = require('osu-lazer-db-reader');
 const { read } = require('./OsuDbParser.bs');
 
 const windowsTickEpoch = Long.fromInt(621355968).multiply(100000);
@@ -182,24 +183,17 @@ function writeScoresDB(path, beatmaps, callback) {
 
 const readOsuDB = path => read(fs.readFileSync(path));
 
+const readLazerDb = async path => {
+  // const { beatmapsets } = await open(path);
+  // return beatmapsets;
+};
+
 module.exports = {
   winTickToMs,
   readOsuDB,
+  readLazerDb,
   readString,
   createString,
   readScoresDB,
   writeScoresDB,
 };
-
-// readCollectionDB('./collection.db', collections => {
-//   console.log('READ : ', collections);
-//   collections['Top KEK'] = [
-//     'DABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-//     'OMEGAROBDAB',
-//     'SAMARCH',
-//     '44444444444444444444444444444449',
-//   ];
-//   writeCollectionDB('./collection.db', collections, () => {
-//     readCollectionDB('./collection.db', console.log);
-//   });
-// });

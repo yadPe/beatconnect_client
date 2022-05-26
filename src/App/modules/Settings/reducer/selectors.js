@@ -12,3 +12,5 @@ export const getOsuApiKey = state => {
   let apiKey = _.get(getUserPreference(state), ['osuApi', 'key'], '');
   return _.isEmpty(apiKey.trim()) ? process.env.BEATCONNECT_CLIENT_API_KEY_V1 : apiKey;
 };
+
+export const getIsLazer = state => _.get(getUserPreference(state), ['isLazer'], false);

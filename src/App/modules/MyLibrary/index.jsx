@@ -6,6 +6,7 @@ import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 import AllBeatmapsCollection from './components/AllBeatmaps';
 import Collection from './components/Collection';
 import CollectionDetails from './components/CollectionDetails';
+import { getCollections } from './selectors';
 
 const useStyle = createUseStyles({
   ...getFadeIn(),
@@ -51,7 +52,7 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
     <div className={classes.myLibraryWrapper}>
       <div className={classes.collections}>
         <AllBeatmapsCollection select={setSelectedCollection} />
-        {Object.entries(collections).map(([name, beatmapsHash]) => (
+        {collections.map(([name, beatmapsHash]) => (
           <Collection
             select={setSelectedCollection}
             key={`${name}${beatmapsHash.length}`}
@@ -64,8 +65,8 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
   );
 };
 
-const mapStateToProps = ({ app, library }) => ({
-  windowSize: app.window,
-  collections: library.collections,
+const mapStateToProps = (state) => ({
+  windowSize: state.app.window,
+  collections: getCollections(state)
 });
 export default connect(mapStateToProps)(MyLibrary);

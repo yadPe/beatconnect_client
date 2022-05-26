@@ -1,3 +1,5 @@
+const { promises: fs } = require('fs');
+
 const readableBits = (bytes, decimals) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1000;
@@ -17,9 +19,19 @@ const getBeatconnectProtocolParams = (argv = [''], protocol) => {
   return undefined;
 };
 
+async function exists(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 module.exports = {
   readableBits,
   makeDownloadUrl,
   getBeatconnectProtocolParams,
   removeProtocolPrefix,
+  exists,
 };

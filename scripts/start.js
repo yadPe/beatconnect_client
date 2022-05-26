@@ -142,6 +142,7 @@ checkBrowsers(paths.appPath, isInteractive)
               console.log(chalk.green("Run 'yarn electron-dev' from either powershell or cmd."));
             } else {
               console.log(chalk.yellow("Couldn't launch electron, try starting it manually"));
+              console.error(err);
             }
           }
         }).stdout.pipe(process.stdout).on('exit', () => console.log('Electron process terminated'));

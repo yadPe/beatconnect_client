@@ -5,18 +5,17 @@ import { useSelector } from 'react-redux';
 import config from '../../../../shared/config';
 import { useDownloadQueue } from '../../../Providers/downloadManager';
 import { useSetTheme } from '../../../Providers/ThemeProvider';
-import { saveThemeAccentColor, setImportMethod, setOsuSongsPath, setOsuPath } from '../reducer/actions';
+import { saveThemeAccentColor, setImportMethod, setOsuSongsPath, setOsuPath, setIsLazer } from '../reducer/actions';
 import { getOsuSongPath } from '../reducer/selectors';
 
 const checkOsuPath = async path => {
   try {
-    const isPathValid = await ipcRenderer.invoke('validate-osu-path', path);
-    return !!isPathValid;
+    return await ipcRenderer.invoke('validate-osu-path', path);
   } catch (e) {
     // eslint-disable-next-line no-alert
     alert(`An error occured while setting the osu folder, please try again.`);
     error('[osuPathSetup]: ', e);
-    return false;
+    return { isValid: false, isLazer: false };
   }
 };
 
@@ -43,14 +42,17 @@ const useSettingsUtils = ({ osuSongsPath, importMethod }) => {
         setPath(importMethod, filePaths[0]);
         setOsuSongsPath(filePaths[0]);
       } else {
-        const isValid = await checkOsuPath(filePaths[0]);
+        const { isValid, isLazer } = await checkOsuPath(filePaths[0]);
+        console.log({ isValid, isLazer });
         if (!isValid) {
           // eslint-disable-next-line no-alert
           alert(`The provided folder doesn't seems be a valid osu folder.`);
           return;
         }
+        // always set isLazer before osuPath pr bad things might happen!
+        setIsLazer(isLazer);
         setOsuPath(filePaths[0]);
-        if (!currentOsuSongsPath) {
+        if (!currentOsuSongsPath && !isLazer) {
           const songsPath = join(filePaths[0], 'Songs');
           if (await isDirectory(songsPath)) {
             setOsuSongsPath(join(filePaths[0], 'Songs'));

@@ -2,7 +2,7 @@ const { Worker } = require('worker_threads');
 const { join } = require('path');
 const { error } = require('electron-log');
 
-const scanOsuDb = osuDbPath =>
+const scanOsuDb = (osuDbPath, isLazer = false) =>
   new Promise((resolve, reject) => {
     const worker = new Worker(join(__dirname, './osuSongsScan.worker.js'));
     const terminate = () => {
@@ -25,7 +25,7 @@ const scanOsuDb = osuDbPath =>
           break;
       }
     });
-    worker.postMessage(osuDbPath);
+    worker.postMessage({ osuDbPath, isLazer });
   });
 
 module.exports = scanOsuDb;

@@ -4,13 +4,14 @@ const { ipcMain, dialog, shell } = require('electron');
 const fs = require('fs').promises;
 const { join } = require('path');
 const { downloadAndSetWallpaper } = require('./wallpaper');
-const { readCollectionDB } = require('./helpers/osuCollections/collections.utils');
+const { readCollectionDB, writeCollectionDB } = require('./helpers/osuCollections/collections.utils');
 const startPullingOsuState = require('./threads/osuIsRunning');
 const scanOsuDb = require('./threads/osuSongsScan');
+const { exists } = require('./helpers');
 
-ipcMain.handle('osuSongsScan', async (event, { osuPath }) => {
+ipcMain.handle('osuSongsScan', async (event, { osuPath, isLazer }) => {
   try {
-    const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(`${osuPath}/osu!.db`);
+    const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(`${osuPath}/osu!.db`, isLazer);
     return { beatmaps, overallDuration, overallUnplayedCount };
   } catch (e) {
     error(`[scan-osu-songs]: ${e.message}`);
@@ -46,6 +47,17 @@ ipcMain.once('start-pulling-osu-state', event => {
 ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
   try {
     const collection = await readCollectionDB(`${osuPath}/collection.db`);
+
+    // const test = await readCollectionDB(`${osuPath}/collection.db`);
+
+    // console.log('READ : ', test);
+    // test.push([
+    //   'Top KEK',
+    //   ['DABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', 'OMEGAROBDAB', 'SAMARCH', '44444444444444444444444444444449'],
+    // ]);
+
+    // await writeCollectionDB(`${osuPath}/collection.db`, test);
+
     return collection;
   } catch (e) {
     error(`[scan-osu-collections]: ${e.message}`);
@@ -54,12 +66,13 @@ ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
 });
 
 ipcMain.handle('validate-osu-path', async (event, osuPath) => {
-  try {
-    const isPathValid = await fs.stat(`${osuPath}/osu!.db`);
-    return isPathValid.isFile();
-  } catch {
-    return false;
+  const isPathValid = await exists(`${osuPath}/collection.db`);
+  if (isPathValid) {
+    const isLegacyOsu = await exists(`${osuPath}/osu.db`);
+    const isLazer = await exists(`${osuPath}/client.realm`);
+    return { isValid: isLegacyOsu || isLazer, isLazer };
   }
+  return { isValid: false, isLazer: false };
 });
 
 ipcMain.handle('is-dir', async (event, path) => {

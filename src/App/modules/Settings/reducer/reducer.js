@@ -45,6 +45,9 @@ export default (settings = confLoader.config, { type, payload }) => {
     case 'SET_THEME_ACCENT_COLOR':
       userPreferences = { ...userPreferences, theme: { accentColor: payload } };
       return { ...settings, userPreferences: { ...userPreferences } };
+    case 'SET_IS_LAZER':
+      userPreferences = { ...userPreferences, isLazer: payload };
+      return { ...settings, userPreferences: { ...userPreferences } };
     default:
       return settings;
   }
