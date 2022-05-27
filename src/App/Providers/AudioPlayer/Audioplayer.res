@@ -196,9 +196,10 @@ let make = (~children) => {
 
   Audio.oncanplay(audio, _e => setPlayingState(oldState => {...oldState, isPlaying: true}))
 
-  Audio.onvolumechange(audio, e =>
-    setPlayingState(oldState => {...oldState, volume: e.target.volume})
-  )
+  Audio.onvolumechange(audio, _ => {
+    let volume = Audio.getVolume(audio)
+    setPlayingState(oldState => {...oldState, volume: volume})
+  })
 
   Audio.onerror(audio, _e => {
     setPlayingState(oldState => {...oldState, isPlaying: false})
