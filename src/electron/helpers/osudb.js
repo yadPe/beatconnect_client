@@ -190,16 +190,3 @@ module.exports = {
   readScoresDB,
   writeScoresDB,
 };
-
-// readCollectionDB('./collection.db', collections => {
-//   console.log('READ : ', collections);
-//   collections['Top KEK'] = [
-//     'DABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-//     'OMEGAROBDAB',
-//     'SAMARCH',
-//     '44444444444444444444444444444449',
-//   ];
-//   writeCollectionDB('./collection.db', collections, () => {
-//     readCollectionDB('./collection.db', console.log);
-//   });
-// });

@@ -9,6 +9,7 @@ export default Object.freeze({
     autoImport: true,
     importMethod: 'auto',
     osuPath: '',
+    isLazer: false,
     osuSongsPath: '',
     theme: {
       accentColor: config.display.defaultAccentColor,
@@ -21,7 +22,7 @@ export default Object.freeze({
       isBotAccount: false,
     },
     osuApi: {
-      key: "",
+      key: '',
     },
   },
   beatconnectAPI: {

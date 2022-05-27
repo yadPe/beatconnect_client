@@ -125,8 +125,10 @@ const TasksControl = ({ onSelect, ...otherProps }) => {
           ))}
         </>
       );
+    return null;
   };
   return (
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <a
       data-radium="true"
       className={classes.a}

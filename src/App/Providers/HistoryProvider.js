@@ -6,7 +6,10 @@ import { outputJSON, readJson } from 'fs-extra';
 import { join } from 'path';
 import { error, log } from 'electron-log';
 import { memoize } from 'underscore';
+import { ipcRenderer } from 'electron';
+import { connect } from 'react-redux';
 import { getOsPath } from '../helpers/path';
+import { getIsLazer, getOsuPath } from '../modules/Settings/reducer/selectors';
 
 export const HistoryContext = createContext();
 export const useDownloadHistory = () => useContext(HistoryContext);
@@ -74,7 +77,18 @@ class HistoryProvider extends Component {
   }
 
   componentDidMount() {
-    this._readHistory();
+    const setup = async () => {
+      await this._readHistory();
+
+      const { osuPath, isLazer } = this.props;
+      const result = await ipcRenderer.invoke('osuSongsScan', {
+        osuPath,
+        isLazer,
+      });
+
+      this.set(result);
+    };
+    setup();
   }
 
   componentDidUpdate() {
@@ -127,8 +141,8 @@ class HistoryProvider extends Component {
     });
   };
 
-  _readHistory = () => {
-    readJson(this.path)
+  _readHistory = async () => {
+    await readJson(this.path)
       .then(rawHistory => {
         // Check if history is from a version prior to 0.3.0
         if (!Array.isArray(Object.values(rawHistory)[0])) {
@@ -175,4 +189,8 @@ class HistoryProvider extends Component {
   }
 }
 
-export default HistoryProvider;
+const mapStateToProps = state => ({
+  osuPath: getOsuPath(state),
+  isLazer: getIsLazer(state),
+});
+export default connect(mapStateToProps)(HistoryProvider);

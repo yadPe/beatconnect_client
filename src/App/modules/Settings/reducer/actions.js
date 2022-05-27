@@ -45,3 +45,5 @@ export const setLastScan = payload => store.dispatch({ type: 'LASTSCAN', payload
 export const setImportMethod = payload => store.dispatch({ type: 'SETIMPORTMETHOD', payload });
 
 export const saveThemeAccentColor = payload => store.dispatch({ type: 'SET_THEME_ACCENT_COLOR', payload });
+
+export const setIsLazer = payload => store.dispatch({ type: 'SET_IS_LAZER', payload });

@@ -9,7 +9,7 @@ import { changeCurrentSection } from '../../../../app.actions';
 import { tFromJs as sections } from '../../../Sections.bs';
 import { useOsuDbScan } from '../../../Settings/utils/useScanOsuSongs';
 import { scanOsuCollection } from '../../../Settings/utils/scanOsuCollections';
-import { getOsuPath } from '../../../Settings/reducer/selectors';
+import { getIsLazer, getOsuPath } from '../../../Settings/reducer/selectors';
 
 const useStyle = createUseStyles({
   playOsuWrapper: {
@@ -100,6 +100,7 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   const isScanning = useRef(false);
   const osuScan = useOsuDbScan();
   const osuPath = useSelector(getOsuPath);
+  const isLazer = useSelector(getIsLazer);
   const invalidateNextOsuState = useRef(false);
 
   const launchOsu = () => {
@@ -125,7 +126,7 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   useEffect(() => {
     if (!isOsuSet || isScanning.current || osuIsRunning) return;
     isScanning.current = true;
-    osuScan();
+    osuScan(isLazer);
     scanOsuCollection(osuPath)
       .catch(e => {
         error(`[scanOsuCollection]: ${e}`);
@@ -133,12 +134,12 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
       .finally(() => {
         isScanning.current = false;
       });
-  }, [osuIsRunning, isOsuSet]);
+  }, [osuIsRunning, isOsuSet, isLazer]);
 
   return (
     <div
       className={classes.playOsuWrapper}
-      onClick={isOsuSet ? launchOsu : () => dispatch(changeCurrentSection(sections('Settings')))}
+      onClick={isOsuSet && !isLazer ? launchOsu : () => dispatch(changeCurrentSection(sections('Settings')))}
       role="tab"
     >
       <span data-radium="true" className={classes.span}>
@@ -154,7 +155,8 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
         </div>
         <span data-radium="true" className={classes.title}>
           {!isOsuSet && 'Osu! not set'}
-          {isOsuSet && (osuIsRunning ? 'Playing !' : 'Play !')}
+          {isOsuSet && !isLazer && (osuIsRunning ? 'Playing!' : 'Play!')}
+          {isLazer && 'Lazer!'}
         </span>
       </span>
     </div>

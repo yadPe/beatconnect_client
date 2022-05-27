@@ -20,6 +20,9 @@ const useStyles = createUseStyles({
     '&:active': {
       opacity: 0.9,
     },
+    '&:disabled' : {
+      filter: 'grayscale(.55)',
+    },
     '&:active svg': {
       transform: 'scale(.88)',
     },

@@ -23,9 +23,9 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <ErrorBoundary>
-    <HistoryProvider>
-      <ThemeProvider>
-        <Provider store={store}>
+    <ThemeProvider>
+      <Provider store={store}>
+        <HistoryProvider>
           <AudioPlayerProvider>
             <TasksProvider>
               <DownloadManagerProvider>
@@ -33,8 +33,8 @@ root.render(
               </DownloadManagerProvider>
             </TasksProvider>
           </AudioPlayerProvider>
-        </Provider>
-      </ThemeProvider>
-    </HistoryProvider>
+        </HistoryProvider>
+      </Provider>
+    </ThemeProvider>
   </ErrorBoundary>,
 );
