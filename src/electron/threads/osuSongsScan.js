@@ -23,12 +23,12 @@ const scanOsuDb = (osuDbPath, isLazer = false) =>
                 date: beatmap.BeatmapSet.DateAdded.getTime(),
                 title: beatmap.Metadata.Title,
                 artist: beatmap.Metadata.Artist,
-                creator: '',
+                creator: beatmap.Metadata.Author.Username,
                 isUnplayed: false,
                 mapsMd5: [beatmap.MD5Hash],
                 audioPath: '',
                 previewOffset: beatmap.Metadata.PreviewTime,
-                songDuration: 0,
+                songDuration: beatmap.Length / 1000,
               };
             });
 
