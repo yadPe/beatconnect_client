@@ -64,7 +64,9 @@ const Beatmaps = ({ searchResults, classes, setHeaderContent, window }) => {
     return () => setHeaderContent(null);
   }, [setHeaderContent, theme]);
 
-  useEffect(() => saveLastScrollPosition(lastScrollPosition.current), []);
+  useEffect(() => {
+    saveLastScrollPosition(lastScrollPosition.current);
+  }, []);
 
   // Some magic number are being invoked here please don't pay attention
   const getColumnWidth = useCallback(() => (displayGrid ? gridWidth / columnCount - 4 : gridWidth - 8), [

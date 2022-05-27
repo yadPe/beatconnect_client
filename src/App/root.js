@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from '.';
 import store from '../shared/store';
@@ -18,7 +18,10 @@ if (process.env.BEATCONNECT_CLIENT_MIRAGE === '1') {
 
 dispatchOnResize();
 document.body.style.margin = 0;
-ReactDOM.render(
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <ErrorBoundary>
     <HistoryProvider>
       <ThemeProvider>
@@ -34,5 +37,4 @@ ReactDOM.render(
       </ThemeProvider>
     </HistoryProvider>
   </ErrorBoundary>,
-  document.getElementById('root'),
 );
