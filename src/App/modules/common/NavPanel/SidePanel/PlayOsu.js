@@ -126,7 +126,6 @@ const PlayOsu = ({ onSelect, osuGamePath, ...otherProps }) => {
   useEffect(() => {
     if (!isOsuSet || isScanning.current || osuIsRunning) return;
     isScanning.current = true;
-    console.log('effect', { osuIsRunning, isOsuSet, isLazer });
     osuScan(isLazer);
     scanOsuCollection(osuPath)
       .catch(e => {

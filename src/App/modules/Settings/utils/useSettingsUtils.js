@@ -43,13 +43,12 @@ const useSettingsUtils = ({ osuSongsPath, importMethod }) => {
         setOsuSongsPath(filePaths[0]);
       } else {
         const { isValid, isLazer } = await checkOsuPath(filePaths[0]);
-        console.log({ isValid, isLazer });
         if (!isValid) {
           // eslint-disable-next-line no-alert
           alert(`The provided folder doesn't seems be a valid osu folder.`);
           return;
         }
-        // always set isLazer before osuPath pr bad things might happen!
+        // always set isLazer before osuPath or bad things will happen!
         setIsLazer(isLazer);
         setOsuPath(filePaths[0]);
         if (!currentOsuSongsPath && !isLazer) {

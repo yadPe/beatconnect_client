@@ -28,9 +28,6 @@ const readCollectionDB = path =>
         }
       }
 
-      console.log('collections');
-      console.log(collections);
-
       return resolve(collections);
     });
   });
@@ -41,8 +38,6 @@ const writeCollectionDB = (path, collections) =>
 
     buf.writeInt32LE(20160212);
     buf.writeInt32LE(collections.length, 4);
-
-    // const collectionNames = Object.keys(collections);
 
     collections.forEach(([name, beatmapsMd5]) => {
       buf = Buffer.concat([buf, createString(name)]);
