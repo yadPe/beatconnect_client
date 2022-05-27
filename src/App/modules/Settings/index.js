@@ -13,7 +13,7 @@ import ColorPicker from '../common/ColorPicker';
 import config from '../../../shared/config';
 import useSettingsUtils from './utils/useSettingsUtils';
 import { useOsuDbScan } from './utils/useScanOsuSongs';
-import { clearCollections } from '../MyLibrary/actions';
+import { clearCollections } from '../Collections/actions';
 import { scanOsuCollection } from './utils/scanOsuCollections';
 import store from '../../../shared/store';
 import { getVersion } from '../../helpers/path';

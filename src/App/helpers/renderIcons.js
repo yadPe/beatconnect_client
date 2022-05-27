@@ -667,7 +667,7 @@ export default function({ name, color, width, height, style, secColor }) {
           </g>
         </svg>
       );
-    case 'My Library':
+    case 'Collections':
       return (
         <svg width={width || '15px'} height={height || '15px'} viewBox="0 0 512 512">
           <g>
