@@ -132,6 +132,7 @@
   "devDependencies": {
     "@babel/core": "7.13.13",
     "@babel/preset-env": "^7.13.12",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@rescript/react": "0.10.3",
     "@svgr/webpack": "5.5.0",
     "acorn-dynamic-import": "^4.0.0",
@@ -172,6 +173,7 @@
     "pnp-webpack-plugin": "1.2.1",
     "prettier": "^1.18.2",
     "react-dev-utils": "^9.0.1",
+    "react-refresh": "^0.13.0",
     "rescript": "9.1.4",
     "resolve": "1.17.0",
     "semver": "6.0.0",

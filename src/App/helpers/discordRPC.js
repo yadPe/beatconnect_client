@@ -1,13 +1,17 @@
 import DiscordRPC from 'discord-rpc';
 import { error } from 'electron-log';
 
-DiscordRPC.register(process.env.BEATCONNECT_DISCORD_APP_ID);
+try {
+  DiscordRPC.register(process.env.BEATCONNECT_DISCORD_APP_ID);
+} catch (e) {
+  error('[DiscordRPC]: ', e);
+}
 let rpc = null;
 let isReady = false;
 
 const login = async () => {
   try {
-    rpc.login({ clientId: process.env.BEATCONNECT_CLIENT_DISCORD_APP_ID });
+    await rpc.login({ clientId: process.env.BEATCONNECT_CLIENT_DISCORD_APP_ID });
   } catch (err) {
     error('[Discord RPC Login]:', err);
   }
@@ -31,10 +35,14 @@ export const clearActivity = async () => {
 };
 
 const stopRPC = async () => {
-  isReady = false;
-  await clearActivity();
-  await rpc.destroy();
-  rpc = null;
+  try {
+    isReady = false;
+    await clearActivity();
+    await rpc.destroy();
+    rpc = null;
+  } catch (e) {
+    error('[stopRPC]: ', e);
+  }
 };
 
 const restartRPC = async () => {
@@ -69,4 +77,8 @@ export const setPlayingSongPresence = async (title, artist, beatmapsetId) => {
   }
 };
 
-startRPC();
+try {
+  startRPC();
+} catch (e) {
+  error('[Discord RPC]:', e);
+}
