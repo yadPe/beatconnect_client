@@ -23,6 +23,7 @@ module.exports = mode => {
     node: {
       __dirname: false,
       __filename: true,
+      global: true,
     },
     module: {
       rules: [

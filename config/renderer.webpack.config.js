@@ -26,9 +26,6 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
-// Check if TypeScript is setup
-const useTypeScript = fs.existsSync(paths.appTsConfig);
-
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
@@ -91,9 +88,7 @@ module.exports = function(webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : isEnvDevelopment && 'static/js/bundle.js',
-      // TODO: remove this when upgrading to webpack 5
-      futureEmitAssets: true,
+      filename: 'static/js/[name].[contenthash:8].js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction ? 'static/js/[name].chunk.js' : isEnvDevelopment && 'static/js/[name].chunk.js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
@@ -116,10 +111,10 @@ module.exports = function(webpackEnv) {
               // into invalid ecma 5 code. This is why the 'compress' and 'output'
               // sections only apply transformations that are ecma 5 safe
               // https://github.com/facebook/create-react-app/pull/4234
-              ecma: 8,
+              ecma: 2020,
             },
             compress: {
-              ecma: 5,
+              ecma: 2020,
               warnings: false,
               // Disabled because of an issue with Uglify breaking seemingly valid code:
               // https://github.com/facebook/create-react-app/issues/2376
@@ -132,25 +127,20 @@ module.exports = function(webpackEnv) {
               // https://github.com/terser-js/terser/issues/120
               inline: 2,
             },
-            mangle: {
-              safari10: true,
-            },
-            output: {
-              ecma: 5,
+            format: {
+              ecma: 2020,
               comments: false,
               // Turned on because emoji and regex is not minified properly using default
               // https://github.com/facebook/create-react-app/issues/2488
               ascii_only: true,
             },
+            sourceMap: shouldUseSourceMap,
           },
           // Use multi-process parallel running to improve the build speed
           // Default number of concurrent runs: os.cpus().length - 1
           // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
           // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
           parallel: !isWsl,
-          // Enable file caching
-          cache: true,
-          sourceMap: shouldUseSourceMap,
         }),
       ],
       // Automatically split vendor and commons
@@ -176,7 +166,7 @@ module.exports = function(webpackEnv) {
       // https://github.com/facebook/create-react-app/issues/290
       // `web` extension prefixes have been added for better support
       // for React Native Web.
-      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`).filter(ext => useTypeScript || !ext.includes('ts')),
+      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -205,7 +195,7 @@ module.exports = function(webpackEnv) {
       strictExportPresence: true,
       rules: [
         // Disable require.ensure as it's not a standard language feature.
-        { parser: { requireEnsure: false } },
+        { parser: {} },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -340,48 +330,13 @@ module.exports = function(webpackEnv) {
       // makes the discovery automatic so you don't have to restart.
       // See https://github.com/facebook/create-react-app/issues/186
       isEnvDevelopment && new WatchMissingNodeModulesPlugin(paths.appNodeModules),
-      // Moment.js is an extremely popular library that bundles large locale files
-      // by default due to how Webpack interprets its code. This is a practical
-      // solution that requires the user to opt into importing specific locales.
-      // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-      // You can remove this if you don't use Moment.js:
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      // TypeScript type checking
-      useTypeScript &&
-        new ForkTsCheckerWebpackPlugin({
-          typescript: resolve.sync('typescript', {
-            basedir: paths.appNodeModules,
-          }),
-          async: isEnvDevelopment,
-          useTypescriptIncrementalApi: true,
-          checkSyntacticErrors: true,
-          resolveModuleNameModule: process.versions.pnp ? `${__dirname}/pnpTs.js` : undefined,
-          resolveTypeReferenceDirectiveModule: process.versions.pnp ? `${__dirname}/pnpTs.js` : undefined,
-          tsconfig: paths.appTsConfig,
-          reportFiles: [
-            '**',
-            '!**/__tests__/**',
-            '!**/?(*.)(spec|test).*',
-            '!**/src/setupProxy.*',
-            '!**/src/setupTests.*',
-          ],
-          watch: paths.appSrc,
-          silent: true,
-          // The formatter is invoked directly in WebpackDevServerUtils during development
-          formatter: isEnvProduction ? typescriptFormatter : undefined,
-        }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
     node: {
-      module: 'empty',
-      dgram: 'empty',
-      dns: 'mock',
-      fs: 'empty',
-      http2: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty',
+      __dirname: false,
+      __filename: false,
+      global: true,
     },
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter

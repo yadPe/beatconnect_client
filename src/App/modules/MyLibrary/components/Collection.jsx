@@ -100,7 +100,7 @@ const Collection = ({ name, beatmapsHash, select }) => {
     <div className={classes.collectionWrapper} onClick={handleClick} style={{ order: beatmapsHash.length ? 0 : 1 }}>
       <CollectionCover artWorksIds={artWorksIds} onPlay={handlePlay} isPlaying={isPlaying} />
       <p className={classes.title}>{name}</p>
-      <p className={classes.beatmapCount}>{`${beatmapsHash.length} beatmaps`}</p>
+      <p className={classes.beatmapCount}>{`${beatmapsHash.length} test`}</p>
     </div>
   );
 };
