@@ -6,6 +6,8 @@ import { getFadeIn, sectionSwitchAnimation } from '../../helpers/css.utils';
 import AllBeatmapsCollection from './components/AllBeatmaps';
 import Collection from './components/Collection';
 import CollectionDetails from './components/CollectionDetails';
+import Header from './components/Header';
+import PublicCollections from './PublicCollections';
 import { getCollections } from './selectors';
 
 const useStyle = createUseStyles({
@@ -26,6 +28,7 @@ const useStyle = createUseStyles({
 });
 
 const MyLibrary = ({ setHeaderContent, collections }) => {
+  const [currentMode, setCurrentMode] = useState('localCollections');
   const [selectedCollection, setSelected] = useState({ header: null, collection: null, collectionName: '' });
   const setSelectedCollection = selection => setSelected({ ...selectedCollection, ...selection });
 
@@ -33,7 +36,7 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
     if (selectedCollection.collection) {
       if (selectedCollection.header) setHeaderContent(selectedCollection.header);
     } else {
-      setHeaderContent(null);
+      setHeaderContent(<Header setCurrentMode={setCurrentMode}/>);
     }
     return () => setHeaderContent(null);
   }, [selectedCollection]);
@@ -48,21 +51,32 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
       />
     );
   }
-  return (
-    <div className={classes.myLibraryWrapper}>
-      <div className={classes.collections}>
-        <AllBeatmapsCollection select={setSelectedCollection} />
-        {collections.map(([name, beatmapsHash]) => (
-          <Collection
-            select={setSelectedCollection}
-            key={`${name}${beatmapsHash.length}`}
-            name={name}
-            beatmapsHash={beatmapsHash}
-          />
-        ))}
-      </div>
-    </div>
-  );
+
+  const renderCurrentMode = () => {
+    switch (currentMode) {
+      case 'localCollections': return (<div className={classes.myLibraryWrapper}>
+        <div className={classes.collections}>
+          <AllBeatmapsCollection select={setSelectedCollection} />
+          {collections.map(([name, beatmapsHash]) => (
+            <Collection
+            mode='localCollection'
+              select={setSelectedCollection}
+              key={`${name}${beatmapsHash.length}`}
+              name={name}
+              beatmapsHash={beatmapsHash}
+            />
+          ))}
+        </div>
+      </div>)
+      case 'publicCollections': return (<div className={classes.myLibraryWrapper}>
+        <div className={classes.collections}>
+        <PublicCollections/>
+        </div>
+        </div>)
+      default: return null;
+    }
+  }
+  return renderCurrentMode()
 };
 
 const mapStateToProps = (state) => ({

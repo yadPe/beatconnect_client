@@ -4,7 +4,7 @@ import { FixedSizeList as List } from 'react-window';
 import config from '../../../../shared/config';
 import BeatmapListItem from '../../Packs/BeatmapPackDetail/Item';
 import Empty from './Empty';
-import Header from './Header';
+import CollectionDeatilsHeader from './CollectionDetailsHeader';
 import { getActiveSectionParams } from '../../../app.selectors';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
@@ -45,7 +45,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
   useEffect(() => {
     select({
       header: (
-        <Header setFilter={setFilter} quit={() => select({ collection: null })} collectionName={collectionName} />
+        <CollectionDeatilsHeader setFilter={setFilter} quit={() => select({ collection: null })} collectionName={collectionName} />
       ),
     });
   }, [collectionName]);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import renderIcons from '../../../helpers/renderIcons';
+import Button from '../../common/Button';
 import TextInput from '../../common/TextInput';
-import useMouseButtons from '../../../helpers/hooks/useMouseButtons';
+import Toggle from '../../common/Toggle';
 
 const useStyle = createUseStyles({
   wrapper: {
@@ -17,20 +17,15 @@ const useStyle = createUseStyles({
   },
 });
 
-const Header = ({ setFilter, quit, collectionName }) => {
+const Header = ({setCurrentMode}) => {
   const classes = useStyle();
-  useMouseButtons({ back: quit });
-  const handleInput = e => {
-    setFilter(e.target.value);
-  };
 
   return (
     <div className={classes.wrapper}>
-      <div title="Back" role="button" onClick={quit} className={classes.backButton}>
-        {renderIcons({ name: 'Back' })}
-      </div>
-      <span>{collectionName}</span>
-      <TextInput onChange={handleInput} placeholder="id, artist, title, creator" />
+      <span onClick={() => setCurrentMode('localCollections')}>My collections</span>
+      <Toggle></Toggle>
+      <span onClick={() => setCurrentMode('publicCollections')}>Public collections</span>
+     <TextInput onChange={() => null} placeholder="search" />
     </div>
   );
 };
