@@ -7,7 +7,7 @@ const scanOsuDb = (osuPath, isLazer = false) =>
   new Promise((resolve, reject) => {
     switch (isLazer) {
       case true: {
-        readLazerDb(path.join(osuPath, 'client.realm'))
+        readLazerDb(join(osuPath, 'client.realm'))
           .then(beatmaps => {
             const beatmapsList = {};
 
