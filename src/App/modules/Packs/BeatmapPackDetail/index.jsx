@@ -6,9 +6,14 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import config from '../../../../shared/config';
 import BeatmapListItem from './Item';
+import { getFadeIn, sectionSwitchAnimation } from '../../../helpers/css.utils';
 
 const styles = {
+  ...getFadeIn(),
+
   wrapper: {
+    ...sectionSwitchAnimation(),
+
     overflow: 'hidden',
     '& svg': {
       display: 'block',
@@ -17,10 +22,15 @@ const styles = {
   },
 };
 
+// Currently handle pack and public collection display
 const BeatmapPackDetail = ({ classes, windowSize, pack, select }) => {
   const [filter, setFilter] = useState('');
   useEffect(() => {
-    select({ header: <Header pack={pack} quit={() => select({ pack: null })} filter={{ filter, setFilter }} /> });
+    select({
+      header: (
+        <Header pack={pack} quit={() => select({ pack: null, collection: null })} filter={{ filter, setFilter }} />
+      ),
+    });
   }, []);
 
   const filteredBeatmapsets =
@@ -52,8 +62,4 @@ const BeatmapPackDetail = ({ classes, windowSize, pack, select }) => {
 const mapStateToProps = ({ app }) => ({
   windowSize: app.window,
 });
-export default compose(
-  connect(mapStateToProps),
-  withTheme,
-  InjectSheet(styles),
-)(BeatmapPackDetail);
+export default compose(connect(mapStateToProps), withTheme, InjectSheet(styles))(BeatmapPackDetail);

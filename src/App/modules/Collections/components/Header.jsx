@@ -1,31 +1,35 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import Button from '../../common/Button';
+import config from '../../../../shared/config';
 import TextInput from '../../common/TextInput';
-import Toggle from '../../common/Toggle';
 
 const useStyle = createUseStyles({
   wrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
+    width: `calc(100% - ${config.display.headerRightSaftyMargin}px)`,
   },
   backButton: {
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
   },
+  secondItem: {
+    flexGrow: 1,
+  },
 });
 
-const Header = ({setCurrentMode}) => {
+const Header = ({ setCurrentMode }) => {
   const classes = useStyle();
 
   return (
     <div className={classes.wrapper}>
       <span onClick={() => setCurrentMode('localCollections')}>My collections</span>
-      <Toggle></Toggle>
-      <span onClick={() => setCurrentMode('publicCollections')}>Public collections</span>
-     <TextInput onChange={() => null} placeholder="search" />
+      <span className={classes.secondItem} onClick={() => setCurrentMode('publicCollections')}>
+        Public collections
+      </span>
+      <TextInput onChange={() => null} placeholder="Search" />
     </div>
   );
 };

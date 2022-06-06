@@ -2,6 +2,7 @@ let getThumbUrl = beatmapId => `https://b.ppy.sh/thumb/${beatmapId}.jpg`
 
 let getListCoverUrl = beatmapId => `https://assets.ppy.sh/beatmaps/${beatmapId}/covers/list@2x.jpg`
 
+let localFailed = ref(false)
 let resolveThumbnail = (beatmapId, osuPath, fallbackUrl) => {
   let localPath =
     "file://" ++
@@ -13,11 +14,18 @@ let resolveThumbnail = (beatmapId, osuPath, fallbackUrl) => {
   thumbanil->Image.setSrc(localPath)
   thumbanil->Image.decode
   |> Js.Promise.then_(() => Js_promise.resolve(localPath))
-  |> Js.Promise.catch(_ => Js_promise.resolve(fallbackUrl))
+  |> Js.Promise.catch(_ => {
+    localFailed := true
+    Js_promise.resolve(fallbackUrl)
+  })
 }
 
 let resolveThumbURL = (beatmapId, osuPath) =>
-  resolveThumbnail(beatmapId, osuPath, getListCoverUrl(beatmapId))
+  if localFailed.contents {
+    Js_promise.resolve(getListCoverUrl(beatmapId))
+  } else {
+    resolveThumbnail(beatmapId, osuPath, getListCoverUrl(beatmapId))
+  }
 
 let getBeatmapDifficultyColorHex = (difficulty: float) =>
   switch difficulty {

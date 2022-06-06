@@ -19,7 +19,7 @@ type partialAudioEvent = {target: target}
 @set external setCurrentTime: (t, int) => unit = "currentTime"
 @set external setMuted: (t, bool) => unit = "muted"
 @send external pause: t => unit = "pause"
-@send external play: t => unit = "play"
+@send external play: t => Js.Promise.t<unit> = "play"
 @set
 external onended: (t, callback<partialAudioEvent>) => unit = "onended"
 @set

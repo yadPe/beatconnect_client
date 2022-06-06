@@ -1,56 +1,142 @@
-[
-  {
-    "id": "serdtfygubhfmknjbhvg",
-    "title": "Clignancourt",
-    "creator": "morsay",
+{
+  "11": {
+    "id": 11,
+    "name": "Clignancourt",
     "description": "Un test",
-    "creatorId": "creatorId",
-    "beatmapCount": 10,
-    "covers": [
-      1652996,
-      1652997,
-      1652998,
-      255629
-    ]
+    "creator": "Frank Darabont",
+    "creator_id": 1,
+    "tags": [
+      "drama",
+      "crime"
+    ],
+    "beatmapsets": [
+      {
+        "id": 1652996,
+        "artist": "Hoshimachi Suisei",
+        "title": "comet (Cut Ver.)"
+      },
+      {
+        "id": 1652997,
+        "artist": "Sam Tsui & Christina Grimmie",
+        "title": "Just a dream (Nightcore Mix)"
+      },
+      {
+        "id": 1373779,
+        "artist": "Hashimoto Miyuki",
+        "title": "SHINY MOON"
+      }
+    ],
+    "beatmaps_checksum": [
+      "f458adff66bcbfe784fcbb4696e7e279",
+      "953a8d8b7d43d53b16434ce54719356d",
+      "51a9807626b51ef4b14e97fc7a8c0a20",
+      "868d9fed656fa7943686dd3cd65ce101"
+    ],
+    "last_updated_at": "2017-01-01T00:00:00+00:00"
   },
-  {
-    "id": "serdtfygubhinjlkmdmknjbhvg",
-    "title": "c'est ma",
-    "creator": "morsay",
-    "description": "Un test",
-    "creatorId": "creatorId",
-    "beatmapCount": 19,
-    "covers": [
-      255629,
-      1652981,
-      1652982,
-      1652983
-    ]
+  "12": {
+    "id": 12,
+    "name": "The Godfather",
+    "description": "Two imprisoned",
+    "creator": "Francis Ford Coppola",
+    "creator_id": 1,
+    "tags": [
+      "drama",
+      "crime"
+    ],
+    "beatmapsets": [
+      {
+        "id": 1362119,
+        "artist": "SawanoHiroyuki[nZk]:ReoNa",
+        "title": "time (TV Size)"
+      },
+      {
+        "id": 1361718,
+        "artist": "serial TV drama",
+        "title": "Tougenkyou Alien (TV Size)"
+      },
+      {
+        "id": 1373779,
+        "artist": "Hashimoto Miyuki",
+        "title": "SHINY MOON"
+      }
+    ],
+    "beatmaps_checksum": [
+      "e20ea6edd2efcb264bc8bedaf1e39e47",
+      "9655a546ab4388770e3f6d28731db66b",
+      "3151aa4c2221a3fed1a98976e73b4a84",
+      "868d9fed656fa7943686dd3cd65ce101"
+    ],
+    "last_updated_at": "2017-01-01T00:00:00+00:00"
   },
-  {
-    "id": "serdtfygubhinjasmknjbhvg",
-    "title": "fusée",
-    "creator": "morsay",
-    "description": "Un test",
-    "creatorId": "creatorId",
-    "beatmapCount": 72,
-    "covers": [
-      255629,
-      1652985,
-      1652986,
-      1652987
-    ]
+  "13": {
+    "id": 13,
+    "name": "The Godfather Part II",
+    "description": "Two imprisoned",
+    "creator": "Francis Ford Coppola",
+    "creator_id": 1,
+    "tags": [
+      "drama",
+      "crime"
+    ],
+    "beatmapsets": [
+      {
+        "id": 1362119,
+        "artist": "SawanoHiroyuki[nZk]:ReoNa",
+        "title": "time (TV Size)"
+      },
+      {
+        "id": 1361718,
+        "artist": "serial TV drama",
+        "title": "Tougenkyou Alien (TV Size)"
+      },
+      {
+        "id": 1373779,
+        "artist": "Hashimoto Miyuki",
+        "title": "SHINY MOON"
+      }
+    ],
+    "beatmaps_checksum": [
+      "e20ea6edd2efcb264bc8bedaf1e39e47",
+      "9655a546ab4388770e3f6d28731db66b",
+      "3151aa4c2221a3fed1a98976e73b4a84",
+      "868d9fed656fa7943686dd3cd65ce101"
+    ],
+    "last_updated_at": "2017-01-01T00:00:00+00:00"
   },
-  {
-    "id": "serdtfygubhinjasmknjbhvdfdf",
-    "title": "ban",
-    "creator": "peppy",
-    "description": "Un testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn test",
-    "creatorId": "creatorId",
-    "beatmapCount": 2,
-    "covers": [
-      21581,
-      1
-    ]
+  "14": {
+    "id": 14,
+    "name": "The Dark Knight",
+    "description": "Two imprisoned",
+    "creator": "Christopher Nolan",
+    "creator_id": 1,
+    "tags": [
+      "drama",
+      "crime"
+    ],
+    "beatmapsets": [
+      {
+        "id": 1362119,
+        "artist": "SawanoHiroyuki[nZk]:ReoNa",
+        "title": "time (TV Size)"
+      },
+      {
+        "id": 1361718,
+        "artist": "serial TV drama",
+        "title": "Tougenkyou Alien (TV Size)"
+      },
+      {
+        "id": 1373779,
+        "artist": "Hashimoto Miyuki",
+        "title": "SHINY MOON"
+      }
+    ],
+    "beatmaps_checksum": [
+      "e20ea6edd2efcb264bc8bedaf1e39e47",
+      "9655a546ab4388770e3f6d28731db66b",
+      "3151aa4c2221a3fed1a98976e73b4a84",
+      "868d9fed656fa7943686dd3cd65ce101"
+    ],
+    "last_updated_at": "2017-01-01T00:00:00+00:00"
   }
-]
+}

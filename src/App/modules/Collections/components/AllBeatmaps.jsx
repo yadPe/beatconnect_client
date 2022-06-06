@@ -56,7 +56,7 @@ const AllBeatmapsCollection = ({ select }) => {
 
   const handleClick = () => {
     const beatmaps = getBeatmaps();
-    select({ collection: beatmaps, collectionName: COLLECTION_NAME });
+    select({ collection: beatmaps, collectionName: COLLECTION_NAME, mode: 'localCollection' });
   };
 
   useEffect(() => {

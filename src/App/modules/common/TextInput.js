@@ -29,7 +29,7 @@ const TextInput = ({ type, placeholder, value, onChange, onKeyDown, onBlur, ...o
   const classes = useStyle({ theme });
   return (
     <input
-      className={classes.TextInput}
+      className={`${classes.TextInput} textInput`}
       type={type || 'text'}
       placeholder={placeholder || ''}
       value={value}

@@ -58,6 +58,7 @@ const Collection = ({
   creator = '',
   mapsCount = 0,
   description,
+  collectionId,
 }) => {
   const { containsMD5, ready } = useDownloadHistory();
   const classes = useStyle();
@@ -114,7 +115,7 @@ const Collection = ({
 
   const handleClick = () => {
     const beatmaps = getBeatmapsList();
-    select({ collection: beatmaps, collectionName: name });
+    select({ collection: beatmaps, collectionName: name, mode, collectionId });
   };
 
   return (

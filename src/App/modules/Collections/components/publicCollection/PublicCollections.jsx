@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Collection from './components/Collection';
-import { fetchPublicCollections } from './xhr/beatconnectV2';
+import Collection from '../Collection';
+import { fetchPublicCollections } from '../../xhr/beatconnectV2';
 
-const PublicCollections = () => {
+const PublicCollections = ({ select }) => {
   const [colletions, setCollections] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,8 @@ const PublicCollections = () => {
       creator={collection.creator}
       mapsCount={collection.beatmapCount}
       description={collection.description}
+      select={select}
+      collectionId={collection.id}
     />
   ));
 };

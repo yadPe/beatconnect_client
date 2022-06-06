@@ -7,7 +7,8 @@ import AllBeatmapsCollection from './components/AllBeatmaps';
 import Collection from './components/Collection';
 import CollectionDetails from './components/CollectionDetails';
 import Header from './components/Header';
-import PublicCollections from './PublicCollections';
+import PublicCollectionDetails from './components/publicCollection/PublicCollectionDetails';
+import PublicCollections from './components/publicCollection/PublicCollections';
 import { getCollections } from './selectors';
 
 const useStyle = createUseStyles({
@@ -36,51 +37,72 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
     if (selectedCollection.collection) {
       if (selectedCollection.header) setHeaderContent(selectedCollection.header);
     } else {
-      setHeaderContent(<Header setCurrentMode={setCurrentMode}/>);
+      setHeaderContent(<Header setCurrentMode={setCurrentMode} />);
     }
     return () => setHeaderContent(null);
   }, [selectedCollection]);
   const classes = useStyle();
 
   if (selectedCollection.collection) {
-    return (
-      <CollectionDetails
-        collection={selectedCollection.collection}
-        select={setSelectedCollection}
-        collectionName={selectedCollection.collectionName}
-      />
-    );
+    switch (selectedCollection.mode) {
+      case 'localCollection':
+        return (
+          <CollectionDetails
+            collection={selectedCollection.collection}
+            select={setSelectedCollection}
+            collectionName={selectedCollection.collectionName}
+          />
+        );
+      case 'publicCollection':
+        return (
+          <PublicCollectionDetails
+            collectionId={selectedCollection.collectionId}
+            collectionName={selectedCollection.collectionName}
+            select={setSelectedCollection}
+            collection={selectedCollection.collection}
+          />
+        );
+      default:
+        return null;
+    }
   }
 
   const renderCurrentMode = () => {
     switch (currentMode) {
-      case 'localCollections': return (<div className={classes.myLibraryWrapper}>
-        <div className={classes.collections}>
-          <AllBeatmapsCollection select={setSelectedCollection} />
-          {collections.map(([name, beatmapsHash]) => (
-            <Collection
-            mode='localCollection'
-              select={setSelectedCollection}
-              key={`${name}${beatmapsHash.length}`}
-              name={name}
-              beatmapsHash={beatmapsHash}
-            />
-          ))}
-        </div>
-      </div>)
-      case 'publicCollections': return (<div className={classes.myLibraryWrapper}>
-        <div className={classes.collections}>
-        <PublicCollections/>
-        </div>
-        </div>)
-      default: return null;
+      case 'localCollections':
+        return (
+          <div className={classes.myLibraryWrapper}>
+            <div className={classes.collections}>
+              <AllBeatmapsCollection select={setSelectedCollection} />
+              {collections.map(([name, beatmapsHash]) => (
+                <Collection
+                  mode="localCollection"
+                  select={setSelectedCollection}
+                  key={`${name}${beatmapsHash.length}`}
+                  name={name}
+                  beatmapsHash={beatmapsHash}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      case 'publicCollections':
+        return (
+          <div className={classes.myLibraryWrapper}>
+            <div className={classes.collections}>
+              <PublicCollections select={setSelectedCollection} />
+            </div>
+          </div>
+        );
+      default:
+        return null;
     }
-  }
-  return renderCurrentMode()
+  };
+  return renderCurrentMode();
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   windowSize: state.app.window,
-  collections: getCollections(state)
+  collections: getCollections(state),
 });
 export default connect(mapStateToProps)(MyLibrary);
