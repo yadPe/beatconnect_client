@@ -9,7 +9,6 @@ import { saveThemeAccentColor, setImportMethod, setOsuSongsPath, setOsuPath, set
 import { getOsuSongPath } from '../reducer/selectors';
 
 const checkOsuPath = async path => {
-  console.log(path);
   try {
     return await ipcRenderer.invoke('validate-osu-path', path);
   } catch (e) {

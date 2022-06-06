@@ -40,7 +40,7 @@ class HistoryProvider extends Component {
         previewOffset: beatmapsSetData[7],
       };
     }
-    if (typeof beatmapSet === 'objesct') {
+    if (typeof beatmapSet === 'object') {
       return [
         beatmapSet.id,
         [

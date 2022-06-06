@@ -13,7 +13,6 @@ parentPort.on('message', ({ osuDbPath, isLazer = false }) => {
     }
     case false: {
       try {
-        console.log({ osuDbPath });
         const re = readOsuDB(osuDbPath);
         const beatmaps = {};
         let overallDuration = 0;

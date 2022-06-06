@@ -10,7 +10,6 @@ const scanOsuDb = require('./threads/osuSongsScan');
 const { exists } = require('./helpers');
 
 ipcMain.handle('osuSongsScan', async (event, { osuPath, isLazer }) => {
-  console.log(osuPath, isLazer);
   try {
     const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(osuPath, isLazer);
     return { beatmaps, overallDuration, overallUnplayedCount };
@@ -67,11 +66,9 @@ ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
 });
 
 ipcMain.handle('validate-osu-path', async (event, osuPath) => {
-  console.log('osuPath' + osuPath);
   const isPathValid = await exists(osuPath, 'collection.db');
   if (isPathValid) {
     const isLegacyOsu = await exists(osuPath, 'osu!.db');
-    console.log('isLegacyOsu', isLegacyOsu);
 
     const isLazer = await exists(osuPath, 'client.realm');
     return { isValid: isLegacyOsu || isLazer, isLazer };

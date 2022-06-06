@@ -21,7 +21,6 @@ const getBeatconnectProtocolParams = (argv = [''], protocol) => {
 };
 
 async function exists(...paths) {
-  console.log('path.sus', path.join(...paths));
   try {
     await fs.access(path.join(...paths));
     return true;

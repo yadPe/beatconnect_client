@@ -68,7 +68,6 @@ const Collections = ({ setHeaderContent, collections }) => {
   }
 
   const renderCurrentMode = () => {
-    console.log(collections);
     switch (currentMode) {
       case 'localCollections':
         return (
