@@ -18,7 +18,6 @@ export const useOsuDbScan = () => {
   const [isScanning, setIsScanning] = useState(false);
 
   const scanOsuSongs = async isLazer => {
-    console.log('scanOsuSongs', isLazer);
     if (isScanning) return;
     if (!osuPath && !osuSongsPath) {
       alert('You need to select your osu! or songs folder before performing a scan');

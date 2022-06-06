@@ -1,6 +1,6 @@
 import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
-import { remote, shell } from 'electron';
+import { shell } from 'electron';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { error } from 'electron-log';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix } from './reducer/actions';
@@ -13,7 +13,7 @@ import ColorPicker from '../common/ColorPicker';
 import config from '../../../shared/config';
 import useSettingsUtils from './utils/useSettingsUtils';
 import { useOsuDbScan } from './utils/useScanOsuSongs';
-import { clearCollections } from '../MyLibrary/actions';
+import { clearCollections } from '../Collections/actions';
 import { scanOsuCollection } from './utils/scanOsuCollections';
 import store from '../../../shared/store';
 import { getVersion } from '../../helpers/path';

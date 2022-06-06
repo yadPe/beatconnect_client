@@ -34,7 +34,7 @@ const useSettingsUtils = ({ osuSongsPath, importMethod }) => {
   const currentOsuSongsPath = useSelector(getOsuSongPath);
 
   const osuPathSetup = async song => {
-    const { filePaths } = await remote.dialog.showOpenDialog({
+    const { filePaths } = await ipcRenderer.invoke('dialog', 'showOpenDialog', {
       properties: ['openDirectory'],
     });
     if (filePaths.length) {

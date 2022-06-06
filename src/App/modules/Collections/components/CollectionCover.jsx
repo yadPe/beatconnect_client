@@ -38,9 +38,20 @@ const useStyle = createUseStyles({
     zIndex: 1,
     cursor: 'pointer',
   },
+  description: {
+    padding: '.5rem',
+    opacity: 0,
+    zIndex: 1,
+    position: 'absolute',
+    height: '200px',
+    width: '200px',
+    top: '0 !important',
+    fontSize: '1.5rem',
+    overflow: 'hidden',
+  },
 });
 
-const CollectionCover = ({ artWorksIds = [], onPlay, isPlaying }) => {
+const CollectionCover = ({ artWorksIds = [], onPlay, isPlaying, mode = 'localCollection', description = '' }) => {
   const [artWorks, setArtWorks] = useState([]);
   const osuPath = useSelector(getOsuPath);
   useEffect(() => {
@@ -51,9 +62,14 @@ const CollectionCover = ({ artWorksIds = [], onPlay, isPlaying }) => {
     e.stopPropagation();
     onPlay();
   };
+
   return (
     <div className={`${classes.collectionCoverWrapper} collectionCoverWrapper`}>
-      <div className={`${classes.playIcon} playIcon`} onClick={handlePlay} />
+      {mode === 'localCollection' ? (
+        <div className={`${classes.playIcon} collectionCoverOverlay`} onClick={handlePlay} />
+      ) : (
+        <div className={`${classes.description} collectionCoverOverlay`}>{description}</div>
+      )}
       {artWorks.map(artworkURL => (
         <div
           key={artworkURL}

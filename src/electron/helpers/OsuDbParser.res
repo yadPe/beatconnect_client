@@ -58,16 +58,17 @@ type osuDBData = {
   isLocked: bool,
 }
 type t
-@deriving({jsConverter: newType})
+
 type osuDatabase = [#osudb | #collection]
 type osuDbParserInstance = {
-  getOsuDBData: unit => osuDBData,
-  setBuffer: (abs_osuDatabase, Buffer.t) => unit,
+  getOsuDBData: (. unit) => osuDBData,
+  setBuffer: (. osuDatabase, Buffer.t) => unit,
 }
 @new @module
 external make: unit => osuDbParserInstance = "osu-db-parser"
+
 let parser = make()
 let read = (buffer: Buffer.t) => {
-  parser.setBuffer(osuDatabaseToJs(#osudb), buffer)
-  parser.getOsuDBData()
+  parser.setBuffer(. #osudb, buffer)
+  parser.getOsuDBData(.)
 }

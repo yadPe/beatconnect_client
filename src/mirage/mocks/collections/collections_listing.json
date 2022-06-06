@@ -1,0 +1,56 @@
+[
+  {
+    "id": "11",
+    "title": "Clignancourt",
+    "creator": "morsay",
+    "description": "Un test",
+    "creatorId": 1,
+    "beatmapCount": 10,
+    "covers": [
+      1652996,
+      1652997,
+      1652998,
+      255629
+    ]
+  },
+  {
+    "id": "12",
+    "title": "c'est ma",
+    "creator": "morsay",
+    "description": "Un test",
+    "creatorId": "creatorId",
+    "beatmapCount": 19,
+    "covers": [
+      255629,
+      1652981,
+      1652982,
+      1652983
+    ]
+  },
+  {
+    "id": "13",
+    "title": "fusée",
+    "creator": "morsay",
+    "description": "Un test",
+    "creatorId": "creatorId",
+    "beatmapCount": 72,
+    "covers": [
+      255629,
+      1652985,
+      1652986,
+      1652987
+    ]
+  },
+  {
+    "id": "14",
+    "title": "ban",
+    "creator": "peppy",
+    "description": "Un testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn testUn test",
+    "creatorId": "creatorId",
+    "beatmapCount": 2,
+    "covers": [
+      21581,
+      1
+    ]
+  }
+]

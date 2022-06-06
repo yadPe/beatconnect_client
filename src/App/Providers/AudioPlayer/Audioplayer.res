@@ -6,6 +6,8 @@ let audio = Audio.make()
 
 let _play = () => Audio.play(audio)
 
+let ignoreError = promise => promise |> Js.Promise.catch(_ => Js.Promise.resolve())
+
 let _updateMetadata = (song: song) =>
   MediaMetadata.make({
     title: song.title,
@@ -27,13 +29,15 @@ let _setAudioSrc = (~audioFilePath, ~previewOffset=?, ()) => {
 
 let pause = () => Audio.pause(audio)
 
-let togglePlayPause = () => Audio.paused(audio) ? _play() : pause()
+let togglePlayPause = () =>
+  (Audio.paused(audio) ? _play() : Js.Promise.resolve(pause())) |> ignoreError
 
 let setVolume = Audio.setVolume(audio)
 
 @react.component
 let make = (~children) => {
   let playlistErrorCount = React.useRef(0)
+  let hasRetried = React.useRef(true)
   let (playingState, setPlayingState) = React.useState(() => initialState)
   let (playlist: playlist, setPlaylist) = React.useState(() => [])
   let (playlistID: string, setPlaylistID) = React.useState(() => "")
@@ -70,6 +74,7 @@ let make = (~children) => {
   }
 
   let playFromPlaylist = (playlistindex: int) => {
+    hasRetried.current = false
     let nextSong = playlist[playlistindex]
     Audio.setSrc(audio, nextSong.path)
     _updateMetadata({
@@ -78,6 +83,13 @@ let make = (~children) => {
       artist: nextSong.artist,
     })
     _play()
+    |> Js.Promise.catch(_ => {
+      Js.log2("playFromPlaylist: Error playing song", nextSong.id->Js.Int.toString)
+      _setPreviewAudio(nextSong.id)
+      hasRetried.current = true
+      _play() |> ignoreError
+    })
+    |> ignore
     setPlayingState(oldState => {
       ...oldState,
       isPlaying: false,
@@ -118,10 +130,10 @@ let make = (~children) => {
   }, (playingState.isPlaying, playingState.hasNext, playingState.hasPrev))
 
   React.useEffect0(() => {
-    MediaSession.setActionHandler(#play, Some(_play))
+    MediaSession.setActionHandler(#play, Some(() => _play() |> ignoreError |> ignore))
     MediaSession.setActionHandler(#pause, Some(pause))
     MediaSession.setActionHandler(#stop, Some(_stop))
-    IPCRenderer.on("EXEC_PLAY_PAUSE", togglePlayPause)
+    IPCRenderer.on("EXEC_PLAY_PAUSE", () => togglePlayPause()->ignore)
     None
   })
 
@@ -155,6 +167,7 @@ let make = (~children) => {
   }, (playingState.beatmapSetId, playlist))
 
   let setAudio = (~song: song, ~audioFilePath: option<string>, ~previewOffset: option<int>) => {
+    hasRetried.current = false
     setPlaylist(~beatmapPlaylist=[], ~playlistID="", ())
     _updateMetadata(song)
 
@@ -166,6 +179,12 @@ let make = (~children) => {
     }
 
     _play()
+    |> Js.Promise.catch(_ => {
+      _setPreviewAudio(song.id)
+      hasRetried.current = true
+      _play() |> ignoreError
+    })
+    |> ignore
     setPlayingState(oldState => {
       ...oldState,
       isPlaying: false,
@@ -180,19 +199,23 @@ let make = (~children) => {
     setPlayingState(oldState => {...oldState, muted: muted})
   }
 
-  Audio.onended(audio, _e =>
+  Audio.onended(audio, _e => {
+    Js.log2("Audio ended", _e)
     switch _canPlayNextSong() {
     | Some(nextSongindex) => playFromPlaylist(nextSongindex)
     | None => DiscordRPC.clearActivity()
     }
-  )
+  })
 
   Audio.onpause(audio, _e => {
     Js.log("PAUSEEEE")
     setPlayingState(oldState => {...oldState, isPlaying: false})
   })
 
-  Audio.onplay(audio, _e => setPlayingState(oldState => {...oldState, isPlaying: true}))
+  Audio.onplay(audio, _e => {
+    setPlayingState(oldState => {...oldState, isPlaying: true})
+    playlistErrorCount.current = 0
+  })
 
   Audio.oncanplay(audio, _e => setPlayingState(oldState => {...oldState, isPlaying: true}))
 
@@ -211,7 +234,11 @@ let make = (~children) => {
         "Failed to play a song one or multiple times, please check your osu songs folder setting in the Settings section",
       )
     } else {
-      playNext()
+      Js.log2("Error playing song", skipCount->Js.Int.toString)
+
+      if hasRetried.current == true {
+        playNext()
+      }
       playlistErrorCount.current = skipCount + 1
     }
   })

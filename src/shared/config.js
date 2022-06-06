@@ -15,6 +15,7 @@ export default {
     titleBarHeight: 12,
     defaultTransitionDuration: '200ms',
     defaultAccentColor: '#17b04c',
+    headerRightSaftyMargin: 200,
   },
   download: {
     status: {

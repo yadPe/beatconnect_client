@@ -1,5 +1,5 @@
 const initialState = {
-  collections: {},
+  collections: [],
 };
 
 export default (state = initialState, { type, payload }) => {

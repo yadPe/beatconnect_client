@@ -81,12 +81,15 @@ class HistoryProvider extends Component {
       await this._readHistory();
 
       const { osuPath, isLazer } = this.props;
-      const result = await ipcRenderer.invoke('osuSongsScan', {
-        osuPath,
-        isLazer,
-      });
 
-      this.set(result);
+      if (osuPath) {
+        const result = await ipcRenderer.invoke('osuSongsScan', {
+          osuPath,
+          isLazer,
+        });
+
+        this.set(result);
+      }
     };
     setup();
   }

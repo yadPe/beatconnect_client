@@ -3,11 +3,11 @@ const { join } = require('path');
 const { error } = require('electron-log');
 const { readLazerDb } = require('../helpers/osuLazer');
 
-const scanOsuDb = (osuDbPath, isLazer = false) =>
+const scanOsuDb = (osuPath, isLazer = false) =>
   new Promise((resolve, reject) => {
     switch (isLazer) {
       case true: {
-        readLazerDb('/Users/ypetitot/.local/share/osu/client.realm')
+        readLazerDb(join(osuPath, 'client.realm'))
           .then(beatmaps => {
             const beatmapsList = {};
 
@@ -60,7 +60,8 @@ const scanOsuDb = (osuDbPath, isLazer = false) =>
               break;
           }
         });
-        worker.postMessage({ osuDbPath, isLazer });
+
+        worker.postMessage({ osuDbPath: join(osuPath, 'osu!.db'), isLazer });
         break;
       }
       default:

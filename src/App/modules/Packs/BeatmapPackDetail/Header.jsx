@@ -5,12 +5,13 @@ import renderIcons from '../../../helpers/renderIcons';
 import DownloadBeatmapBtn from '../../common/Beatmap/DownloadBeatmapBtn';
 import { HistoryContext } from '../../../Providers/HistoryProvider';
 import useMouseButtons from '../../../helpers/hooks/useMouseButtons';
+import config from '../../../../shared/config';
 
 const styles = {
   wrapper: {
     gap: '1rem',
     display: 'inline-flex',
-    width: '100%',
+    width: `calc(100% - ${config.display.headerRightSaftyMargin}px)`,
     '& > *': {
       marginTop: 'auto',
       marginBottom: 'auto',
@@ -24,7 +25,9 @@ const styles = {
       display: 'block',
     },
   },
-  name: {},
+  name: {
+    flexGrow: 1,
+  },
   downloadButton: {
     cursor: 'pointer',
     margin: 'auto 10px auto 5px',
@@ -53,7 +56,6 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
         {renderIcons({ name: 'Back' })}
       </div>
       <p className={classes.name}>{name}</p>
-      <TextInput onChange={handleInputChange} placeholder="Search" />
       <div style={{ display: 'flex' }}>
         {!packCompleted && <p title={downloadTitle}>{filteredBeatmapsets.length}</p>}
         <DownloadBeatmapBtn
@@ -63,6 +65,7 @@ const PackDetailHeader = ({ classes, pack: { beatmapsets, name, type }, filter: 
           className={`${classes.downloadButton} clickable`}
         />
       </div>
+      <TextInput onChange={handleInputChange} placeholder="Search" />
     </div>
   );
 };

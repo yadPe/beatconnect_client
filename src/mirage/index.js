@@ -26,6 +26,18 @@ export function makeServer() {
         return mock;
       });
 
+      this.get('https://v2.beatconnect.io/api/collections', async () => {
+        const { default: mock } = await import(`./mocks/collections/collections_listing.json`);
+
+        return mock;
+      });
+
+      this.get('https://v2.beatconnect.io/api/collections/:id', async (schema, request) => {
+        const { default: mock } = await import(`./mocks/collections/collections.json`);
+
+        return mock[request.params.id];
+      });
+
       this.passthrough('https://osu.ppy.sh/api/**');
       this.passthrough('https://beatconnect.io/api/beatmap/**');
     },

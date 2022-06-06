@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { FixedSizeList as List } from 'react-window';
+import { createUseStyles } from 'react-jss';
 import config from '../../../../shared/config';
 import BeatmapListItem from '../../Packs/BeatmapPackDetail/Item';
 import Empty from './Empty';
-import Header from './Header';
+import CollectionDeatilsHeader from './CollectionDetailsHeader';
 import { getActiveSectionParams } from '../../../app.selectors';
 import { useAudioPlayer } from '../../../Providers/AudioPlayer/AudioPlayerProvider.bs';
 import { getAudioFilePath } from '../../../Providers/AudioPlayer/audioPlayer.helpers';
 import { getOsuSongPath } from '../../Settings/reducer/selectors';
 import { clearSectionParams } from '../../../app.actions';
+import { getFadeIn, sectionSwitchAnimation } from '../../../helpers/css.utils';
+
+const useStyle = createUseStyles({
+  ...getFadeIn(),
+  collectionDetailsWrapper: {
+    ...sectionSwitchAnimation(),
+    overflow: 'hidden',
+  },
+});
 
 const CollectionDetails = ({ windowSize, collection, select, collectionName, deepLink, osuSongPath }) => {
   const dispatch = useDispatch();
   const audioPlayer = useAudioPlayer();
+
+  const classes = useStyle();
 
   const listWidth = windowSize.width - config.display.sidePanelCompactedLength;
   const listHeight = windowSize.height;
@@ -45,7 +57,11 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
   useEffect(() => {
     select({
       header: (
-        <Header setFilter={setFilter} quit={() => select({ collection: null })} collectionName={collectionName} />
+        <CollectionDeatilsHeader
+          setFilter={setFilter}
+          quit={() => select({ collection: null })}
+          collectionName={collectionName}
+        />
       ),
     });
   }, [collectionName]);
@@ -66,7 +82,7 @@ const CollectionDetails = ({ windowSize, collection, select, collectionName, dee
 
   const itemCount = displayedItems.length;
   return (
-    <div className="menuContainer Downloads" style={{ transition: 'background 0ms', overflow: 'hidden' }}>
+    <div className={`${classes.collectionDetailsWrapper} menuContainer Downloads`}>
       {itemCount ? (
         <List
           height={listHeight}

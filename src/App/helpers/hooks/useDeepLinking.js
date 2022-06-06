@@ -17,7 +17,7 @@ const useDeepLinking = () => {
 
   const handlePreview = beatmapsetId => {
     if (history.contains(beatmapsetId)) {
-      dispatch(changeCurrentSection('My Library', { beatmapsetId }));
+      dispatch(changeCurrentSection('Collections', { beatmapsetId }));
     } else {
       dispatch(changeCurrentSection('Beatmaps', { beatmapsetId }));
     }

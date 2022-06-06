@@ -11,7 +11,7 @@ const { exists } = require('./helpers');
 
 ipcMain.handle('osuSongsScan', async (event, { osuPath, isLazer }) => {
   try {
-    const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(`${osuPath}/osu!.db`, isLazer);
+    const [beatmaps, overallDuration, overallUnplayedCount] = await scanOsuDb(osuPath, isLazer);
     return { beatmaps, overallDuration, overallUnplayedCount };
   } catch (e) {
     error(`[scan-osu-songs]: ${e.message}`);
@@ -66,10 +66,11 @@ ipcMain.handle('scan-osu-collections', async (event, osuPath) => {
 });
 
 ipcMain.handle('validate-osu-path', async (event, osuPath) => {
-  const isPathValid = await exists(`${osuPath}/collection.db`);
+  const isPathValid = await exists(osuPath, 'collection.db');
   if (isPathValid) {
-    const isLegacyOsu = await exists(`${osuPath}/osu.db`);
-    const isLazer = await exists(`${osuPath}/client.realm`);
+    const isLegacyOsu = await exists(osuPath, 'osu!.db');
+
+    const isLazer = await exists(osuPath, 'client.realm');
     return { isValid: isLegacyOsu || isLazer, isLazer };
   }
   return { isValid: false, isLazer: false };
@@ -83,3 +84,5 @@ ipcMain.handle('is-dir', async (event, path) => {
     return false;
   }
 });
+
+ipcMain.handle('dialog', (event, method, params) => dialog[method](params));
