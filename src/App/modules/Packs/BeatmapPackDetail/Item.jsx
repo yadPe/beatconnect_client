@@ -25,7 +25,7 @@ const useStyle = createUseStyles({
     width: 'calc(100% - 3rem)',
     borderRadius: '5px',
     paddingRight: '10px',
-    backgroundColor: ({failed}) => failed ? 'rgba(255, 0,0,.2)' : 'none',
+    backgroundColor: ({ failed }) => (failed ? 'rgba(255, 0,0,.2)' : 'none'),
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,0.1)',
     },
@@ -100,7 +100,13 @@ const useStyle = createUseStyles({
 });
 
 const BeatmapListItem = ({ index, style, data }) => {
-  const { removeItemfromQueue = () => {}, items, itemMode = 'pack' || 'download' || 'library', collectionName, discardFailedDownload = () => {} } = data;
+  const {
+    removeItemfromQueue = () => {},
+    items,
+    itemMode = 'pack' || 'download' || 'library',
+    collectionName,
+    discardFailedDownload = () => {},
+  } = data;
   const isPackMode = itemMode === 'pack';
   const isDownloadMode = itemMode === 'download';
   const isLibraryMode = itemMode === 'library';
@@ -119,7 +125,10 @@ const BeatmapListItem = ({ index, style, data }) => {
 
   const downloadProgress = useCurrentDownloadItem(id);
 
-  const classes = useStyle({ downloadProgress: downloadProgress === -1 && !isDownloadMode ? 0.5 : downloadProgress, failed });
+  const classes = useStyle({
+    downloadProgress: downloadProgress === -1 && !isDownloadMode ? 0.5 : downloadProgress,
+    failed,
+  });
 
   const { status } = currentDownload || {};
   const isDownloading = downloadProgress >= 0;
@@ -134,10 +143,10 @@ const BeatmapListItem = ({ index, style, data }) => {
   };
 
   const handleCancel = () => {
-    if (isDownloading) cancelDownload()
-    else if (failed) discardFailedDownload(items[index].id)
-    else removeItemfromQueue(items[index].id)
-  }
+    if (isDownloading) cancelDownload();
+    else if (failed) discardFailedDownload(items[index].id);
+    else removeItemfromQueue(items[index].id);
+  };
 
   const wrapperStyle = {
     backgroundColor: isSelected && 'rgba(255,255,255,.05)',
@@ -191,23 +200,18 @@ const BeatmapListItem = ({ index, style, data }) => {
             {creator}
           </p>
         </div>
-        {songDuration && (
+        {isLibraryMode && (
           <div className={classes.duration}>
-            <p title={songDuration} className={classes.ellipsis}>
-              {secToMinSec(songDuration)}
+            <p title={secToMinSec(songDuration || 0)} className={classes.ellipsis}>
+              {secToMinSec(songDuration || 0)}
             </p>
           </div>
         )}
+
         {isDownloadMode && isDownloading && (
           <NewButton iconName={isPaused ? 'Download' : 'Pause'} onClick={pauseResumeDownload} borderless />
         )}
-        {isDownloadMode && (
-          <NewButton
-            iconName="Cancel"
-            onClick={handleCancel}
-            borderless
-          />
-        )}
+        {isDownloadMode && <NewButton iconName="Cancel" onClick={handleCancel} borderless />}
         {isPackMode && (
           <DownloadBeatmapBtn
             beatmapSet={item}

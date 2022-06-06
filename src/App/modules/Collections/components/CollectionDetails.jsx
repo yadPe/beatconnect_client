@@ -17,6 +17,7 @@ const useStyle = createUseStyles({
   ...getFadeIn(),
   collectionDetailsWrapper: {
     ...sectionSwitchAnimation(),
+    overflow: 'hidden',
   },
 });
 

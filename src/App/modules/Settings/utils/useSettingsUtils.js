@@ -9,6 +9,7 @@ import { saveThemeAccentColor, setImportMethod, setOsuSongsPath, setOsuPath, set
 import { getOsuSongPath } from '../reducer/selectors';
 
 const checkOsuPath = async path => {
+  console.log(path);
   try {
     return await ipcRenderer.invoke('validate-osu-path', path);
   } catch (e) {
@@ -34,7 +35,7 @@ const useSettingsUtils = ({ osuSongsPath, importMethod }) => {
   const currentOsuSongsPath = useSelector(getOsuSongPath);
 
   const osuPathSetup = async song => {
-    const { filePaths } = await remote.dialog.showOpenDialog({
+    const { filePaths } = await ipcRenderer.invoke('dialog', 'showOpenDialog', {
       properties: ['openDirectory'],
     });
     if (filePaths.length) {

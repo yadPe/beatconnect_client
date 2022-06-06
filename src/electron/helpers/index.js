@@ -1,4 +1,5 @@
 const { promises: fs } = require('fs');
+const path = require('path');
 
 const readableBits = (bytes, decimals) => {
   if (bytes === 0) return '0 Bytes';
@@ -19,9 +20,10 @@ const getBeatconnectProtocolParams = (argv = [''], protocol) => {
   return undefined;
 };
 
-async function exists(path) {
+async function exists(...paths) {
+  console.log('path.sus', path.join(...paths));
   try {
-    await fs.access(path);
+    await fs.access(path.join(...paths));
     return true;
   } catch {
     return false;

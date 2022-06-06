@@ -28,7 +28,7 @@ const useStyle = createUseStyles({
   },
 });
 
-const MyLibrary = ({ setHeaderContent, collections }) => {
+const Collections = ({ setHeaderContent, collections }) => {
   const [currentMode, setCurrentMode] = useState('localCollections');
   const [selectedCollection, setSelected] = useState({ header: null, collection: null, collectionName: '' });
   const setSelectedCollection = selection => setSelected({ ...selectedCollection, ...selection });
@@ -68,12 +68,14 @@ const MyLibrary = ({ setHeaderContent, collections }) => {
   }
 
   const renderCurrentMode = () => {
+    console.log(collections);
     switch (currentMode) {
       case 'localCollections':
         return (
           <div className={classes.myLibraryWrapper}>
             <div className={classes.collections}>
               <AllBeatmapsCollection select={setSelectedCollection} />
+
               {collections.map(([name, beatmapsHash]) => (
                 <Collection
                   mode="localCollection"
@@ -105,4 +107,4 @@ const mapStateToProps = state => ({
   windowSize: state.app.window,
   collections: getCollections(state),
 });
-export default connect(mapStateToProps)(MyLibrary);
+export default connect(mapStateToProps)(Collections);
