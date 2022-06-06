@@ -1,6 +1,6 @@
 import React, { useEffect, useState, cloneElement } from 'react';
 import { useTheme } from 'react-jss';
-import { remote, shell } from 'electron';
+import { shell } from 'electron';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { error } from 'electron-log';
 import { setIrcUser, setIrcPass, setIRCIsBot, setOSUApiKey, setPrefix } from './reducer/actions';
