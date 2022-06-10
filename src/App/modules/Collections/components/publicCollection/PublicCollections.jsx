@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Collection from '../Collection';
 import { fetchPublicCollections } from '../../xhr/beatconnectV2';
 
-const PublicCollections = ({ select }) => {
+const PublicCollections = ({ select, search }) => {
   const [colletions, setCollections] = useState([]);
 
   useEffect(() => {
-    fetchPublicCollections().then(setCollections);
+    fetchPublicCollections().then(e=>setCollections(e));
   }, []);
 
   return colletions.map(collection => (

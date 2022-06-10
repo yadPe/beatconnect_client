@@ -11,6 +11,10 @@ import PublicCollectionDetails from './components/publicCollection/PublicCollect
 import PublicCollections from './components/publicCollection/PublicCollections';
 import { getCollections } from './selectors';
 
+const normalizedIncludes = (s1,s2)=> {
+    s1.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(s2.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+}
+
 const useStyle = createUseStyles({
   ...getFadeIn(),
   myLibraryWrapper: {
@@ -30,6 +34,7 @@ const useStyle = createUseStyles({
 
 const Collections = ({ setHeaderContent, collections }) => {
   const [currentMode, setCurrentMode] = useState('localCollections');
+  const [search, setSearch] = useState('');
   const [selectedCollection, setSelected] = useState({ header: null, collection: null, collectionName: '' });
   const setSelectedCollection = selection => setSelected({ ...selectedCollection, ...selection });
 
@@ -37,7 +42,7 @@ const Collections = ({ setHeaderContent, collections }) => {
     if (selectedCollection.collection) {
       if (selectedCollection.header) setHeaderContent(selectedCollection.header);
     } else {
-      setHeaderContent(<Header setCurrentMode={setCurrentMode} />);
+      setHeaderContent(<Header setCurrentMode={setCurrentMode} setSearchValue={setSearch} />);
     }
     return () => setHeaderContent(null);
   }, [selectedCollection]);
@@ -67,39 +72,36 @@ const Collections = ({ setHeaderContent, collections }) => {
     }
   }
 
-  const renderCurrentMode = () => {
-    switch (currentMode) {
-      case 'localCollections':
-        return (
-          <div className={classes.myLibraryWrapper}>
-            <div className={classes.collections}>
-              <AllBeatmapsCollection select={setSelectedCollection} />
+  switch (currentMode) {
+    case 'localCollections':
+      return (
+        <div className={classes.myLibraryWrapper}>
+          <div className={classes.collections}>
+            <AllBeatmapsCollection select={setSelectedCollection} />
 
-              {collections.map(([name, beatmapsHash]) => (
-                <Collection
-                  mode="localCollection"
-                  select={setSelectedCollection}
-                  key={`${name}${beatmapsHash.length}`}
-                  name={name}
-                  beatmapsHash={beatmapsHash}
-                />
-              ))}
-            </div>
+            {collections.filter(([collectionName,_]) => normalizedIncludes(collectionName,search)).map(([name, beatmapsHash]) => (
+              <Collection
+                mode="localCollection"
+                select={setSelectedCollection}
+                key={`${name}${beatmapsHash.length}`}
+                name={name}
+                beatmapsHash={beatmapsHash}
+              />
+            ))}
           </div>
-        );
-      case 'publicCollections':
-        return (
-          <div className={classes.myLibraryWrapper}>
-            <div className={classes.collections}>
-              <PublicCollections select={setSelectedCollection} />
-            </div>
+        </div>
+      );
+    case 'publicCollections':
+      return (
+        <div className={classes.myLibraryWrapper}>
+          <div className={classes.collections}>
+            <PublicCollections select={setSelectedCollection} search />
           </div>
-        );
-      default:
-        return null;
-    }
-  };
-  return renderCurrentMode();
+        </div>
+      );
+    default:
+      return null;
+  }
 };
 
 const mapStateToProps = state => ({

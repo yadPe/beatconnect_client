@@ -20,7 +20,7 @@ const useStyle = createUseStyles({
   },
 });
 
-const Header = ({ setCurrentMode }) => {
+const Header = ({ setCurrentMode, setSearchValue }) => {
   const classes = useStyle();
 
   return (
@@ -29,7 +29,7 @@ const Header = ({ setCurrentMode }) => {
       <span className={classes.secondItem} onClick={() => setCurrentMode('publicCollections')}>
         Public collections
       </span>
-      <TextInput onChange={() => null} placeholder="Search" />
+      <TextInput onChange={(e) => setSearchValue(_=>e.target.value)} placeholder="Search" />
     </div>
   );
 };
