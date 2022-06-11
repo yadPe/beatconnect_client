@@ -10,21 +10,21 @@ const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = r
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
 const { getBeatconnectProtocolParams, removeProtocolPrefix } = require('./helpers');
+const { initRealm } = require('./realm');
 require('./ipcMessages');
 
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
 log.catchErrors();
 
-const installExtensions = async extensions => {
-  return Promise.all(
+const installExtensions = async extensions =>
+  Promise.all(
     extensions.map(extension =>
       extensionInstaller(extension)
         .then(name => console.log(`[extensionInstaller]: Installed ${name}!`))
         .catch(err => console.log('[extensionInstaller]: An error occurred: ', err)),
     ),
   );
-};
 
 const CUSTOM_PROTOCOL = 'beatconnect';
 
@@ -41,6 +41,8 @@ const main = async () => {
     console.log('Main process ready');
     console.log('Waiting for dev server to show up');
   }
+
+  await initRealm().catch(err => console.log('[initRealm]: An error occurred: ', err));
 
   mainWindow = makeMainWindow({
     content: join(__dirname, 'index.html'),

@@ -7,6 +7,8 @@ import config from '../shared/config';
 import { getAppear } from './helpers/css.utils';
 import AutoUpdater from './modules/AutoUpdater';
 import useDeepLinking from './helpers/hooks/useDeepLinking';
+// import { useQuery } from './Providers/RealmProvider';
+// import { Task } from '../shared/realm/schema';
 
 const useStyles = createUseStyles({
   ...getAppear(),
@@ -27,6 +29,9 @@ const useStyles = createUseStyles({
 const App = () => {
   const classes = useStyles();
   useDeepLinking();
+  // const tasks = useQuery(Task);
+
+  // console.log({ tasks });
   // Already done by the PlayOsu component
   // useOsuDbAutoScan();
 

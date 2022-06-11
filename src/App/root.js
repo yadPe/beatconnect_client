@@ -11,6 +11,7 @@ import ThemeProvider from './Providers/ThemeProvider';
 import { make as AudioPlayerProvider } from './Providers/AudioPlayer/Audioplayer.bs';
 import dispatchOnResize from './resize';
 import { makeServer } from '../mirage';
+import RealmProvider from './Providers/RealmProvider';
 
 if (process.env.BEATCONNECT_CLIENT_MIRAGE === '1') {
   makeServer({ environment: 'development' });
@@ -24,6 +25,7 @@ const root = createRoot(container);
 root.render(
   <ErrorBoundary>
     <ThemeProvider>
+      {/* <RealmProvider> */}
       <Provider store={store}>
         <HistoryProvider>
           <AudioPlayerProvider>
@@ -35,6 +37,7 @@ root.render(
           </AudioPlayerProvider>
         </HistoryProvider>
       </Provider>
+      {/* </RealmProvider> */}
     </ThemeProvider>
   </ErrorBoundary>,
 );

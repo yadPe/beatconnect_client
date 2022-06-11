@@ -1,6 +1,7 @@
 const path = require('path');
 const paths = require('./paths');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const getClientEnvironment = require('./env');
 
 module.exports = mode => {
@@ -10,6 +11,7 @@ module.exports = mode => {
     target: 'electron-main',
     mode,
     context: path.resolve(__dirname, 'src'),
+    externals: [nodeExternals()],
     entry: {
       main: paths.electronIndexJs,
       osuSongsScan: paths.osuSongsScan,
