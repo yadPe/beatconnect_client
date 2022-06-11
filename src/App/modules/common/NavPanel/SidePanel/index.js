@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import injectSheet from 'react-jss';
 import Tab from './Tab';
 import VolumeControl from './VolumeControl';
@@ -76,7 +76,7 @@ const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, s
     items.map((item, i) => {
       if (items.length - i === 1) {
         return (
-          <>
+          <Fragment key={item.props.title}>
             {!subPanel && (
               <>
                 <TasksControl expended={expended} tasks={tasks} />
@@ -86,10 +86,10 @@ const SidePanel = ({ classes, items, expended, expendable, tasks, setExpended, s
               </>
             )}
             <Tab {...item.props} expended={expended} />
-          </>
+          </Fragment>
         );
       }
-      return <Tab {...item.props} expended={expended} key={i} />;
+      return <Tab {...item.props} expended={expended} key={item.props.title} />;
     });
 
   return (

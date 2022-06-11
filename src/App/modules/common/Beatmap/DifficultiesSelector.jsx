@@ -68,6 +68,7 @@ const DifficultiesSelector = ({ beatmaps, onSelect }) => {
         .sort((a, b) => a.difficulty - b.difficulty)
         .map((beatmap, i) => (
           <div
+            key={beatmap.version}
             onMouseLeave={() => {
               setSelectedDiff(-1);
             }}
