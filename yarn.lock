@@ -4038,7 +4038,7 @@ __metadata:
     discord-rpc: ^3.2.0
     dotenv: 6.2.0
     dotenv-expand: 5.1.0
-    electron: 19.0.1
+    electron: 19.0.4
     electron-builder: 23.0.3
     electron-devtools-installer: 3.2.0
     electron-is-dev: ^1.1.0
@@ -6653,16 +6653,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:19.0.1":
-  version: 19.0.1
-  resolution: "electron@npm:19.0.1"
+"electron@npm:19.0.4":
+  version: 19.0.4
+  resolution: "electron@npm:19.0.4"
   dependencies:
     "@electron/get": ^1.14.1
     "@types/node": ^16.11.26
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: 13e19588f373e1ed093211cdf05610e12557647ec405dd5fbb5db7aeeee7d26ceca3e0a7fd4515ac0632e6076c542f14bac0f022164888cb69daa7e81bb7c18b
+  checksum: 4e0532fae29af4f1d61e5702eb3c71cae74812723833033ff32f29e58cddb6a3c1aee6eaf34423c39144137600177317c97ebf276562c04d8f5ca38c7420e154
   languageName: node
   linkType: hard
 
