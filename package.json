@@ -172,7 +172,7 @@
     "miragejs": "^0.1.41",
     "pnp-webpack-plugin": "1.2.1",
     "prettier": "^1.18.2",
-    "react-dev-utils": "^9.0.1",
+    "react-dev-utils": "12.0.1",
     "react-refresh": "^0.13.0",
     "rescript": "9.1.4",
     "resolve": "1.17.0",
@@ -183,7 +183,8 @@
     "typescript": "^3.5.3",
     "url-loader": "1.1.2",
     "webpack": "^4.46.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "4.10.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "browserslist": {
     "production": [

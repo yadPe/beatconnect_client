@@ -2,12 +2,18 @@ const path = require('path');
 const paths = require('./paths');
 const webpack = require('webpack');
 const getClientEnvironment = require('./env');
+const webpackNodeExternals = require('webpack-node-externals');
 
 module.exports = mode => {
   const env = getClientEnvironment('/');
 
   return {
     target: 'electron-main',
+    externals: [
+      webpackNodeExternals({
+        allowlist: [/webpack(\/.*)?/, 'electron-devtools-installer'],
+      }),
+    ],
     mode,
     context: path.resolve(__dirname, 'src'),
     entry: {
