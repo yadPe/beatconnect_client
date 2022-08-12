@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
+import Realm from 'realm';
 
 import Nav from './modules/Nav';
 import TitleBar from './modules/common/TitleBar.bs';
@@ -24,11 +25,34 @@ const useStyles = createUseStyles({
   },
 });
 
+const go = () => {
+  const DogSchema = {
+    name: 'Dog',
+    properties: {
+      _id: 'int',
+      name: 'string',
+      age: 'int',
+    },
+    primaryKey: '_id',
+  };
+
+  const configg = {
+    path: 'my.realm',
+    schema: [DogSchema],
+  };
+
+  const realm = new Realm(configg);
+};
+
 const App = () => {
   const classes = useStyles();
   useDeepLinking();
   // Already done by the PlayOsu component
   // useOsuDbAutoScan();
+
+  useEffect(() => {
+    go();
+  }, []);
 
   return (
     <>

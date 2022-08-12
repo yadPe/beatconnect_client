@@ -6,6 +6,7 @@ const isDev = require('electron-is-dev');
 const { autoUpdater } = require('electron-updater');
 const { join } = require('path');
 const { default: extensionInstaller, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+const Realm = require('realm');
 
 const makeMainWindow = require('./MainWindow');
 const { makeTracker } = require('./analytics');
@@ -40,6 +41,27 @@ const main = async () => {
     console.log('Main process ready');
     console.log('Waiting for dev server to show up');
   }
+
+  // const realmApp = new Realm.App({ id: '<Your App ID>' }); // create a new instance of the Realm.App
+
+  // await realmApp.logIn(Realm.Credentials.anonymous());
+  const DogSchema = {
+    name: 'Dog',
+    properties: {
+      _id: 'int',
+      name: 'string',
+      age: 'int',
+    },
+    primaryKey: '_id',
+  };
+
+  const config = {
+    schema: [DogSchema],
+    path: 'my.realm',
+  };
+
+  // open a synced realm
+  const realm = await Realm.open(config);
 
   mainWindow = makeMainWindow({
     content: join(__dirname, 'index.html'),
