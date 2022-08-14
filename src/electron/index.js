@@ -16,15 +16,14 @@ log.transports.file.level = 'debug';
 autoUpdater.logger = log;
 log.catchErrors();
 
-const installExtensions = async extensions => {
-  return Promise.all(
+const installExtensions = async extensions =>
+  Promise.all(
     extensions.map(extension =>
       extensionInstaller(extension)
         .then(name => console.log(`[extensionInstaller]: Installed ${name}!`))
         .catch(err => console.log('[extensionInstaller]: An error occurred: ', err)),
     ),
   );
-};
 
 const CUSTOM_PROTOCOL = 'beatconnect';
 
