@@ -60,8 +60,33 @@ const main = async () => {
     path: 'my.realm',
   };
 
-  // open a synced realm
   const realm = await Realm.open(config);
+
+  realm.write(() => {
+    realm.deleteAll();
+  });
+
+  realm.write(() => {
+    realm.create('Dog', {
+      _id: 2,
+      name: 'Fido',
+      age: 5,
+    });
+  });
+
+  const dogs = realm.objects('Dog');
+  console.log(`Main: Number of Dog objects: ${dogs.length}`);
+
+  dogs.addListener((dogs, changes) => {
+    changes.insertions.forEach(index => {
+      const insertedDog = dogs[index];
+      console.log(`Main: Inserted ${insertedDog.name}`);
+    });
+
+    changes.deletions.forEach(index => {
+      console.log(`Main: Dog ${index} deleted`);
+    });
+  });
 
   mainWindow = makeMainWindow({
     content: join(__dirname, 'index.html'),

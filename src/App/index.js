@@ -42,6 +42,17 @@ const go = () => {
   };
 
   const realm = new Realm(configg);
+
+  const dogs = realm.objects('Dog');
+  console.log(`Renderer: Number of Dog objects: ${dogs.length}`);
+
+  realm.write(() => {
+    realm.create('Dog', {
+      _id: 1,
+      name: 'Spot',
+      age: 2,
+    });
+  });
 };
 
 const App = () => {
