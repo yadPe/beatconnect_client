@@ -1,10 +1,10 @@
 const log = require('electron-log');
 const { error } = require('electron-log');
-const { ipcMain, dialog, shell } = require('electron');
+const { ipcMain, dialog, shell, BrowserWindow } = require('electron');
 const fs = require('fs').promises;
 const { join } = require('path');
 const { downloadAndSetWallpaper } = require('./wallpaper');
-const { readCollectionDB, writeCollectionDB } = require('./helpers/osuCollections/collections.utils');
+const { readCollectionDB } = require('./helpers/osuCollections/collections.utils');
 const startPullingOsuState = require('./threads/osuIsRunning');
 const scanOsuDb = require('./threads/osuSongsScan');
 const { exists } = require('./helpers');
@@ -86,3 +86,25 @@ ipcMain.handle('is-dir', async (event, path) => {
 });
 
 ipcMain.handle('dialog', (event, method, params) => dialog[method](params));
+
+ipcMain.on('MINIMIZE_WINDOW', () => {
+  const window = BrowserWindow.getFocusedWindow();
+  if (window) {
+    window.minimize();
+  }
+});
+
+ipcMain.on('MAXIMIZE_WINDOW', () => {
+  const window = BrowserWindow.getFocusedWindow();
+  if (window) {
+    if (window.isMaximized()) window.unmaximize();
+    else window.maximize();
+  }
+});
+
+ipcMain.on('CLOSE_WINDOW', () => {
+  const window = BrowserWindow.getFocusedWindow();
+  if (window) {
+    window.close();
+  }
+});

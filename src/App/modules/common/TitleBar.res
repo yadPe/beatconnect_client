@@ -30,19 +30,9 @@ let make = (~height: int) => {
 
   let _title = playingState.isPlaying ? `Beatconnect \\u23F5 ${songTitle}bot` : "Beatconnect"
 
-  // let window = Remote.getCurrentWindow(Remote.remote)
-  // window->BrowserWindow.setTitle(title)
-
-  // let onMinimizeClick = _e => BrowserWindow.minimize(window)
-  // let onCloseClick = _e => BrowserWindow.close(window)
-  // let onMaximizeClick = _e =>
-  //   BrowserWindow.isMaximized(window)
-  //     ? BrowserWindow.unmaximize(window)
-  //     : BrowserWindow.maximize(window)
-
-  let onMinimizeClick = _ => ()
-  let onCloseClick = _ => ()
-  let onMaximizeClick = _ => ()
+  let onMinimizeClick = _ => IPCRenderer.send(MINIMIZE_WINDOW)
+  let onCloseClick = _ => IPCRenderer.send(CLOSE_WINDOW)
+  let onMaximizeClick = _ => IPCRenderer.send(MAXIMIZE_WINDOW)
 
   <div className={makeWrapperStyle()}>
     <div className={makeControlStyle(~spacer=true, ())} onClick=onMinimizeClick>
