@@ -18,16 +18,26 @@ const useStyle = createUseStyles({
   secondItem: {
     flexGrow: 1,
   },
+  clickable: {
+    cursor: 'pointer'
+  }
 });
 
 const Header = ({ setCurrentMode }) => {
   const classes = useStyle();
 
+  const onClickPublic = () => {
+    // setCurrentMode('publicCollections')
+  }
+
+  const onClickLocal = () => {
+    // setCurrentMode('localCollections')
+  }
   return (
     <div className={classes.wrapper}>
-      <span onClick={() => setCurrentMode('localCollections')}>My collections</span>
-      <span className={classes.secondItem} onClick={() => setCurrentMode('publicCollections')}>
-        Public collections
+      <span className={classes.clickable} onClick={onClickLocal}>My collections</span>
+      <span className={`${classes.secondItem} ${classes.clickable}`} onClick={onClickPublic} style={{ color: 'rgba(255,255,255,0.2)' }}>
+        Public collections (WIP)
       </span>
       <TextInput onChange={() => null} placeholder="Search" />
     </div>
