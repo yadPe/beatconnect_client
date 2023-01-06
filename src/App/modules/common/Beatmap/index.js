@@ -86,7 +86,6 @@ const useStyles = createUseStyles({
   },
 });
 
-export const getDownloadUrl = ({ id, unique_id }) => `https://beatconnect.io/b/${id}/${unique_id}`;
 
 const Beatmap = ({ beatmap, noFade, autoDl, width, ...otherProps }) => {
   const ref = useRef();
