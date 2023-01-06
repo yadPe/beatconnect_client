@@ -1,3 +1,19 @@
+# [0.4.0](https://github.com/yadPe/beatconnect_client/compare/v0.3.9...v0.4.0) (2022-12-29)
+
+
+### Bug Fixes
+
+* **collections:** disable public collections ([046c54a](https://github.com/yadPe/beatconnect_client/commit/046c54a64b5a9e29711c8ab1037a8642d024b752))
+* **titlebar:** window control not working ([#502](https://github.com/yadPe/beatconnect_client/issues/502)) ([8b941b6](https://github.com/yadPe/beatconnect_client/commit/8b941b68608189081ca3174a23bab7fe7ecabd20))
+
+
+### Features
+
+* **Collections:** replace My library with collections and introduce public collections ([#495](https://github.com/yadPe/beatconnect_client/issues/495)) ([2ed86d7](https://github.com/yadPe/beatconnect_client/commit/2ed86d7531d8126ef08f8f16ceb6217e22e577ce))
+* **my library:** osu lazer support ([#485](https://github.com/yadPe/beatconnect_client/issues/485)) ([14572a6](https://github.com/yadPe/beatconnect_client/commit/14572a6b72256d2eac61d2250166d424056edf45))
+
+
+
 ## [0.3.9](https://github.com/yadPe/beatconnect_client/compare/v0.3.8...v0.3.9) (2022-03-30)
 
 
