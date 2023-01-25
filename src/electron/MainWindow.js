@@ -62,6 +62,8 @@ const makeMainWindow = ({ content, ...options }) => {
       }
     });
 
+  process.stdin.resume();
+
   if (process.env.ELECTRON_START_URL) mainWindow.loadURL(process.env.ELECTRON_START_URL);
   else mainWindow.loadFile(content);
   return mainWindow;

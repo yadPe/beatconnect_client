@@ -2282,10 +2282,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@realm.io/common@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@realm.io/common@npm:0.1.1"
-  checksum: 29e9e0e0f706d31e1c12babb9d019f87bbd4a51b006d7b4796de375f9bb53ca893beb05a3e21b31d32314dbb905a9dadeebd4742c09a9ff83a612af7c5656192
+"@realm.io/common@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@realm.io/common@npm:0.1.4"
+  checksum: 5ce0cff4969aed1ac37af995787302fc60378ad4acc674391a1ffce9d9ebdb2f7d46361bebb048b631ae4e611740c1f9ee366c02383d807ed107c19f23b69bfe
   languageName: node
   linkType: hard
 
@@ -3301,15 +3301,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"agent-base@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "agent-base@npm:4.3.0"
-  dependencies:
-    es6-promisify: ^5.0.0
-  checksum: b40b7d9675c475202afac88c31d5ce42f041e50d2028bd4ad0cfc25b60abe4aedf6b976d9f653641663cbf45295539282d0cf7d50ece7f7c1dd0c05dc99a8112
-  languageName: node
-  linkType: hard
-
 "agentkeepalive@npm:^4.2.1":
   version: 4.2.1
   resolution: "agentkeepalive@npm:4.2.1"
@@ -4224,6 +4215,7 @@ __metadata:
     react-redux: ^8.0.2
     react-refresh: ^0.13.0
     react-window: ^1.8.6
+    realm: 10.19.5
     redux: ^4.2.0
     rescript: 9.1.4
     resolve: 1.17.0
@@ -6031,6 +6023,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"data-uri-to-buffer@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "data-uri-to-buffer@npm:4.0.0"
+  checksum: 51e8ba73a4a01a71e7df0c6fc60c85b281211642a1d888c6a9bfefc598769f484630697ccb1d977ff825f80848d9736445c666c8bf933e2eb6bddf164b55f38b
+  languageName: node
+  linkType: hard
+
 "data-urls@npm:^1.1.0":
   version: 1.1.0
   resolution: "data-urls@npm:1.1.0"
@@ -6081,7 +6080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.1.0, debug@npm:^3.2.7":
+"debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -6930,22 +6929,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.0.3":
-  version: 4.2.8
-  resolution: "es6-promise@npm:4.2.8"
-  checksum: b85e5faab1b3785b8bf1a6c91b5f176cf3e5e4550359508ef54dd58b19ad2b831e04607e2a0a464f2a1407bf02897d5c88daf6e3d94c2ee4510e8191b44b64ef
-  languageName: node
-  linkType: hard
-
-"es6-promisify@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "es6-promisify@npm:5.0.0"
-  dependencies:
-    es6-promise: ^4.0.3
-  checksum: 657d2f0623ddec94f7e3a881fcd73e33c26e796c25791169b50527014b58995a1cc35578595b6f28a71896d44dc00a98e6cf838804582c8fa38f9a4bb7ef1761
-  languageName: node
-  linkType: hard
-
 "escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -7686,6 +7669,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
+  version: 3.2.0
+  resolution: "fetch-blob@npm:3.2.0"
+  dependencies:
+    node-domexception: ^1.0.0
+    web-streams-polyfill: ^3.0.3
+  checksum: 2d1fc14c66f945ed20c22c7f7f2bcf02b87c57f172e562f8a427cf34b2eb2dc8811c0c9ada755cec9d657fc45d1023970889e79e040c0f09e983858e89aebbd2
+  languageName: node
+  linkType: hard
+
 "figgy-pudding@npm:^3.5.1":
   version: 3.5.2
   resolution: "figgy-pudding@npm:3.5.2"
@@ -7970,6 +7963,15 @@ __metadata:
     combined-stream: ^1.0.6
     mime-types: ^2.1.12
   checksum: 862e686b105634222db77138d5f5ae08ba85f88c04925de5be86b2b9d03cf671d86566ad10f1dd5217634c0f1634069dfc1a663a1cc13e8fbac0ce8f670ad070
+  languageName: node
+  linkType: hard
+
+"formdata-polyfill@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "formdata-polyfill@npm:4.0.10"
+  dependencies:
+    fetch-blob: ^3.1.2
+  checksum: 525e045498be835665b7721f8a4b5b0fee10dc221247de977e89c20e4a91df8637f917d299bc30bd4b1dc2ff26e9d61f0aad75d1e7cb40e24eb9388e2c1fe903
   languageName: node
   linkType: hard
 
@@ -8957,16 +8959,6 @@ fsevents@^1.2.7:
   version: 1.0.0
   resolution: "https-browserify@npm:1.0.0"
   checksum: 9746a4ef0283691774f207039efed38e31e86732ed15bcebf1878e2e7cf4b87e8a4e5fe3cce342caba9545ce0e7e2bcf44fe08edb52284b1b53bfe026e1e8f07
-  languageName: node
-  linkType: hard
-
-"https-proxy-agent@npm:^2.2.4":
-  version: 2.2.4
-  resolution: "https-proxy-agent@npm:2.2.4"
-  dependencies:
-    agent-base: ^4.3.0
-    debug: ^3.1.0
-  checksum: 4e42bed005d75debcfd6d3901edbd391dd72cda32a2ece4584443eb7025ac0a0f85fb01f45d385608a380f6bf2d659c632776ac17b898c6d991fd9ec1d32a1f0
   languageName: node
   linkType: hard
 
@@ -12082,6 +12074,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"node-domexception@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "node-domexception@npm:1.0.0"
+  checksum: b014e8200542bfa2a811d6bea6f7766b9c64884e8f219369986af1a5726abfc76186e72e612cd606df4040b298781a454fea1c7152d2c7515c37f388c8a5d67e
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
@@ -12093,6 +12092,17 @@ fsevents@^1.2.7:
     encoding:
       optional: true
   checksum: 9eef3f9934c690719ece12c1a7e97109bbdbb90a63bbcca57da93a7ee1aa03723ee3d2fffbbea937d7c1ec6e2ba9beb659ab232a9ae6acc42f1a646e0284c136
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^3.2.6":
+  version: 3.2.10
+  resolution: "node-fetch@npm:3.2.10"
+  dependencies:
+    data-uri-to-buffer: ^4.0.0
+    fetch-blob: ^3.1.4
+    formdata-polyfill: ^4.0.10
+  checksum: 11e57ea32a13cfe55646976bb5624f4f9cd6141de6c5b9a69ef9f2cbf9aa2d0688240c69eb3e8f98f7cb062be889749989eab6440c7c4c0b2cae3c385e50c15b
   languageName: node
   linkType: hard
 
@@ -13673,21 +13683,20 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"realm@npm:^10.17.0":
-  version: 10.17.0
-  resolution: "realm@npm:10.17.0"
+"realm@npm:10.19.5":
+  version: 10.19.5
+  resolution: "realm@npm:10.19.5"
   dependencies:
-    "@realm.io/common": ^0.1.1
+    "@realm.io/common": ^0.1.4
     bindings: ^1.5.0
     bson: 4.4.1
     clang-format: ^1.6.0
     command-line-args: ^5.1.1
     deepmerge: 2.1.0
     fs-extra: ^4.0.3
-    https-proxy-agent: ^2.2.4
     ini: ^1.3.7
     node-addon-api: 4.2.0
-    node-fetch: ^2.6.1
+    node-fetch: ^3.2.6
     node-gyp: latest
     node-machine-id: ^1.1.10
     prebuild-install: ^7.0.1
@@ -13704,7 +13713,7 @@ fsevents@^1.2.7:
   peerDependenciesMeta:
     react-native:
       optional: true
-  checksum: b02357598a730454edc479df1a06ed704e3ce94b65314abffcfa96df29b8d52419e3fa86b695523b5b92faa0c4c4088ca7f81176161bac6176a31f1da7bb1a04
+  checksum: b5a2a89b6b31321e44a74db86a131e0f6c25938492519402fd10472a2f4aae7a0ce1ef3315a3fbd4969e062f981c8d07dcc60762e9e1393085f9533d1ca1d264
   languageName: node
   linkType: hard
 
@@ -16559,6 +16568,13 @@ typescript@^3.5.3:
   dependencies:
     minimalistic-assert: ^1.0.0
   checksum: 5916a49cb25fc8c70e4e7eb2d01955061132687a79879292fbdee632952f368c12bc5a641d0404794dbc0e3563f8b6e74dda04467b3e96be8bcd0b919bd47a8c
+  languageName: node
+  linkType: hard
+
+"web-streams-polyfill@npm:^3.0.3":
+  version: 3.2.1
+  resolution: "web-streams-polyfill@npm:3.2.1"
+  checksum: a74a711a1325cdbf495b827076136047160033b3888435ef61e5661d1b0b9f74885bbf195e61a597edc357b42ab422903f23d73e6aab1717ab26f6a81bd78f86
   languageName: node
   linkType: hard
 

@@ -124,6 +124,7 @@
     "react-jss": "^10.6.0",
     "react-redux": "^8.0.2",
     "react-window": "^1.8.6",
+    "realm": "10.19.5",
     "redux": "^4.2.0",
     "uleb128": "^1.0.1",
     "underscore": "^1.13.0",
@@ -185,6 +186,9 @@
     "webpack": "^4.46.0",
     "webpack-dev-server": "4.10.0",
     "webpack-node-externals": "^3.0.0"
+  },
+  "resolutions": {
+    "realm": "10.19.5"
   },
   "browserslist": {
     "production": [
