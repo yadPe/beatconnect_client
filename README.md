@@ -19,14 +19,11 @@ The official client for [Beatconnect](https://beatconnect.io) which is a mirror 
 ## Quick Tour
 
 - This App gives you access to all the beatmaps mirrored on [Beatconnect](https://beatconnect.io). You can downloads multiple beatmaps that will be automaticaly imported into osu! </br>
-  <img src="https://cdn.discordapp.com/attachments/836936232599945296/836938053917474917/unknown.png">
+  <img src="./docs/bcclient.png">
 
 - You can launch an <b>IRC bot</b> from the app that will make all [available commands](./docs/commands.md) usable to peoples pming you and from all the matches chats that the bot is connected to. (how to connect docs soon..)</br>
   Comming with the <b>autobeat</b> feature that send the Beatconnect download link in the #multuplayer channel each time host change the beatmap
   <img src="./docs/m3krbwj3sfdG480M.gif">
-
-- Manage connected matchs
-  <img src="https://cdn.discordapp.com/attachments/414474227710820352/621679191292772352/unknown.png">
 
 ## Technology
 
